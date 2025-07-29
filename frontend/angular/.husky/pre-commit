@@ -1,0 +1,3 @@
+echo "TESTTTTTTTTTTTTTTTTTTTTTTTTTTT"
+
+npx lint-staged
