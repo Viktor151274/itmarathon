@@ -16,7 +16,7 @@
     "*.{js,jsx,ts,tsx}": [
     "npm run lint"
   ],
-  "*.{json,css,md}": [
+  "*.{json,css,scss,md,html}": [
     "npm run format"
   ]
   },
