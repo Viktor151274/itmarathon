@@ -56,6 +56,7 @@ export default defineConfig([
       "react/no-unknown-property": "error",
 
       // general rules
+      "linebreak-style": "off",
       "no-console": ["error", { allow: ["warn", "error"] }],
     },
     settings: {
