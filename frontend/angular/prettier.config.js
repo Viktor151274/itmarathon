@@ -1,18 +1,18 @@
 const config = {
-  trailingComma: "es5",
+  trailingComma: 'es5',
   tabWidth: 2,
   semi: false,
   singleQuote: true,
   bracketSameLine: true,
-  endOfLine: "auto",
+  endOfLine: 'auto',
   overrides: [
     {
-      files: "*.html",
+      files: '*.html',
       options: {
-        parser: "angular",
+        parser: 'angular',
       },
     },
   ],
-};
+}
 
-export default config;
+export default config
