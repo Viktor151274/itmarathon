@@ -1,10 +1,8 @@
-@use 'color-palette' as *;
+@use 'colors/color-palette' as *;
 
-// * Typography
 $base-font-color: $g-800;
 $base-heading-color: $g-950;
 
-// * Icon-button
 $icon-button-bg--primary: $green-500;
 $icon-button-bg--primary-hover: $green-400;
 $icon-button-bg--primary-active: $green-700;
@@ -16,3 +14,108 @@ $icon-button-bg--secondary-active: $g-100;
 $icon-button-bg--disabled: $g-600;
 
 $icon-button-outline: $orange-500;
+
+$btn-color-matrix: (
+  primary: (
+    default: (
+      bg: $green-700,
+      text: $g-50,
+      border: $green-700,
+    ),
+    hover: (
+      bg: $green-500,
+      text: $g-50,
+      border: $green-500,
+    ),
+    active: (
+      bg: $green-900,
+      text: $g-50,
+      border: $green-900,
+    ),
+    focus: (
+      border: $orange-500,
+    ),
+    disabled: (
+      bg: $g-200,
+      text: $g-600,
+      border: $g-200,
+    ),
+  ),
+  secondary: (
+    default: (
+      bg: $g-50,
+      text: $green-700,
+      border: $green-700,
+    ),
+    hover: (
+      bg: $g-50,
+      text: $green-500,
+      border: $green-500,
+    ),
+    active: (
+      bg: $g-50,
+      text: $green-900,
+      border: $green-900,
+    ),
+    focus: (
+      border: $orange-500,
+    ),
+    disabled: (
+      bg: $g-50,
+      text: $g-600,
+      border: $green-500,
+    ),
+  ),
+  tertiary: (
+    default: (
+      bg: $g-50,
+      text: $green-500,
+      border: $green-500,
+      border-style: dashed,
+    ),
+    hover: (
+      bg: $g-50,
+      text: $green-400,
+      border: $green-400,
+    ),
+    active: (
+      bg: $g-50,
+      text: $green-700,
+      border: $green-700,
+    ),
+    focus: (
+      border: $orange-500,
+      border-style: solid,
+    ),
+    disabled: (
+      bg: $g-50,
+      text: $g-600,
+      border: $green-500,
+    ),
+  ),
+  text: (
+    default: (
+      bg: $g-50,
+      text: $green-700,
+      border: $g-50,
+    ),
+    hover: (
+      bg: $g-50,
+      text: $green-500,
+      border: $g-50,
+    ),
+    active: (
+      bg: $g-50,
+      text: $green-900,
+      border: $g-50,
+    ),
+    focus: (
+      border: $orange-500,
+    ),
+    disabled: (
+      bg: $g-50,
+      text: $g-600,
+      border: $g-50,
+    ),
+  ),
+) !default;

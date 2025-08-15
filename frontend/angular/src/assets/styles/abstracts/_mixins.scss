@@ -1,4 +1,5 @@
 @use 'base/typography' as typography;
+@use 'colors/color-matrix' as *;
 
 @mixin button-typography($size: m) {
   @if $size == s {
@@ -13,5 +14,58 @@
     font-size: 22px;
     font-weight: 700;
     line-height: typography.$line-height-lg;
+  }
+}
+
+@mixin btn-disabled($bg, $color, $border) {
+  background: $bg;
+  color: $color;
+  border-color: $border;
+  cursor: not-allowed;
+}
+
+@function cm($variant, $state, $prop) {
+  @return map-get(map-get(map-get($btn-color-matrix, $variant), $state), $prop);
+}
+
+@mixin button-variant($variant) {
+  background: cm($variant, default, bg);
+  color: cm($variant, default, text);
+  border-color: cm($variant, default, border);
+  $base-style: cm($variant, default, border-style);
+  @if $base-style {
+    border-style: $base-style;
+  }
+
+  &:hover:not(:disabled) {
+    background: cm($variant, hover, bg);
+    color: cm($variant, hover, text);
+    border-color: cm($variant, hover, border);
+  }
+
+  &:active:not(:disabled) {
+    background: cm($variant, active, bg);
+    color: cm($variant, active, text);
+    border-color: cm($variant, active, border);
+    transform: scale(0.98);
+  }
+
+  &:focus {
+    $f-border: cm($variant, focus, border);
+    $f-style: cm($variant, focus, border-style);
+    @if $f-border {
+      border-color: $f-border;
+    }
+    @if $f-style {
+      border-style: $f-style;
+    }
+  }
+
+  &:disabled {
+    background: cm($variant, disabled, bg);
+    color: cm($variant, disabled, text);
+    border-color: cm($variant, disabled, border);
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 }

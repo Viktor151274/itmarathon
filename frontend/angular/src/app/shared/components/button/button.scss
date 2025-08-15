@@ -1,0 +1,80 @@
+@use 'colors/color-matrix' as *;
+@use 'abstracts/mixins' as *;
+
+:host {
+  display: block;
+  width: 100%;
+
+  &.large > button {
+    padding: 14px 48px;
+    font-size: 22px;
+  }
+
+  &.medium > button {
+    padding: 12px 38px;
+    font-size: 16px;
+  }
+
+  &.small > button {
+    padding: 8px 32px;
+    font-size: 14px;
+  }
+
+  &.primary > button {
+    @include button-variant(primary);
+  }
+  &.secondary > button {
+    @include button-variant(secondary);
+  }
+  &.tertiary > button {
+    @include button-variant(tertiary);
+  }
+  &.text > button {
+    @include button-variant(text);
+  }
+
+  &.large .btn__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.medium .btn__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.small .btn__icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  gap: 0.5rem;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.1s ease;
+  inline-size: 100%;
+  font-weight: 700;
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+  &--icon-right {
+    flex-direction: row-reverse;
+  }
+}
+
+.btn__icon {
+  display: inline-block;
+  flex-shrink: 0;
+  fill: currentColor;
+  vertical-align: middle;
+}
