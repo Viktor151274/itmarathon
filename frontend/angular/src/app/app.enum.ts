@@ -12,10 +12,14 @@ export const enum IconName {
   Copy = 'copy',
   Edit = 'edit',
   Save = 'save',
+  Add = 'plus',
+  Arrow = 'arrow',
 }
 
 export const enum AriaLabel {
   CopyButton = 'Copy to clipboard',
   EditButton = 'Edit item',
   SaveButton = 'Save changes',
+  AddButton = 'Add new point',
+  ArrowButton = 'Arrow',
 }

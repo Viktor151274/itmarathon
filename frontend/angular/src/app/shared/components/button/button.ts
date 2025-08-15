@@ -1,4 +1,6 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
+import { IconName, AriaLabel } from '../../../app.enum';
+import { ICONS_SPRITE_PATH } from '../../../app.constants';
 
 @Component({
   selector: 'app-button',
@@ -6,10 +8,11 @@ import { Component, input } from '@angular/core';
   styleUrls: ['./button.scss'],
 })
 export class Button {
-  readonly text = input<string>('');
-  readonly iconName = input<string>('');
+  readonly text = input.required<string>();
+  readonly iconName = input<IconName>();
   readonly isIconRight = input<boolean>(false);
   readonly isDisabled = input<boolean>(false);
+  readonly ariaLabel = input<AriaLabel>();
 
-  readonly spritePath = 'assets/icons/sprite.svg';
+  readonly iconHref = computed(() => `${ICONS_SPRITE_PATH}#${this.iconName()}`);
 }

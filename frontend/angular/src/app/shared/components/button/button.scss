@@ -5,19 +5,40 @@
   display: block;
   width: 100%;
 
-  &.large > button {
-    padding: 14px 48px;
-    font-size: 22px;
+  &.large {
+    > button {
+      padding: 14px 48px;
+      font-size: 22px;
+    }
+
+    .btn__icon {
+      width: 24px;
+      height: 24px;
+    }
   }
 
-  &.medium > button {
-    padding: 12px 38px;
-    font-size: 16px;
+  &.medium {
+    > button {
+      padding: 12px 38px;
+      font-size: 16px;
+    }
+
+    .btn__icon {
+      width: 24px;
+      height: 24px;
+    }
   }
 
-  &.small > button {
-    padding: 8px 32px;
-    font-size: 14px;
+  &.small {
+    > button {
+      padding: 8px 32px;
+      font-size: 14px;
+    }
+
+    .btn__icon {
+      width: 16px;
+      height: 16px;
+    }
   }
 
   &.primary > button {
@@ -26,26 +47,14 @@
   &.secondary > button {
     @include button-variant(secondary);
   }
+  &.warning > button {
+    @include button-variant(warning);
+  }
   &.tertiary > button {
     @include button-variant(tertiary);
   }
   &.text > button {
     @include button-variant(text);
-  }
-
-  &.large .btn__icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  &.medium .btn__icon {
-    width: 24px;
-    height: 24px;
-  }
-
-  &.small .btn__icon {
-    width: 16px;
-    height: 16px;
   }
 }
 

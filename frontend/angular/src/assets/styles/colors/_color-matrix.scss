@@ -66,6 +66,31 @@ $btn-color-matrix: (
       border: $green-500,
     ),
   ),
+  warning: (
+    default: (
+      bg: $red-500,
+      text: $g-50,
+      border: $red-500,
+    ),
+    hover: (
+      bg: $red-warning,
+      text: $g-50,
+      border: $red-warning,
+    ),
+    active: (
+      bg: $red-600,
+      text: $g-50,
+      border: $red-600,
+    ),
+    focus: (
+      border: $orange-500,
+    ),
+    disabled: (
+      bg: $g-200,
+      text: $g-600,
+      border: $g-200,
+    ),
+  ),
   tertiary: (
     default: (
       bg: $g-50,

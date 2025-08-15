@@ -47,10 +47,9 @@
     background: cm($variant, active, bg);
     color: cm($variant, active, text);
     border-color: cm($variant, active, border);
-    transform: scale(0.98);
   }
 
-  &:focus {
+  &:focus-visible {
     $f-border: cm($variant, focus, border);
     $f-style: cm($variant, focus, border-style);
     @if $f-border {
