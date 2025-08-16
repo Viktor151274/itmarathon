@@ -1,0 +1,17 @@
+@use 'base/typography' as typography;
+
+@mixin button-typography($size: m) {
+  @if $size == s {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: typography.$line-height-xl;
+  } @else if $size == m {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: typography.$line-height-xl;
+  } @else if $size == l {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: typography.$line-height-lg;
+  }
+}
