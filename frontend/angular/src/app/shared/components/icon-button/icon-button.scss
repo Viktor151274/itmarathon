@@ -1,0 +1,47 @@
+@use 'colors/color-matrix' as color;
+
+:host {
+  &.button {
+    &--white {
+      fill: color.$icon-button-bg--secondary;
+
+      &:hover,
+      &:focus-visible {
+        fill: color.$icon-button-bg--secondary-hover;
+      }
+
+      &:active {
+        fill: color.$icon-button-bg--secondary-active;
+      }
+    }
+  }
+}
+
+.button {
+  fill: color.$icon-button-bg--primary;
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    transition: all 0.3s;
+  }
+
+  &:hover,
+  &:focus-visible {
+    fill: color.$icon-button-bg--primary-hover;
+  }
+
+  &:focus-visible {
+    outline: 1px solid color.$icon-button-outline;
+    border-radius: 2px;
+  }
+
+  &:active {
+    fill: color.$icon-button-bg--primary-active;
+  }
+
+  &:disabled {
+    fill: color.$icon-button-bg--disabled;
+    cursor: not-allowed;
+  }
+}

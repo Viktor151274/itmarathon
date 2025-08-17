@@ -7,3 +7,15 @@ export const enum Path {
   Dashboard = 'dashboard',
   NotFound = '**',
 }
+
+export const enum IconName {
+  Copy = 'copy',
+  Edit = 'edit',
+  Save = 'save',
+}
+
+export const enum AriaLabel {
+  CopyButton = 'Copy to clipboard',
+  EditButton = 'Edit item',
+  SaveButton = 'Save changes',
+}
