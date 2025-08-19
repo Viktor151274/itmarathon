@@ -22,4 +22,5 @@ export const enum AriaLabel {
   SaveButton = 'Save changes',
   AddButton = 'Add new point',
   ArrowButton = 'Arrow',
+  Logo = 'To home page',
 }

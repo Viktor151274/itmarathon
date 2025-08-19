@@ -1,0 +1,8 @@
+@use '../colors/color-matrix' as *;
+
+$header-shadow:
+  1px 1px 3px 0px rgba($header-shadow-color, 0.05),
+  3px 3px 5px 0px rgba($header-shadow-color, 0.04),
+  8px 7px 6px 0px rgba($header-shadow-color, 0.03),
+  14px 12px 7px 0px rgba($header-shadow-color, 0.01),
+  22px 19px 8px 0px rgba($header-shadow-color, 0);
