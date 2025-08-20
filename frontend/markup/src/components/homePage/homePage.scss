@@ -1,0 +1,80 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap");
+
+$g-100: #fafafa;
+$g-800: #414141;
+$g-950: #0c0c0c;
+$blue-200: #d4e9fd;
+$bg-blue: linear-gradient(202deg, $g-100 13%, $blue-200 98%);
+
+$global-font-family: "Nunito", sans-serif;
+
+
+$background-color: $bg-blue;
+$title-color: $g-950;
+$description-color: $g-800;
+$font-family: $global-font-family;
+$sprite-path: './homepage-sprite.svg';
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family;
+  min-height: 100vh;
+  display: flex;
+}
+
+.home-page {
+    width: 100%;
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    background: 
+      url('#{$sprite-path}#snowflake') left -70px top -10% / 200px 246px no-repeat,
+      url('#{$sprite-path}#snowflake') right 522px top 20% / 102px 125px no-repeat,
+      url('#{$sprite-path}#snowflake') right -85px top 10px / 200px 247px no-repeat,
+      url('#{$sprite-path}#snowflake-white') left -80px bottom -240px / 374px 424px no-repeat,
+      url('#{$sprite-path}#firework') left 371px top 10% / 140px 140px no-repeat,
+      url('#{$sprite-path}#firework') left 490px top 88% / 114px 114px no-repeat,
+      url('#{$sprite-path}#firework') right 314px top 60% / 70px 70px no-repeat,
+      url('#{$sprite-path}#have-fun') left 130px top 25% / 174px 70px no-repeat,
+      url('#{$sprite-path}#share-wishes') left 160px top 70% / 213px 70px no-repeat,
+      url('#{$sprite-path}#match-people') right 187px top 22% / 215px 70px no-repeat,
+      url('#{$sprite-path}#give-presents') right 197px top 73% / 216px 70px no-repeat,
+      url('#{$sprite-path}#present') right 109px top 40% / 86px 86px no-repeat,
+      url('#{$sprite-path}#presents') left 80px top 50% / 96px 96px no-repeat,
+      url('#{$sprite-path}#snowglobe') right 446px top 95% / 100px 100px no-repeat,
+      $background-color;
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 640px;
+    width: 100%;
+    max-height: 344px;
+    margin: auto;
+    text-align: center;
+    
+  }
+
+  &__title {
+    font-size: 48px;
+    font-weight: 700;
+    color: $title-color;
+    margin: 0;
+    margin-bottom: 8px;
+  }
+
+  &__description {
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0;
+    color: $description-color;
+    
+    &:last-child {
+    margin-bottom: 40px;
+  }
+  }
+
+}
