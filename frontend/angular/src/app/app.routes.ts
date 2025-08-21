@@ -6,6 +6,7 @@ export const routes: Routes = [
   {
     path: Path.Home,
     loadComponent: () => import('./home/home').then((module) => module.Home),
+    title: 'Welcome to Secret Nick',
   },
   {
     path: Path.Welcome,

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Path, AriaLabel } from '../../app.enum';
-import { LOGO_SPRITE_PATH } from '../../app.constants';
+import { IMAGES_SPRITE_PATH } from '../../app.constants';
 
 @Component({
   selector: 'app-header',
@@ -12,5 +12,5 @@ import { LOGO_SPRITE_PATH } from '../../app.constants';
 export class Header {
   readonly homeLink: Path = Path.Home;
   readonly ariaLabel: AriaLabel = AriaLabel.Logo;
-  readonly logoHref: string = LOGO_SPRITE_PATH;
+  readonly logoHref: string = `${IMAGES_SPRITE_PATH}#logo`;
 }
