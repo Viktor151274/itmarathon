@@ -2,7 +2,7 @@ import type { IconButtonProps } from "./types.ts";
 import { ICONS_PATH } from "./utils.ts";
 import "./IconButton.scss";
 
-export const IconButton = ({
+const IconButton = ({
   iconName,
   color = "green",
   onClick,
@@ -21,3 +21,5 @@ export const IconButton = ({
     </button>
   );
 };
+
+export default IconButton;

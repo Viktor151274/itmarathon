@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from "react-router";
-import { Layout } from "./Layout";
-import { HomePage } from "./components/home-page/HomePage";
-import { NotFoundPage } from "./components/not-found-page/NotFoundPage";
+import Layout from "./Layout";
+import HomePage from "./components/home-page/HomePage";
+import NotFoundPage from "./components/not-found-page/NotFoundPage";
 
-export const AppRoutes = () => (
+const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<Layout />}>
       <Route index element={<Navigate to="home" replace />} />
@@ -13,3 +13,5 @@ export const AppRoutes = () => (
     </Route>
   </Routes>
 );
+
+export default AppRoutes;
