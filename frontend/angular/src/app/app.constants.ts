@@ -15,3 +15,6 @@ export const STEPPER_DEFAULT_DATA_JOIN_ROOM: StepperItem[] = [
   { isActive: true, isFilled: false, label: StepLabel.AddParticipantInfo },
   { isActive: false, isFilled: false, label: StepLabel.AddWishlist },
 ];
+
+export const PRIVACY_POLICY_PATH = '/assets/pdfs/privacy-policy.pdf';
+export const PRIVACY_NOTICE_PATH = '/assets/pdfs/privacy-notice.pdf';
