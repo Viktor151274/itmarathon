@@ -14,6 +14,7 @@ export const enum IconName {
   Save = 'save',
   Add = 'plus',
   Arrow = 'arrow',
+  SuccessMark = 'success-mark',
 }
 
 export const enum AriaLabel {
@@ -23,4 +24,10 @@ export const enum AriaLabel {
   AddButton = 'Add new point',
   ArrowButton = 'Arrow',
   Logo = 'To home page',
+}
+
+export const enum StepLabel {
+  CreateRoom = 'Create room',
+  AddParticipantInfo = 'Add participant info',
+  AddWishlist = 'Add wishlist',
 }

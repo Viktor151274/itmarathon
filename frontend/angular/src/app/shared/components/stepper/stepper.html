@@ -1,0 +1,31 @@
+<ol class="stepper" [class]="`stepper--${stepsCount()}-steps`">
+  @for (step of stepperData(); track step.label; let i = $index) {
+    <li class="stepper__item" [class]="`stepper__item--${stepsCount()}-steps`">
+      <span
+        class="stepper__circle"
+        [class.stepper__circle--active]="step.isActive"
+        [class.stepper__circle--filled]="step.isFilled">
+        @if (step.isFilled) {
+          <svg class="stepper__icon">
+            <use [attr.xlink:href]="successIconHref" />
+          </svg>
+        } @else {
+          {{ i + 1 }}
+        }
+      </span>
+
+      <span
+        class="stepper__text"
+        [class.stepper__text--active]="step.isActive"
+        [class.stepper__text--filled]="step.isFilled">
+        {{ step.label }}
+      </span>
+
+      @if (i < stepsCount() - 1) {
+        <span
+          class="stepper__separator"
+          [class.stepper__separator--filled]="step.isFilled"></span>
+      }
+    </li>
+  }
+</ol>

@@ -1,0 +1,85 @@
+@use 'colors/color-matrix' as *;
+
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  line-height: 22px;
+  list-style: none;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    &--3-steps:not(.stepper__item--3-steps:last-child) {
+      flex-basis: 243px;
+    }
+
+    &--2-steps:not(.stepper__item--2-steps:last-child) {
+      flex-basis: 336px;
+    }
+  }
+
+  &__circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    font-weight: 400;
+    background: $stepper-circle-bg;
+    color: $stepper-circle-text-color;
+    border-radius: 50%;
+    transition: background 0.3s;
+
+    &--active {
+      background: $stepper-circle-bg--active;
+      color: $stepper-circle-text-color--active;
+    }
+
+    &--filled {
+      background: $stepper-circle-bg--filled;
+    }
+  }
+
+  &__icon {
+    width: 12px;
+    height: 12px;
+    fill: $stepper-icon-color;
+  }
+
+  &__text {
+    color: $stepper-text-color;
+
+    &--active {
+      color: $stepper-text-color--active;
+    }
+
+    &--filled {
+      color: $stepper-text-color--filled;
+    }
+  }
+
+  &__separator {
+    flex: 1 1 auto;
+    height: 1px;
+    margin-left: 10px;
+    background: $stepper-separator-bg;
+    transition: background 0.3s;
+
+    &--filled {
+      background: $stepper-separator-bg--filled;
+    }
+  }
+
+  &--3-steps {
+    width: 626px;
+  }
+
+  &--2-steps {
+    width: 464px;
+  }
+}
