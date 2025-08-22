@@ -5,6 +5,7 @@ const Button = ({
   variant = "primary",
   size = "large",
   iconName,
+  width,
   children,
   ...restProps
 }: ButtonProps) => {
@@ -19,7 +20,7 @@ const Button = ({
     .join(" ");
 
   return (
-    <button className={buttonClassName} {...restProps}>
+    <button className={buttonClassName} style={{ width }} {...restProps}>
       {children}
     </button>
   );

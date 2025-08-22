@@ -10,6 +10,12 @@ body {
   font-family: variables.$global-font-family;
 }
 
+h1 {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
 #root {
   display: flex;
   flex-direction: column;
