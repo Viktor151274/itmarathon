@@ -1,0 +1,9 @@
+<app-label [label]="label()" [isRequiredField]="isRequiredField()">
+  <input
+    class="input__field"
+    [type]="type()"
+    [placeholder]="placeholder()"
+    [formControl]="control()"
+    [attr.aria-invalid]="control().invalid ? true : null"
+  />
+</app-label>

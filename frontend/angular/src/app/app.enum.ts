@@ -59,8 +59,6 @@ export const enum RadioButtonValue {
 
 export const enum TextareaLabel {}
 
-export const enum BaseLabel {}
-
 export const enum CaptionMessage {
   DefaultMessage = '',
 }
@@ -68,3 +66,19 @@ export const enum CaptionMessage {
 export enum ErrorMessage {
   DefaultMessage = '',
 }
+
+export const enum BaseLabel {
+  FirstName = 'First name',
+}
+
+export const enum InputType {
+  Text = 'text',
+  Email = 'email',
+  Password = 'password',
+  Tel = 'tel',
+  Url = 'url',
+  Number = 'number',
+  Date = 'date',
+}
+
+export const enum InputPlaceholder {}

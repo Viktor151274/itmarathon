@@ -1,5 +1,6 @@
 @use 'base/typography' as typography;
 @use 'colors/color-matrix' as *;
+@use 'abstracts/variables' as *;
 
 @mixin button-typography($size: m) {
   @if $size == s {
@@ -78,4 +79,59 @@
   clip: rect(0 0 0 0);
   border: 0;
   white-space: nowrap;
+}
+
+@mixin input-base($height) {
+  width: 100%;
+  height: $height;
+  padding: 12px;
+  border: $input-border-width solid $input-color-border;
+  border-radius: $input-radius;
+  background: $input-bg-color;
+  color: $input-color-text;
+  outline: none;
+
+  &::placeholder {
+    color: $input-color-placeholder;
+  }
+}
+
+@mixin input-states(
+  $border-hover: $input-color-border-hover,
+  $border-focus: $input-color-border-focus,
+  $border-type: $input-color-border-type,
+  $border-filled: $input-color-border-filled,
+  $disabled-bg: $input-color-disabled-bg,
+  $disabled-text: $input-color-disabled-text,
+  $disabled-border: $input-color-disabled-border,
+  $error-border: $input-color-error
+) {
+  &:hover:not(:focus):not(:disabled) {
+    border-color: $border-hover;
+  }
+
+  &:focus {
+    border-color: $border-focus;
+  }
+
+  &.ng-dirty:not(:disabled) {
+    border-color: $border-type;
+  }
+
+  &.ng-not-empty:not(:focus):not(:disabled) {
+    border-color: $border-filled;
+  }
+
+  &:disabled {
+    background: $disabled-bg;
+    color: $disabled-text;
+    border-color: $disabled-border;
+    cursor: not-allowed;
+  }
+
+  &[aria-invalid='true'],
+  &.ng-invalid.ng-touched,
+  &.ng-invalid.ng-dirty {
+    border-color: $error-border !important;
+  }
 }
