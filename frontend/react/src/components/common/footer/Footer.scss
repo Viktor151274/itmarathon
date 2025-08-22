@@ -1,0 +1,18 @@
+@use "../../../assets/styles/colors";
+
+.footer {
+  width: 100%;
+  margin-top: auto;
+  background-color: colors.$green-900;
+  color: colors.$g-100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 132px;
+  height: 60px;
+
+  &__links {
+    display: flex;
+    gap: 24px;
+  }
+}
