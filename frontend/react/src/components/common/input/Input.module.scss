@@ -1,0 +1,91 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/variables";
+@use "../../../assets/styles/extends" as *;
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+
+  &.inputWrapper--error {
+    .inputWrapper__input {
+      &,
+      &:focus {
+        border-color: colors.$red-warning;
+      }
+    }
+
+    .inputWrapper__caption {
+      color: colors.$red-warning;
+    }
+  }
+
+  &__label {
+    @extend %label;
+    margin-bottom: 8px;
+
+    &--required::after {
+      content: " *";
+      color: red;
+    }
+  }
+
+  &__input {
+    @extend %input-text;
+    height: 40px;
+    width: 100%;
+    color: colors.$g-950;
+    background-color: colors.$g-100;
+    border: 1px solid colors.$g-300;
+    border-radius: 6px;
+    padding: 10px 12px;
+    transition: border-color 0.3s ease;
+
+    &--withCounter {
+      padding-right: 66px;
+    }
+
+    &:hover {
+      border-color: colors.$g-400;
+    }
+
+    &:focus {
+      border-color: colors.$orange-500;
+      outline: none;
+    }
+
+    &:not(:placeholder-shown) {
+      border-color: colors.$g-500;
+      outline: none;
+    }
+
+    &::placeholder {
+      color: colors.$g-400;
+    }
+
+    &:disabled {
+      background-color: colors.$g-200;
+      border-color: colors.$g-300;
+      color: colors.$g-600;
+      cursor: default;
+    }
+  }
+
+  &__inputContainer {
+    position: relative;
+  }
+
+  &__counter {
+    @extend %input-text;
+    color: colors.$g-500;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+  }
+
+  &__caption {
+    @extend %caption;
+    color: colors.$g-500;
+    margin-top: 2px;
+  }
+}
