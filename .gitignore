@@ -7,14 +7,22 @@
 /.angular/
 .angular/
 
-# Ignore variables files
-.terraform.lock.hcl
-*.tfvars
-*.tfstate*
-*.auto.tfvars
-*.config
-!terraform/config.tfvars
-# Local .terraform directories
-**/.terraform/*
-# Ignore environment-specific files
-.envrc
+# Node modules and dependency files
+/node_modules/
+/package-lock.json
+/yarn.lock
+
+# Environment files
+/.env
+
+# Angular CLI and build artefacts
+/.angular-cli.json
+/.ng/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
