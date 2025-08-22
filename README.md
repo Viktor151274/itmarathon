@@ -1,1 +1,1 @@
-# marathon2025
+A placeholder for README of the root module.
