@@ -1,0 +1,108 @@
+name: Terraform AWS Deployment
+run-name: ${{ inputs.stage }} ${{ inputs.module }}
+
+on:
+  push:
+    branches: [ main ]
+  
+  workflow_dispatch:
+    inputs:
+      module:
+        description: 'Terraform Module to Deploy (use "." for all)'
+        required: true
+        default: 's3'
+        type: choice
+        options:
+          - '.'
+          - s3
+          - ec2
+      stage:
+        description: 'Pipeline Stage to Run'
+        required: true
+        default: 'validate'
+        type: choice
+        options:
+          - validate
+          - plan
+          - apply
+          - destroy
+ 
+permissions:
+  contents: read
+
+jobs:
+  determine_modules:
+    runs-on: ubuntu-latest
+    outputs:
+      modules: ${{ steps.set-modules.outputs.modules }}
+    steps:
+      - id: set-modules
+        run: |
+          if [ "${{ inputs.module }}" = "." ]; then
+            echo "modules=[\"s3\", \"ec2\"]" >> $GITHUB_OUTPUT
+          else
+            echo "modules=[\"${{ inputs.module }}\"]" >> $GITHUB_OUTPUT
+          fi
+
+  terraform:
+    needs: determine_modules
+    name: 'Terraform ${{ inputs.stage }} ${{ matrix.module }}'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: ${{ fromJSON(needs.determine_modules.outputs.modules) }}
+    
+    defaults:
+      run:
+        working-directory: modules/${{ matrix.module }}
+    
+    env:
+      TF_VERSION: '1.5.7'
+      AWS_REGION: 'eu-central-1'
+      ACTION: ${{ inputs.stage }}
+      
+    steps:
+      - name: Checkout Github Repository
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            modules/${{ matrix.module }}
+            .github
+          sparse-checkout-cone-mode: false
+          fetch-depth: 1
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+      
+      - name: Terraform Plan
+        if: ${{ inputs.stage == 'plan' }}
+        run: terraform plan -no-color -out=tfplan
+        continue-on-error: true
+
+      - name: Terraform Plan for Apply
+        if: ${{ inputs.stage == 'apply' }}
+        run: terraform plan -no-color -out=tfplan
+
+      - name: Terraform Execute
+        if: ${{ inputs.stage == 'apply' || inputs.stage == 'destroy' }}
+        run: |
+          if [ "${{ env.ACTION }}" = "apply" ]; then
+            terraform apply -auto-approve tfplan
+          elif [ "${{ env.ACTION }}" = "destroy" ]; then
+            terraform destroy -auto-approve 
+          fi
