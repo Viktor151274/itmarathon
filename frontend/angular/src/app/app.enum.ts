@@ -42,3 +42,17 @@ export const enum MessageType {
   Error = 'error',
   Info = 'info',
 }
+
+export const enum RadioButtonLabel {
+  HaveGiftIdeas = 'I have gift ideas! (add up to 5 gift ideas)',
+  WantSurpriseGift = 'I want a surprise gift',
+}
+
+export const enum RadioGroupName {
+  Wishlist = 'wish-list',
+}
+
+export const enum RadioButtonValue {
+  WishGift = 'wish-gift',
+  SurpriseGift = 'surprise-gift',
+}

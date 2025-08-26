@@ -17,4 +17,5 @@ export const STEPPER_DEFAULT_DATA_JOIN_ROOM: StepperItem[] = [
 ];
 
 export const PRIVACY_POLICY_PATH = '/assets/pdfs/privacy-policy.pdf';
+
 export const PRIVACY_NOTICE_PATH = '/assets/pdfs/privacy-notice.pdf';

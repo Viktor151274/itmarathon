@@ -1,0 +1,17 @@
+<app-label [label]="label()" [isLabelRadio]="true">
+  <input
+    class="radio-button__input"
+    type="radio"
+    [formControl]="control()"
+    [name]="name()"
+    [value]="value()" />
+
+  <span
+    class="radio-button__circle"
+    role="radio"
+    [attr.aria-checked]="control().value === value()"></span>
+</app-label>
+
+@if (control().value === value()) {
+  <ng-content></ng-content>
+}

@@ -1,0 +1,12 @@
+<label class="label" [class.label--radio]="isLabelRadio()">
+  <span class="label__text">
+    {{ label() }}
+
+    @if (isRequiredField()) {
+      <span class="label__star" aria-hidden="true">*</span>
+      <span class="visually-hidden">&nbsp;required field</span>
+    }
+  </span>
+
+  <ng-content />
+</label>
