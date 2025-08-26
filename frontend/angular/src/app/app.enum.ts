@@ -31,3 +31,14 @@ export const enum StepLabel {
   AddParticipantInfo = 'Add participant info',
   AddWishlist = 'Add wishlist',
 }
+
+export const enum MessageSize {
+  Toaster = 'toaster',
+  Popover = 'popover',
+}
+
+export const enum MessageType {
+  Success = 'success',
+  Error = 'error',
+  Info = 'info',
+}

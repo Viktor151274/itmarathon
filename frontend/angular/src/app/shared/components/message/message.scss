@@ -1,0 +1,32 @@
+@use 'base/typography' as *;
+@use 'abstracts/variables' as *;
+
+.message {
+  $message: &;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: $message-shadow;
+  border-radius: 8px;
+
+  &--toaster {
+    gap: 12px;
+    padding: 18px 24px;
+    font-size: $text-md;
+
+    #{$message}__icon {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &--popover {
+    gap: 8px;
+    padding: 9px 12px;
+    font-size: 14px;
+
+    #{$message}__icon {
+      width: 14px;
+      height: 14px;
+    }
+  }
+}
