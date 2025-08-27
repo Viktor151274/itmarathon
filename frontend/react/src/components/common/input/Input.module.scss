@@ -5,6 +5,7 @@
 .inputWrapper {
   display: flex;
   flex-direction: column;
+  line-height: 0;
 
   &.inputWrapper--error {
     .inputWrapper__input {
@@ -39,9 +40,20 @@
     border-radius: 6px;
     padding: 10px 12px;
     transition: border-color 0.3s ease;
+    overflow: hidden;
+    resize: none;
 
-    &--withCounter {
+    &--textarea {
+      height: 56px;
+      min-height: 56px;
+    }
+
+    &--counter-inside {
       padding-right: 66px;
+    }
+
+    &--counter-outside {
+      padding-right: 12px;
     }
 
     &:hover {
@@ -78,9 +90,17 @@
     @extend %input-text;
     color: colors.$g-500;
     position: absolute;
-    top: 50%;
-    right: 12px;
-    transform: translateY(-50%);
+
+    &--inside {
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+    }
+
+    &--outside {
+      right: 0;
+      padding-right: 0;
+    }
   }
 
   &__caption {

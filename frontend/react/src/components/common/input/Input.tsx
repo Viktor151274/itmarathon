@@ -1,5 +1,6 @@
 import styles from "./Input.module.scss";
 import type { InputProps } from "./types";
+import Textarea from "../textarea/Textarea";
 
 const Input = ({
   type = "text",
@@ -8,7 +9,7 @@ const Input = ({
   onChange,
   label,
   required = false,
-  width = 286,
+  width = "100%",
   caption,
   hasError = false,
   maxLength = 40,
@@ -17,7 +18,22 @@ const Input = ({
   ...restProps
 }: InputProps) => {
   const inputId = `input-${label.replace(" ", "-").toLowerCase()}`;
-  const Element = multiline ? "textarea" : "input";
+  const Element = multiline ? Textarea : "input";
+  const counterPosition = multiline ? "outside" : "inside";
+
+  const baseClass = styles.inputWrapper__input;
+
+  const multilineClass = multiline
+    ? styles["inputWrapper__input--textarea"]
+    : "";
+
+  const counterClass = withCounter
+    ? styles[`inputWrapper__input--counter-${counterPosition}`]
+    : "";
+
+  const inputClassName = [baseClass, multilineClass, counterClass]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div
@@ -36,14 +52,18 @@ const Input = ({
           id={inputId}
           value={value}
           onChange={onChange}
+          label={label}
+          maxLength={maxLength}
           type={!multiline ? type : undefined}
           placeholder={placeholder}
-          className={`${styles.inputWrapper__input} ${withCounter ? styles["inputWrapper__input--withCounter"] : ""}`}
+          className={inputClassName}
           {...restProps}
         />
 
         {withCounter && maxLength > 0 ? (
-          <div className={styles.inputWrapper__counter}>
+          <div
+            className={`${styles.inputWrapper__counter} ${styles[`inputWrapper__counter--${counterPosition}`]}`}
+          >
             {value.toString().length} / {maxLength}
           </div>
         ) : null}

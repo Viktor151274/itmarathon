@@ -12,7 +12,7 @@ export interface InputProps
   withCounter?: boolean;
   placeholder: string;
   required?: boolean;
-  width?: number;
+  width?: string;
   caption?: string;
   label: string;
   hasError?: boolean;
