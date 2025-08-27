@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using Epam.ItMarathon.ApiService.Api.Endpoints;
+using Epam.ItMarathon.ApiService.Infrastructure.Database;
+using Serilog;
 
 namespace Epam.ItMarathon.ApiService.Api.Extension
 {
@@ -16,9 +18,16 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
         /// <param name="app">The WebApplication instance.</param>
         public static WebApplication ConfigureApplication(this WebApplication app)
         {
+            #region Logging
+
+            _ = app.UseSerilogRequestLogging();
+
+            #endregion Logging
+
             #region Security
 
             _ = app.UseHsts();
+            _ = app.UseHttpsRedirection();
 
             #endregion Security
 
@@ -44,6 +53,8 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
             _ = app.MapSystemEndpoints();
 
             #endregion MinimalApi
+
+            app.Services.MigrateDatabase();
 
             return app;
         }

@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Epam.ItMarathon.ApiService.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +17,8 @@ namespace Epam.ItMarathon.ApiService.Infrastructure
         /// </summary>
         public static void InjectInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddDbContext<AppDbContext>(opts => 
+            opts.UseNpgsql(configuration.GetConnectionString("DbConnectionString")));
         }
     }
 }

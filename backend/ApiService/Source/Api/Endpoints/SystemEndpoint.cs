@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Epam.ItMarathon.ApiService.Api.Dto.Responses.SystemResponses;
+using Epam.ItMarathon.ApiService.Api.Endpoints.Extension.SwaggerTagExtension;
 
 namespace Epam.ItMarathon.ApiService.Api.Endpoints
 {
@@ -16,6 +17,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
         {
             var root = app.MapGroup("/api/system")
                 .WithTags("System")
+                .WithTagDescription("System", "System responses group")
                 .WithDescription("System responses")
                 .WithOpenApi();
 

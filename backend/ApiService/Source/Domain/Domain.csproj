@@ -9,9 +9,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Folder Include="Entities\User\" />
-		<Folder Include="Entities\Room\" />
-		<Folder Include="Interfaces\" />
+	  <Folder Include="Entities\Gift\" />
+	  <Folder Include="Entities\Room\" />
+	  <Folder Include="Entities\User\" />
 	</ItemGroup>
 
 </Project>

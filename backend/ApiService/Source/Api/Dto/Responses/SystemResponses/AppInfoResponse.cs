@@ -15,7 +15,7 @@
         /// The current environment name.
         /// </summary>
         /// <example>Development</example>
-        public string Environment { get; init; } = default!;
+        public required string Environment { get; init; }
 
         /// <summary>
         /// The current assembly version.

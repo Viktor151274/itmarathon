@@ -3,10 +3,12 @@ using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Epam.ItMarathon.ApiService.Api.Filters.Swagger;
 using Epam.ItMarathon.ApiService.Application;
 using Epam.ItMarathon.ApiService.Infrastructure;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace Epam.ItMarathon.ApiService.Api.Extension
 {
@@ -22,6 +24,22 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
         /// <param name="builder">The WebApplicationBuilder instance.</param>
         public static WebApplicationBuilder ConfigureApplicationBuilder(this WebApplicationBuilder builder)
         {
+            #region Logging
+
+            _ = builder.Host.UseSerilog((hostContext, loggerConfiguration) =>
+            {
+                var assembly = Assembly.GetEntryAssembly();
+
+                _ = loggerConfiguration.ReadFrom.Configuration(hostContext.Configuration)
+                    .Enrich.WithProperty(
+                        "Assembly Version",
+                        assembly?.GetCustomAttribute<AssemblyFileVersionAttribute>()?.Version)
+                    .Enrich.WithProperty(
+                        "Assembly Informational Version",
+                        assembly?.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion);
+            });
+
+            #endregion Logging
 
             #region Serialisation
 
@@ -59,6 +77,7 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
 
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
                 options.DocInclusionPredicate((name, api) => true);
+                options.DocumentFilter<SwaggerTagDocumentFilter>();
             });
 
             #endregion Swagger
