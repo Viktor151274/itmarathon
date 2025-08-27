@@ -1,0 +1,51 @@
+services:
+  front-angular:
+     build:
+       context: ./frontend/angular
+       dockerfile: Dockerfile
+     restart: always
+     ports:
+      - "8081:80"
+     networks:
+      - app
+
+  front-react:
+     build:
+       context: ./frontend/react
+       dockerfile: Dockerfile
+     restart: always
+     ports:
+      - "80:80"
+     networks:
+      - app
+
+  backend:
+     build:
+       context: ./backend/ApiService
+       dockerfile: Dockerfile
+     restart: always
+     ports:
+      - "8080:8080"
+     networks:
+      - app
+
+  db:
+    image: postgres:17.5
+    restart: always
+    # set shared memory limit when using docker compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5432:5432"
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge
+
+volumes:
+  db:
