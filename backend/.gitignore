@@ -400,5 +400,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Remove app inforation etc.
-**/launchSettings.json
 **/AppDbContextFactory.cs
