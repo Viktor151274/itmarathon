@@ -6,9 +6,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>6788a21d-7aaf-4cc8-a288-d8bf774eb1dc</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<RootNamespace>Epam.ItMarathon.ApiService.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<AssemblyName>Epam.ItMarathon.ApiService.$(MSBuildProjectName.Replace(" ", "_"))</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>

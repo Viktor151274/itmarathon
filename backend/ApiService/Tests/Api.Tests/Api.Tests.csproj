@@ -5,8 +5,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
 		<IsPackable>false</IsPackable>
-		<RootNamespace>Epam.ItMarathon.ApiService.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-		<AssemblyName>Epam.ItMarathon.ApiService.$(MSBuildProjectName.Replace(" ", "_"))</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>

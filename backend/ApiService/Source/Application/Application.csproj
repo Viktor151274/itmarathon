@@ -4,9 +4,6 @@
 		<TargetFramework>net9.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<RootNamespace>Epam.ItMarathon.ApiService.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
-		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<AssemblyName>Epam.ItMarathon.ApiService.$(MSBuildProjectName.Replace(" ", "_"))</AssemblyName>
 	</PropertyGroup>
 
 	<ItemGroup>

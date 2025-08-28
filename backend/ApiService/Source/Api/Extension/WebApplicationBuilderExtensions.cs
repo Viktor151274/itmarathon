@@ -66,7 +66,7 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
                     {
                         Version = Assembly.GetExecutingAssembly().GetName().Version!.ToString(),
                         Title = $"Mycolaychik API - {textInfo.ToTitleCase(builder.Environment.EnvironmentName)}",
-                        Description = "Mycolaychik WEB API made for EPAM's marathon",
+                        Description = "EPAM IT Marathon 2025 (Mycolaychik) WEB API.",
                         License = new OpenApiLicense
                         {
                             Name = "Mycolaychik API - License - MIT",

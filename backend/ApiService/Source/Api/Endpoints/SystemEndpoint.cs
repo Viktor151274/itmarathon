@@ -17,8 +17,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
         {
             var root = app.MapGroup("/api/system")
                 .WithTags("System")
-                .WithTagDescription("System", "System responses group")
-                .WithDescription("System responses")
+                .WithTagDescription("System", "System wide endpoints")
                 .WithOpenApi();
 
             _ = root.MapGet("/info", GetSystemInfoResponse)
