@@ -26,6 +26,11 @@
   //     --icon-url: url("./name.svg");
   //   }
   // }
+  &--icon {
+    &-back-arrow {
+      --icon-url: url("../../../assets/images/form-wrapper-icons/back-arrow.svg");
+    }
+  }
 
   &:focus-visible {
     border: 2px solid colors.$orange-500;
