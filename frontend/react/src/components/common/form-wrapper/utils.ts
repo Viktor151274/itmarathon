@@ -51,7 +51,7 @@ export const FORM_WRAPPER_CONTENT_PROPS = {
   SUB_DESCRIPTION: "subDescription",
 } as const;
 
-export function getDescriptionWrapperClass(iconName?: string): string {
+export function getDescriptionWrapperClass(iconName: string): string {
   const classMap: Record<string, string> = {
     [ICON_NAMES.WELCOME_GROUP]:
       "form-wrapper__description-wrapper--welcome-group",
@@ -59,5 +59,5 @@ export function getDescriptionWrapperClass(iconName?: string): string {
     [ICON_NAMES.STAR]: "form-wrapper__description-wrapper--star",
   };
 
-  return classMap[iconName ?? ""] || "";
+  return classMap[iconName] || "";
 }
