@@ -60,3 +60,11 @@ export const enum RadioButtonValue {
 export const enum TextareaLabel {}
 
 export const enum BaseLabel {}
+
+export const enum CaptionMessage {
+  DefaultMessage = '',
+}
+
+export enum ErrorMessage {
+  DefaultMessage = '',
+}

@@ -1,5 +1,7 @@
 import {
   BaseLabel,
+  CaptionMessage,
+  ErrorMessage,
   RadioButtonLabel,
   StepLabel,
   TextareaLabel,
@@ -12,3 +14,5 @@ export interface StepperItem {
 }
 
 export type InputLabel = BaseLabel | RadioButtonLabel | TextareaLabel;
+
+export type FieldHintMessage = CaptionMessage | ErrorMessage;

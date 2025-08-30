@@ -1,0 +1,16 @@
+@use 'colors/color-matrix' as *;
+
+:host {
+  display: block;
+}
+
+.hint {
+  padding-top: 2px;
+  font-size: 12px;
+  font-weight: 400;
+  color: $message-color--caption;
+
+  &--error {
+    color: $message-color--error;
+  }
+}

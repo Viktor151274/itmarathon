@@ -1,0 +1,9 @@
+@if (hintMessage()) {
+  <p
+    class="hint"
+    [class.hint--error]="hasError()"
+    [attr.role]="hasError() ? 'alert' : null"
+    [attr.aria-live]="hasError() ? 'assertive' : 'polite'">
+    {{ hintMessage() }}
+  </p>
+}
