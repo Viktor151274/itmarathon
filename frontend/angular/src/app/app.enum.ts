@@ -43,6 +43,11 @@ export const enum MessageType {
   Info = 'info',
 }
 
+export const enum ToasterStatus {
+  Hidden,
+  Visible,
+}
+
 export const enum RadioButtonLabel {
   HaveGiftIdeas = 'I have gift ideas! (add up to 5 gift ideas)',
   WantSurpriseGift = 'I want a surprise gift',

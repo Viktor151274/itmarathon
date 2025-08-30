@@ -1,5 +1,17 @@
 @use 'base/typography' as *;
 @use 'abstracts/variables' as *;
+@use 'colors/color-matrix' as *;
+
+:host {
+  &.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    pointer-events: auto;
+  }
+}
 
 .message {
   $message: &;
@@ -7,6 +19,7 @@
   align-items: center;
   box-shadow: $shadow-message;
   border-radius: 8px;
+  background-color: $message-bg;
 
   &--toaster {
     gap: 12px;
