@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 
-import { RadioButtonLabel } from '../../../app.enum';
+import type { InputLabel } from '../../../app.models';
 
 @Component({
   selector: 'app-label',
@@ -8,7 +8,7 @@ import { RadioButtonLabel } from '../../../app.enum';
   styleUrl: './label.scss',
 })
 export class Label {
-  readonly label = input.required<RadioButtonLabel>();
+  readonly label = input.required<InputLabel>();
 
   readonly isLabelRadio = input<boolean>(false);
   readonly isRequiredField = input<boolean>(false);

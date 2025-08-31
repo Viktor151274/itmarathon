@@ -56,3 +56,7 @@ export const enum RadioButtonValue {
   WishGift = 'wish-gift',
   SurpriseGift = 'surprise-gift',
 }
+
+export const enum TextareaLabel {}
+
+export const enum BaseLabel {}
