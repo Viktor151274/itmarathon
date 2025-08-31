@@ -13,7 +13,7 @@ export const enum IconName {
   Edit = 'edit',
   Save = 'save',
   Add = 'plus',
-  Arrow = 'arrow',
+  ArrowLeft = 'arrow-left',
   SuccessMark = 'success-mark',
 }
 
@@ -82,3 +82,29 @@ export const enum InputType {
 }
 
 export const enum InputPlaceholder {}
+
+export const enum BaseLabel {}
+
+export const enum ButtonText {
+  Complete = 'Complete',
+  Continue = 'Continue',
+  BackToPrevStep = 'Back to the previous step',
+}
+
+export const enum PictureName {
+  Car = 'car',
+  BigPresents = 'big-presents',
+  Star = 'star',
+}
+
+export const enum FormTitle {
+  CreateRoom = 'Create Your Secret Nick Room',
+  AddDetails = 'Add your details',
+  AddWishes = 'Add Your Wishes',
+}
+
+export const enum FormSubtitle {
+  CreateRoom = 'Let the holiday magic begin! Set up your gift exchange in just a few steps.',
+  AddDetails = 'Secret Nick needs to know where to send your present!',
+  AddWishes = 'Let your Secret Nick know what would make you smile this season.',
+}
