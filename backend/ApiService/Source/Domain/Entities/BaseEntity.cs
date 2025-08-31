@@ -20,13 +20,13 @@
 
         protected BaseEntity()
         {
-            CreatedOn = DateTime.Now;
+            CreatedOn = DateTime.UtcNow;
             ModifiedOn = CreatedOn;
         }
 
         protected BaseEntity(ulong id)
         {
-            CreatedOn = DateTime.Now;
+            CreatedOn = DateTime.UtcNow;
             ModifiedOn = CreatedOn;
             Id = id;
         }

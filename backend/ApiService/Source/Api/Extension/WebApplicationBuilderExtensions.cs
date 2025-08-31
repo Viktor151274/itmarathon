@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 using Epam.ItMarathon.ApiService.Api.Filters.Swagger;
 using Epam.ItMarathon.ApiService.Application;
 using Epam.ItMarathon.ApiService.Infrastructure;
+using FluentValidation;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -81,6 +82,12 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
             });
 
             #endregion Swagger
+
+            #region Validation
+
+            _ = builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), ServiceLifetime.Singleton);
+
+            #endregion Validation
 
             #region Project Dependencies
 
