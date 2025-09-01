@@ -1,7 +1,7 @@
 import { Injectable, signal, computed } from '@angular/core';
 import { MessageType } from '../../app.enum';
 import { ToasterStatus } from '../../app.enum';
-import { TOAST_DURATION_MS } from '../../app.constants';
+import { MESSAGE_DURATION_MS } from '../../app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +27,7 @@ export class ToastService {
     if (this.#timeoutId) {
       clearTimeout(this.#timeoutId);
     }
-    this.#timeoutId = setTimeout(() => this.hide(), TOAST_DURATION_MS);
+    this.#timeoutId = setTimeout(() => this.hide(), MESSAGE_DURATION_MS);
   }
 
   hide() {

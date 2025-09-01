@@ -48,6 +48,11 @@ export const enum ToasterStatus {
   Visible,
 }
 
+export const enum PopupPosition {
+  Center = 'center',
+  Right = 'right',
+}
+
 export const enum RadioButtonLabel {
   HaveGiftIdeas = 'I have gift ideas! (add up to 5 gift ideas)',
   WantSurpriseGift = 'I want a surprise gift',

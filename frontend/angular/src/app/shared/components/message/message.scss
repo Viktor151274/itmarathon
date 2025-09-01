@@ -11,12 +11,28 @@
     z-index: 100;
     pointer-events: auto;
   }
+
+  &.popover-container {
+    position: absolute;
+    top: -4px;
+
+    &--right {
+      right: 0;
+      transform: translate(0, -100%);
+    }
+
+    &--center {
+      right: 50%;
+      transform: translate(50%, -100%);
+    }
+  }
 }
 
 .message {
   $message: &;
   display: inline-flex;
   align-items: center;
+  background-color: $message-bg;
   box-shadow: $shadow-message;
   border-radius: 8px;
   background-color: $message-bg;

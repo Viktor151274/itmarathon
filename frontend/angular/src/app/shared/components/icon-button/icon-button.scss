@@ -1,6 +1,9 @@
 @use 'colors/color-matrix' as color;
 
 :host {
+  position: relative;
+  display: inline-block;
+
   &.button {
     &--white {
       fill: color.$icon-button-bg--secondary;

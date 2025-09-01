@@ -20,4 +20,4 @@ export const PRIVACY_POLICY_PATH = '/assets/pdfs/privacy-policy.pdf';
 
 export const PRIVACY_NOTICE_PATH = '/assets/pdfs/privacy-notice.pdf';
 
-export const TOAST_DURATION_MS = 3000;
+export const MESSAGE_DURATION_MS = 3000;
