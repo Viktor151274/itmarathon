@@ -1,0 +1,19 @@
+$g-100: #fafafa;
+$blue-200: #d4e9fd;
+$bg-blue: linear-gradient(202deg, $g-100 13%, $blue-200 98%);
+
+$background-color: $bg-blue;
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+}
+
+.background-container {
+  width: 100%;
+  background: url("./snowflake-1.svg") right 0px top 0px no-repeat,
+    url("./snowflake-2.svg") left 0px bottom 0px no-repeat,
+    $background-color no-repeat;
+}
