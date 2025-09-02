@@ -10,6 +10,8 @@ $black-opacity-02: rgba(colors.$black, 0.02);
 $black-opacity-03: rgba(colors.$black, 0.03);
 $black-opacity-04: rgba(colors.$black, 0.04);
 $black-opacity-05: rgba(colors.$black, 0.05);
+$black-opacity-08: rgba(colors.$black, 0.08);
+$black-opacity-12: rgba(colors.$black, 0.12);
 
 // shadows
 $shadow:
@@ -20,3 +22,7 @@ $shadow:
   1px 1px 3px 0px $black-opacity-05;
 
 $shadow-button: 0 2px 0 0 $black-opacity-02;
+$shadow-message:
+  0px 6px 16px 0px $black-opacity-08,
+  0px 3px 6px -4px $black-opacity-12,
+  0px 9px 28px 8px $black-opacity-05;
