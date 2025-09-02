@@ -8,7 +8,12 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.Requests.RoomRequests
     {
         public RoomCreationRequestValidator()
         {
-            RuleFor(roomRequest => roomRequest.Room).SetValidator(new RoomDtoValidator());
+            RuleFor(roomRequest => roomRequest.Room).SetValidator(new RoomDtoValidator())
+                .WithName("room")
+                .OverridePropertyName("room");
+            RuleFor(roomRequest => roomRequest.Admin).SetValidator(new UserDtoValidator())
+                .WithName("admin")
+                .OverridePropertyName("admin");
         }
     }
 }

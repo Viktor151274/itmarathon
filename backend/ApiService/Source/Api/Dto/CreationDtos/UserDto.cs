@@ -9,6 +9,6 @@
         public required string DeliveryInfo { get; set; }
         public required bool WantSurprise { get; set; } = true;
         public string? Interests { get; set; }
-        public IEnumerable<WishDto> WishList { get; set; } 
+        public IEnumerable<WishDto>? WishList { get; set; } 
     }
 }

@@ -10,7 +10,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
         {
             var root = app.MapGroup("/api/rooms")
                 .WithTags("Room")
-                .WithTagDescription("Room", "Room wide endpoints")
+                .WithTagDescription("Room", "Room endpoints")
                 .WithOpenApi();
 
             _ = root.MapPost("", CreateRoomRequest)

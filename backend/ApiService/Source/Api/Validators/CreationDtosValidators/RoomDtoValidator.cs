@@ -1,4 +1,5 @@
 ﻿using Epam.ItMarathon.ApiService.Api.Dto.CreationDtos;
+using Epam.ItMarathon.ApiService.Api.Validators.Common;
 using FluentValidation;
 using System.Globalization;
 
@@ -10,44 +11,55 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
         {
             #region Name
 
-            RuleFor(room => room.Name).NotEmpty().WithMessage("This field is required.");
-            RuleFor(room => room.Name).MaximumLength(40).WithMessage("Maximum length is 40.");
+            RuleFor(room => room.Name).NotEmpty().WithMessage(ValidationConstants.RequiredMessage)
+                .WithName("name")
+                .OverridePropertyName("name");
+            RuleFor(room => room.Name).MaximumLength(40).WithMessage("Maximum length is 40.")
+                .WithName("name")
+                .OverridePropertyName("name");
 
             #endregion
 
             #region Description
 
-            RuleFor(room => room.Description).NotEmpty().WithMessage("This field is required.");
-            RuleFor(room => room.Description).MaximumLength(200).WithMessage("Maximum length is 200.");
+            RuleFor(room => room.Description).NotEmpty().WithMessage(ValidationConstants.RequiredMessage)
+                .WithName("description")
+                .OverridePropertyName("description");
+            RuleFor(room => room.Description).MaximumLength(200).WithMessage("Maximum length is 200.")
+                .WithName("description")
+                .OverridePropertyName("description");
 
             #endregion
 
             #region GiftExchangeDate
 
-            RuleFor(room => room.GiftExchangeDate).NotEmpty().WithMessage("This field is required.");
+            RuleFor(room => room.GiftExchangeDate).NotEmpty().WithMessage(ValidationConstants.RequiredMessage)
+                .WithName("giftExchangeDate")
+                .OverridePropertyName("giftExchangeDate");
             RuleFor(room => room.GiftExchangeDate)
-                .Must(date => DateTimeOffset.TryParseExact(
-                    date,
-                    "yyyy-MM-dd'T'HH:mm:ss'z'",
-                    CultureInfo.InvariantCulture,
-                    DateTimeStyles.AssumeUniversal | DateTimeStyles.AdjustToUniversal,
-                    out var dateTime
-                    ) && dateTime.Date >= DateTimeOffset.UtcNow.Date)
-                .WithMessage("Timestamp must be a valid UTC ISO 8601 date and not before today.");
+                .Must(DateValidators.DateNotPastUtcIso)
+                .WithMessage("Timestamp must be a valid UTC ISO 8601 date and not before today.")
+                .WithName("giftExchangeDate")
+                .OverridePropertyName("giftExchangeDate");
 
             #endregion
 
             #region GiftMaximumBudget
 
-            RuleFor(room => room.GiftMaximumBudget).NotNull().WithMessage("This field is required.");
-            RuleFor(room => room.GiftMaximumBudget).GreaterThanOrEqualTo(ulong.MinValue);
+            RuleFor(room => room.GiftMaximumBudget).NotNull().WithMessage(ValidationConstants.RequiredMessage)
+                .WithName("giftMaximumBudget")
+                .OverridePropertyName("giftMaximumBudget");
+            RuleFor(room => room.GiftMaximumBudget).GreaterThanOrEqualTo(ulong.MinValue)
+                .WithName("giftMaximumBudget")
+                .OverridePropertyName("giftMaximumBudget");
 
             #endregion
 
-            #region Admin
+            #region Users
 
-            RuleFor(room => room.AdminUser).NotNull().WithMessage("This field is required.");
-            RuleFor(room => room.AdminUser).SetValidator(new UserDtoValidator());
+            RuleForEach(room => room.Users).SetValidator(new UserDtoValidator())
+                .WithName("users")
+                .OverridePropertyName("users");
 
             #endregion
         }

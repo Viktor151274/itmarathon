@@ -6,6 +6,6 @@
         public required string Description { get; set; }
         public required string GiftExchangeDate { get; set; }
         public required ulong GiftMaximumBudget { get; set; }
-        public required UserDto AdminUser { get; set; }
+        public IEnumerable<UserDto> Users { get; set; }
     }
 }
