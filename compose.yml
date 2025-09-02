@@ -23,24 +23,32 @@ services:
      build:
        context: ./backend/ApiService
        dockerfile: Dockerfile
+     depends_on:
+      db:
+        condition: service_started
      restart: always
+     environment:
+        ASPNETCORE_ENVIRONMENT: Development
+        ConnectionStrings__DbConnectionString: ${CONNECTIONSTRINGS__DBCONNECTIONSTRING}
      ports:
       - "8080:8080"
      networks:
       - app
 
   db:
-    image: postgres:17.5
-    restart: always
-    # set shared memory limit when using docker compose
-    shm_size: 128mb
-    environment:
-      POSTGRES_HOST_AUTH_METHOD: trust
-    ports:
+     image: postgres:16
+     restart: always
+     # set shared memory limit when using docker compose
+     shm_size: 128mb
+     environment:
+        POSTGRES_USER: ${PSQL_USER}
+        POSTGRES_PASSWORD: ${PSQL_PASSWORD}
+        POSTGRES_DB: ${PSQL_DB}
+     ports:
       - "5432:5432"
-    volumes:
+     volumes:
       - db:/var/lib/postgresql/data
-    networks:
+     networks:
       - app
 
 networks:
