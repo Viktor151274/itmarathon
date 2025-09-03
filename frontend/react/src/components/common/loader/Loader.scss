@@ -1,0 +1,31 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/variables";
+
+.loader-container {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  background: variables.$g-50-opacity-40;
+}
+
+.loader {
+  width: 166px;
+  height: 20px;
+  background: repeating-linear-gradient(
+      -45deg,
+      colors.$green-700 0 25px,
+      colors.$transparent 25px 30px,
+      colors.$red-500 30px 55px,
+      colors.$transparent 55px 60px
+    )
+    left/200% 100%;
+  animation: loader-animation 2s infinite linear;
+}
+
+@keyframes loader-animation {
+  100% {
+    background-position: right;
+  }
+}
