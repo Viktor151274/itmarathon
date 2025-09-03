@@ -3,8 +3,11 @@
 
 :host {
   position: relative;
-  display: block;
-  width: 100%;
+  display: inline-block;
+
+  &.full-width {
+    display: block;
+  }
 
   &.large {
     > button {

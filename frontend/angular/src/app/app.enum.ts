@@ -101,6 +101,11 @@ export const enum ButtonText {
   BackToPrevStep = 'Back to the previous step',
 }
 
+export const enum ButtonType {
+  Button = 'button',
+  Submit = 'submit',
+}
+
 export const enum PictureName {
   Car = 'car',
   BigPresents = 'big-presents',

@@ -59,10 +59,9 @@
   &__description {
     font-size: $text-lg;
     color: $home-description-color;
-  }
 
-  &__button-container {
-    width: 286px;
-    margin-top: 40px;
+    &:last-of-type {
+      margin-bottom: 40px;
+    }
   }
 }
