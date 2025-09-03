@@ -81,9 +81,13 @@
   white-space: nowrap;
 }
 
-@mixin input-base($height) {
+@mixin input-base($height, $is-textarea: false) {
   width: 100%;
-  height: $height;
+  @if $is-textarea {
+    min-height: $height;
+  } @else {
+    height: $height;
+  }
   padding: 12px;
   border: $input-border-width solid $input-color-border;
   border-radius: $input-radius;
@@ -118,7 +122,7 @@
     border-color: $border-type;
   }
 
-  &.ng-not-empty:not(:focus):not(:disabled) {
+  &.filled:not(:focus):not(:disabled) {
     border-color: $border-filled;
   }
 

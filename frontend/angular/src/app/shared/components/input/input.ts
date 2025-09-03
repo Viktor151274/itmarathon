@@ -17,4 +17,5 @@ export class Input {
   label = input.required<InputLabel>();
   placeholder = input<InputPlaceholder | ''>('');
   isRequiredField = input<boolean>(false);
+  maxLength = input<number | null>(null);
 }

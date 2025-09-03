@@ -96,6 +96,10 @@ export const enum InputPlaceholder {
   Date = 'Select date',
 }
 
+export const enum TextareaPlaceholder {}
+
+export const enum BaseLabel {}
+
 export const enum ButtonText {
   Complete = 'Complete',
   Continue = 'Continue',
