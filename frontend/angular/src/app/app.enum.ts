@@ -53,11 +53,6 @@ export const enum PopupPosition {
   Right = 'right',
 }
 
-export const enum RadioButtonLabel {
-  HaveGiftIdeas = 'I have gift ideas! (add up to 5 gift ideas)',
-  WantSurpriseGift = 'I want a surprise gift',
-}
-
 export const enum RadioGroupName {
   Wishlist = 'wish-list',
 }
@@ -65,6 +60,16 @@ export const enum RadioGroupName {
 export const enum RadioButtonValue {
   WishGift = 'wish-gift',
   SurpriseGift = 'surprise-gift',
+}
+
+export const enum BaseLabel {
+  FirstName = 'First name',
+  ExchangeDate = 'Gift Exchange date',
+}
+
+export const enum RadioButtonLabel {
+  HaveGiftIdeas = 'I have gift ideas! (add up to 5 gift ideas)',
+  WantSurpriseGift = 'I want a surprise gift',
 }
 
 export const enum TextareaLabel {}
@@ -77,10 +82,6 @@ export enum ErrorMessage {
   DefaultMessage = '',
 }
 
-export const enum BaseLabel {
-  FirstName = 'First name',
-}
-
 export const enum InputType {
   Text = 'text',
   Email = 'email',
@@ -91,9 +92,9 @@ export const enum InputType {
   Date = 'date',
 }
 
-export const enum InputPlaceholder {}
-
-export const enum BaseLabel {}
+export const enum InputPlaceholder {
+  Date = 'Select date',
+}
 
 export const enum ButtonText {
   Complete = 'Complete',
