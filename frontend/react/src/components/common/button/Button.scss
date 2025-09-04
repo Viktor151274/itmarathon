@@ -20,12 +20,7 @@
     mask-repeat: no-repeat;
     background-color: currentColor;
   }
-  //Example: Adding a custom icon.
-  // &--icon {
-  //   &-name {
-  //     --icon-url: url("./name.svg");
-  //   }
-  // }
+
   &--icon {
     &-back-arrow {
       --icon-url: url("../../../assets/images/form-wrapper-icons/back-arrow.svg");
@@ -138,10 +133,15 @@
 
   &--text {
     color: colors.$green-700;
+    box-shadow: none;
 
     &:hover:not(:disabled),
     &:focus-visible {
       color: colors.$green-500;
+    }
+
+    &:focus-visible {
+      box-shadow: variables.$shadow-button;
     }
 
     &:active:not(:disabled) {
