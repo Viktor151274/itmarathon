@@ -1,0 +1,91 @@
+name: Terraform AWS Deployment
+run-name: ${{ inputs.action }} ${{ inputs.module }}
+
+on:
+  
+  workflow_dispatch:
+    inputs:
+      module:
+        description: 'Terraform Module to Deploy'
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - vpc
+          - sg
+          - ec2
+          - alb
+          - rds
+          
+      action:
+        description: 'Terraform Action'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+env:
+    ACTION: ${{ github.event.inputs.action || 'plan' }}
+    MODULE: ${{ github.event.inputs.module || 'all' }}
+    WORKING_DIR: terraform
+    TF_VERSION: 1.5.6
+
+permissions:
+  contents: read
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIR }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+      
+      - name: Terraform Init
+        run: terraform init
+      
+      - name: Terraform Action (${{ env.ACTION }})
+        run: |
+          case "${MODULE}" in
+            vpc) TARGET="-target=module.vpc" ;;
+            sg)  TARGET="-target=module.security_groups" ;;
+            ec2) TARGET="-target=module.ec2" ;;
+            alb) TARGET="-target=module.alb" ;;
+            rds) TARGET="-target=module.rds" ;;
+            all) TARGET="" ;;
+          esac
+
+          case "${ACTION}" in
+            plan)
+              terraform plan -no-color -out=tfplan $TARGET
+              ;;
+            apply)
+              terraform plan -no-color -out=tfplan $TARGET
+              terraform apply -auto-approve tfplan 
+              ;;
+            destroy)
+              terraform destroy -auto-approve $TARGET
+              ;;
+          esac
+        shell: bash  

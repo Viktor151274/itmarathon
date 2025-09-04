@@ -1,0 +1,19 @@
+# Angular specific
+/dist/
+/out-tsc/
+/tmp/
+/coverage/
+/e2e/test-output/
+/.angular/
+.angular/
+
+# Ignore variables files
+.terraform.lock.hcl
+*.tfvars
+*.tfstate*
+*.auto.tfvars
+!terraform/config.tfvars
+# Local .terraform directories
+**/.terraform/*
+# Ignore environment-specific files
+.envrc
