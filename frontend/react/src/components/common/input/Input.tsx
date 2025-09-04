@@ -13,7 +13,7 @@ const Input = ({
   caption,
   hasError = false,
   maxLength = 40,
-  withCounter = true,
+  withoutCounter = false,
   multiline = false,
   ...restProps
 }: InputProps) => {
@@ -27,7 +27,7 @@ const Input = ({
     ? styles["inputWrapper__input--textarea"]
     : "";
 
-  const counterClass = withCounter
+  const counterClass = !withoutCounter
     ? styles[`inputWrapper__input--counter-${counterPosition}`]
     : "";
 
@@ -60,7 +60,7 @@ const Input = ({
           {...restProps}
         />
 
-        {withCounter && maxLength > 0 ? (
+        {!withoutCounter && maxLength > 0 ? (
           <div
             className={`${styles.inputWrapper__counter} ${styles[`inputWrapper__counter--${counterPosition}`]}`}
           >

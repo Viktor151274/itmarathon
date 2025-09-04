@@ -1,15 +1,21 @@
-import type { ChangeEvent, HTMLAttributes } from "react";
+import type {
+  ChangeEvent,
+  InputHTMLAttributes,
+  TextareaHTMLAttributes,
+} from "react";
 
 export type InputType = "text" | "number" | "password" | "email";
 
-export interface InputProps
-  extends HTMLAttributes<HTMLInputElement | HTMLTextAreaElement> {
+type InputTextareaProps = InputHTMLAttributes<HTMLInputElement> &
+  TextareaHTMLAttributes<HTMLTextAreaElement>;
+
+export interface InputProps extends InputTextareaProps {
   type?: InputType;
   value: string | number;
   onChange: (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
-  withCounter?: boolean;
+  withoutCounter?: boolean;
   placeholder: string;
   required?: boolean;
   width?: string;
