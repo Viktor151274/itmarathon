@@ -1,0 +1,30 @@
+@use "../../../assets/styles/extends";
+@use "../../../assets/styles/colors";
+
+.room-link {
+  &__title {
+    @extend %title-lg;
+    margin-bottom: 20px;
+    color: colors.$g-950;
+
+    .room-link:has(.room-link__description) & {
+      margin-bottom: 8px;
+    }
+  }
+
+  &__description {
+    @extend %body-sm;
+    margin-bottom: 20px;
+    color: colors.$g-800;
+  }
+
+  &__link-container {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+  }
+
+  &__caption {
+    color: colors.$red-warning;
+  }
+}
