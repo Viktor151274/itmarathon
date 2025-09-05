@@ -16,7 +16,7 @@
         /// <summary>
         /// Date when the entity was modified last time. Same time as CreatedOn when entity created.
         /// </summary>
-        public DateTime ModifiedOn { get; set; }
+        public DateTime ModifiedOn { get; private set; }
 
         protected BaseEntity()
         {

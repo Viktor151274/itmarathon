@@ -14,18 +14,13 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
             RuleFor(room => room.Name).NotEmpty().WithMessage(ValidationConstants.RequiredMessage)
                 .WithName("name")
                 .OverridePropertyName("name");
-            RuleFor(room => room.Name).MaximumLength(40).WithMessage("Maximum length is 40.")
-                .WithName("name")
-                .OverridePropertyName("name");
+            
 
             #endregion
 
             #region Description
 
             RuleFor(room => room.Description).NotEmpty().WithMessage(ValidationConstants.RequiredMessage)
-                .WithName("description")
-                .OverridePropertyName("description");
-            RuleFor(room => room.Description).MaximumLength(200).WithMessage("Maximum length is 200.")
                 .WithName("description")
                 .OverridePropertyName("description");
 
@@ -38,7 +33,7 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
                 .OverridePropertyName("giftExchangeDate");
             RuleFor(room => room.GiftExchangeDate)
                 .Must(DateValidators.DateNotPastUtcIso)
-                .WithMessage("Timestamp must be a valid UTC ISO 8601 date and not before today.")
+                .WithMessage("Timestamp must be a valid UTC ISO 8601.")
                 .WithName("giftExchangeDate")
                 .OverridePropertyName("giftExchangeDate");
 
@@ -47,9 +42,6 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
             #region GiftMaximumBudget
 
             RuleFor(room => room.GiftMaximumBudget).NotNull().WithMessage(ValidationConstants.RequiredMessage)
-                .WithName("giftMaximumBudget")
-                .OverridePropertyName("giftMaximumBudget");
-            RuleFor(room => room.GiftMaximumBudget).GreaterThanOrEqualTo(ulong.MinValue)
                 .WithName("giftMaximumBudget")
                 .OverridePropertyName("giftMaximumBudget");
 

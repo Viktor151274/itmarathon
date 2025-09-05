@@ -13,8 +13,7 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.Common
                     CultureInfo.InvariantCulture,
                     DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal
                 );
-
-                return parsed.Date >= DateTime.UtcNow.Date;
+                return true;
             }
             catch
             {

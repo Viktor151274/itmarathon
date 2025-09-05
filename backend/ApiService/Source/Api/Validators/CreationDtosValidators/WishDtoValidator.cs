@@ -13,9 +13,6 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
             RuleFor(wish => wish.Name).NotEmpty().WithMessage(ValidationConstants.RequiredMessage)
                 .WithName("name")
                 .OverridePropertyName("name");
-            RuleFor(wish => wish.Name).MaximumLength(40).WithMessage("Maximum length is 40.")
-                .WithName("name")
-                .OverridePropertyName("name");
 
             #endregion
         }
