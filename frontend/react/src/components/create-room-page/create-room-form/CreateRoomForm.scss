@@ -1,0 +1,72 @@
+@use "../../../assets/styles/colors";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+
+  &__group {
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+  }
+}
+
+.ant-picker {
+  height: 40px;
+  color: colors.$g-950;
+  background-color: colors.$g-100;
+  border: 1px solid colors.$g-300;
+  border-radius: 6px;
+  padding: 10px 12px;
+  transition: border-color 0.3s ease;
+  box-shadow: none;
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    background-color: colors.$g-100;
+    box-shadow: none;
+  }
+
+  &:hover {
+    border-color: colors.$g-400;
+  }
+
+  &:focus-within {
+    border-color: colors.$orange-500;
+    outline: none;
+  }
+
+  .ant-picker-input > input {
+    &::placeholder {
+      color: colors.$g-400;
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  &.ant-picker-disabled,
+  &.ant-picker-disabled:hover,
+  &.ant-picker-disabled:focus {
+    background-color: colors.$g-200 !important;
+    border-color: colors.$g-300 !important;
+    color: colors.$g-600 !important;
+    box-shadow: none !important;
+    cursor: default !important;
+
+    & .anticon {
+      color: colors.$g-600;
+    }
+  }
+
+  &--filled {
+    border-color: colors.$g-500;
+  }
+}
+
+.anticon {
+  color: colors.$green-500;
+}

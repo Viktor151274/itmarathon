@@ -16,6 +16,7 @@ export interface InputProps extends InputTextareaProps {
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   withoutCounter?: boolean;
+  withSuffix?: boolean;
   placeholder: string;
   required?: boolean;
   width?: string;

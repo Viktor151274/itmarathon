@@ -2,7 +2,7 @@ export const FORM_CONTENT_MAP = {
   CREATE_ROOM: {
     title: "Create Your Secret Nick Room",
     description:
-      "Let the holiday magic begin! Set up your gift exchange in just a few steps",
+      "Let the holiday magic begin! Set up your gift exchange in just a few steps.",
   },
   WELCOME_ROOM: {
     title: "Welcome to the Secret Squad!",
@@ -44,10 +44,9 @@ export const ICON_NAMES = {
 } as const;
 
 export const FORM_WRAPPER_CONTENT_PROPS = {
-  TITLE: "title",
+  FORM_KEY: "formKey",
   ICON_NAME: "iconName",
   CHILDREN: "children",
-  DESCRIPTION: "description",
   SUB_DESCRIPTION: "subDescription",
 } as const;
 

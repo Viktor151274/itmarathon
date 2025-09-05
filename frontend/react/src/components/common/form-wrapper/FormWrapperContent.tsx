@@ -1,14 +1,14 @@
 import type { FormWrapperContentProps } from "./types";
-import { getDescriptionWrapperClass } from "./utils";
+import { getDescriptionWrapperClass, getFormContent } from "./utils";
 
 export const FormWrapperContent = ({
-  title,
-  description,
+  formKey,
   subDescription,
   iconName,
   children,
 }: FormWrapperContentProps) => {
   const descriptionWrapperClass = `form-wrapper__description-wrapper ${getDescriptionWrapperClass(iconName)}`;
+  const { title, description } = getFormContent(formKey);
 
   return (
     <div

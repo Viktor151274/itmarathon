@@ -9,7 +9,7 @@
   min-height: 100vh;
 
   &__form {
-    border: 1px solid colors.$green-200;
+    border: 1.6px solid colors.$green-200;
     border-radius: 16px;
     padding: 48px;
     width: 792px;
@@ -31,12 +31,13 @@
     }
 
     &--star::before {
-      top: -42px;
-      right: 0;
+      top: -36px;
+      right: 22px;
       width: 160px;
       height: 160px;
-      background-image: url("../../../assets/images/form-wrapper-icons/icons.svg#star");
-      background-size: 160px 160px;
+      background: url("../../../assets/images/form-wrapper-icons/star.svg")
+        center no-repeat;
+      transform: rotate(22.31deg);
     }
 
     &--car::before {
@@ -116,7 +117,7 @@
 
   &__title {
     color: colors.$g-950;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
 
   &__description-wrapper {
@@ -145,7 +146,6 @@
       @extend %title-sm;
       color: colors.$g-800;
       margin-top: 8px;
-      margin-bottom: 32px;
     }
   }
 }

@@ -14,6 +14,7 @@ const Input = ({
   hasError = false,
   maxLength = 40,
   withoutCounter = false,
+  withSuffix = false,
   multiline = false,
   ...restProps
 }: InputProps) => {
@@ -66,6 +67,10 @@ const Input = ({
           >
             {value.toString().length} / {maxLength}
           </div>
+        ) : null}
+
+        {withSuffix ? (
+          <div className={styles.inputWrapper__suffix}>UAH</div>
         ) : null}
       </div>
 

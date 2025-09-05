@@ -1,6 +1,6 @@
 import styles from "../input/Input.module.scss";
 import type { InputProps } from "../input/types";
-import { useAutoResizeTextarea } from "../textarea/utils";
+import { useAutoResizeTextarea } from "../../../hooks/useAutoResizeTextarea";
 
 const Textarea = ({
   placeholder,

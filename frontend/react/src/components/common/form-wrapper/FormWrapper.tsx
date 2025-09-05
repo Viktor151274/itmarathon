@@ -4,8 +4,7 @@ import type { FormWrapperProps } from "./types";
 import "./FormWrapper.scss";
 
 const FormWrapper = ({
-  title,
-  description,
+  formKey,
   subDescription,
   iconName,
   buttonProps,
@@ -35,15 +34,19 @@ const FormWrapper = ({
       <div className={`form-wrapper__form form-wrapper__form--${iconName}`}>
         {welcomeGroupIcons}
         <FormWrapperContent
-          title={title}
-          description={description}
+          formKey={formKey}
           subDescription={subDescription}
           iconName={iconName}
         >
           {children}
         </FormWrapperContent>
         <div className="form-wrapper__actions">
-          <Button variant="primary" size="medium" {...buttonProps} />
+          <Button
+            variant="primary"
+            size="medium"
+            type="button"
+            {...buttonProps}
+          />
           {backButton}
         </div>
       </div>

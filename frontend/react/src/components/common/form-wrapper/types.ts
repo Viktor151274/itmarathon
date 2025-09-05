@@ -1,12 +1,15 @@
 import type { HTMLAttributes, ReactNode } from "react";
 import type { ButtonProps } from "../button/types";
-import type { ICON_NAMES, FORM_WRAPPER_CONTENT_PROPS } from "./utils";
+import type {
+  ICON_NAMES,
+  FORM_WRAPPER_CONTENT_PROPS,
+  FORM_CONTENT_MAP,
+} from "./utils";
 
 export type IconName = (typeof ICON_NAMES)[keyof typeof ICON_NAMES];
 
 export interface FormWrapperProps extends HTMLAttributes<HTMLDivElement> {
-  title: string;
-  description: string;
+  formKey: FormKey;
   subDescription?: ReactNode;
   iconName: IconName;
   buttonProps: ButtonProps;
@@ -22,3 +25,5 @@ export type FormWrapperContentProps = Pick<
   FormWrapperProps,
   FormWrapperContentKeys
 >;
+
+export type FormKey = keyof typeof FORM_CONTENT_MAP;
