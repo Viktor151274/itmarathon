@@ -26,7 +26,10 @@ export default defineConfig([
     },
     languageOptions: {
       ecmaVersion: "latest",
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        RequestInit: true,
+      },
       parser: typescriptParser,
       parserOptions: {
         ecmaFeatures: { jsx: true },
