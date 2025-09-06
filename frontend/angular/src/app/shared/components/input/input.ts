@@ -18,4 +18,5 @@ export class Input {
   placeholder = input<InputPlaceholder | ''>('');
   isRequiredField = input<boolean>(false);
   maxLength = input<number | null>(null);
+  ariaDescribedBy = input<string>();
 }

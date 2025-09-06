@@ -7,5 +7,6 @@
     [formControl]="control()"
     [attr.aria-invalid]="control().invalid ? true : null"
     [attr.maxlength]="maxLength() ?? null"
+    [attr.aria-describedby]="ariaDescribedBy()"
   />
 </app-label>

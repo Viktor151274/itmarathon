@@ -6,6 +6,14 @@
   display: block;
   width: 100%;
   font: inherit;
+
+  &.phone-number input {
+    padding-left: 68px;
+  }
+
+  &.budget input {
+    padding-right: 65px;
+  }
 }
 
 .input__field {

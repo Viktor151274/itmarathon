@@ -26,6 +26,11 @@ export const enum AriaLabel {
   Logo = 'To home page',
 }
 
+export const enum InputSidebarText {
+  CurrencyUAH = 'UAH',
+  PhoneCodeUA = '+380',
+}
+
 export const enum StepLabel {
   CreateRoom = 'Create room',
   AddParticipantInfo = 'Add participant info',
@@ -65,6 +70,8 @@ export const enum RadioButtonValue {
 export const enum BaseLabel {
   FirstName = 'First name',
   ExchangeDate = 'Gift Exchange date',
+  PhoneNumber = 'Phone number',
+  Budget = 'Gift budget',
 }
 
 export const enum RadioButtonLabel {
@@ -94,11 +101,11 @@ export const enum InputType {
 
 export const enum InputPlaceholder {
   Date = 'Select date',
+  PhoneNumber = '777777777',
+  Budget = 'Type in your budget',
 }
 
 export const enum TextareaPlaceholder {}
-
-export const enum BaseLabel {}
 
 export const enum ButtonText {
   Complete = 'Complete',
@@ -127,4 +134,8 @@ export const enum FormSubtitle {
   CreateRoom = 'Let the holiday magic begin! Set up your gift exchange in just a few steps.',
   AddDetails = 'Secret Nick needs to know where to send your present!',
   AddWishes = 'Let your Secret Nick know what would make you smile this season.',
+}
+
+export const enum RegEx {
+  Digits = '\\d+',
 }
