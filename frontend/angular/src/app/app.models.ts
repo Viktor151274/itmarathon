@@ -31,3 +31,5 @@ export interface PopupInstance {
   subscription?: Subscription;
   timerId?: ReturnType<typeof setTimeout>;
 }
+
+export type StyleMap = Record<string, string>;

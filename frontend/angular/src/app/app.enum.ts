@@ -145,3 +145,9 @@ export const enum PageTitle {
   CreateRoom = 'Create Your Room',
   CreateSuccess = 'Your Room is Ready!',
 }
+
+export const enum ItemPosition {
+  Center = 'center',
+  Below = 'below',
+  Right = 'right',
+}

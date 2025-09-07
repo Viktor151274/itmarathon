@@ -85,10 +85,11 @@
   width: 100%;
   @if $is-textarea {
     min-height: $height;
+    padding: 7px 12px 17px 12px;
   } @else {
     height: $height;
+    padding: 12px 60px 12px 12px;
   }
-  padding: 12px;
   border: $input-border-width solid $input-color-border;
   border-radius: $input-radius;
   background: $input-bg-color;

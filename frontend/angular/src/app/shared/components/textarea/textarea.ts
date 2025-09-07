@@ -1,8 +1,9 @@
-import { Component, input, viewChild, ElementRef, effect } from '@angular/core';
-import { Label } from '../label/label';
-import { InputLabel } from '../../../app.models';
+import { Component, input, viewChild, ElementRef } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
+import { Label } from '../label/label';
 import { TextareaPlaceholder } from '../../../app.enum';
+import type { InputLabel } from '../../../app.models';
 
 @Component({
   selector: 'app-textarea',
@@ -14,6 +15,7 @@ export class Textarea {
   label = input.required<InputLabel>();
   control = input.required<FormControl>();
   placeholder = input.required<TextareaPlaceholder>();
+
   isRequiredField = input<boolean>(false);
   maxLength = input<number | null>(null);
   minRows = input<number>(2);
