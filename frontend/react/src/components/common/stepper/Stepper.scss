@@ -1,0 +1,83 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/extends";
+@use "../../../assets/styles/variables";
+
+.stepper {
+  @extend %label;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+
+    background-color: colors.$g-200;
+    color: colors.$g-500;
+  }
+
+  &__text {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    flex: 1;
+
+    color: colors.$g-500;
+
+    &::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      margin-left: 8px;
+      background-color: colors.$g-300;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 12px;
+
+    &:last-child {
+      flex: 0 0 auto;
+
+      .stepper__text::after {
+        display: none;
+      }
+    }
+
+    &--current {
+      .stepper__icon {
+        background-color: colors.$green-500;
+        color: colors.$g-100;
+      }
+
+      .stepper__text {
+        color: colors.$g-800;
+      }
+    }
+
+    &--completed {
+      .stepper__icon {
+        padding: 6px;
+        background-color: colors.$green-200;
+      }
+
+      .stepper__text {
+        color: colors.$g-800;
+
+        &::after {
+          background-color: colors.$green-500;
+        }
+      }
+    }
+  }
+}

@@ -1,15 +1,5 @@
 import type { ShowToasterProps } from "../toaster/types";
 
-export const ICON_NAMES = {
-  SUCCESS: "success",
-  ERROR: "error",
-} as const;
-
-export const BUTTON_COLORS = {
-  GREEN: "green",
-  WHITE: "white",
-} as const;
-
 export const copyToClipboard = (
   contentToCopy: string,
   showToaster: ShowToasterProps,

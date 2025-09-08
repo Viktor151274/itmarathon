@@ -1,4 +1,4 @@
-import { ICON_NAMES } from "../copy-button/utils";
+import { ICON_NAMES } from "../copy-button/types";
 
 export type IconName = (typeof ICON_NAMES)[keyof typeof ICON_NAMES];
 export type ShowToasterProps = (
