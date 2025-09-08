@@ -8,16 +8,9 @@ namespace Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish
         public required string Name { get; init; }
         public required string InfoLink { get; init; }
         private Wish() { }
-        public static Result<Wish> Create(string name, string infoLink)
+        public static Wish Create(string name, string infoLink)
         {
-            var wish = new Wish() { Name = name, InfoLink = infoLink };
-            var validator = new WishValidator();
-            var validationResult = validator.Validate(wish);
-            if (!validationResult.IsValid)
-            {
-                return Result.Failure<Wish>(validationResult.ToString(","));
-            }
-            return wish;
+            return new Wish() { Name = name, InfoLink = infoLink };
         }
         public override bool Equals(object obj) => Equals(obj as Wish);
         public bool Equals(Wish? other)

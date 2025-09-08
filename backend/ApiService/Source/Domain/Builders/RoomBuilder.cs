@@ -1,11 +1,11 @@
 ﻿using CSharpFunctionalExtensions;
+using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
-using Epam.ItMarathon.ApiService.Domain.Factories;
 
 namespace Epam.ItMarathon.ApiService.Domain.Builders
 {
-    public class RoomBuilder
+    public class RoomBuilder : BaseAggregateBuilder<RoomBuilder>, IAggregateBuilder<Room>
     {
         private DateTime? _closedOn;
         private string _invitationCode;
@@ -18,7 +18,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         private DateTime _giftExchangeDate;
         private ulong _giftMaximumBudget;
         private IList<User> _users { get; set; } = [];
-        public static RoomBuilder Init() => new RoomBuilder();
+        public static RoomBuilder Init() => new();
         public RoomBuilder WithShouldBeClosedOn(DateTime? closedOn)
         {
             _closedOn = closedOn;
@@ -79,9 +79,23 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             _users.Add(user);
             return this;
         }
+        public RoomBuilder InitialAddUser(Func<UserBuilder, UserBuilder> configure)
+        {
+            var userBuilder = new UserBuilder();
+            var user = configure(userBuilder).InitialBuild();
+            _users.Add(user);
+            return this;
+        }
         public Result<Room> Build()
         {
-            return Room.Create();
+            // TODO: Implement Builder w validation
+            throw new NotImplementedException();
+        }
+
+        public Result<Room> InitialBuild()
+        {
+            // TODO: Implement initial Builder w validation
+            throw new NotImplementedException();
         }
     }
 }

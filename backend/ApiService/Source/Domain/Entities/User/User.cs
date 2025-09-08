@@ -1,6 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Domain.Abstract;
-using Epam.ItMarathon.ApiService.Domain.Shared;
+﻿using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish;
 
 namespace Epam.ItMarathon.ApiService.Domain.Entities.User
@@ -25,7 +23,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
         public bool IsAdmin { get; private set; }
         public IEnumerable<Wish> Wishes { get; set; }
         private User() { }
-        internal static Result<User> InitialCreate(ulong? roomId, string firstName, string lastName, string phone, string? email,
+        internal static User InitialCreate(ulong? roomId, string firstName, string lastName, string phone, string? email,
             string deliveryInfo, bool wantSurprise, string? interests, IEnumerable<Wish> wishes)
         {
             var user = new User() {
@@ -39,24 +37,14 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
                 Interests = interests,
                 Wishes = wishes
             };
-            var validator = new UserValidator();
-            var validationResult = validator.Validate(user);
-            if (!validationResult.IsValid)
-            {
-                return Result.Failure<User>(validationResult.ToString(","));
-            }
             return user;
         }
-        internal static Result<User> Create(ulong id, ulong? roomId, string firstName, string lastName, string phone, string? email,
+        internal static User Create(ulong id, ulong? roomId, string firstName, string lastName, string phone, string? email,
             string deliveryInfo, bool wantSurprise, string? interests, IEnumerable<Wish> wishes)
         {
             var user = InitialCreate(roomId, firstName, lastName, phone, email, deliveryInfo, wantSurprise, interests, wishes);
-            if (user.IsFailure)
-            {
-                return user;
-            }
-            user.Value.Id = id;
-            user.Value.ModifiedOn = DateTime.UtcNow;
+            user.Id = id;
+            user.ModifiedOn = DateTime.UtcNow;
             return user;
         }
         public void PromoteToAdmin()
