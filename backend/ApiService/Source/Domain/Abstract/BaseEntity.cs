@@ -1,4 +1,4 @@
-﻿namespace Epam.ItMarathon.ApiService.Domain.Entities
+﻿namespace Epam.ItMarathon.ApiService.Domain.Abstract
 {
     /// <summary>
     /// Base domain entity abstract class. All domain entities inherit it, made to share logic.
@@ -8,7 +8,7 @@
         /// <summary>
         /// Unique identifier of entity.
         /// </summary>
-        public ulong Id { get; init; }
+        public ulong Id { get; protected set; }
         /// <summary>
         /// Date when the entity was created.
         /// </summary>
@@ -16,7 +16,7 @@
         /// <summary>
         /// Date when the entity was modified last time. Same time as CreatedOn when entity created.
         /// </summary>
-        public DateTime ModifiedOn { get; private set; }
+        public DateTime ModifiedOn { get; protected set; }
 
         protected BaseEntity()
         {

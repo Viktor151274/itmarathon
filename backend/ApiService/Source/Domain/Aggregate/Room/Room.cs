@@ -1,33 +1,84 @@
-﻿using Epam.ItMarathon.ApiService.Domain.Entities;
+﻿using CSharpFunctionalExtensions;
+using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
+using Epam.ItMarathon.ApiService.Domain.Shared;
 
 namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
 {
-    internal class Room : BaseEntity
+    public sealed class Room : BaseAggregate
     {
-        public static ulong MinUserLimitDefault = 3;
-        public static ulong MaxUserLimitDefault = 20;
-        public static ulong MaxWishesLimitDefault = 5;
-        public static int NameCharLimit = 40;
-        public static int DescriptionCharLimit = 200;
-        public static int InvitationNoteCharLimit = 1000;
+        internal const ulong MinUserLimitDefault = 3;
+        internal const ulong MaxUserLimitDefault = 20;
+        internal const ulong MaxWishesLimitDefault = 5;
+        internal const int NameCharLimit = 40;
+        internal const int DescriptionCharLimit = 200;
+        internal const int InvitationNoteCharLimit = 1000;
 
         public DateTime? ClosedOn { get; private init; }
-        public ulong AdminId { get; set; }
-        public required string InvitationCode { get; set; }
-        public uint MinUsersLimit { get; set; } = 3;
-        public uint MaxUsersLimit { get; set; } = 20;
-        public uint MaxWishesLimit { get; set; } = 3;
-        public required string Name { get; init; }
-        public required string Description { get; set; }
-        public required string InvitationNote { get; set; }
-        public DateTime GiftExchangeDate { get; set; }
-        public ulong GiftMaximumBudget { get; set; }
-        public IEnumerable<User> Users { get; set; }
+        public string InvitationCode { get; private set; }
+        public ulong MinUsersLimit { get; private set; } = 3;
+        public ulong MaxUsersLimit { get; private set; } = 20;
+        public ulong MaxWishesLimit { get; private set; } = 3;
+        public string Name { get; init; }
+        public string Description { get; private set; }
+        public string InvitationNote { get; private set; }
+        public DateTime GiftExchangeDate { get; private set; }
+        public ulong GiftMaximumBudget { get; private set; }
+        public IList<User> Users { get; set; } = [];
         private Room() { }
-        //public static Result<Room> Create()
-        //{ 
-
-        //}
+        public static Result<Room> InitialCreate(string name, string description,
+            string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget,
+            User admin, ulong minUsersLimit = MinUserLimitDefault,
+            ulong maxUsersLimit = MaxUserLimitDefault, ulong MaxWishesLimit = MaxWishesLimitDefault)
+        {
+            var room = new Room()
+            {
+                InvitationCode = Guid.NewGuid().ToString(),
+                MinUsersLimit = minUsersLimit,
+                MaxUsersLimit = maxUsersLimit,
+                MaxWishesLimit = MaxWishesLimit,
+                Name = name,
+                Description = description,
+                InvitationNote = invitationNote,
+                GiftExchangeDate = giftExchangeDate,
+                GiftMaximumBudget = giftMaximumBudget,
+            };
+            room.Users.Add(admin);
+            var roomValidator = new RoomValidator();
+            var validationResult = roomValidator.Validate(room);
+            if (!validationResult.IsValid)
+            {
+                return Result.Failure<Room>(validationResult.ToString(","));
+            }
+            return room;
+        }
+        public static Result<Room> Create(string name, string description,
+            string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget,
+            IEnumerable<User> users, ulong minUsersLimit = MinUserLimitDefault,
+            ulong maxUsersLimit = MaxUserLimitDefault, ulong MaxWishesLimit = MaxWishesLimitDefault)
+        {
+            var admin = users.Where(user => user.IsAdmin);
+            if (admin.FirstOrDefault() is null || admin.Count() > 1) Result.Failure("The room should contain only one admin.");
+            var room = new Room()
+            {
+                InvitationCode = Guid.NewGuid().ToString(),
+                MinUsersLimit = minUsersLimit,
+                MaxUsersLimit = maxUsersLimit,
+                MaxWishesLimit = MaxWishesLimit,
+                Name = name,
+                Description = description,
+                InvitationNote = invitationNote,
+                GiftExchangeDate = giftExchangeDate,
+                GiftMaximumBudget = giftMaximumBudget,
+                Users = users.ToList()
+            };
+            var roomValidator = new RoomValidator();
+            var validationResult = roomValidator.Validate(room);
+            if (!validationResult.IsValid)
+            {
+                return Result.Failure<Room>(validationResult.ToString(","));
+            }
+            return room;
+        }
     }
 }

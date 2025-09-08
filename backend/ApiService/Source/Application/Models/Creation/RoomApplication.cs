@@ -1,12 +1,11 @@
-﻿namespace Epam.ItMarathon.ApiService.Api.Dto.CreationDtos
+﻿namespace Epam.ItMarathon.ApiService.Application.Models.Creation
 {
-    public class RoomDto
+    public class RoomApplication
     {
         public required string Name { get; set; }
         public required string Description { get; set; }
-        public required string GiftExchangeDate { get; set; }
+        public required DateTime GiftExchangeDate { get; set; }
         public required string InvitationNote { get; set; }
         public required ulong GiftMaximumBudget { get; set; }
-        public IEnumerable<UserDto> Users { get; set; }
     }
 }

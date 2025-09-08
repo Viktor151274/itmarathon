@@ -1,0 +1,16 @@
+﻿using AutoMapper;
+using Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish;
+using Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Gift;
+
+namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
+{
+    internal class GiftMappingProfile : Profile
+    {
+        public GiftMappingProfile()
+        {
+            CreateMap<Wish, GiftEf>()
+                .ForMember(giftEf => giftEf.Name, opt => opt.MapFrom(wish => wish.Name))
+                .ForMember(giftEf => giftEf.InfoLink, opt => opt.MapFrom(wish => wish.InfoLink));
+        }
+    }
+}

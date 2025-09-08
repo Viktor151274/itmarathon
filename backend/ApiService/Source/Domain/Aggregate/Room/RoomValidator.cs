@@ -11,14 +11,15 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             DescriptionValidation();
             GiftExchangeDateValidation();
             GiftMaximumBudgetValidation();
+            LimitValidation();
             UsersValidation();
         }
         private void NameValidation() =>
-            RuleFor(room => room.Name).MaximumLength(40).WithMessage("Maximum length is 40.")
+            RuleFor(room => room.Name).MaximumLength(Room.NameCharLimit).WithMessage($"Maximum length is {Room.NameCharLimit}.")
                 .WithName("name")
                 .OverridePropertyName("name");
         private void DescriptionValidation() =>
-            RuleFor(room => room.Description).MaximumLength(200).WithMessage("Maximum length is 200.")
+            RuleFor(room => room.Description).MaximumLength(Room.DescriptionCharLimit).WithMessage($"Maximum length is {Room.DescriptionCharLimit}.")
                 .WithName("description")
                 .OverridePropertyName("description");
 
@@ -29,11 +30,15 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
                 .OverridePropertyName("giftExchangeDate");
         private void GiftMaximumBudgetValidation() =>
             RuleFor(room => room.GiftMaximumBudget).GreaterThanOrEqualTo(ulong.MinValue)
+                .WithMessage("giftMaximumBudget must be greater or equal to 0.")
                 .WithName("giftMaximumBudget")
                 .OverridePropertyName("giftMaximumBudget");
+        private void LimitValidation() =>
+            RuleFor(room => room).SetValidator(new RoomLimitValidator())
+            .WithName("limitsValidation")
+            .OverridePropertyName("limitsValidation");
         private void UsersValidation() =>
             RuleForEach(room => room.Users).SetValidator(new UserValidator());
-
         private static bool DateIsNotPast(DateTime date) =>
             date >= DateTime.UtcNow.Date;
     }

@@ -1,13 +1,14 @@
 ﻿using System.Linq.Expressions;
+using CSharpFunctionalExtensions;
 using Epam.ItMarathon.ApiService.Domain.Entities;
 
 namespace Epam.ItMarathon.ApiService.Domain.Abstract
 {
     /// <summary>
-    /// Basic abstract interface for repositories. Works with <see cref="BaseEntity"/> objects.
+    /// Basic abstract interface for repositories. Works with <see cref="BaseAggregate"/> objects.
     /// </summary>
     /// <typeparam name="TEntity"></typeparam>
-    public interface IBaseRepository<TEntity> where TEntity : BaseEntity
+    public interface IBaseRepository<TEntity> where TEntity : BaseAggregate
     {
         /// <summary>
         /// Gets item by Id, possible to include some mapped properties using expression.
@@ -34,7 +35,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Abstract
         /// </summary>
         /// <param name="Item">Item to add</param>
         /// <returns></returns>
-        public Task AddAsync(TEntity Item);
+        public Task<Result<TEntity>> AddAsync(TEntity Item);
         /// <summary>
         /// Adds list of entities to repository.
         /// </summary>

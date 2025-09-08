@@ -30,8 +30,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User.Configu
 
             builder.HasMany(u => u.Wishes)
                 .WithOne(g => g.User)
-                .HasForeignKey(g => g.UserId)
-                .IsRequired(true);
+                .HasForeignKey(g => g.UserId);
 
             #endregion
 

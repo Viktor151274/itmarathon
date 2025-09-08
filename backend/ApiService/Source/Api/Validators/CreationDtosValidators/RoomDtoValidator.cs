@@ -39,6 +39,14 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
 
             #endregion
 
+            #region InvitationNote
+
+            RuleFor(room => room.InvitationNote).NotNull().WithMessage(ValidationConstants.RequiredMessage)
+                .WithName("invitationNote")
+                .OverridePropertyName("invitationNote");
+
+            #endregion
+
             #region GiftMaximumBudget
 
             RuleFor(room => room.GiftMaximumBudget).NotNull().WithMessage(ValidationConstants.RequiredMessage)
