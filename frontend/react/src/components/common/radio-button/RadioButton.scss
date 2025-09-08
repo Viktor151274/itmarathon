@@ -1,0 +1,107 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/variables";
+@use "../../../assets/styles/extends" as *;
+
+.radio-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+
+  &__circle {
+    display: flex;
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    border: 1px solid colors.$g-300;
+    background-color: colors.$g-100;
+    border-radius: 50%;
+
+    &::after {
+      display: none;
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      align-self: center;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: colors.$green-700;
+    }
+  }
+
+  &__text {
+    @extend %body-sm;
+    color: colors.$g-800;
+  }
+
+  input {
+    opacity: 0;
+    position: absolute;
+
+    &:checked {
+      & + .radio-button__circle {
+        border-color: colors.$green-700;
+
+        &::after {
+          background: colors.$green-700;
+          display: block;
+        }
+      }
+
+      &:hover + .radio-button__circle {
+        border-color: colors.$green-500;
+
+        &::after {
+          background: colors.$green-500;
+        }
+      }
+
+      &:active + .radio-button__circle {
+        border-color: colors.$green-900;
+
+        &::after {
+          background: colors.$green-900;
+        }
+      }
+
+      &:disabled + .radio-button__circle {
+        border-color: colors.$g-600;
+
+        &::after {
+          background: colors.$g-600;
+        }
+      }
+
+      &:focus-visible + .radio-button__circle {
+        border-color: colors.$orange-500;
+
+        &::after {
+          background: colors.$green-500;
+        }
+      }
+    }
+
+    &:not(:checked) {
+      &:hover + .radio-button__circle {
+        border-color: colors.$g-500;
+      }
+
+      &:focus-visible + .radio-button__circle {
+        border-color: colors.$orange-500;
+      }
+
+      &:active + .radio-button__circle {
+        border-color: colors.$green-900;
+      }
+
+      &:disabled + .radio-button__circle {
+        border-color: colors.$g-600;
+      }
+    }
+  }
+}
