@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { Path } from './app.enum';
+import { PageTitle, Path } from './app.enum';
 
 export const routes: Routes = [
   { path: '', redirectTo: Path.Home, pathMatch: 'full' },
   {
     path: Path.Home,
     loadComponent: () => import('./home/home').then((module) => module.Home),
-    title: 'Welcome to Secret Nick',
+    title: PageTitle.Home,
   },
   {
     path: Path.Welcome,
@@ -23,11 +23,13 @@ export const routes: Routes = [
           import('./create-room/create-room').then(
             (module) => module.CreateRoom
           ),
+        title: PageTitle.CreateRoom,
       },
       {
         path: Path.Success,
         loadComponent: () =>
           import('./create-room/success').then((module) => module.Success),
+        title: PageTitle.CreateSuccess,
       },
     ],
   },

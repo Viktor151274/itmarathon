@@ -139,3 +139,9 @@ export const enum FormSubtitle {
 export const enum RegEx {
   Digits = '\\d+',
 }
+
+export const enum PageTitle {
+  Home = 'Welcome to Secret Nick',
+  CreateRoom = 'Create Your Room',
+  CreateSuccess = 'Your Room is Ready!',
+}
