@@ -17,6 +17,7 @@ export interface InputProps extends InputTextareaProps {
   ) => void;
   withoutCounter?: boolean;
   withSuffix?: boolean;
+  withPrefix?: boolean;
   placeholder: string;
   required?: boolean;
   width?: string;

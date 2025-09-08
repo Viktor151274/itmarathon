@@ -7,10 +7,10 @@ import { InputNames, type FormData } from "./types";
 import {
   LABEL_DATE_PICKER,
   INPUT_ID_DATE_PICKER,
-  blockInvalidNumberKeys,
   isRequiredFieldsFilled,
   isValidInputField,
 } from "./utils";
+import { blockInvalidNumberKeys } from "../../../utils/validation";
 
 import styles from "../../common/input/Input.module.scss";
 import "./CreateRoomForm.scss";

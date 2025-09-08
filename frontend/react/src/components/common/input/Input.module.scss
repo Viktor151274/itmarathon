@@ -20,15 +20,30 @@
     }
   }
 
-  &:has(.inputWrapper__suffix:hover(:not):disabled) {
+  &:has(
+    .inputWrapper__suffix:hover:not(:disabled),
+    .inputWrapper__prefix:hover:not(:disabled)
+  ) {
     .inputWrapper__input {
       border-color: colors.$g-400;
 
-      + .inputWrapper__suffix {
+      + .inputWrapper__suffix,
+      + .inputWrapper__prefix {
         border-color: colors.$g-400;
+      }
+
+      + .inputWrapper__suffix {
         border-left-color: colors.$g-300;
       }
+
+      + .inputWrapper__prefix {
+        border-right-color: colors.$g-300;
+      }
     }
+  }
+
+  &:has(.inputWrapper__prefix) .inputWrapper__input {
+    padding-left: 68px;
   }
 
   &__label {
@@ -68,12 +83,20 @@
       padding-right: 12px;
     }
 
-    &:hover(:not):disabled {
+    &:hover:not(:disabled) {
       border-color: colors.$g-400;
 
-      + .inputWrapper__suffix {
+      + .inputWrapper__suffix,
+      + .inputWrapper__prefix {
         border-color: colors.$g-400;
+      }
+
+      + .inputWrapper__suffix {
         border-left-color: colors.$g-300;
+      }
+
+      + .inputWrapper__prefix {
+        border-right-color: colors.$g-300;
       }
     }
 
@@ -81,18 +104,32 @@
       border-color: colors.$orange-500;
       outline: none;
 
-      + .inputWrapper__suffix {
+      + .inputWrapper__suffix,
+      + .inputWrapper__prefix {
         border-color: colors.$orange-500;
+      }
+
+      + .inputWrapper__suffix {
         border-left-color: colors.$g-300;
+      }
+
+      + .inputWrapper__prefix {
+        border-right-color: colors.$g-300;
       }
     }
 
     &:not(:placeholder-shown) {
       border-color: colors.$g-500;
+      outline: none;
 
       + .inputWrapper__suffix {
         border-color: colors.$g-500;
         border-left-color: colors.$g-300;
+      }
+
+      + .inputWrapper__prefix {
+        border-color: colors.$g-500;
+        border-right-color: colors.$g-300;
       }
     }
 
@@ -106,7 +143,8 @@
       color: colors.$g-600;
       cursor: default;
 
-      + .inputWrapper__suffix {
+      + .inputWrapper__suffix,
+      + .inputWrapper__prefix {
         background-color: colors.$g-200;
         color: colors.$g-600;
       }
@@ -134,22 +172,31 @@
     }
   }
 
-  &__suffix {
+  &__suffix,
+  &__prefix {
     @extend %input-text;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
     border: 1px solid colors.$g-300;
-    border-radius: 0 6px 6px 0;
     background-color: colors.$green-50;
     color: colors.$g-800;
     padding: 0px 12px;
     height: 40px;
     top: 50%;
-    right: 0;
     transform: translateY(-50%);
     cursor: default;
+  }
+
+  &__suffix {
+    border-radius: 0 6px 6px 0;
+    right: 0;
+  }
+
+  &__prefix {
+    border-radius: 6px 0 0 6px;
+    left: 0;
   }
 
   &__caption {

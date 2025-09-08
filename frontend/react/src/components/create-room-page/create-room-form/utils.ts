@@ -1,21 +1,8 @@
-import type { KeyboardEvent } from "react";
 import { InputNames } from "./types";
 import type { InputName, FormData } from "./types";
-
+import { validateNonNegativeNumber } from "../../../utils/validation";
 export const LABEL_DATE_PICKER = "Gift Exchange date";
 export const INPUT_ID_DATE_PICKER = "input-gift-exchange-date";
-
-export const validateNonNegativeNumber = (value: string): boolean => {
-  return /^\d*$/.test(value);
-};
-
-export const INVALID_NUMBER_KEYS = ["-", "+", "e", "E", ".", ","];
-
-export const blockInvalidNumberKeys = (
-  e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>,
-) => {
-  if (INVALID_NUMBER_KEYS.includes(e.key)) e.preventDefault();
-};
 
 const requiredFields: (keyof FormData)[] = [
   ...Object.values(InputNames),

@@ -15,6 +15,7 @@ const Input = ({
   maxLength = 40,
   withoutCounter = false,
   withSuffix = false,
+  withPrefix = false,
   multiline = false,
   ...restProps
 }: InputProps) => {
@@ -71,6 +72,10 @@ const Input = ({
 
         {withSuffix ? (
           <div className={styles.inputWrapper__suffix}>UAH</div>
+        ) : null}
+
+        {withPrefix ? (
+          <div className={styles.inputWrapper__prefix}>+380</div>
         ) : null}
       </div>
 
