@@ -1,15 +1,25 @@
 ﻿using System.Linq.Expressions;
+using AutoMapper;
 using CSharpFunctionalExtensions;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
+using Epam.ItMarathon.ApiService.Infrastructure.Database;
+using Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room;
 
 namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
 {
-    public class RoomRepository : IRoomRepository
+    internal class RoomRepository(AppDbContext context, IMapper mapper) : IRoomRepository
     {
-        public Task<Result<Room>> AddAsync(Room Item)
+
+        public async Task<Result<Room>> AddAsync(Room Item)
         {
-            throw new NotImplementedException();
+            var adminAuthCode = Item.Users.Where(user => user.IsAdmin).First().AuthCode;
+            var roomEf = mapper.Map<RoomEf>(Item);
+            var adminEf = roomEf.Users.Where(user => user.AuthCode == adminAuthCode).First();
+            adminEf.Room = roomEf;
+            adminEf.IsAdminForRoom = roomEf;
+            await context.Rooms.AddAsync(roomEf);
+            return mapper.Map<Room>(roomEf);
         }
 
         public Task AddManyAsync(IEnumerable<Room> Items)

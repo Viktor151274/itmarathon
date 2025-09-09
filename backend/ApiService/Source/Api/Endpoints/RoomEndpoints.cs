@@ -1,6 +1,8 @@
-﻿using Epam.ItMarathon.ApiService.Api.Dto.Requests.RoomRequests;
+﻿using AutoMapper;
+using Epam.ItMarathon.ApiService.Api.Dto.Requests.RoomRequests;
 using Epam.ItMarathon.ApiService.Api.Endpoints.Extension.SwaggerTagExtension;
 using Epam.ItMarathon.ApiService.Api.Filters.Validation;
+using MediatR;
 
 namespace Epam.ItMarathon.ApiService.Api.Endpoints
 {
@@ -24,8 +26,10 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             return app;
         }
 
-        public static Task<IResult> CreateRoomRequest([Validate] RoomCreationRequest request)
+        public static Task<IResult> CreateRoomRequest([Validate] RoomCreationRequest request, IMediator mediator, IMapper mapper)
         {
+            // TODO implement mapping, dataflow and result handling. 
+            //var result = mediator.Send(new CreateRoomCommand()).Result;
             return Task.FromResult(Results.Ok("Seems fine."));
         }
     }

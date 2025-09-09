@@ -72,17 +72,17 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             return this;
         }
 
-        public RoomBuilder AddUser(Func<UserBuilder, UserBuilder> configure)
+        public RoomBuilder AddUser(Func<UserBuilder, UserBuilder> userBuilderConfiguration)
         {
             var userBuilder = new UserBuilder();
-            var user = configure(userBuilder).Build();
+            var user = userBuilderConfiguration(userBuilder).Build();
             _users.Add(user);
             return this;
         }
-        public RoomBuilder InitialAddUser(Func<UserBuilder, UserBuilder> configure)
+        public RoomBuilder InitialAddUser(Func<UserBuilder, UserBuilder> userBuilderConfiguration)
         {
             var userBuilder = new UserBuilder();
-            var user = configure(userBuilder).InitialBuild();
+            var user = userBuilderConfiguration(userBuilder).InitialBuild();
             _users.Add(user);
             return this;
         }

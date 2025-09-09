@@ -9,7 +9,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
 {
     public class CreateRoomHandler(IBaseRepository<Room> roomRepository) : IRequestHandler<CreateRoomCommand, Result<Room>>
     {
-        public Task<Result<Room>> Handle(CreateRoomCommand request, CancellationToken cancellationToken)
+        public async Task<Result<Room>> Handle(CreateRoomCommand request, CancellationToken cancellationToken)
         {
             var adminRequest = request.Admin;
             var roomRequest = request.Room;
@@ -20,8 +20,8 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
                 .WithInvitationCode(roomRequest.InvitationNote)
                 .WithGiftMaximumBudget(roomRequest.GiftMaximumBudget)
                 .WithInvitationCode(Guid.NewGuid().ToString())
-                .InitialAddUser(configure =>
-                configure.WithAuthCode(Guid.NewGuid().ToString())
+                .InitialAddUser(userBuilder =>
+                userBuilder.WithAuthCode(Guid.NewGuid().ToString())
                 .WithIsAdmin(true)
                 .WithFirstName(adminRequest.FirstName)
                 .WithLastName(adminRequest.LastName)
@@ -34,11 +34,9 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
                 .InitialBuild();
             if (room.IsFailure)
             { 
-                return Task.FromResult(room); 
+                return room; 
             }
-            // TODO Room creation in the Repository.
-            // TODO API Mapping & Response.
-            throw new NotImplementedException();
+            return await roomRepository.AddAsync(room.Value);
         }
     }
 }
