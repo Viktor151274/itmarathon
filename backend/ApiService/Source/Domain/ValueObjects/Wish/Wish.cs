@@ -7,7 +7,7 @@ namespace Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish
         internal const int NameCharLimit = 40;
         public required string Name { get; init; }
         public required string InfoLink { get; init; }
-        private Wish() { }
+        public Wish() { }
         public static Wish Create(string name, string infoLink)
         {
             return new Wish() { Name = name, InfoLink = infoLink };

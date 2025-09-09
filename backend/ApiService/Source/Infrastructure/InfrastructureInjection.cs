@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using Epam.ItMarathon.ApiService.Infrastructure.Database;
+using Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,16 @@ namespace Epam.ItMarathon.ApiService.Infrastructure
         {
             services.AddDbContext<AppDbContext>(opts => 
             opts.UseNpgsql(configuration.GetConnectionString("DbConnectionString")));
+            ConfigureMapper(services, configuration);
+        }
+
+        private static void ConfigureMapper(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAutoMapper(config => {
+                config.AddProfile(new GiftMappingProfile());
+                config.AddProfile(new UserMappingProfile());
+                config.AddProfile(new RoomMappingProfile());
+            });
         }
     }
 }

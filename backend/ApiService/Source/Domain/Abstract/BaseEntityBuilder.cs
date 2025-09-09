@@ -6,9 +6,9 @@
     /// <typeparam name="TFactory">Factory type for fluent chaining.</typeparam>
     public abstract class BaseEntityBuilder<TFactory> where TFactory : BaseEntityBuilder<TFactory>
     {
-        private ulong _id;
-        private DateTime _createdOn;
-        private DateTime _updatedOn;
+        protected ulong _id;
+        protected DateTime _createdOn;
+        protected DateTime _modifiedOn;
         /// <summary>
         /// (USED ONLY BY MAPPERS) Set an Id for entity.
         /// </summary>
@@ -36,7 +36,7 @@
         /// <returns>Ref to current factory</returns>
         public TFactory WithModifiedOn(DateTime updatedOn)
         {
-            _updatedOn = updatedOn;
+            _modifiedOn = updatedOn;
             return (TFactory)this;
         }
     }

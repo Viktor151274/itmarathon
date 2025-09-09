@@ -88,14 +88,17 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         }
         public Result<Room> Build()
         {
-            // TODO: Implement Builder w validation
-            throw new NotImplementedException();
+            return Room.Create(_id, _createdOn, _modifiedOn,
+            _closedOn, _invitationCode, _name, _description,
+            _invitationNote, _giftExchangeDate, _giftMaximumBudget, _users,
+            _minUsersLimit, _maxUsersLimit, _maxWishesLimit);
         }
 
         public Result<Room> InitialBuild()
         {
-            // TODO: Implement initial Builder w validation
-            throw new NotImplementedException();
+            return Room.InitialCreate(_closedOn, _invitationCode, _name, _description,
+            _invitationNote, _giftExchangeDate, _giftMaximumBudget, _users,
+            _minUsersLimit, _maxUsersLimit, _maxWishesLimit);
         }
     }
 }

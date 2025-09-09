@@ -76,24 +76,30 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         }
         public UserBuilder WithChosenGift(string name, string link)
         {
-            _gift = Wish.Create(name, link);
+            _gift = new Wish()
+            {
+                Name = name,
+                InfoLink = link
+            };
             return this;
         }
         public UserBuilder WithWishes(Dictionary<string, string> wishesDictionary)
         {
-            _wishes = wishesDictionary.Select(pair => Wish.Create(pair.Key, pair.Value));
+            _wishes = wishesDictionary.Select(pair => new Wish() 
+            { Name = pair.Key, InfoLink = pair.Value });
             return this;
         }
         internal User Build()
         {
-            // TODO: Implement Builder
-            throw new NotImplementedException();
+            return User.Create(_id, _createdOn, _modifiedOn,
+                _roomId, _authCode, _firstName, _lastName, _phone, _email,
+                _deliveryInfo, _giftToUserId, _gift, _wantSurprise, _interests, _isAdmin, _wishes);
         }
-
         internal User InitialBuild()
         {
-            // TODO: Implement Initial Builder
-            throw new NotImplementedException();
+            return User.InitialCreate(_roomId, _authCode, _firstName, _lastName, _phone, _email, _deliveryInfo,
+                _wantSurprise, _interests, _isAdmin, _wishes
+                );
         }
     }
 }

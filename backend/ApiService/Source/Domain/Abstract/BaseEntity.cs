@@ -12,7 +12,7 @@
         /// <summary>
         /// Date when the entity was created.
         /// </summary>
-        public DateTime CreatedOn { get; init; }
+        public DateTime CreatedOn { get; protected set; }
         /// <summary>
         /// Date when the entity was modified last time. Same time as CreatedOn when entity created.
         /// </summary>

@@ -23,11 +23,13 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
         public bool IsAdmin { get; private set; }
         public IEnumerable<Wish> Wishes { get; set; }
         private User() { }
-        internal static User InitialCreate(ulong? roomId, string firstName, string lastName, string phone, string? email,
-            string deliveryInfo, bool wantSurprise, string? interests, IEnumerable<Wish> wishes)
+        internal static User InitialCreate(ulong? roomId, string authCode,
+            string firstName, string lastName, string phone, string? email,
+            string deliveryInfo, bool wantSurprise, string? interests, bool isAdmin, IEnumerable<Wish> wishes)
         {
             var user = new User() {
                 RoomId = roomId,
+                AuthCode = authCode,
                 FirstName = firstName,
                 LastName = lastName,
                 Phone = phone,
@@ -35,16 +37,24 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
                 DeliveryInfo = deliveryInfo,
                 WantSurprise = wantSurprise,
                 Interests = interests,
+                IsAdmin = isAdmin,
                 Wishes = wishes
             };
             return user;
         }
-        internal static User Create(ulong id, ulong? roomId, string firstName, string lastName, string phone, string? email,
-            string deliveryInfo, bool wantSurprise, string? interests, IEnumerable<Wish> wishes)
+        internal static User Create(ulong id, DateTime createdOn, DateTime modifiedOn,
+            ulong? roomId, string authCode,
+            string firstName, string lastName, string phone, string? email,
+            string deliveryInfo, ulong? giftToUserId, Wish? gift, bool wantSurprise, string? interests,
+            bool isAdmin, IEnumerable<Wish> wishes)
         {
-            var user = InitialCreate(roomId, firstName, lastName, phone, email, deliveryInfo, wantSurprise, interests, wishes);
+            var user = InitialCreate(roomId, authCode, firstName, lastName, phone, email, deliveryInfo,
+                wantSurprise, interests, isAdmin, wishes);
             user.Id = id;
-            user.ModifiedOn = DateTime.UtcNow;
+            user.ModifiedOn = modifiedOn;
+            user.CreatedOn = createdOn;
+            user.GiftToUserId = giftToUserId;
+            user.Gift = gift;
             return user;
         }
         public void PromoteToAdmin()
