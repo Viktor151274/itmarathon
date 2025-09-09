@@ -1,0 +1,24 @@
+<div class="gift-idea">
+  <div class="gift-idea__cell">
+    <app-input
+      class="form__input-control"
+      [label]="wishLabel"
+      [control]="wishControl()"
+      [placeholder]="wishPlaceholder"
+      [isRequiredField]="true"
+      [maxLength]="wishMaxLength()"
+      appCharCounter
+      [positionY]="y"
+    />
+  </div>
+
+  <div class="gift-idea__cell">
+    <app-input
+      class="form__input-control"
+      [label]="linkLabel"
+      [control]="linkControl()"
+      [placeholder]="linkPlaceholder"
+      [isRequiredField]="false"
+    />
+  </div>
+</div>

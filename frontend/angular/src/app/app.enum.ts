@@ -73,6 +73,8 @@ export const enum BaseLabel {
   PhoneNumber = 'Phone number',
   RoomName = 'Room name',
   Budget = 'Gift budget',
+  GiftIdeaLink = 'Add link',
+  GiftIdeaWish = 'I wish for',
 }
 
 export const enum RadioButtonLabel {
@@ -107,6 +109,8 @@ export const enum InputPlaceholder {
   PhoneNumber = '777777777',
   Budget = 'Type in your budget',
   EnterName = 'Enter your room name',
+  WishPlaceholder = 'Enter your wish name',
+  LinkPlaceholder = 'E.g. https://example.com/item',
 }
 
 export const enum TextareaPlaceholder {
