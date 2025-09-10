@@ -1,3 +1,5 @@
+@use "./variables";
+
 %button-l {
   font-weight: 700;
   font-size: 22px;
@@ -62,4 +64,5 @@
   display: flex;
   flex-grow: 1;
   margin-top: 68px;
+  background: variables.$general-background;
 }

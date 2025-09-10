@@ -1,0 +1,5 @@
+@use "../../assets/styles/extends";
+
+.create-room-page {
+  @extend %main-element;
+}

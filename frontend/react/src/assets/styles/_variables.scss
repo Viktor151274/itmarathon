@@ -28,3 +28,11 @@ $shadow-message:
   0px 6px 16px 0px $black-opacity-08,
   0px 3px 6px -4px $black-opacity-12,
   0px 9px 28px 8px $black-opacity-05;
+
+// backgrounds
+$general-background:
+  url("../images/backgrounds/general-background-sprite.svg#snowflake-1")
+    right -34px top 0px / 256px 228px no-repeat,
+  url("../images/backgrounds/general-background-sprite.svg#snowflake-2")
+    left -48px bottom -57px / 354px 316px no-repeat,
+  colors.$bg-blue no-repeat;
