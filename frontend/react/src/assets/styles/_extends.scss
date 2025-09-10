@@ -57,3 +57,9 @@
   font-weight: 500;
   line-height: 1.5;
 }
+
+%main-element {
+  display: flex;
+  flex-grow: 1;
+  margin-top: 68px;
+}

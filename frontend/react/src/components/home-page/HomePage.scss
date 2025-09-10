@@ -8,11 +8,8 @@ $description-color: colors.$g-800;
 $sprite-path: "../../assets/images/backgrounds/homepage-sprite.svg";
 
 .home-page {
-  display: flex;
-  flex-grow: 1;
-
+  @extend %main-element;
   width: 100%;
-  margin-top: 68px;
   overflow: hidden;
 
   background:
