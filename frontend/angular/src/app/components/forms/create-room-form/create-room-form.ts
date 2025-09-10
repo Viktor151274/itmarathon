@@ -16,11 +16,12 @@ import {
 } from '../../../app.enum';
 import { ParentForm } from '../../../core/directives/parent-form';
 import { BudgetInput } from '../../../shared/components/budget-input/budget-input';
+import { CharCounter } from '../../../core/directives/char-counter';
 import type { CreateRoomFormType } from '../../../app.models';
 
 @Component({
   selector: 'app-create-room-form',
-  imports: [FormLayout, Input, Textarea, DatePicker, BudgetInput],
+  imports: [FormLayout, Input, Textarea, DatePicker, BudgetInput, CharCounter],
   templateUrl: './create-room-form.html',
   styleUrl: './create-room-form.scss',
 })
@@ -60,6 +61,8 @@ export class CreateRoomForm extends ParentForm implements OnInit {
   public readonly exchangeDatePlaceholder = InputPlaceholder.Date;
   public readonly giftBudgetPlaceholder = InputPlaceholder.Budget;
   public readonly roomDescriptionPlaceholder = TextareaPlaceholder.EnterMessage;
+
+  public readonly textareaMaxLength = 200;
 
   #initCreateRoomForm(): FormGroup<CreateRoomFormType> {
     return this.formBuilder.group({

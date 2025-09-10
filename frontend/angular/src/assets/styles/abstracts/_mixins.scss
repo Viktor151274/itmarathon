@@ -167,3 +167,18 @@
     url('/assets/images/snowflake-light.svg') left 0px bottom 0px no-repeat,
     $page-bg no-repeat;
 }
+
+@mixin base-form-styles {
+  &__input-control {
+    margin-bottom: 20px;
+  }
+
+  &__input-group {
+    display: flex;
+    gap: 20px;
+
+    .form__input-control {
+      flex: 0 1 50%;
+    }
+  }
+}

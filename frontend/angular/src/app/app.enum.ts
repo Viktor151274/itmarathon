@@ -69,12 +69,14 @@ export const enum RadioButtonValue {
 
 export const enum BaseLabel {
   FirstName = 'First name',
+  LastName = 'Last name',
   ExchangeDate = 'Gift Exchange date',
   PhoneNumber = 'Phone number',
   RoomName = 'Room name',
   Budget = 'Gift budget',
   GiftIdeaLink = 'Add link',
   GiftIdeaWish = 'I wish for',
+  Email = 'Email',
 }
 
 export const enum RadioButtonLabel {
@@ -84,6 +86,7 @@ export const enum RadioButtonLabel {
 
 export const enum TextareaLabel {
   RoomDescription = 'Room description',
+  DeliveryAddress = 'Your delivery address (no North Pole required!)',
 }
 
 export const enum CaptionMessage {
@@ -111,10 +114,14 @@ export const enum InputPlaceholder {
   EnterName = 'Enter your room name',
   WishPlaceholder = 'Enter your wish name',
   LinkPlaceholder = 'E.g. https://example.com/item',
+  FirstName = 'e.g. Nickolas',
+  LastName = 'e.g. Secret',
+  Email = 'nickolas@example.com',
 }
 
 export const enum TextareaPlaceholder {
   EnterMessage = 'Enter your message here...',
+  DeliveryAddress = 'Where should St. Nick deliver your gift?',
 }
 
 export const enum ButtonText {

@@ -1,0 +1,62 @@
+<form>
+  <app-form-layout
+    [title]="formTitle"
+    [subtitle]="formSubtitle"
+    [formPictureName]="formPictureName"
+    [isFormValid]="form.valid"
+  >
+    <fieldset>
+      <fieldset class="form__input-group">
+        <app-input
+          appCharCounter
+          [positionY]="inputCharCounterPositionY"
+          class="form__input-control"
+          [label]="firstName"
+          [control]="firstNameControl"
+          [placeholder]="firstNamePlaceholder"
+          [isRequiredField]="true"
+          [maxLength]="inputMaxLength"
+        />
+
+        <app-input
+          appCharCounter
+          [positionY]="inputCharCounterPositionY"
+          class="form__input-control"
+          [label]="lastName"
+          [control]="lastNameControl"
+          [placeholder]="lastNamePlaceholder"
+          [isRequiredField]="true"
+          [maxLength]="inputMaxLength"
+        />
+      </fieldset>
+
+      <fieldset class="form__input-group">
+        <app-phone-input
+          class="form__input-control"
+          [label]="phoneNumber"
+          [control]="phoneNumberControl"
+          [placeholder]="phoneNumberPlaceholder"
+          [isRequired]="true"
+        />
+
+        <app-input
+          class="form__input-control"
+          [label]="email"
+          [control]="emailControl"
+          [placeholder]="emailPlaceholder"
+          [type]="inputTypeEmail"
+        />
+      </fieldset>
+
+      <app-textarea
+        appCharCounter
+        class="form__input-control"
+        [label]="deliveryAddress"
+        [control]="deliveryAddressControl"
+        [placeholder]="deliveryAddressPlaceholder"
+        [isRequiredField]="true"
+        [maxLength]="textareaMaxLength"
+      />
+    </fieldset>
+  </app-form-layout>
+</form>

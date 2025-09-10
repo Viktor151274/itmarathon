@@ -5,10 +5,11 @@ import { CreateRoomForm } from '../components/forms/create-room-form/create-room
 import { StepperManager } from '../core/services/stepper-manager';
 import { STEPPER_LABELS_TOKEN } from '../core/services/tokens/stepper-labels.token';
 import { CREATE_ROOM_STEPPER_LABELS } from '../app.constants';
+import { AddYourDetailsForm } from '../components/forms/add-your-details-form/add-your-details-form';
 
 @Component({
   selector: 'app-create-room',
-  imports: [Stepper, CreateRoomForm],
+  imports: [Stepper, CreateRoomForm, AddYourDetailsForm],
   templateUrl: './create-room.html',
   styleUrl: './create-room.scss',
   providers: [

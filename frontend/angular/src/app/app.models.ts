@@ -41,3 +41,11 @@ export interface CreateRoomFormType {
   exchangeDate: FormControl<string>;
   giftBudget: FormControl<string>;
 }
+
+export interface AddYourDetailsFormType {
+  firstName: FormControl<string>;
+  lastName: FormControl<string>;
+  phoneNumber: FormControl<string>;
+  email: FormControl<string>;
+  deliveryAddress: FormControl<string>;
+}
