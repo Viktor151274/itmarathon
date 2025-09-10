@@ -1,0 +1,55 @@
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
+@use 'colors/color-matrix' as *;
+@use 'base/typography' as *;
+
+:host {
+  display: grid;
+  grid-template-columns: 1fr auto;
+
+  &.copy-link {
+    $copy-link: &;
+
+    #{$copy-link}__caption {
+      color: $copy-link-color-dark;
+    }
+
+    #{$copy-link}__input-like {
+      border-color: $copy-link-border-color-dark;
+      background-color: $copy-link-bg-dark;
+    }
+
+    &--light {
+      #{$copy-link}__caption {
+        color: $copy-link-color-light;
+      }
+
+      #{$copy-link}__input-like {
+        border-color: $copy-link-border-color-light;
+        background-color: $copy-link-bg-light;
+      }
+    }
+  }
+}
+
+.copy-link {
+  &__input-like {
+    @include input-base($input-height);
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: $line-height-lg;
+    border-color: $input-color-border-type;
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__caption {
+    padding-top: 2px;
+    font-size: 12px;
+    font-weight: 400;
+  }
+}

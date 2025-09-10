@@ -1,0 +1,14 @@
+<p class="copy-link__input-like">
+  {{ link() }}
+</p>
+
+<app-icon-button
+  [class.button--white]="type() === 'light'"
+  [iconName]="copyIcon"
+  [ariaLabel]="ariaCopyButton"
+  (click)="onClick($event)"
+/>
+
+@if (caption()) {
+  <p class="copy-link__caption">{{ caption() }}</p>
+}

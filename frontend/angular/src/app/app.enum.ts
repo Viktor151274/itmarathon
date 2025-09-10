@@ -90,7 +90,8 @@ export const enum TextareaLabel {
 }
 
 export const enum CaptionMessage {
-  DefaultMessage = '',
+  EmptyMessage = '',
+  DontShare = 'Do not share this link with other users',
 }
 
 export enum ErrorMessage {
@@ -167,4 +168,14 @@ export const enum ItemPosition {
   Center = 'center',
   Below = 'below',
   Right = 'right',
+}
+
+export const enum CopyMessage {
+  Success = 'Link is copied',
+  Error = 'Link is not copied. Try Again.',
+}
+
+export const enum CopyLinkType {
+  Dark = 'dark',
+  Light = 'light',
 }

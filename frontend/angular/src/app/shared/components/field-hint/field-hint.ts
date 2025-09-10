@@ -12,9 +12,7 @@ import type { FieldHintMessage } from '../../../app.models';
 })
 export class FieldHint {
   readonly control = input.required<FormControl>();
-  readonly captionMessage = input<CaptionMessage>(
-    CaptionMessage.DefaultMessage
-  );
+  readonly captionMessage = input<CaptionMessage>(CaptionMessage.EmptyMessage);
 
   public readonly hintMessage = computed(() => this.#getHintMessage());
   public readonly hasError = computed(() =>

@@ -36,6 +36,7 @@
   box-shadow: $shadow-message;
   border-radius: 8px;
   background-color: $message-bg;
+  text-wrap: nowrap;
 
   &--toaster {
     gap: 12px;
