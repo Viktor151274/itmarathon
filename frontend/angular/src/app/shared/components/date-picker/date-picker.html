@@ -1,0 +1,10 @@
+<app-label [label]="label()" [isRequiredField]="isRequiredField()">
+  <nz-date-picker
+    [formControl]="control()"
+    [class.filled]="!!control().value"
+    [nzPlaceHolder]="placeholder()"
+    [nzDisabledDate]="disabledDate()"
+    nzAllowClear="false"
+    nzFormat="MM-dd-yyyy"
+  />
+</app-label>

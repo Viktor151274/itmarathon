@@ -1,0 +1,186 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/variables";
+@use "../../../assets/styles/extends" as *;
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: variables.$shadow-button;
+
+  &[class*="--icon-"]::before {
+    content: "";
+    display: inline-block;
+    flex-shrink: 0;
+    mask: var(--icon-url);
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    background-color: currentColor;
+  }
+
+  &--icon {
+    &-back-arrow {
+      --icon-url: url("../../../assets/images/form-wrapper-icons/back-arrow.svg");
+    }
+  }
+
+  &:focus-visible {
+    border: 2px solid colors.$orange-500;
+  }
+
+  &:disabled {
+    cursor: default;
+    color: colors.$g-600;
+  }
+
+  &--primary {
+    background-color: colors.$green-700;
+    color: colors.$g-100;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+      background-color: colors.$green-500;
+    }
+
+    &:active:not(:disabled) {
+      background-color: colors.$green-900;
+    }
+
+    &:disabled {
+      background-color: colors.$g-200;
+    }
+
+    &::before {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &--secondary {
+    color: colors.$green-700;
+    background-color: colors.$g-50;
+    border: 2px solid colors.$green-700;
+
+    &:hover:not(:disabled) {
+      color: colors.$green-500;
+      border: 2px solid colors.$green-500;
+    }
+
+    &:focus-visible {
+      color: colors.$green-500;
+    }
+
+    &:active:not(:disabled) {
+      color: colors.$green-900;
+      border: 2px solid colors.$green-900;
+    }
+
+    &:disabled {
+      border: 2px solid colors.$g-500;
+    }
+
+    &::before {
+      width: 24px;
+      height: 24px;
+    }
+
+    &-small {
+      color: colors.$green-500;
+      border: 2px solid colors.$green-500;
+
+      &:hover:not(:disabled) {
+        color: colors.$green-400;
+        border: 2px solid colors.$green-400;
+      }
+
+      &:focus-visible {
+        color: colors.$green-400;
+      }
+
+      &:active:not(:disabled) {
+        color: colors.$green-700;
+        border: 2px solid colors.$green-700;
+      }
+    }
+  }
+
+  &--tertiary {
+    color: colors.$green-500;
+    border: 2px dashed colors.$green-500;
+    background-color: colors.$g-50;
+
+    &:hover:not(:disabled) {
+      color: colors.$green-400;
+      border: 2px dashed colors.$green-400;
+    }
+
+    &:focus-visible {
+      color: colors.$green-400;
+    }
+
+    &:active:not(:disabled) {
+      color: colors.$green-700;
+      border: 2px dashed colors.$green-700;
+    }
+
+    &:disabled {
+      border: 2px dashed colors.$g-500;
+    }
+  }
+
+  &--text {
+    color: colors.$green-700;
+    box-shadow: none;
+
+    &:hover:not(:disabled),
+    &:focus-visible {
+      color: colors.$green-500;
+    }
+
+    &:focus-visible {
+      box-shadow: variables.$shadow-button;
+    }
+
+    &:active:not(:disabled) {
+      color: colors.$green-700;
+    }
+
+    &::before {
+      width: 20px;
+      height: 20px;
+    }
+
+    &.button--medium {
+      border-radius: 16px;
+    }
+  }
+
+  &--large {
+    @extend %button-l;
+    padding: 16px 48px;
+    height: 64px;
+    border-radius: 32px;
+  }
+
+  &--medium {
+    @extend %button-m;
+    padding: 12px 32px;
+    height: 48px;
+    border-radius: 24px;
+  }
+
+  &--small {
+    @extend %button-s;
+    padding: 6px 32px;
+    height: 32px;
+    border-radius: 16px;
+
+    &::before {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

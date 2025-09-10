@@ -1,0 +1,84 @@
+@use "../../../../react/src/assets/styles/colors";
+@use "../../../../react/src/assets/styles/extends";
+@use "../../../../react/src/assets/styles/variables";
+
+$font-family: variables.$global-font-family;
+
+.stepper {
+  @extend %label;
+  display: flex;
+  width: 626px;
+  gap: 12px;
+  align-items: center;
+  font-family: $font-family;
+
+  &__icon {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: colors.$g-200;
+    color: colors.$g-500;
+  }
+
+  &__text {
+    color: colors.$g-500;
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      margin-left: 8px;
+      background-color: colors.$g-300;
+    }
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 12px;
+
+    &:last-child {
+      flex: 0 0 auto;
+
+      .stepper__text::after {
+        display: none;
+      }
+    }
+
+    &--current {
+      .stepper__icon {
+        background-color: colors.$green-500;
+        color: colors.$g-100;
+      }
+
+      .stepper__text {
+        color: colors.$g-800;
+      }
+    }
+
+    &--completed {
+      .stepper__icon {
+        width: 12px;
+        height: 12px;
+        padding: 6px;
+        background-color: colors.$green-200;
+      }
+
+      .stepper__text {
+        color: colors.$g-800;
+
+        &::after {
+          background-color: colors.$green-500;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+@use '../colors/color-matrix' as *;
+
+$shadow:
+  22px 19px 8px 0px rgba($base-shadow-color, 0),
+  14px 12px 7px 0px rgba($base-shadow-color, 0.01),
+  8px 7px 6px 0px rgba($base-shadow-color, 0.03),
+  3px 3px 5px 0px rgba($base-shadow-color, 0.04),
+  1px 1px 3px 0px rgba($base-shadow-color, 0.05);
+
+$shadow-message:
+  0px 6px 16px 0px rgba($base-shadow-color, 0.08),
+  0px 3px 6px -4px rgba($base-shadow-color, 0.12),
+  0px 9px 28px 8px rgba($base-shadow-color, 0.05);
+
+$header-shadow: $shadow;
+$form-shadow: $shadow;
+
+$images-sprite-path: '/assets/images/images-sprite.svg';
+$images-bg-sprite-path: '/assets/images/images-background-sprite.svg';
+
+$header-height: 68px;
+$footer-height: 60px !default;
+
+$input-height: 40px;
+$input-radius: 6px;
+$input-border-width: 1px;
+
+$textarea-height: 40px;

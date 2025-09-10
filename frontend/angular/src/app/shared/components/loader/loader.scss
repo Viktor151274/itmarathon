@@ -1,0 +1,42 @@
+@use 'colors/color-matrix' as *;
+@use 'abstracts/mixins' as *;
+@use 'colors/color-palette' as *;
+
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: $overlay-bg;
+  z-index: 101;
+  display: grid;
+  place-items: center;
+  pointer-events: auto;
+}
+
+.loader-wrap {
+  display: grid;
+  place-items: center;
+}
+
+.loader {
+  width: 166px;
+  height: 20px;
+  background: repeating-linear-gradient(
+      -45deg,
+      $green-700 0 25px,
+      $transparent 25px 30px,
+      $red-500 30px 55px,
+      $transparent 55px 60px
+    )
+    left/200% 100%;
+  animation: loader-animation 2s infinite linear;
+}
+
+@keyframes loader-animation {
+  100% {
+    background-position: right;
+  }
+}
+
+.sr-only {
+  @include visually-hidden;
+}

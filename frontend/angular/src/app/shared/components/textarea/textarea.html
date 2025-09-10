@@ -1,0 +1,12 @@
+<app-label [label]="label()" [isRequiredField]="isRequiredField()">
+  <textarea
+    #textarea
+    class="textarea__field"
+    [formControl]="control()"
+    [placeholder]="placeholder()"
+    [class.filled]="!!control().value"
+    [attr.aria-invalid]="control().invalid ? true : null"
+    [attr.maxlength]="maxLength() ?? null"
+    (input)="onInput()"
+  ></textarea>
+</app-label>

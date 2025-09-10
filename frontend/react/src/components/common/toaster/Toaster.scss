@@ -1,0 +1,26 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/variables";
+@use "../../../assets/styles/extends";
+
+.toaster {
+  position: absolute;
+  top: -54px;
+  right: -8px;
+
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+
+  width: max-content;
+  height: 40px;
+  padding: 10px 12px;
+  border-radius: 8px;
+
+  background-color: colors.$g-50;
+  box-shadow: variables.$shadow-message;
+
+  &__text {
+    @extend %label;
+    color: colors.$g-800;
+  }
+}

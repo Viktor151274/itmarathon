@@ -1,0 +1,32 @@
+@use 'colors/color-matrix' as *;
+@use 'abstracts/mixins' as *;
+
+.label {
+  &__star {
+    font-size: 14px;
+    color: $label-star-color;
+  }
+
+  &__text {
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  &--radio {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 16px;
+    margin-bottom: 0;
+    cursor: pointer;
+
+    .label__text {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.visually-hidden {
+  @include visually-hidden;
+}

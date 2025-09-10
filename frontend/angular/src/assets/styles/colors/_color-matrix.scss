@@ -1,0 +1,226 @@
+@use 'colors/color-palette' as *;
+
+$base-font-color: $g-800;
+$base-heading-color: $g-950;
+
+$base-shadow-color: $black;
+
+$icon-button-bg--primary: $green-500;
+$icon-button-bg--primary-hover: $green-400;
+$icon-button-bg--primary-active: $green-700;
+
+$icon-button-bg--secondary: $g-100;
+$icon-button-bg--secondary-hover: $g-50;
+$icon-button-bg--secondary-active: $g-100;
+
+$icon-button-bg--disabled: $g-600;
+
+$icon-button-outline: $orange-500;
+
+$btn-color-matrix: (
+  primary: (
+    default: (
+      bg: $green-700,
+      text: $g-50,
+      border: $green-700,
+    ),
+    hover: (
+      bg: $green-500,
+      text: $g-50,
+      border: $green-500,
+    ),
+    active: (
+      bg: $green-900,
+      text: $g-50,
+      border: $green-900,
+    ),
+    focus: (
+      border: $orange-500,
+    ),
+    disabled: (
+      bg: $g-200,
+      text: $g-600,
+      border: $g-200,
+    ),
+  ),
+  secondary: (
+    default: (
+      bg: $g-50,
+      text: $green-700,
+      border: $green-700,
+    ),
+    hover: (
+      bg: $g-50,
+      text: $green-500,
+      border: $green-500,
+    ),
+    active: (
+      bg: $g-50,
+      text: $green-900,
+      border: $green-900,
+    ),
+    focus: (
+      border: $orange-500,
+    ),
+    disabled: (
+      bg: $g-50,
+      text: $g-600,
+      border: $green-500,
+    ),
+  ),
+  warning: (
+    default: (
+      bg: $red-500,
+      text: $g-50,
+      border: $red-500,
+    ),
+    hover: (
+      bg: $red-warning,
+      text: $g-50,
+      border: $red-warning,
+    ),
+    active: (
+      bg: $red-600,
+      text: $g-50,
+      border: $red-600,
+    ),
+    focus: (
+      border: $orange-500,
+    ),
+    disabled: (
+      bg: $g-200,
+      text: $g-600,
+      border: $g-200,
+    ),
+  ),
+  tertiary: (
+    default: (
+      bg: $g-50,
+      text: $green-500,
+      border: $green-500,
+      border-style: dashed,
+    ),
+    hover: (
+      bg: $g-50,
+      text: $green-400,
+      border: $green-400,
+    ),
+    active: (
+      bg: $g-50,
+      text: $green-700,
+      border: $green-700,
+    ),
+    focus: (
+      border: $orange-500,
+      border-style: solid,
+    ),
+    disabled: (
+      bg: $g-50,
+      text: $g-600,
+      border: $green-500,
+    ),
+  ),
+  text: (
+    default: (
+      bg: $g-50,
+      text: $green-700,
+      border: $g-50,
+    ),
+    hover: (
+      bg: $g-50,
+      text: $green-500,
+      border: $g-50,
+    ),
+    active: (
+      bg: $g-50,
+      text: $green-900,
+      border: $g-50,
+    ),
+    focus: (
+      border: $orange-500,
+    ),
+    disabled: (
+      bg: $g-50,
+      text: $g-600,
+      border: $g-50,
+    ),
+  ),
+) !default;
+
+$header-bg: $g-50;
+$header-border-color: $green-200;
+$header-shadow-color: $black;
+
+$page-bg: $bg-blue;
+
+$home-title-color: $g-950;
+$home-description-color: $g-800;
+
+$stepper-circle-bg: $g-200;
+$stepper-circle-bg--active: $green-500;
+$stepper-circle-bg--filled: $green-200;
+
+$stepper-circle-text-color: $g-500;
+$stepper-circle-text-color--active: $g-100;
+
+$stepper-icon-color: $green-500;
+
+$stepper-text-color: $g-500;
+$stepper-text-color--active: $g-800;
+$stepper-text-color--filled: $black;
+
+$stepper-separator-bg: $g-300;
+$stepper-separator-bg--active: $green-500;
+$stepper-separator-bg--filled: $green-500;
+$footer-bg: $green-900;
+$footer-font-color: $g-100;
+
+$radio-button-color: $g-300;
+$radio-button-color--hover: $g-500;
+$radio-button-color--checked: $green-700;
+$radio-button-color--checked-hover: $green-500;
+$radio-button-color--active: $green-900;
+$radio-button-color--disabled: $g-600;
+
+$focus-color: $orange-500;
+
+$label-star-color: $red-warning;
+
+$group-item-bg--active: $green-100;
+$group-item-border-color: $g-200;
+$group-item-border-color--active: $green-400;
+
+$message-color--caption: $g-500;
+$message-color--error: $red-warning;
+
+$message-bg: $g-50;
+
+$input-color-text: $g-950;
+$input-color-caption: $g-500;
+$input-color-placeholder: $g-400;
+$input-bg-color: $g-100;
+
+$input-color-border: $g-300;
+$input-color-border-type: $g-500;
+$input-color-border-hover: $g-400;
+$input-color-border-focus: $orange-500;
+$input-color-border-filled: $g-500;
+
+$input-color-error: $red-warning;
+
+$input-color-disabled-bg: $g-200;
+$input-color-disabled-border: $g-300;
+$input-color-disabled-text: $g-600;
+
+$form-layout-bg: $g-50;
+$form-layout-border-color: $green-200;
+
+$message-bg: $g-50;
+
+$loader-red: $red-500;
+$loader-green: $green-700;
+$loader-bg-color: $g-50;
+$overlay-bg: rgba($loader-bg-color, 0.4);
+
+$input-sidebar-bg: $green-50;
+$input-sidebar-border-color: $g-300;

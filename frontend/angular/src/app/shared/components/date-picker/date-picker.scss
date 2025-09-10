@@ -1,0 +1,58 @@
+@use 'colors/color-matrix' as *;
+@use 'abstracts/variables' as *;
+
+$date-picker-line-height: 1.4;
+
+:host {
+  display: block;
+}
+
+nz-date-picker {
+  width: 100%;
+  height: $input-height;
+  padding: 12px;
+  border: $input-border-width solid $input-color-border;
+  border-radius: $input-radius;
+  background: $input-bg-color;
+  box-shadow: none;
+
+  &:hover:not(:focus-within) {
+    border-color: $input-color-border-hover;
+  }
+
+  &:focus-within {
+    border-color: $input-color-border-focus;
+  }
+
+  &.filled {
+    border-color: $input-color-border-filled;
+  }
+
+  .ant-picker-input input {
+    color: $input-color-text;
+  }
+}
+
+::ng-deep {
+  .ant-picker .ant-picker-suffix .anticon {
+    color: $icon-button-bg--primary;
+    transition: color 0.3s;
+  }
+
+  .ant-picker:hover .ant-picker-suffix .anticon {
+    color: $icon-button-bg--primary-hover;
+  }
+
+  .ant-picker-focused .ant-picker-suffix .anticon {
+    color: $icon-button-bg--primary-active;
+  }
+
+  .ant-picker-input input {
+    line-height: $date-picker-line-height;
+    color: $input-color-text;
+
+    &::placeholder {
+      color: $input-color-placeholder;
+    }
+  }
+}

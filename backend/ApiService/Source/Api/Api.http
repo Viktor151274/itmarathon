@@ -1,0 +1,7 @@
+@Api_HostAddress = http://localhost:60962
+
+#Send a healthcheck request.
+GET {{Api_HostAddress}}/api/system/info
+Accept: application/json
+
+###

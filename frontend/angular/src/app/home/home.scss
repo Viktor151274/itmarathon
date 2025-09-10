@@ -1,0 +1,67 @@
+@use 'colors/color-matrix' as *;
+@use 'base/typography' as *;
+@use 'abstracts/variables' as *;
+
+:host {
+  width: 100%;
+  flex-grow: 1;
+  overflow: hidden;
+  display: flex;
+  font-family: $base-font-family;
+  background:
+    url('#{$images-bg-sprite-path}#snowflake') left -70px top -10% / 200px 246px
+      no-repeat,
+    url('#{$images-bg-sprite-path}#snowflake') right 522px top 20% / 102px 125px
+      no-repeat,
+    url('#{$images-bg-sprite-path}#snowflake') right -85px top 10px / 200px
+      247px no-repeat,
+    url('#{$images-bg-sprite-path}#snowflake-white') left -80px bottom -240px /
+      374px 424px no-repeat,
+    url('#{$images-bg-sprite-path}#firework') left 371px top 10% / 140px 140px
+      no-repeat,
+    url('#{$images-bg-sprite-path}#firework') left 490px top 88% / 114px 114px
+      no-repeat,
+    url('#{$images-bg-sprite-path}#firework') right 314px top 60% / 70px 70px
+      no-repeat,
+    url('#{$images-bg-sprite-path}#have-fun') left 130px top 25% / 174px 70px
+      no-repeat,
+    url('#{$images-bg-sprite-path}#share-wishes') left 160px top 70% / 213px
+      70px no-repeat,
+    url('#{$images-bg-sprite-path}#match-people') right 187px top 22% / 215px
+      70px no-repeat,
+    url('#{$images-bg-sprite-path}#give-presents') right 197px top 73% / 216px
+      70px no-repeat,
+    url('#{$images-bg-sprite-path}#present') right 109px top 40% / 86px 86px
+      no-repeat,
+    url('#{$images-bg-sprite-path}#presents') left 80px top 50% / 96px 96px
+      no-repeat,
+    url('#{$images-bg-sprite-path}#snowglobe') right 446px top 95% / 100px 100px
+      no-repeat,
+    $page-bg;
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 640px;
+  width: 100%;
+  max-height: 344px;
+  margin: auto;
+
+  &__title {
+    margin-bottom: 8px;
+    color: $home-title-color;
+    text-align: center;
+  }
+
+  &__description {
+    font-size: $text-lg;
+    color: $home-description-color;
+
+    &:last-of-type {
+      margin-bottom: 40px;
+    }
+  }
+}

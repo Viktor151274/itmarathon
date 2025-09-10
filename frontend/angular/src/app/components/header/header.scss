@@ -1,0 +1,25 @@
+@use 'colors/color-matrix' as *;
+@use 'abstracts/variables' as *;
+
+:host {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  height: 68px;
+  width: 100%;
+  padding: 20px 120px;
+  background-color: $header-bg;
+  border-bottom: 1px solid $header-border-color;
+  box-shadow: $header-shadow;
+}
+
+.header {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header__logo {
+  width: 187px;
+  height: 28px;
+}

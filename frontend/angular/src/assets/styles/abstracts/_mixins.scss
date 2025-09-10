@@ -1,0 +1,169 @@
+@use 'base/typography' as typography;
+@use 'colors/color-matrix' as *;
+@use 'abstracts/variables' as *;
+
+@mixin button-typography($size: m) {
+  @if $size == s {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: typography.$line-height-xl;
+  } @else if $size == m {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: typography.$line-height-xl;
+  } @else if $size == l {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: typography.$line-height-lg;
+  }
+}
+
+@mixin btn-disabled($bg, $color, $border) {
+  background: $bg;
+  color: $color;
+  border-color: $border;
+  cursor: not-allowed;
+}
+
+@function cm($variant, $state, $prop) {
+  @return map-get(map-get(map-get($btn-color-matrix, $variant), $state), $prop);
+}
+
+@mixin button-variant($variant) {
+  background: cm($variant, default, bg);
+  color: cm($variant, default, text);
+  border-color: cm($variant, default, border);
+  $base-style: cm($variant, default, border-style);
+  @if $base-style {
+    border-style: $base-style;
+  }
+
+  &:hover:not(:disabled) {
+    background: cm($variant, hover, bg);
+    color: cm($variant, hover, text);
+    border-color: cm($variant, hover, border);
+  }
+
+  &:active:not(:disabled) {
+    background: cm($variant, active, bg);
+    color: cm($variant, active, text);
+    border-color: cm($variant, active, border);
+  }
+
+  &:focus-visible {
+    $f-border: cm($variant, focus, border);
+    $f-style: cm($variant, focus, border-style);
+    @if $f-border {
+      border-color: $f-border;
+    }
+    @if $f-style {
+      border-style: $f-style;
+    }
+  }
+
+  &:disabled {
+    background: cm($variant, disabled, bg);
+    color: cm($variant, disabled, text);
+    border-color: cm($variant, disabled, border);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+@mixin visually-hidden() {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+  white-space: nowrap;
+}
+
+@mixin input-base($height, $is-textarea: false) {
+  width: 100%;
+  @if $is-textarea {
+    min-height: $height;
+    padding: 7px 12px 17px 12px;
+  } @else {
+    height: $height;
+    padding: 12px 60px 12px 12px;
+  }
+  border: $input-border-width solid $input-color-border;
+  border-radius: $input-radius;
+  background: $input-bg-color;
+  color: $input-color-text;
+  outline: none;
+
+  &::placeholder {
+    color: $input-color-placeholder;
+  }
+}
+
+@mixin input-states(
+  $border-hover: $input-color-border-hover,
+  $border-focus: $input-color-border-focus,
+  $border-type: $input-color-border-type,
+  $border-filled: $input-color-border-filled,
+  $disabled-bg: $input-color-disabled-bg,
+  $disabled-text: $input-color-disabled-text,
+  $disabled-border: $input-color-disabled-border,
+  $error-border: $input-color-error
+) {
+  &:hover:not(:focus):not(:disabled) {
+    border-color: $border-hover;
+  }
+
+  &:focus {
+    border-color: $border-focus;
+  }
+
+  &.ng-dirty:not(:disabled) {
+    border-color: $border-type;
+  }
+
+  &.filled:not(:focus):not(:disabled) {
+    border-color: $border-filled;
+  }
+
+  &:disabled {
+    background: $disabled-bg;
+    color: $disabled-text;
+    border-color: $disabled-border;
+    cursor: not-allowed;
+  }
+
+  &[aria-invalid='true'],
+  &.ng-invalid.ng-touched,
+  &.ng-invalid.ng-dirty {
+    border-color: $error-border !important;
+  }
+}
+
+@mixin input-sidebar {
+  position: absolute;
+  top: 30px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 400;
+
+  background-color: $input-sidebar-bg;
+
+  &--disabled {
+    background-color: $input-color-disabled-bg;
+    color: $input-color-disabled-text;
+    cursor: not-allowed;
+  }
+}
+
+@mixin general-background {
+  width: 100%;
+  background:
+    url('/assets/images/snowflake-dark.svg') right 0px top 0px no-repeat,
+    url('/assets/images/snowflake-light.svg') left 0px bottom 0px no-repeat,
+    $page-bg no-repeat;
+}

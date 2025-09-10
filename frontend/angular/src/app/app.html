@@ -1,0 +1,15 @@
+<app-header></app-header>
+<main class="main">
+  <router-outlet />
+</main>
+
+<app-footer></app-footer>
+
+@if (toast.isVisible()) {
+  <app-message
+    class="toast"
+    [type]="toast.type()"
+    [size]="SIZE_TOASTER"
+    [text]="toast.message()!"
+  />
+}

@@ -1,0 +1,50 @@
+@use 'abstracts/variables' as *;
+@use 'colors/color-matrix' as *;
+@use 'abstracts/mixins' as *;
+
+:host {
+  display: block;
+  width: 100%;
+  margin-top: auto;
+  height: $footer-height;
+}
+
+.footer {
+  background: $footer-bg;
+  color: $footer-font-color;
+  height: $footer-height;
+  display: flex;
+  align-items: center;
+  padding: 20px 120px;
+
+  &__inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  &__copy {
+    font-size: 14px;
+  }
+
+  &__nav {
+    display: inline-flex;
+    gap: 24px;
+  }
+
+  &__link {
+    font-size: 14px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    color: $footer-font-color;
+  }
+}
+
+.sr-only {
+  @include visually-hidden;
+}

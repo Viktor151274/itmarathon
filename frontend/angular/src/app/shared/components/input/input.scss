@@ -1,0 +1,22 @@
+@use 'colors/color-matrix' as *;
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
+
+:host {
+  display: block;
+  width: 100%;
+  font: inherit;
+
+  &.phone-number input {
+    padding-left: 68px;
+  }
+
+  &.budget input {
+    padding-right: 65px;
+  }
+}
+
+.input__field {
+  @include input-base($input-height);
+  @include input-states;
+}

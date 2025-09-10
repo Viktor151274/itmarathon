@@ -1,0 +1,17 @@
+<span
+  class="input-sidebar"
+  [class.input-sidebar--disabled]="control().disabled"
+  [id]="sidebarId"
+>
+  {{ inputSidebarText }}
+</span>
+<app-input
+  class="phone-number"
+  [label]="label()"
+  [control]="control()"
+  [type]="type"
+  [isRequiredField]="isRequired()"
+  [placeholder]="placeholder()"
+  [ariaDescribedBy]="sidebarId"
+  (input)="onInput($event)"
+/>

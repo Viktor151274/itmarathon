@@ -12,6 +12,7 @@
 *.tfvars
 *.tfstate*
 *.auto.tfvars
+*.config
 !terraform/config.tfvars
 # Local .terraform directories
 **/.terraform/*

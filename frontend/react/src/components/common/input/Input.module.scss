@@ -1,0 +1,207 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/variables";
+@use "../../../assets/styles/extends" as *;
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  line-height: 0;
+
+  &.inputWrapper--error {
+    .inputWrapper__input {
+      &,
+      &:focus {
+        border-color: colors.$red-warning;
+      }
+    }
+
+    .inputWrapper__caption {
+      color: colors.$red-warning;
+    }
+  }
+
+  &:has(
+    .inputWrapper__suffix:hover:not(:disabled),
+    .inputWrapper__prefix:hover:not(:disabled)
+  ) {
+    .inputWrapper__input {
+      border-color: colors.$g-400;
+
+      + .inputWrapper__suffix,
+      + .inputWrapper__prefix {
+        border-color: colors.$g-400;
+      }
+
+      + .inputWrapper__suffix {
+        border-left-color: colors.$g-300;
+      }
+
+      + .inputWrapper__prefix {
+        border-right-color: colors.$g-300;
+      }
+    }
+  }
+
+  &:has(.inputWrapper__prefix) .inputWrapper__input {
+    padding-left: 68px;
+  }
+
+  &__label {
+    @extend %label;
+    margin-bottom: 8px;
+    color: colors.$g-800;
+
+    &--required::after {
+      content: " *";
+      color: red;
+    }
+  }
+
+  &__input {
+    @extend %input-text;
+    height: 40px;
+    width: 100%;
+    color: colors.$g-950;
+    background-color: colors.$g-100;
+    border: 1px solid colors.$g-300;
+    border-radius: 6px;
+    padding: 10px 12px;
+    transition: border-color 0.3s ease;
+    overflow: hidden;
+    resize: none;
+
+    &--textarea {
+      height: 56px;
+      min-height: 56px;
+    }
+
+    &--counter-inside {
+      padding-right: 66px;
+    }
+
+    &--counter-outside {
+      padding-right: 12px;
+    }
+
+    &:hover:not(:disabled) {
+      border-color: colors.$g-400;
+
+      + .inputWrapper__suffix,
+      + .inputWrapper__prefix {
+        border-color: colors.$g-400;
+      }
+
+      + .inputWrapper__suffix {
+        border-left-color: colors.$g-300;
+      }
+
+      + .inputWrapper__prefix {
+        border-right-color: colors.$g-300;
+      }
+    }
+
+    &:focus {
+      border-color: colors.$orange-500;
+      outline: none;
+
+      + .inputWrapper__suffix,
+      + .inputWrapper__prefix {
+        border-color: colors.$orange-500;
+      }
+
+      + .inputWrapper__suffix {
+        border-left-color: colors.$g-300;
+      }
+
+      + .inputWrapper__prefix {
+        border-right-color: colors.$g-300;
+      }
+    }
+
+    &:not(:placeholder-shown) {
+      border-color: colors.$g-500;
+      outline: none;
+
+      + .inputWrapper__suffix {
+        border-color: colors.$g-500;
+        border-left-color: colors.$g-300;
+      }
+
+      + .inputWrapper__prefix {
+        border-color: colors.$g-500;
+        border-right-color: colors.$g-300;
+      }
+    }
+
+    &::placeholder {
+      color: colors.$g-400;
+    }
+
+    &:disabled {
+      background-color: colors.$g-200;
+      border-color: colors.$g-300;
+      color: colors.$g-600;
+      cursor: default;
+
+      + .inputWrapper__suffix,
+      + .inputWrapper__prefix {
+        background-color: colors.$g-200;
+        color: colors.$g-600;
+      }
+    }
+  }
+
+  &__inputContainer {
+    position: relative;
+  }
+
+  &__counter {
+    @extend %input-text;
+    color: colors.$g-500;
+    position: absolute;
+
+    &--inside {
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+    }
+
+    &--outside {
+      right: 0;
+      padding-right: 0;
+    }
+  }
+
+  &__suffix,
+  &__prefix {
+    @extend %input-text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    border: 1px solid colors.$g-300;
+    background-color: colors.$green-50;
+    color: colors.$g-800;
+    padding: 0px 12px;
+    height: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: default;
+  }
+
+  &__suffix {
+    border-radius: 0 6px 6px 0;
+    right: 0;
+  }
+
+  &__prefix {
+    border-radius: 6px 0 0 6px;
+    left: 0;
+  }
+
+  &__caption {
+    @extend %caption;
+    color: colors.$g-500;
+    margin-top: 2px;
+  }
+}

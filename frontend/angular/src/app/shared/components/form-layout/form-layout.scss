@@ -1,0 +1,62 @@
+@use 'abstracts/variables' as *;
+@use 'colors/color-matrix' as *;
+
+:host {
+  position: relative;
+  display: block;
+  width: 792px;
+  padding: 48px;
+  background: $form-layout-bg;
+  border: 1.6px solid $form-layout-border-color;
+  border-radius: 16px;
+  box-shadow: $form-shadow;
+}
+
+.form {
+  &__header {
+    margin-bottom: 32px;
+  }
+
+  &__content {
+    margin-bottom: 48px;
+  }
+
+  &__title {
+    margin-bottom: 12px;
+  }
+
+  &__subtitle {
+    margin-bottom: 8px;
+  }
+
+  &__picture {
+    position: absolute;
+
+    &--car {
+      top: -60px;
+      right: 48px;
+      width: 200px;
+      height: 200px;
+    }
+
+    &--big-presents {
+      top: -20px;
+      right: 38px;
+      width: 150px;
+      height: 150px;
+    }
+
+    &--star {
+      top: -40px;
+      right: 20px;
+      width: 160px;
+      height: 160px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

@@ -1,0 +1,14 @@
+.form {
+  &__input-control {
+    margin-bottom: 20px;
+  }
+
+  &__input-group {
+    display: flex;
+    gap: 20px;
+
+    .form__input-control {
+      flex: 0 1 50%;
+    }
+  }
+}

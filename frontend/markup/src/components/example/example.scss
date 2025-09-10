@@ -1,0 +1,12 @@
+.example-list {
+    padding: 20px;
+    border: 1px solid red;
+
+    &__item {
+        color: green;
+        
+        &:first-of-type {
+            background-color: aqua;
+        }
+    }
+}

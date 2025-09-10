@@ -1,0 +1,14 @@
+<app-label [label]="label()" [isRequiredField]="isRequiredField()">
+  <div>
+    <input
+      class="input__field"
+      [class.filled]="!!control().value"
+      [type]="type()"
+      [placeholder]="placeholder()"
+      [formControl]="control()"
+      [attr.aria-invalid]="control().invalid ? true : null"
+      [attr.maxlength]="maxLength() ?? null"
+      [attr.aria-describedby]="ariaDescribedBy()"
+    />
+  </div>
+</app-label>

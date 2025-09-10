@@ -1,0 +1,26 @@
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__copy">
+      © {{ year }} EPAM Systems. All rights reserved.
+    </div>
+    <nav class="footer__nav" aria-label="Legal links">
+      <a
+        class="footer__link"
+        [href]="policyUrl"
+        target="_blank"
+        rel="noopener noreferrer">
+        Privacy Policy
+        <span class="sr-only"> (opens in a new tab, PDF)</span>
+      </a>
+
+      <a
+        class="footer__link"
+        [href]="noticeUrl"
+        target="_blank"
+        rel="noopener noreferrer">
+        Privacy Notice
+        <span class="sr-only"> (opens in a new tab, PDF)</span>
+      </a>
+    </nav>
+  </div>
+</footer>

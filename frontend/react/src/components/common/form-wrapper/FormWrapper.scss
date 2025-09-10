@@ -1,0 +1,151 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/variables";
+@use "../../../assets/styles/extends" as *;
+
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  &__form {
+    border: 1.6px solid colors.$green-200;
+    border-radius: 16px;
+    padding: 48px;
+    width: 792px;
+    height: 100%;
+    box-shadow: variables.$shadow;
+    background: colors.$g-50;
+    position: relative;
+    z-index: 1;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      background-size: contain;
+      background-position: right 0 top 0;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    &--star::before {
+      top: -36px;
+      right: 22px;
+      width: 160px;
+      height: 160px;
+      background: url("../../../assets/images/form-wrapper-icons/star.svg")
+        center no-repeat;
+      transform: rotate(22.31deg);
+    }
+
+    &--car::before {
+      top: -54px;
+      right: 48px;
+      width: 200px;
+      height: 200px;
+      background-image: url("../../../assets/images/form-wrapper-icons/icons.svg#car");
+      background-size: 200px 200px;
+    }
+
+    &--presents::before {
+      top: -20px;
+      right: 37px;
+      width: 150px;
+      height: 146px;
+      background-image: url("../../../assets/images/form-wrapper-icons/icons.svg#presents");
+      background-size: 150px 146px;
+    }
+
+    &--wreath::before {
+      top: 7px;
+      right: 48px;
+      width: 180px;
+      height: 180px;
+      background-image: url("../../../assets/images/form-wrapper-icons/icons.svg#wreath");
+      background-size: 180px 180px;
+    }
+
+    &--welcome-group::before {
+      top: 35px;
+      right: 39px;
+      width: 60px;
+      height: 60px;
+      background-image: url("../../../assets/images/form-wrapper-icons/icons.svg#firework");
+      background-size: 60px 60px;
+    }
+
+    &--welcome-group::after {
+      top: -19px;
+      right: 124px;
+      width: 120px;
+      height: 120px;
+      background-image: url("../../../assets/images/form-wrapper-icons/icons.svg#firework");
+      background-size: 120px 120px;
+    }
+
+    &-extra-icon {
+      position: absolute;
+      top: 115px;
+      right: 13px;
+      width: 240px;
+      height: 240px;
+      background: url("../../../assets/images/form-wrapper-icons/christmas-tree.svg")
+        center / contain no-repeat;
+      pointer-events: none;
+      z-index: 2;
+    }
+  }
+
+  &__content {
+    width: 100%;
+
+    &--welcome {
+      width: 500px;
+      max-width: 100%;
+      overflow-wrap: break-word;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 48px;
+  }
+
+  &__title {
+    color: colors.$g-950;
+    margin-bottom: 12px;
+  }
+
+  &__description-wrapper {
+    margin-bottom: 32px;
+
+    &--star {
+      width: 534px;
+    }
+
+    &--wreath {
+      width: 486px;
+    }
+
+    &--welcome-group {
+      width: 370px;
+    }
+
+    width: 504px;
+  }
+
+  &__description {
+    @extend %body-sm;
+    color: colors.$g-800;
+
+    &--bold {
+      @extend %title-sm;
+      color: colors.$g-800;
+      margin-top: 8px;
+    }
+  }
+}

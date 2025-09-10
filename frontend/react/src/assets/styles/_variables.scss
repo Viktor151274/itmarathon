@@ -1,0 +1,30 @@
+@use "./colors";
+
+// fonts
+$global-font-family: "Nunito", sans-serif;
+
+// color opacities
+$black-opacity-0: rgba(colors.$black, 0);
+$black-opacity-01: rgba(colors.$black, 0.01);
+$black-opacity-02: rgba(colors.$black, 0.02);
+$black-opacity-03: rgba(colors.$black, 0.03);
+$black-opacity-04: rgba(colors.$black, 0.04);
+$black-opacity-05: rgba(colors.$black, 0.05);
+$black-opacity-08: rgba(colors.$black, 0.08);
+$black-opacity-12: rgba(colors.$black, 0.12);
+
+$g-50-opacity-40: rgba(colors.$g-50, 0.4);
+
+// shadows
+$shadow:
+  22px 19px 8px 0px $black-opacity-0,
+  14px 12px 7px 0px $black-opacity-01,
+  8px 7px 6px 0px $black-opacity-03,
+  3px 3px 5px 0px $black-opacity-04,
+  1px 1px 3px 0px $black-opacity-05;
+
+$shadow-button: 0 2px 0 0 $black-opacity-02;
+$shadow-message:
+  0px 6px 16px 0px $black-opacity-08,
+  0px 3px 6px -4px $black-opacity-12,
+  0px 9px 28px 8px $black-opacity-05;

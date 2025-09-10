@@ -1,0 +1,20 @@
+@use 'colors/color-matrix' as *;
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
+
+:host {
+  display: block;
+  width: 100%;
+  font: inherit;
+}
+
+.textarea__field {
+  @include input-base($textarea-height, true);
+  @include input-states;
+
+  white-space: pre-wrap;
+  word-break: normal;
+  overflow-wrap: break-word;
+  resize: none;
+  overflow: hidden;
+}

@@ -1,0 +1,49 @@
+<header class="form__header">
+  <h3 class="form__title">{{ title() }}</h3>
+
+  <p class="form__subtitle">{{ subtitle() }}</p>
+
+  @if (budget()) {
+    <p class="form__budget title-sm">Gift Budget: {{ budget() }} UAH</p>
+  }
+
+  <svg
+    class="form__picture"
+    [class]="formPicturePositionClass()"
+    aria-hidden="true"
+  >
+    <use [attr.xlink:href]="formPictureHref()" />
+  </svg>
+</header>
+
+<fieldset class="form__content">
+  <ng-content />
+</fieldset>
+
+<fieldset class="form__buttons">
+  @if (isLastStep()) {
+    <app-button
+      class="medium primary"
+      [type]="buttonTypeSubmit"
+      [text]="completeButtonText"
+      [isDisabled]="!isFormValid()"
+      (click)="onComplete()"
+    />
+  } @else {
+    <app-button
+      class="medium primary"
+      [text]="continueButtonText"
+      [isDisabled]="!isFormValid()"
+      (click)="onNextStep()"
+    />
+  }
+
+  @if (!isFirstStep()) {
+    <app-button
+      class="medium text"
+      [text]="backButtonText"
+      [iconName]="buttonIconName"
+      (click)="onPreviousStep()"
+    />
+  }
+</fieldset>
