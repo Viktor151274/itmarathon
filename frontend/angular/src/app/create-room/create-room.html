@@ -1,1 +1,11 @@
-<h2>Create some room please</h2>
+<app-stepper
+  [stepLabels]="stepLabels"
+  [stepsCount]="stepsCount"
+  [currentStep]="currentStep()"
+/>
+
+@switch (currentStep()) {
+  @case (1) {
+    <app-create-room-form />
+  }
+}

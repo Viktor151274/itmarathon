@@ -71,6 +71,7 @@ export const enum BaseLabel {
   FirstName = 'First name',
   ExchangeDate = 'Gift Exchange date',
   PhoneNumber = 'Phone number',
+  RoomName = 'Room name',
   Budget = 'Gift budget',
 }
 
@@ -79,7 +80,9 @@ export const enum RadioButtonLabel {
   WantSurpriseGift = 'I want a surprise gift',
 }
 
-export const enum TextareaLabel {}
+export const enum TextareaLabel {
+  RoomDescription = 'Room description',
+}
 
 export const enum CaptionMessage {
   DefaultMessage = '',
@@ -103,9 +106,12 @@ export const enum InputPlaceholder {
   Date = 'Select date',
   PhoneNumber = '777777777',
   Budget = 'Type in your budget',
+  EnterName = 'Enter your room name',
 }
 
-export const enum TextareaPlaceholder {}
+export const enum TextareaPlaceholder {
+  EnterMessage = 'Enter your message here...',
+}
 
 export const enum ButtonText {
   Complete = 'Complete',

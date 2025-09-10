@@ -1,8 +1,7 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { ICONS_SPRITE_PATH } from '../../../app.constants';
-import { IconName } from '../../../app.enum';
-import type { StepperItem } from '../../../app.models';
+import { IconName, StepLabel } from '../../../app.enum';
 
 @Component({
   selector: 'app-stepper',
@@ -10,8 +9,9 @@ import type { StepperItem } from '../../../app.models';
   styleUrl: './stepper.scss',
 })
 export class Stepper {
-  stepperData = input.required<StepperItem[]>();
-  successIconHref = `${ICONS_SPRITE_PATH}#${IconName.SuccessMark}`;
+  stepLabels = input.required<StepLabel[]>();
+  stepsCount = input.required<number>();
+  currentStep = input.required<number>();
 
-  stepsCount = computed(() => this.stepperData().length);
+  successIconHref = `${ICONS_SPRITE_PATH}#${IconName.SuccessMark}`;
 }

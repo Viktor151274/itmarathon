@@ -1,15 +1,18 @@
 @use 'abstracts/variables' as *;
 @use 'colors/color-matrix' as *;
 
-.form {
+:host {
   position: relative;
+  display: block;
   width: 792px;
   padding: 48px;
   background: $form-layout-bg;
   border: 1.6px solid $form-layout-border-color;
   border-radius: 16px;
   box-shadow: $form-shadow;
+}
 
+.form {
   &__header {
     margin-bottom: 32px;
   }

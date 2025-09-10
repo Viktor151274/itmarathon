@@ -1,14 +1,16 @@
-import { Component, computed, input, output, signal } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 
 import { IMAGES_SPRITE_PATH } from '../../../app.constants';
 import { Button } from '../button/button';
 import {
   ButtonText,
+  ButtonType,
   FormSubtitle,
   FormTitle,
   IconName,
   PictureName,
 } from '../../../app.enum';
+import { StepperManager } from '../../../core/services/stepper-manager';
 
 @Component({
   selector: 'app-form-layout',
@@ -24,9 +26,9 @@ export class FormLayout {
   readonly budget = input<number>(0);
   readonly isFormValid = input<boolean>(false);
 
-  readonly nextStep = output<void>();
-  readonly previousStep = output<void>();
   readonly formCompleted = output<void>();
+
+  readonly #stepperManagerService = inject(StepperManager);
 
   public readonly formPicturePositionClass = computed(
     () => `form__picture--${this.formPictureName()}`
@@ -34,22 +36,27 @@ export class FormLayout {
   public readonly formPictureHref = computed(
     () => `${IMAGES_SPRITE_PATH}#${this.formPictureName()}`
   );
+  public readonly isFirstStep = computed(
+    () => this.#stepperManagerService.currentStep() === 1
+  );
+  public readonly isLastStep = computed(
+    () =>
+      this.#stepperManagerService.maxSteps
+      === this.#stepperManagerService.currentStep()
+  );
 
   public readonly buttonIconName = IconName.ArrowLeft;
   public readonly backButtonText = ButtonText.BackToPrevStep;
   public readonly completeButtonText = ButtonText.Complete;
   public readonly continueButtonText = ButtonText.Continue;
-
-  // TODO: change signals isFirstStep and isLastStep once stepper service is done
-  isFirstStep = signal(false);
-  isLastStep = signal(false);
+  public readonly buttonTypeSubmit = ButtonType.Submit;
 
   public onNextStep(): void {
-    this.nextStep.emit();
+    this.#stepperManagerService.handleNextStep();
   }
 
   public onPreviousStep(): void {
-    this.previousStep.emit();
+    this.#stepperManagerService.handlePreviousStep();
   }
 
   public onComplete(): void {

@@ -1,4 +1,6 @@
 import { ComponentRef } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
 import {
   BaseLabel,
   CaptionMessage,
@@ -9,7 +11,6 @@ import {
   MessageType,
 } from './app.enum';
 import { Message } from './shared/components/message/message';
-import { Subscription } from 'rxjs';
 
 export interface StepperItem {
   isActive: boolean;
@@ -33,3 +34,10 @@ export interface PopupInstance {
 }
 
 export type StyleMap = Record<string, string>;
+
+export interface CreateRoomFormType {
+  roomName: FormControl<string>;
+  roomDescription: FormControl<string>;
+  exchangeDate: FormControl<string>;
+  giftBudget: FormControl<string>;
+}
