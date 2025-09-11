@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
 {
-    public class RoomDtoValidator : AbstractValidator<RoomDto>
+    public class RoomDtoValidator : AbstractValidator<RoomShortDto>
     {
         public RoomDtoValidator()
         {

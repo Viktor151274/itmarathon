@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Epam.ItMarathon.ApiService.Api.Dto.CreationDtos;
 using Epam.ItMarathon.ApiService.Api.Dto.Requests.RoomRequests;
+using Epam.ItMarathon.ApiService.Api.Dto.Responses.RoomResponses;
 using Epam.ItMarathon.ApiService.Api.Endpoints.Extension.SwaggerTagExtension;
 using Epam.ItMarathon.ApiService.Api.Filters.Validation;
 using Epam.ItMarathon.ApiService.Application.Models.Creation;
@@ -32,9 +34,13 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
         {
             var result = mediator.Send(new CreateRoomCommand(mapper.Map<RoomApplication>(request.Room), 
                 mapper.Map<UserApplication>(request.Admin))).Result;
-            if (result.IsSuccess) 
-                return Task.FromResult(Results.Ok(result.Value));
-            return Task.FromResult(Results.ValidationProblem(result.Error.ToDictionary()));
+            if (result.IsFailure)
+                return Task.FromResult(Results.ValidationProblem(result.Error.ToDictionary()));
+            return Task.FromResult(Results.Ok(new RoomCreationResponse()
+            {
+                Room = mapper.Map<RoomDto>(result.Value),
+                UserCode = result.Value.Users.Where(user => user.IsAdmin).First().AuthCode
+            }));
         }
     }
 }
