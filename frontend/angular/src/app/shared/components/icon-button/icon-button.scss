@@ -6,15 +6,17 @@
 
   &.button {
     &--white {
-      fill: color.$icon-button-bg--secondary;
+      .button {
+        fill: color.$icon-button-bg--secondary;
 
-      &:hover,
-      &:focus-visible {
-        fill: color.$icon-button-bg--secondary-hover;
-      }
+        &:hover,
+        &:focus-visible {
+          fill: color.$icon-button-bg--secondary-hover;
+        }
 
-      &:active {
-        fill: color.$icon-button-bg--secondary-active;
+        &:active {
+          fill: color.$icon-button-bg--secondary-active;
+        }
       }
     }
   }
