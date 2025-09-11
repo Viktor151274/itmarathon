@@ -1,0 +1,38 @@
+<section class="invitation-note">
+  <header class="invitation-note__header" #popupHost>
+    <h2 class="invitation-note__title">Invitation Note</h2>
+
+    <div class="invitation-note__actions">
+      @if (editable()) {
+        <app-icon-button
+          [iconName]="isEdit() ? iconSave : iconEdit"
+          [ariaLabel]="isEdit() ? ariaLabelSave : ariaLabelEdit"
+          (click)="toggleEdit()"
+        />
+      }
+      <app-icon-button
+        [iconName]="iconCopy"
+        [ariaLabel]="ariaLabelCopy"
+        (click)="copy()"
+      />
+    </div>
+  </header>
+
+  <div class="invitation-note__card">
+    <textarea
+      #textarea
+      class="invitation-note__textarea"
+      [readonly]="!isEdit()"
+      [attr.maxlength]="maxLength() ?? 1000"
+      [value]="textareaValue()"
+      (input)="onInput(textarea.value)"
+      aria-label="Invitation note text"
+    ></textarea>
+
+    @if (parsed().linkUrl && !isEdit()) {
+      <p class="invitation-note__link">
+        {{ parsed().linkUrl }}
+      </p>
+    }
+  </div>
+</section>

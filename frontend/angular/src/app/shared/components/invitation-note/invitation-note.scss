@@ -1,0 +1,40 @@
+@use 'colors/color-matrix' as *;
+
+.invitation-note {
+  display: grid;
+  gap: 12px;
+  border: 1px $invitation-note-border solid;
+  border-radius: 8px;
+  background-color: $invitation-note-bg;
+}
+
+.invitation-note__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 0 24px;
+  position: relative;
+}
+
+.invitation-note__card {
+  padding: 0 24px 24px 24px;
+}
+
+.invitation-note__textarea {
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+
+  &[readonly] {
+    cursor: default;
+  }
+}
+
+.invitation-note__link {
+  color: $invitation-note-link-color;
+}

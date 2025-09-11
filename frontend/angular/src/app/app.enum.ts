@@ -179,3 +179,8 @@ export const enum CopyLinkType {
   Dark = 'dark',
   Light = 'light',
 }
+
+export const enum InvitationNotePopup {
+  success = 'Invitation note is copied',
+  error = 'Invitation note was not copied. Try again.',
+}
