@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Message } from '../../shared/components/message/message';
 import { fromEvent } from 'rxjs';
-import { PopupPosition } from '../../app.enum';
+import { MessageSize, PopupPosition } from '../../app.enum';
 import { MessageOptions, PopupInstance } from '../../app.models';
 import { MESSAGE_DURATION_MS } from '../../app.constants';
 
@@ -60,6 +60,7 @@ export class PopupService {
     if (popupRef) {
       popupRef.setInput('text', messageOptions.message);
       popupRef.setInput('type', messageOptions.type);
+      popupRef.setInput('size', MessageSize.Popover);
     }
   }
 
