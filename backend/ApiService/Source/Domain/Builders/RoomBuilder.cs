@@ -2,6 +2,7 @@
 using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
+using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Domain.Builders
 {
@@ -14,7 +15,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         private ulong _maxWishesLimit  = 3;
         private string _name;
         private string _description;
-        private string _invitationNote;
+        private string _invitationNote = "Hey!\r\n\r\n \r\nJoin our Secret Nick and make this holiday season magical! 🎄\r\n \r\nYou‘ll get to surprise someone with a gift — and receive one too. 🎅✨\r\n \r\nLet the holiday fun begin! 🌟 \r\n🎁 Join here:";
         private DateTime _giftExchangeDate;
         private ulong _giftMaximumBudget;
         private IList<User> _users { get; set; } = [];
@@ -86,7 +87,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             _users.Add(user);
             return this;
         }
-        public Result<Room> Build()
+        public Result<Room, ValidationResult> Build()
         {
             return Room.Create(_id, _createdOn, _modifiedOn,
             _closedOn, _invitationCode, _name, _description,
@@ -94,7 +95,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             _minUsersLimit, _maxUsersLimit, _maxWishesLimit);
         }
 
-        public Result<Room> InitialBuild()
+        public Result<Room, ValidationResult> InitialBuild()
         {
             return Room.InitialCreate(_closedOn, _invitationCode, _name, _description,
             _invitationNote, _giftExchangeDate, _giftMaximumBudget, _users,

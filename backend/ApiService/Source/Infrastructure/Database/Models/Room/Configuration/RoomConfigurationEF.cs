@@ -19,7 +19,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Configu
 
             #region Values Configuration
 
-            builder.Property(room => room.Id)
+            builder.Property(room => room.Id).HasColumnType("bigint")
                 .ValueGeneratedOnAdd();
 
             builder.Property(room => room.CreatedOn).IsRequired();
@@ -28,7 +28,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Configu
 
             builder.Property(room => room.ClosedOn).IsRequired(false);
 
-            builder.Property(room => room.AdminId).IsRequired();
+            builder.Property(room => room.AdminId).IsRequired(false);
 
             builder.HasIndex(room => room.InvitationCode).IsUnique();
 

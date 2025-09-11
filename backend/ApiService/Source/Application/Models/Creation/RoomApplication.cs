@@ -5,7 +5,6 @@
         public required string Name { get; set; }
         public required string Description { get; set; }
         public required DateTime GiftExchangeDate { get; set; }
-        public required string InvitationNote { get; set; }
         public required ulong GiftMaximumBudget { get; set; }
     }
 }

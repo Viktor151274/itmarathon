@@ -14,7 +14,6 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
             RuleFor(room => room.Name).NotEmpty().WithMessage(ValidationConstants.RequiredMessage)
                 .WithName("name")
                 .OverridePropertyName("name");
-            
 
             #endregion
 
@@ -39,14 +38,6 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
 
             #endregion
 
-            #region InvitationNote
-
-            RuleFor(room => room.InvitationNote).NotNull().WithMessage(ValidationConstants.RequiredMessage)
-                .WithName("invitationNote")
-                .OverridePropertyName("invitationNote");
-
-            #endregion
-
             #region GiftMaximumBudget
 
             RuleFor(room => room.GiftMaximumBudget).NotNull().WithMessage(ValidationConstants.RequiredMessage)
@@ -55,13 +46,6 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
 
             #endregion
 
-            #region Users
-
-            RuleForEach(room => room.Users).SetValidator(new UserDtoValidator())
-                .WithName("users")
-                .OverridePropertyName("users");
-
-            #endregion
         }
     }
 }

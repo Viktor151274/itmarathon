@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using CSharpFunctionalExtensions;
 using Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room;
+using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
 {
@@ -23,7 +25,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
                 .ForMember(roomEf => roomEf.GiftMaximumBudget, opt => opt.MapFrom(room => room.GiftMaximumBudget))
                 .ForMember(roomEf => roomEf.Users, opt => opt.MapFrom(room => room.Users));
 
-            CreateMap<RoomEf, Domain.Aggregate.Room.Room>()
+            CreateMap<RoomEf, Result<Domain.Aggregate.Room.Room, ValidationResult>> ()
                 .ConvertUsing<RoomConverter>();
         }
     }

@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
+using CSharpFunctionalExtensions;
 using Epam.ItMarathon.ApiService.Domain.Builders;
 using Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room;
+using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
 {
-    internal class RoomConverter : ITypeConverter<RoomEf, Domain.Aggregate.Room.Room>
+    internal class RoomConverter : ITypeConverter<RoomEf, Result<Domain.Aggregate.Room.Room, ValidationResult>>
     {
-        public Domain.Aggregate.Room.Room Convert(RoomEf source, Domain.Aggregate.Room.Room destination, ResolutionContext context)
+        public Result<Domain.Aggregate.Room.Room, ValidationResult> Convert(RoomEf source, Result<Domain.Aggregate.Room.Room, ValidationResult> destination, ResolutionContext context)
         {
             var builder = RoomBuilder.Init()
                 .WithId(source.Id)
@@ -44,15 +46,18 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
                         .WithGiftToUserId(user.GiftToUserId)
                         .WithWantSurprise(user.WantSurprise)
                         .WithInterests(user.Interests)
-                        .WithIsAdmin(user.IsAdminForRoom != null)
                         .WithWishes(wishesDict);
                         if (user.TargetGift is not null)
                         userBuilderConfiguration.WithChosenGift(user.TargetGift.Name, user.TargetGift.InfoLink);
+                        if (user.Id == source.AdminId)
+                            userBuilderConfiguration.WithIsAdmin(true);
+                        else
+                            userBuilderConfiguration.WithIsAdmin(false);
                         return userBuilderConfiguration;
                     });
             }
             var result = builder.Build();
-            return result.Value;
+            return result;
         }
     }
 }

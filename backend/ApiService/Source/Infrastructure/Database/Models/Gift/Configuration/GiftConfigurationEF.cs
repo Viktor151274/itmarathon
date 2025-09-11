@@ -11,7 +11,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Gift.Configu
 
             #region Values Configuration
 
-            builder.Property(gift => gift.Id)
+            builder.Property(gift => gift.Id).HasColumnType("bigint")
                 .ValueGeneratedOnAdd();
 
             builder.Property(gift => gift.CreatedOn).IsRequired();

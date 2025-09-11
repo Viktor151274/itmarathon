@@ -1,6 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
+using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
 {
@@ -21,7 +22,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         public ulong GiftMaximumBudget { get; private set; }
         public IList<User> Users { get; set; } = [];
         private Room() { }
-        public static Result<Room> InitialCreate(DateTime? closedOn, string invitationCode, string name, string description,
+        public static Result<Room, ValidationResult> InitialCreate(DateTime? closedOn, string invitationCode, string name, string description,
             string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget, IList<User> users,
             ulong minUsersLimit, ulong maxUsersLimit, ulong maxWishesLimit)
         {
@@ -43,11 +44,11 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             var validationResult = roomValidator.Validate(room);
             if (!validationResult.IsValid)
             {
-                return Result.Failure<Room>(validationResult.ToString(","));
+                return Result.Failure<Room, ValidationResult>(validationResult);
             }
             return room;
         }
-        public static Result<Room> Create(ulong id, DateTime createdOn, DateTime modifiedOn,
+        public static Result<Room, ValidationResult> Create(ulong id, DateTime createdOn, DateTime modifiedOn,
             DateTime? closedOn, string invitationCode, string name, string description,
             string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget, IList<User> users,
             ulong minUsersLimit, ulong maxUsersLimit, ulong maxWishesLimit)
@@ -75,7 +76,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             var validationResult = roomValidator.Validate(room);
             if (!validationResult.IsValid)
             {
-                return Result.Failure<Room>(validationResult.ToString(","));
+                return Result.Failure<Room, ValidationResult>(validationResult);
             }
             return room;
         }

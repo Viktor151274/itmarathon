@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Domain.Entities;
+using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Domain.Abstract
 {
@@ -35,7 +35,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Abstract
         /// </summary>
         /// <param name="Item">Item to add</param>
         /// <returns></returns>
-        public Task<Result<TEntity>> AddAsync(TEntity Item);
+        public Task<Result<TEntity, ValidationResult>> AddAsync(TEntity Item);
         /// <summary>
         /// Adds list of entities to repository.
         /// </summary>

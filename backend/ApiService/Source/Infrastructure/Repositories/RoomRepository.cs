@@ -5,21 +5,38 @@ using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
 using Epam.ItMarathon.ApiService.Infrastructure.Database;
 using Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room;
+using FluentValidation.Results;
+using Microsoft.EntityFrameworkCore;
 
 namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
 {
     internal class RoomRepository(AppDbContext context, IMapper mapper) : IRoomRepository
     {
 
-        public async Task<Result<Room>> AddAsync(Room Item)
+        public async Task<Result<Room, ValidationResult>> AddAsync(Room item)
         {
-            var adminAuthCode = Item.Users.Where(user => user.IsAdmin).First().AuthCode;
-            var roomEf = mapper.Map<RoomEf>(Item);
-            var adminEf = roomEf.Users.Where(user => user.AuthCode == adminAuthCode).First();
-            adminEf.Room = roomEf;
-            adminEf.IsAdminForRoom = roomEf;
-            await context.Rooms.AddAsync(roomEf);
-            return mapper.Map<Room>(roomEf);
+            using var transaction = await context.Database.BeginTransactionAsync();
+            try
+            {
+                var adminAuthCode = item.Users.Where(user => user.IsAdmin).First().AuthCode;
+                var roomEf = mapper.Map<RoomEf>(item);
+                var adminEf = roomEf.Users.Where(user => user.AuthCode == adminAuthCode).FirstOrDefault();
+                roomEf.Admin = null;
+                await context.Rooms.AddAsync(roomEf);
+                await context.SaveChangesAsync();
+                roomEf.Admin = adminEf;
+                roomEf.AdminId = adminEf.Id;
+                await context.SaveChangesAsync();
+
+                await transaction.CommitAsync();
+
+                return mapper.Map<Result<Room, ValidationResult>>(roomEf);
+            }
+            catch (DbUpdateException e)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
 
         public Task AddManyAsync(IEnumerable<Room> Items)

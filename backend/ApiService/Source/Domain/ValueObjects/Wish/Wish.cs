@@ -1,6 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-
-namespace Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish
+﻿namespace Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish
 {
     public sealed class Wish : IEquatable<Wish>
     {

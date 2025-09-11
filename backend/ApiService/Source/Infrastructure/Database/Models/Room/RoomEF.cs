@@ -8,7 +8,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room
         /// <summary>
         /// Unique identifier of room's owner.
         /// </summary>
-        public ulong AdminId { get; set; }
+        public ulong? AdminId { get; set; }
         /// <summary>
         /// Invitation code to the room.
         /// </summary>

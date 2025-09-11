@@ -49,14 +49,6 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
                 .OverridePropertyName("deliveryInfo");
 
             #endregion
-
-            #region WantSurprise
-
-            RuleFor(user => user.WantSurprise).NotEmpty().WithMessage(ValidationConstants.RequiredMessage)
-                .WithName("wantSurprise")
-                .OverridePropertyName("wantSurprise");
-
-            #endregion
         }
     }
 }
