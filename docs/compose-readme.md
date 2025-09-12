@@ -1,12 +1,29 @@
 ### Local development with Docker Compose
 ## Prerequisites
 Before you start, ensure you have the following installed on your machine:
+- Linux
+- Docker
+  
+#### WSL 2 linux install (for Windows users):
 
-For Windows users you will need WSL: https://learn.microsoft.com/en-us/windows/wsl/install
+Open PowerShell or CMD with Administrator rights.
 
-Docker: Install Docker: https://docs.docker.com/engine/install/
+```powershell
+# Run the following command to to see a list of available Linux distributions available for download through the online store
+wsl.exe --list --online
+# Select the distribution you would like to install from the output and install it like:
+wsl.exe --install Ubuntu-24.04
+```
 
-Docker Compose: https://docs.docker.com/compose/install/
+##### Check official documentation on WSL for troubleshooting: https://learn.microsoft.com/en-us/windows/wsl/install
+
+#### Install Docker:
+
+```bash
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh ./get-docker.sh
+```
+##### Check official documentation on Docker for troubleshooting: [https://docs.docker.com/engine/install/](https://docs.docker.com/engine/install/ubuntu/#install-using-the-convenience-script)
 
 ## Project Structure
 The project is organized in the following way:
