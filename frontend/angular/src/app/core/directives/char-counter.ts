@@ -2,11 +2,13 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
-  HostListener,
   inject,
   input,
+  OnDestroy,
   Renderer2,
 } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { ItemPosition } from '../../app.enum';
 import type { StyleMap } from '../../app.models';
@@ -14,7 +16,9 @@ import type { StyleMap } from '../../app.models';
 @Directive({
   selector: '[appCharCounter]',
 })
-export class CharCounter implements AfterViewInit {
+export class CharCounter implements AfterViewInit, OnDestroy {
+  readonly control = input.required<FormControl>();
+
   readonly positionX = input<ItemPosition>(ItemPosition.Right);
   readonly positionY = input<ItemPosition>(ItemPosition.Below);
 
@@ -26,6 +30,7 @@ export class CharCounter implements AfterViewInit {
   #maxLength!: string | null;
   #counterElement!: HTMLElement;
   #targetElement!: HTMLInputElement | HTMLTextAreaElement | null;
+  #subscription!: Subscription;
 
   ngAfterViewInit(): void {
     this.#targetElement = this.#findTarget();
@@ -33,17 +38,22 @@ export class CharCounter implements AfterViewInit {
 
     if (this.#maxLength) {
       this.#renderCounter();
+      this.#observeTargetValueChanges();
     }
   }
 
-  @HostListener('input', ['$event.target']) onInput(
-    target: EventTarget | null
-  ): void {
-    if (this.#maxLength) {
-      const length = (target as HTMLInputElement | HTMLTextAreaElement).value
-        .length;
-      this.#updateCounter(length);
-    }
+  ngOnDestroy(): void {
+    this.#subscription?.unsubscribe();
+  }
+
+  #observeTargetValueChanges(): void {
+    this.#updateCounter(0);
+
+    this.#subscription = this.control().valueChanges.subscribe(
+      (value: string) => {
+        this.#updateCounter(value.length);
+      }
+    );
   }
 
   #findTarget(): HTMLInputElement | HTMLTextAreaElement | null {
@@ -125,6 +135,5 @@ export class CharCounter implements AfterViewInit {
     this.#applyStyles();
     this.#setAttributes();
     this.#renderer.appendChild(this.#getParent(), this.#counterElement);
-    this.#updateCounter(0);
   }
 }
