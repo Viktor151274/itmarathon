@@ -100,7 +100,19 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
             #region AutoMapper
 
             builder.Services.ConfigureMapper(builder.Configuration);
-            
+
+            #endregion
+
+            #region Variables
+
+            builder.Services.Configure<VariablesOptions>(
+            builder.Configuration.GetSection("Options"));
+            var invitationOptions = builder.Configuration
+            .GetSection("Options")
+            .Get<VariablesOptions>();
+
+            Variables.FrontendHostBaseUrl = invitationOptions.FrontendHost;
+
             #endregion
 
             return builder;

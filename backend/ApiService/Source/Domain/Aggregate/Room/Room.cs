@@ -12,9 +12,9 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         internal const int InvitationNoteCharLimit = 1000;
         public DateTime? ClosedOn { get; private init; }
         public string InvitationCode { get; private set; }
-        public ulong MinUsersLimit { get; private set; } = 3;
-        public ulong MaxUsersLimit { get; private set; } = 20;
-        public ulong MaxWishesLimit { get; private set; } = 3;
+        public ulong MinUsersLimit { get; private set; }
+        public ulong MaxUsersLimit { get; private set; }
+        public ulong MaxWishesLimit { get; private set; }
         public string Name { get; init; }
         public string Description { get; private set; }
         public string InvitationNote { get; private set; }

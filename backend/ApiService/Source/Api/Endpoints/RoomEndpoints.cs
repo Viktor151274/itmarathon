@@ -21,7 +21,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
 
             _ = root.MapPost("", CreateRoomRequest)
                 .AddEndpointFilterFactory(ValidationFactoryFilter.GetValidationFactory)
-                .Produces<string>(StatusCodes.Status200OK)
+                .Produces<string>(StatusCodes.Status201Created)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status500InternalServerError)
                 .WithSummary("Create room for prize draw.")
@@ -36,7 +36,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 mapper.Map<UserApplication>(request.Admin))).Result;
             if (result.IsFailure)
                 return Task.FromResult(Results.ValidationProblem(result.Error.ToDictionary()));
-            return Task.FromResult(Results.Ok(new RoomCreationResponse()
+            return Task.FromResult(Results.Created(string.Empty, new RoomCreationResponse()
             {
                 Room = mapper.Map<RoomDto>(result.Value),
                 UserCode = result.Value.Users.Where(user => user.IsAdmin).First().AuthCode

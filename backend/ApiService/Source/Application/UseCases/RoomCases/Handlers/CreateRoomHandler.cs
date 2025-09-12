@@ -19,9 +19,9 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
                 .WithDescription(roomRequest.Description)
                 .WithGiftExchangeDate(roomRequest.GiftExchangeDate)
                 .WithGiftMaximumBudget(roomRequest.GiftMaximumBudget)
-                .WithInvitationCode(Guid.NewGuid().ToString())
+                .WithInvitationCode(Guid.NewGuid().ToString("N"))
                 .InitialAddUser(userBuilder =>
-                userBuilder.WithAuthCode(Guid.NewGuid().ToString())
+                userBuilder.WithAuthCode(Guid.NewGuid().ToString("N"))
                 .WithIsAdmin(true)
                 .WithFirstName(adminRequest.FirstName)
                 .WithLastName(adminRequest.LastName)

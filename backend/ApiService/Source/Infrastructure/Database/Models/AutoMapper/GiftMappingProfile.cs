@@ -10,7 +10,9 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
         {
             CreateMap<Wish, GiftEf>()
                 .ForMember(giftEf => giftEf.Name, opt => opt.MapFrom(wish => wish.Name))
-                .ForMember(giftEf => giftEf.InfoLink, opt => opt.MapFrom(wish => wish.InfoLink));
+                .ForMember(giftEf => giftEf.InfoLink, opt => opt.MapFrom(wish => wish.InfoLink))
+                .ForMember(giftEf => giftEf.CreatedOn, opt => opt.MapFrom(_ => DateTime.UtcNow))
+                .ForMember(giftEf => giftEf.ModifiedOn, opt => opt.MapFrom(_ => DateTime.UtcNow));
         }
     }
 }
