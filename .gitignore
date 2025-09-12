@@ -18,3 +18,4 @@
 **/.terraform/*
 # Ignore environment-specific files
 .envrc
+.env
