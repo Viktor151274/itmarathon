@@ -3,9 +3,11 @@ using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Epam.ItMarathon.ApiService.Api.Dto.CreationDtos.Mapping;
 using Epam.ItMarathon.ApiService.Api.Filters.Swagger;
 using Epam.ItMarathon.ApiService.Application;
 using Epam.ItMarathon.ApiService.Infrastructure;
+using FluentValidation;
 using Microsoft.AspNetCore.Http.Json;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -82,6 +84,12 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
 
             #endregion Swagger
 
+            #region Validation
+
+            _ = builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly(), ServiceLifetime.Singleton);
+
+            #endregion Validation
+
             #region Project Dependencies
 
             builder.Services.InjectInfrastructureLayer(builder.Configuration);
@@ -89,7 +97,32 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
 
             #endregion Project Dependencies
 
+            #region AutoMapper
+
+            builder.Services.ConfigureMapper(builder.Configuration);
+
+            #endregion
+
+            #region Variables
+
+            builder.Services.Configure<VariablesOptions>(
+            builder.Configuration.GetSection("Options"));
+            var invitationOptions = builder.Configuration
+            .GetSection("Options")
+            .Get<VariablesOptions>();
+
+            Variables.FrontendHostBaseUrl = invitationOptions.FrontendHost;
+
+            #endregion
+
             return builder;
+        }
+
+        private static void ConfigureMapper(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAutoMapper(config => {
+                config.AddProfile(new CreationMapping());
+            });
         }
     }
 }

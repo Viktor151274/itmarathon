@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250827102815_InitialCreate")]
+    [Migration("20250912084201_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -27,9 +27,11 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
 
             modelBuilder.Entity("Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Gift.GiftEf", b =>
                 {
-                    b.Property<decimal>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("numeric(20,0)");
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("timestamp with time zone");
@@ -45,8 +47,8 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)");
 
-                    b.Property<decimal>("UserId")
-                        .HasColumnType("numeric(20,0)");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -57,12 +59,14 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
 
             modelBuilder.Entity("Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.RoomEf", b =>
                 {
-                    b.Property<decimal>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("numeric(20,0)");
+                        .HasColumnType("bigint");
 
-                    b.Property<decimal>("AdminId")
-                        .HasColumnType("numeric(20,0)");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("AdminId")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime?>("ClosedOn")
                         .HasColumnType("timestamp with time zone");
@@ -126,9 +130,11 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
 
             modelBuilder.Entity("Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User.UserEf", b =>
                 {
-                    b.Property<decimal>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("numeric(20,0)");
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<string>("AuthCode")
                         .IsRequired()
@@ -150,11 +156,11 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)");
 
-                    b.Property<decimal?>("GiftId")
-                        .HasColumnType("numeric(20,0)");
+                    b.Property<long?>("GiftId")
+                        .HasColumnType("bigint");
 
-                    b.Property<decimal?>("GiftToUserId")
-                        .HasColumnType("numeric(20,0)");
+                    b.Property<long?>("GiftToUserId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Interests")
                         .HasMaxLength(1000)
@@ -172,8 +178,8 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("RoomId")
-                        .HasColumnType("numeric(20,0)");
+                    b.Property<long>("RoomId")
+                        .HasColumnType("bigint");
 
                     b.Property<bool>("WantSurprise")
                         .ValueGeneratedOnAdd()
@@ -211,9 +217,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                 {
                     b.HasOne("Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User.UserEf", "Admin")
                         .WithOne("IsAdminForRoom")
-                        .HasForeignKey("Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.RoomEf", "AdminId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.RoomEf", "AdminId");
 
                     b.Navigation("Admin");
                 });

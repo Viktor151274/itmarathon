@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,8 +16,9 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                 name: "Gifts",
                 columns: table => new
                 {
-                    Id = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
-                    UserId = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     InfoLink = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -31,9 +33,10 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                 name: "Rooms",
                 columns: table => new
                 {
-                    Id = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ClosedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    AdminId = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    AdminId = table.Column<long>(type: "bigint", nullable: true),
                     InvitationCode = table.Column<string>(type: "text", nullable: false),
                     MinUsersLimit = table.Column<long>(type: "bigint", nullable: false, defaultValue: 3L),
                     MaxUsersLimit = table.Column<long>(type: "bigint", nullable: false, defaultValue: 20L),
@@ -55,16 +58,17 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
-                    RoomId = table.Column<decimal>(type: "numeric(20,0)", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RoomId = table.Column<long>(type: "bigint", nullable: false),
                     AuthCode = table.Column<string>(type: "text", nullable: false),
                     FirstName = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     LastName = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
                     Phone = table.Column<string>(type: "text", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: true),
                     DeliveryInfo = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    GiftToUserId = table.Column<decimal>(type: "numeric(20,0)", nullable: true),
-                    GiftId = table.Column<decimal>(type: "numeric(20,0)", nullable: true),
+                    GiftToUserId = table.Column<long>(type: "bigint", nullable: true),
+                    GiftId = table.Column<long>(type: "bigint", nullable: true),
                     WantSurprise = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     Interests = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -146,8 +150,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                 table: "Rooms",
                 column: "AdminId",
                 principalTable: "Users",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />

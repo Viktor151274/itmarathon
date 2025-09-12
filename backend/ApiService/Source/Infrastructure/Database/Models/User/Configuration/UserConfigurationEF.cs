@@ -30,14 +30,13 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User.Configu
 
             builder.HasMany(u => u.Wishes)
                 .WithOne(g => g.User)
-                .HasForeignKey(g => g.UserId)
-                .IsRequired(true);
+                .HasForeignKey(g => g.UserId);
 
             #endregion
 
             #region Values Configuration
 
-            builder.Property(user => user.Id)
+            builder.Property(user => user.Id).HasColumnType("bigint")
                 .ValueGeneratedOnAdd();
 
             builder.Property(user => user.CreatedOn).IsRequired();

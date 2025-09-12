@@ -7,9 +7,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Folder Include="Entities\Gift\" />
-	  <Folder Include="Entities\Room\" />
-	  <Folder Include="Entities\User\" />
+	  <PackageReference Include="CSharpFunctionalExtensions" Version="3.6.0" />
+	  <PackageReference Include="FluentValidation" Version="12.0.0" />
 	</ItemGroup>
 
 </Project>

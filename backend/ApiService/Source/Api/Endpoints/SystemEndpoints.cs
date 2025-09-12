@@ -7,7 +7,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
     /// <summary>
     /// Static class containing system endpoints.
     /// </summary>
-    public static class SystemEndpoint
+    public static class SystemEndpoints
     {
         /// <summary>
         /// Registers all system-related endpoints to the app.
@@ -37,7 +37,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
         {
             return Task.FromResult(Results.Ok(new AppInfoResponse
             {
-                DateTime = DateTime.Now,
+                DateTime = DateTime.UtcNow,
                 Environment = environment.EnvironmentName,
                 Build = Assembly.GetExecutingAssembly().GetName().Version
             }));

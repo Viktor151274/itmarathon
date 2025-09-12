@@ -1,5 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Infrastructure.Database;
+using Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper;
+using Epam.ItMarathon.ApiService.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,8 +20,28 @@ namespace Epam.ItMarathon.ApiService.Infrastructure
         /// </summary>
         public static void InjectInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(opts => 
-            opts.UseNpgsql(configuration.GetConnectionString("DbConnectionString")));
+            services.AddDbContext<AppDbContext>(opts => {
+                opts.UseNpgsql(configuration.GetConnectionString("DbConnectionString"));
+                opts.EnableSensitiveDataLogging(true);
+                });
+            services.ConfigureMapper(configuration);
+            services.ConfigureRepositories(configuration);
+        }
+
+        private static void ConfigureMapper(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSingleton<RoomConverter>();
+            services.AddAutoMapper(config =>
+            {
+                config.AddProfile(new GiftMappingProfile());
+                config.AddProfile(new UserMappingProfile());
+                config.AddProfile(new RoomMappingProfile());
+            });
+        }
+
+        private static void ConfigureRepositories(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IRoomRepository, RoomRepository>();
         }
     }
 }
