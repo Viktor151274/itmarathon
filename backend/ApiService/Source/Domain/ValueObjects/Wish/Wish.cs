@@ -4,7 +4,7 @@
     {
         internal const int NameCharLimit = 40;
         public required string Name { get; init; }
-        public required string InfoLink { get; init; }
+        public string? InfoLink { get; init; }
         public Wish() { }
         public static Wish Create(string name, string infoLink)
         {

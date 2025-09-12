@@ -74,7 +74,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             _isAdmin = isAdmin;
             return this;
         }
-        public UserBuilder WithChosenGift(string name, string link)
+        public UserBuilder WithChosenGift(string name, string? link)
         {
             _gift = new Wish()
             {
@@ -83,7 +83,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             };
             return this;
         }
-        public UserBuilder WithWishes(Dictionary<string, string> wishesDictionary)
+        public UserBuilder WithWishes(Dictionary<string, string?> wishesDictionary)
         {
             _wishes = wishesDictionary.Select(pair => new Wish() 
             { Name = pair.Key, InfoLink = pair.Value });

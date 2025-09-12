@@ -20,7 +20,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "character varying(40)", maxLength: 40, nullable: false),
-                    InfoLink = table.Column<string>(type: "text", nullable: false),
+                    InfoLink = table.Column<string>(type: "text", nullable: true),
                     CreatedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },

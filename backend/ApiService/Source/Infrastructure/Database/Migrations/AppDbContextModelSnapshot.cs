@@ -34,7 +34,6 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("InfoLink")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("ModifiedOn")

@@ -15,7 +15,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Gift
         /// <summary>
         /// Link to gift.
         /// </summary>
-        public required string InfoLink { get; set; }
+        public string? InfoLink { get; set; }
         /// <summary>
         /// Mapping property to user.
         /// </summary>

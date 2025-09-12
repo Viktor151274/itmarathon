@@ -9,6 +9,6 @@
         public required string DeliveryInfo { get; set; }
         public required bool WantSurprise { get; set; } = true;
         public string? Interests { get; set; }
-        public Dictionary<string, string> Wishes { get; set; }
+        public Dictionary<string, string?> Wishes { get; set; }
     }
 }
