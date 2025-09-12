@@ -6,7 +6,12 @@ import type { CopyButtonProps } from "./types";
 import { copyToClipboard } from "./utils";
 import "./CopyButton.scss";
 
-const CopyButton = ({ textToCopy, buttonColor }: CopyButtonProps) => {
+const CopyButton = ({
+  textToCopy,
+  buttonColor,
+  successMessage = "Link is copied!",
+  errorMessage = "Link was not copied. Try again.",
+}: CopyButtonProps) => {
   const toasterRef = useRef<ToasterHandler>(null);
 
   const showToaster = (iconName: IconName, message: string) => {
@@ -14,10 +19,7 @@ const CopyButton = ({ textToCopy, buttonColor }: CopyButtonProps) => {
   };
 
   const handleClick = () => {
-    copyToClipboard(textToCopy, showToaster, {
-      successMessage: "Link is copied!",
-      errorMessage: "Link was not copied. Try again.",
-    });
+    copyToClipboard(textToCopy, showToaster, { successMessage, errorMessage });
   };
 
   return (

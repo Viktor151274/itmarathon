@@ -1,0 +1,18 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/extends" as *;
+
+.note-title {
+  @extend %title-lg;
+  color: colors.$g-950;
+  margin-bottom: 20px;
+}
+
+.note-textarea {
+  position: relative;
+}
+
+.note-copy-button {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}

@@ -12,18 +12,26 @@ type InputTextareaProps = InputHTMLAttributes<HTMLInputElement> &
 export interface InputProps extends InputTextareaProps {
   type?: InputType;
   value: string | number;
-  onChange: (
+  onChange?: (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
   withoutCounter?: boolean;
   withSuffix?: boolean;
   withPrefix?: boolean;
-  placeholder: string;
+  placeholder?: string;
   required?: boolean;
   width?: string;
   caption?: string;
-  label: string;
+  label?: string;
   hasError?: boolean;
   maxLength?: number;
   multiline?: boolean;
+  variant?: InputVariant;
 }
+
+export const INPUT_VARIANTS = {
+  DEFAULT: "default",
+  INVITATION_NOTE: "invitation-note",
+} as const;
+
+export type InputVariant = (typeof INPUT_VARIANTS)[keyof typeof INPUT_VARIANTS];

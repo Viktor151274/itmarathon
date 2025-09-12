@@ -4,10 +4,10 @@ import Textarea from "../textarea/Textarea";
 
 const Input = ({
   type = "text",
-  placeholder,
+  placeholder = "",
   value,
   onChange,
-  label,
+  label = "",
   required = false,
   width = "100%",
   caption,
@@ -17,6 +17,7 @@ const Input = ({
   withSuffix = false,
   withPrefix = false,
   multiline = false,
+  variant = "default",
   ...restProps
 }: InputProps) => {
   const inputId = `input-${label.replace(" ", "-").toLowerCase()}`;
@@ -33,7 +34,12 @@ const Input = ({
     ? styles[`inputWrapper__input--counter-${counterPosition}`]
     : "";
 
-  const inputClassName = [baseClass, multilineClass, counterClass]
+  const variantClass =
+    variant && variant !== "default"
+      ? styles[`inputWrapper__input--${variant}`]
+      : "";
+
+  const inputClassName = [baseClass, multilineClass, counterClass, variantClass]
     .filter(Boolean)
     .join(" ");
 
@@ -42,12 +48,16 @@ const Input = ({
       className={`${styles.inputWrapper} ${hasError ? styles["inputWrapper--error"] : ""}`}
       style={{ width }}
     >
-      <label
-        htmlFor={inputId}
-        className={`${styles.inputWrapper__label} ${required ? styles["inputWrapper__label--required"] : ""}`}
-      >
-        {label}
-      </label>
+      {label ? (
+        <label
+          htmlFor={inputId}
+          className={`${styles.inputWrapper__label} ${
+            required ? styles["inputWrapper__label--required"] : ""
+          }`}
+        >
+          {label}
+        </label>
+      ) : null}
 
       <div className={styles.inputWrapper__inputContainer}>
         <Element

@@ -13,4 +13,6 @@ export type ButtonColor = (typeof BUTTON_COLORS)[keyof typeof BUTTON_COLORS];
 export interface CopyButtonProps {
   textToCopy: string;
   buttonColor?: ButtonColor;
+  successMessage?: string;
+  errorMessage?: string;
 }

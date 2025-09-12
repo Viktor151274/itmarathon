@@ -1,5 +1,6 @@
-import type { ChangeEvent, KeyboardEvent } from "react";
+import type { KeyboardEvent } from "react";
 import Input from "../input/Input";
+import type { InputChangeHandler } from "../../../types/general";
 import type { PhoneNumberInputProps } from "./types";
 import { isValidPhoneNumber } from "./utils";
 import { blockInvalidNumberKeys } from "../../../utils/validation";
@@ -9,9 +10,7 @@ const PhoneNumberInput = ({
   onChange,
   ...restProps
 }: PhoneNumberInputProps) => {
-  const handlePhoneNumberChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  const handlePhoneNumberChange: InputChangeHandler = (e) => {
     const phoneNumberValue = e.target.value;
 
     if (isValidPhoneNumber(phoneNumberValue)) {
