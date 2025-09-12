@@ -21,9 +21,14 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
 
             _ = root.MapPost("", CreateRoomRequest)
                 .AddEndpointFilterFactory(ValidationFactoryFilter.GetValidationFactory)
-                .Produces<string>(StatusCodes.Status201Created)
+                .Produces<RoomCreationResponse>(StatusCodes.Status201Created)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status500InternalServerError)
+                .WithOpenApi(operation =>
+                {
+                    operation.Responses.Remove(StatusCodes.Status200OK.ToString());
+                    return operation;
+                })
                 .WithSummary("Create room for prize draw.")
                 .WithDescription("Return created room info.");
 
