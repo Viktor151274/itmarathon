@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, input } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { FormLayout } from '../../../shared/components/form-layout/form-layout';
 import { Textarea } from '../../../shared/components/textarea/textarea';
@@ -7,46 +7,37 @@ import { DatePicker } from '../../../shared/components/date-picker/date-picker';
 import { Input } from '../../../shared/components/input/input';
 import {
   BaseLabel,
+  CaptionMessage,
   FormSubtitle,
   FormTitle,
   InputPlaceholder,
+  ItemPosition,
   PictureName,
   TextareaLabel,
   TextareaPlaceholder,
 } from '../../../app.enum';
-import { ParentForm } from '../../../core/directives/parent-form';
 import { BudgetInput } from '../../../shared/components/budget-input/budget-input';
 import { CharCounter } from '../../../core/directives/char-counter';
+import { FieldHint } from '../../../shared/components/field-hint/field-hint';
 import type { CreateRoomFormType } from '../../../app.models';
 
 @Component({
   selector: 'app-create-room-form',
-  imports: [FormLayout, Input, Textarea, DatePicker, BudgetInput, CharCounter],
+  imports: [
+    FormLayout,
+    Input,
+    Textarea,
+    DatePicker,
+    BudgetInput,
+    CharCounter,
+    ReactiveFormsModule,
+    FieldHint,
+  ],
   templateUrl: './create-room-form.html',
   styleUrl: './create-room-form.scss',
 })
-export class CreateRoomForm extends ParentForm implements OnInit {
-  public form!: FormGroup<CreateRoomFormType>;
-
-  ngOnInit(): void {
-    this.form = this.#initCreateRoomForm();
-  }
-
-  public get roomNameControl(): FormControl {
-    return this.form.get('roomName') as FormControl;
-  }
-
-  public get roomDescriptionControl(): FormControl {
-    return this.form.get('roomDescription') as FormControl;
-  }
-
-  public get exchangeDateControl(): FormControl {
-    return this.form.get('exchangeDate') as FormControl;
-  }
-
-  public get giftBudgetControl(): FormControl {
-    return this.form.get('giftBudget') as FormControl;
-  }
+export class CreateRoomForm {
+  readonly form = input.required<FormGroup<CreateRoomFormType>>();
 
   public readonly formTitle = FormTitle.CreateRoom;
   public readonly formSubtitle = FormSubtitle.CreateRoom;
@@ -62,14 +53,25 @@ export class CreateRoomForm extends ParentForm implements OnInit {
   public readonly giftBudgetPlaceholder = InputPlaceholder.Budget;
   public readonly roomDescriptionPlaceholder = TextareaPlaceholder.EnterMessage;
 
-  public readonly textareaMaxLength = 200;
+  public readonly giftBudgetCaptionMessage = CaptionMessage.BudgetExplanation;
 
-  #initCreateRoomForm(): FormGroup<CreateRoomFormType> {
-    return this.formBuilder.group({
-      roomName: [''],
-      roomDescription: [''],
-      exchangeDate: [''],
-      giftBudget: [''],
-    });
+  public readonly textareaMaxLength = 200;
+  public readonly inputMaxLength = 40;
+  public readonly inputCharCounterPositionY = ItemPosition.Center;
+
+  public get roomNameControl(): FormControl {
+    return this.form().get('name') as FormControl;
+  }
+
+  public get roomDescriptionControl(): FormControl {
+    return this.form().get('description') as FormControl;
+  }
+
+  public get exchangeDateControl(): FormControl {
+    return this.form().get('giftExchangeDate') as FormControl;
+  }
+
+  public get giftBudgetControl(): FormControl {
+    return this.form().get('giftMaximumBudget') as FormControl;
   }
 }

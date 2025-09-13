@@ -3,7 +3,7 @@
     [title]="formTitle"
     [subtitle]="formSubtitle"
     [formPictureName]="formPictureName"
-    [isFormValid]="form.valid"
+    [isFormValid]="form().valid"
   >
     <fieldset>
       <app-input
@@ -36,13 +36,20 @@
           [isRequiredField]="true"
         />
 
-        <app-budget-input
-          class="form__input-control"
-          [label]="giftBudget"
-          [control]="giftBudgetControl"
-          [placeholder]="giftBudgetPlaceholder"
-          [isRequired]="true"
-        />
+        <fieldset class="form__input-control">
+          <app-budget-input
+            [label]="giftBudget"
+            [control]="giftBudgetControl"
+            [placeholder]="giftBudgetPlaceholder"
+            [isRequired]="true"
+          />
+
+          <app-field-hint
+            class="form__field-hint"
+            [control]="giftBudgetControl"
+            [captionMessage]="giftBudgetCaptionMessage"
+          />
+        </fieldset>
       </fieldset>
     </fieldset>
   </app-form-layout>

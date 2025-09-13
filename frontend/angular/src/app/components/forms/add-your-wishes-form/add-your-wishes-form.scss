@@ -1,0 +1,17 @@
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  &__button {
+    float: right;
+  }
+
+  &__gift-idea {
+    margin-bottom: 20px;
+
+    &:nth-child(5) {
+      margin-bottom: -16px;
+    }
+  }
+}

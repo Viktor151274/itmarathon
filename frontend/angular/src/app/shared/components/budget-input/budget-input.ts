@@ -1,32 +1,36 @@
-import { Component, input, InputSignal } from '@angular/core';
-import { InputLabel } from '../../../app.models';
+import { Component, input } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
 import {
   InputType,
   InputPlaceholder,
   InputSidebarText,
   RegEx,
 } from '../../../app.enum';
-import { FormControl } from '@angular/forms';
 import { Input } from '../input/input';
+import type { InputLabel } from '../../../app.models';
 
 @Component({
   selector: 'app-budget-input',
-  imports: [Input],
+  imports: [Input, ReactiveFormsModule],
   templateUrl: './budget-input.html',
   styleUrl: './budget-input.scss',
 })
 export class BudgetInput {
-  control: InputSignal<FormControl> = input.required<FormControl>();
-  type = InputType.Number;
-  label = input.required<InputLabel>();
-  inputSidebarText: InputSidebarText = InputSidebarText.CurrencyUAH;
-  isRequired = input<boolean>(false);
-  placeholder = input<InputPlaceholder>(InputPlaceholder.Budget);
-  sidebarId = crypto.randomUUID();
+  readonly control = input.required<FormControl>();
+  readonly label = input.required<InputLabel>();
 
-  onInput(event: Event): void {
+  readonly isRequired = input<boolean>(false);
+  readonly placeholder = input<InputPlaceholder>(InputPlaceholder.Budget);
+
+  public readonly sidebarId = crypto.randomUUID();
+  public readonly inputSidebarText = InputSidebarText.CurrencyUAH;
+  public readonly type = InputType.Number;
+
+  public onInput(event: Event): void {
     this.#restrictInput(event);
   }
+
   #restrictInput(event: Event): void {
     const input = event.target as HTMLInputElement;
     const pattern = new RegExp(RegEx.Digits, 'g');

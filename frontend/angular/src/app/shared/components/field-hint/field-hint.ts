@@ -1,5 +1,5 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { CaptionMessage } from '../../../app.enum';
 import { FormValidation } from '../../../core/services/form-validation';
@@ -7,6 +7,7 @@ import type { FieldHintMessage } from '../../../app.models';
 
 @Component({
   selector: 'app-field-hint',
+  imports: [ReactiveFormsModule],
   templateUrl: './field-hint.html',
   styleUrl: './field-hint.scss',
 })

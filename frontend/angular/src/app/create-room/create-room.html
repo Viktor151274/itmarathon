@@ -6,9 +6,18 @@
 
 @switch (currentStep()) {
   @case (1) {
-    <app-create-room-form />
+    <app-create-room-form [form]="createRoomForm" />
   }
   @case (2) {
-    <app-add-your-details-form />
+    <app-add-your-details-form [form]="addYourDetailsForm" />
+  }
+  @case (3) {
+    <app-add-your-wishes-form
+      [budgetControl]="createRoomForm.controls.giftMaximumBudget"
+      [giftIdeaForm]="giftIdeaForm"
+      [surpriseGiftForm]="surpriseGiftForm"
+      [radioControl]="radioControl"
+      (formCompleted)="onFormCompleted()"
+    />
   }
 }

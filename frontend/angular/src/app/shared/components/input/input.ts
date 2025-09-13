@@ -13,12 +13,12 @@ import type { InputLabel } from '../../../app.models';
   styleUrl: './input.scss',
 })
 export class Input {
-  control = input.required<FormControl>();
-  label = input.required<InputLabel>();
+  readonly control = input.required<FormControl>();
+  readonly label = input.required<InputLabel>();
 
-  type = input<InputType>(InputType.Text);
-  placeholder = input<InputPlaceholder | ''>('');
-  isRequiredField = input<boolean>(false);
-  maxLength = input<number | null>(null);
-  ariaDescribedBy = input<string>();
+  readonly type = input<InputType>(InputType.Text);
+  readonly placeholder = input<InputPlaceholder | ''>('');
+  readonly isRequiredField = input<boolean>(false);
+  readonly maxLength = input<number | null>(null);
+  readonly ariaDescribedBy = input<string>();
 }

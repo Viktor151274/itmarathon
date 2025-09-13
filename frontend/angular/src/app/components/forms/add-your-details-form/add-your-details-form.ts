@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { Component, input } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import {
   BaseLabel,
@@ -7,11 +7,11 @@ import {
   FormTitle,
   InputPlaceholder,
   InputType,
+  ItemPosition,
   PictureName,
   TextareaLabel,
   TextareaPlaceholder,
 } from '../../../app.enum';
-import { ParentForm } from '../../../core/directives/parent-form';
 import { Textarea } from '../../../shared/components/textarea/textarea';
 import { Input } from '../../../shared/components/input/input';
 import { FormLayout } from '../../../shared/components/form-layout/form-layout';
@@ -21,36 +21,19 @@ import type { AddYourDetailsFormType } from '../../../app.models';
 
 @Component({
   selector: 'app-add-your-details-form',
-  imports: [Textarea, Input, FormLayout, CharCounter, PhoneInput],
+  imports: [
+    Textarea,
+    Input,
+    FormLayout,
+    CharCounter,
+    PhoneInput,
+    ReactiveFormsModule,
+  ],
   templateUrl: './add-your-details-form.html',
   styleUrl: './add-your-details-form.scss',
 })
-export class AddYourDetailsForm extends ParentForm implements OnInit {
-  public form!: FormGroup<AddYourDetailsFormType>;
-
-  ngOnInit(): void {
-    this.form = this.#initAddYourDetailsForm();
-  }
-
-  public get firstNameControl(): FormControl {
-    return this.form.get('firstName') as FormControl;
-  }
-
-  public get lastNameControl(): FormControl {
-    return this.form.get('lastName') as FormControl;
-  }
-
-  public get phoneNumberControl(): FormControl {
-    return this.form.get('phoneNumber') as FormControl;
-  }
-
-  public get emailControl(): FormControl {
-    return this.form.get('email') as FormControl;
-  }
-
-  public get deliveryAddressControl(): FormControl {
-    return this.form.get('deliveryAddress') as FormControl;
-  }
+export class AddYourDetailsForm {
+  readonly form = input.required<FormGroup<AddYourDetailsFormType>>();
 
   public readonly formTitle = FormTitle.AddDetails;
   public readonly formSubtitle = FormSubtitle.AddDetails;
@@ -72,14 +55,26 @@ export class AddYourDetailsForm extends ParentForm implements OnInit {
   public readonly inputTypeEmail = InputType.Email;
 
   public readonly textareaMaxLength = 500;
+  public readonly inputMaxLength = 40;
+  public readonly inputCharCounterPositionY = ItemPosition.Center;
 
-  #initAddYourDetailsForm(): FormGroup<AddYourDetailsFormType> {
-    return this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
-      phoneNumber: [''],
-      email: [''],
-      deliveryAddress: [''],
-    });
+  public get firstNameControl(): FormControl {
+    return this.form().get('firstName') as FormControl;
+  }
+
+  public get lastNameControl(): FormControl {
+    return this.form().get('lastName') as FormControl;
+  }
+
+  public get phoneNumberControl(): FormControl {
+    return this.form().get('phone') as FormControl;
+  }
+
+  public get emailControl(): FormControl {
+    return this.form().get('email') as FormControl;
+  }
+
+  public get deliveryAddressControl(): FormControl {
+    return this.form().get('deliveryInfo') as FormControl;
   }
 }

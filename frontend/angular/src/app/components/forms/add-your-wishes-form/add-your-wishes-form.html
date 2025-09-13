@@ -1,0 +1,65 @@
+<form>
+  <app-form-layout
+    [title]="formTitle"
+    [subtitle]="formSubtitle"
+    [formPictureName]="formPictureName"
+    [budget]="budgetControl().value"
+    [isFormValid]="isFormValid()"
+    (formCompleted)="onFormCompleted()"
+  >
+    <fieldset class="radio-group">
+      <app-radio-button
+        class="radio-group__item"
+        [class.radio-group__item--active]="
+          radioControl().value === giftIdeasRadioValue
+        "
+        [name]="radioName"
+        [control]="radioControl()"
+        [label]="giftIdeasRadioLabel"
+        [value]="giftIdeasRadioValue"
+      >
+        <fieldset class="radio-group__item-content">
+          @for (giftIdea of giftIdeas.controls; track $index) {
+            <app-gift-idea
+              class="radio-group__gift-idea"
+              [linkControl]="getGiftIdeaLinkControl($index)"
+              [wishControl]="getGiftIdeaWishControl($index)"
+              [wishMaxLength]="inputMaxLength"
+              [isWishInputRequired]="$index === 0"
+            />
+          }
+
+          @if (giftIdeas.length < giftIdeaItemsMaxNumber) {
+            <app-button
+              class="radio-group__button small tertiary"
+              [iconName]="wishButtonIconName"
+              [text]="wishButtonText"
+              (click)="addGiftIdea()"
+            />
+          }
+        </fieldset>
+      </app-radio-button>
+
+      <app-radio-button
+        class="radio-group__item"
+        [class.radio-group__item--active]="
+          radioControl().value === surpriseGiftRadioValue
+        "
+        [name]="radioName"
+        [control]="radioControl()"
+        [label]="surpriseGiftRadioLabel"
+        [value]="surpriseGiftRadioValue"
+      >
+        <app-textarea
+          appCharCounter
+          class="form__input-control radio-group__item-content"
+          [label]="surpriseGiftAreaLabel"
+          [control]="surpriseGiftAreaControl"
+          [placeholder]="surpriseGiftAreaPlaceholder"
+          [isRequiredField]="true"
+          [maxLength]="textareaMaxLength"
+        />
+      </app-radio-button>
+    </fieldset>
+  </app-form-layout>
+</form>

@@ -87,11 +87,13 @@ export const enum RadioButtonLabel {
 export const enum TextareaLabel {
   RoomDescription = 'Room description',
   DeliveryAddress = 'Your delivery address (no North Pole required!)',
+  AddInterests = 'Add your interests',
 }
 
 export const enum CaptionMessage {
   EmptyMessage = '',
   DontShare = 'Do not share this link with other users',
+  BudgetExplanation = '0 means unlimited budget',
 }
 
 export enum ErrorMessage {
@@ -123,12 +125,14 @@ export const enum InputPlaceholder {
 export const enum TextareaPlaceholder {
   EnterMessage = 'Enter your message here...',
   DeliveryAddress = 'Where should St. Nick deliver your gift?',
+  AddInterests = 'e.g. reading, coffee, cozy socks',
 }
 
 export const enum ButtonText {
   Complete = 'Complete',
   Continue = 'Continue',
   BackToPrevStep = 'Back to the previous step',
+  AddWish = 'Add Wish',
 }
 
 export const enum ButtonType {

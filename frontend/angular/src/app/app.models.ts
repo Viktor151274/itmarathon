@@ -1,6 +1,6 @@
 import { ComponentRef } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { FormControl } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import {
   BaseLabel,
   CaptionMessage,
@@ -36,16 +36,29 @@ export interface PopupInstance {
 export type StyleMap = Record<string, string>;
 
 export interface CreateRoomFormType {
-  roomName: FormControl<string>;
-  roomDescription: FormControl<string>;
-  exchangeDate: FormControl<string>;
-  giftBudget: FormControl<string>;
+  name: FormControl<string>;
+  description: FormControl<string>;
+  giftExchangeDate: FormControl<string>;
+  giftMaximumBudget: FormControl<number>;
 }
 
 export interface AddYourDetailsFormType {
   firstName: FormControl<string>;
   lastName: FormControl<string>;
-  phoneNumber: FormControl<string>;
+  phone: FormControl<string>;
   email: FormControl<string>;
-  deliveryAddress: FormControl<string>;
+  deliveryInfo: FormControl<string>;
+}
+
+export interface GiftIdeaItem {
+  name: FormControl<string>;
+  infoLink: FormControl<string>;
+}
+
+export interface GiftIdeaFormType {
+  wishList: FormArray<FormGroup<GiftIdeaItem>>;
+}
+
+export interface SurpriseGiftFormType {
+  interests: FormControl<string>;
 }

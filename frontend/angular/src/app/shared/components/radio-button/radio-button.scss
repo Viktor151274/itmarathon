@@ -20,6 +20,10 @@
       & .radio-group__item-content {
         display: block;
         margin-top: 20px;
+
+        &:last-child {
+          margin-bottom: 16px;
+        }
       }
     }
   }

@@ -181,4 +181,8 @@
       flex: 0 1 50%;
     }
   }
+
+  &__field-hint {
+    position: absolute;
+  }
 }

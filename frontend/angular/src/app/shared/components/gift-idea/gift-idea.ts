@@ -1,25 +1,27 @@
 import { Component, input } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+
 import { Input } from '../input/input';
 import { InputPlaceholder, ItemPosition } from '../../../app.enum';
 import { BaseLabel } from '../../../app.enum';
-import { FormControl } from '@angular/forms';
 import { CharCounter } from '../../../core/directives/char-counter';
 
 @Component({
   selector: 'app-gift-idea',
-  imports: [Input, CharCounter],
+  imports: [Input, CharCounter, ReactiveFormsModule],
   templateUrl: './gift-idea.html',
   styleUrl: './gift-idea.scss',
 })
 export class GiftIdea {
-  wishControl = input.required<FormControl>();
-  linkControl = input.required<FormControl>();
+  readonly wishControl = input.required<FormControl>();
+  readonly linkControl = input.required<FormControl>();
 
-  wishMaxLength = input<number | null>(null);
+  readonly wishMaxLength = input<number | null>(null);
+  readonly isWishInputRequired = input<boolean>(false);
 
-  wishPlaceholder = InputPlaceholder.WishPlaceholder;
-  linkPlaceholder = InputPlaceholder.LinkPlaceholder;
-  wishLabel = BaseLabel.GiftIdeaWish;
-  linkLabel = BaseLabel.GiftIdeaLink;
-  y = ItemPosition.Center;
+  public readonly wishPlaceholder = InputPlaceholder.WishPlaceholder;
+  public readonly linkPlaceholder = InputPlaceholder.LinkPlaceholder;
+  public readonly wishLabel = BaseLabel.GiftIdeaWish;
+  public readonly linkLabel = BaseLabel.GiftIdeaLink;
+  public readonly y = ItemPosition.Center;
 }
