@@ -18,21 +18,23 @@
     </div>
   </header>
 
-  <div class="invitation-note__card">
+  <div
+    class="invitation-note__card"
+    appCharCounter
+    [positionY]="charCounterPositionY"
+    [control]="control"
+  >
     <textarea
       #textarea
-      class="invitation-note__textarea"
+      [formControl]="control"
       [readonly]="!isEdit()"
       [attr.maxlength]="maxLength() ?? 1000"
-      [value]="textareaValue()"
-      (input)="onInput(textarea.value)"
+      class="invitation-note__textarea"
       aria-label="Invitation note text"
     ></textarea>
 
-    @if (parsed().linkUrl && !isEdit()) {
-      <p class="invitation-note__link">
-        {{ parsed().linkUrl }}
-      </p>
-    }
+    <p class="invitation-note__link">
+      {{ invitationLink() }}
+    </p>
   </div>
 </section>
