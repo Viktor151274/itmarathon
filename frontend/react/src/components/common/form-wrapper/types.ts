@@ -24,8 +24,7 @@ export const FORM_CONTENT_MAP = {
   },
   ADD_DETAILS: {
     title: "Add Your Details",
-    description:
-      "Let your Secret Nick know what would make you smile this season",
+    description: "Secret Nick needs to know where to send your present!",
   },
   ADD_WISHES: {
     title: "Add Your Wishes",

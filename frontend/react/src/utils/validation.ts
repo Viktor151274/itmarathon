@@ -11,3 +11,14 @@ export const blockInvalidNumberKeys = (
 ) => {
   if (INVALID_NUMBER_KEYS.includes(e.key)) e.preventDefault();
 };
+
+export const isRequiredFieldsFilled = <T>(
+  formData: T,
+  requiredFields: (keyof T)[],
+): boolean => {
+  return requiredFields.every((requiredField) => {
+    const fieldValue = formData[requiredField];
+
+    return typeof fieldValue === "string" ? !!fieldValue?.trim() : !!fieldValue;
+  });
+};

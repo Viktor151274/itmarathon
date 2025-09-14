@@ -7,10 +7,13 @@ import { InputNames, type FormData } from "./types";
 import {
   LABEL_DATE_PICKER,
   INPUT_ID_DATE_PICKER,
-  isRequiredFieldsFilled,
   isValidInputField,
+  requiredFields,
 } from "./utils";
-import { blockInvalidNumberKeys } from "../../../utils/validation";
+import {
+  blockInvalidNumberKeys,
+  isRequiredFieldsFilled,
+} from "../../../utils/validation";
 
 import styles from "../../common/input/Input.module.scss";
 import "./CreateRoomForm.scss";
@@ -43,7 +46,10 @@ const CreateRoomForm = () => {
     blockInvalidNumberKeys(e);
   };
 
-  const isFormValid = isRequiredFieldsFilled(formData);
+  const isFormValid = isRequiredFieldsFilled<FormData>(
+    formData,
+    requiredFields,
+  );
 
   return (
     <FormWrapper
