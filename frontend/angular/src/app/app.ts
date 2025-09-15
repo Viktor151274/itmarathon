@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from './components/header/header';
 import { Footer } from './components/footer/footer';
@@ -12,8 +12,12 @@ import { Message } from './shared/components/message/message';
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
-export class App {
+export class App implements OnInit {
   readonly SIZE_TOASTER = MessageSize.Toaster;
 
   public readonly toast = inject(ToastService);
+
+  ngOnInit(): void {
+    console.log(window.location.host);
+  }
 }
