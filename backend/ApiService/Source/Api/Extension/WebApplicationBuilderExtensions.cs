@@ -103,18 +103,6 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
 
             #endregion
 
-            #region Variables
-
-            builder.Services.Configure<VariablesOptions>(
-            builder.Configuration.GetSection("Options"));
-            var invitationOptions = builder.Configuration
-            .GetSection("Options")
-            .Get<VariablesOptions>();
-
-            Variables.FrontendHostBaseUrl = invitationOptions.FrontendHost;
-
-            #endregion
-
             return builder;
         }
 

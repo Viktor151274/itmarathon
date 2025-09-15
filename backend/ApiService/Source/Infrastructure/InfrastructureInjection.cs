@@ -22,7 +22,6 @@ namespace Epam.ItMarathon.ApiService.Infrastructure
         {
             services.AddDbContext<AppDbContext>(opts => {
                 opts.UseNpgsql(configuration.GetConnectionString("DbConnectionString"));
-                opts.EnableSensitiveDataLogging(true);
                 });
             services.ConfigureMapper(configuration);
             services.ConfigureRepositories(configuration);
