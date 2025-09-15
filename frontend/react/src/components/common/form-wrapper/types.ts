@@ -29,7 +29,7 @@ export const FORM_CONTENT_MAP = {
   ADD_WISHES: {
     title: "Add Your Wishes",
     description:
-      "Let your Secret Nick know what would make you smile this season",
+      "Let your Secret Nick know what would make you smile this season.",
   },
 } as const;
 

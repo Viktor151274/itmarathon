@@ -21,4 +21,8 @@ $border-width-selected: $border-width-default * 1.5;
     border: $border-width-selected solid colors.$green-400;
     background-color: $background-item-selected;
   }
+
+  &__content {
+    padding-left: 24px;
+  }
 }

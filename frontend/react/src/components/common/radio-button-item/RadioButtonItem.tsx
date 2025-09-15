@@ -23,7 +23,10 @@ export const RadioButtonItem = ({
         onChange={onChange}
         {...restProps}
       />
-      {children}
+
+      {children ? (
+        <div className="radio-button-item__content">{children}</div>
+      ) : null}
     </div>
   );
 };

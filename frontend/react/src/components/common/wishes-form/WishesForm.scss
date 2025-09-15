@@ -1,0 +1,22 @@
+.wishes-form-content {
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+
+  &__button-place {
+    display: flex;
+    padding-top: 8px;
+    justify-content: right;
+    white-space: nowrap;
+  }
+
+  &__gifts {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__surprise {
+    padding-bottom: 16px;
+  }
+}
