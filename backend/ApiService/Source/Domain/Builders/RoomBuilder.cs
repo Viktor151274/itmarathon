@@ -15,7 +15,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         private ulong _maxWishesLimit  = 5;
         private string _name;
         private string _description;
-        private string _invitationNote = "Hey!\n \nJoin our Secret Nick and make this holiday season magical! 🎄\nYou‘ll get to surprise someone with a gift — and receive one too. 🎅✨\n \nLet the holiday fun begin! 🌟 \n🎁 Join here:";
+        private string _invitationNote = "Hey!\nJoin our Secret Nick and make this holiday season magical! 🎄\nYou‘ll get to surprise someone with a gift — and receive one too. 🎅✨\nLet the holiday fun begin! 🌟 \n🎁 Join here:";
         private DateTime _giftExchangeDate;
         private ulong _giftMaximumBudget;
         private IList<User> _users { get; set; } = [];
