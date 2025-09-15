@@ -1,0 +1,45 @@
+@use "../../../assets/styles/colors";
+@use "../../../assets/styles/extends" as *;
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid colors.$green-400;
+  border-radius: 8px;
+  width: 100%;
+  background-color: colors.$green-100;
+  padding: 10px 12px 12px;
+  height: fit-content;
+  gap: 4px;
+
+  &__title {
+    @extend %title-sm;
+    position: relative;
+    color: colors.$g-900;
+    padding-left: 28px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      background: center no-repeat;
+      left: -4px;
+      width: 24px;
+      height: 24px;
+    }
+
+    &--star::before {
+      background-image: url("../../../assets/images/icons/info-card-icons-sprite.svg#star");
+    }
+
+    &--presents::before {
+      background-image: url("../../../assets/images/icons/info-card-icons-sprite.svg#presents");
+    }
+  }
+
+  &__description {
+    @extend %title-sm;
+    color: colors.$g-700;
+  }
+}
