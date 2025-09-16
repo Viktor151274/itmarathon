@@ -12,7 +12,6 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
 {
     internal class RoomRepository(AppDbContext context, IMapper mapper) : IRoomRepository
     {
-
         public async Task<Result<Room, ValidationResult>> AddAsync(Room item)
         {
             using var transaction = await context.Database.BeginTransactionAsync();
@@ -39,39 +38,37 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
             }
         }
 
-        public Task AddManyAsync(IEnumerable<Room> Items)
+        public Task UpdateAsync(Room item)
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync(ulong Id)
+        public async Task<Result<Room, ValidationResult>> GetByUserCodeAsync(string userCode)
         {
-            throw new NotImplementedException();
+            var result = await GetByCodeAsync(r => r.Users.Any(u => u.AuthCode == userCode), true);
+            return result;
         }
 
-        public Task DeleteManyAsync(IEnumerable<ulong> Ids)
+        public async Task<Result<Room, ValidationResult>> GetByRoomCodeAsync(string roomCode)
         {
-            throw new NotImplementedException();
+            var result = await GetByCodeAsync(r => r.InvitationCode == roomCode, true);
+            return result;
         }
 
-        public Task<Room?> GetByIdAsync<TItem>(ulong Id, Expression<Func<Room, TItem>>? includeExpression = null)
+        private async Task<Result<Room, ValidationResult>> GetByCodeAsync(Expression<Func<RoomEf, bool>> codeExpression, bool includeUsers = false)
         {
-            throw new NotImplementedException();
-        }
+            var query = context.Rooms.AsQueryable();
+            if (includeUsers)
+            {
+                query = query.Include(r => r.Users).ThenInclude(u => u.Wishes);
+            }
 
-        public Task<IQueryable<Room>> GetManyAsync<TOrder, TInclude>(Expression<Func<Room, bool>>? filterExpression = null, Expression<Func<Room, TOrder>>? orderExpression = null, Expression<Func<Room, TInclude>>? includeExpression = null, int? items = null)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(Room Item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateManyAsync(IEnumerable<Room> Items)
-        {
-            throw new NotImplementedException();
+            var roomEf = await query.FirstOrDefaultAsync(codeExpression);
+            var result = roomEf == null
+                ? Result.Failure<Room, ValidationResult>(new ValidationResult(new[]
+                    { new ValidationFailure("code", "Room with such code not found") }))
+                : mapper.Map<Result<Room, ValidationResult>>(roomEf);
+            return result;
         }
     }
 }

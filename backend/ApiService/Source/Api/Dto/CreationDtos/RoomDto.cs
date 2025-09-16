@@ -1,6 +1,4 @@
-﻿using Epam.ItMarathon.ApiService.Api.Extension;
-
-namespace Epam.ItMarathon.ApiService.Api.Dto.CreationDtos
+﻿namespace Epam.ItMarathon.ApiService.Api.Dto.CreationDtos
 {
     public class RoomDto
     {
@@ -15,5 +13,6 @@ namespace Epam.ItMarathon.ApiService.Api.Dto.CreationDtos
         public string InvitationNote { get; set; }
         public DateTime GiftExchangeDate { get; set; }
         public ulong GiftMaximumBudget { get; set; }
+        public bool IsFull { get; set; }
     }
 }

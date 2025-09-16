@@ -12,19 +12,20 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         internal const int InvitationNoteCharLimit = 1000;
         public DateTime? ClosedOn { get; private init; }
         public string InvitationCode { get; private set; }
-        public ulong MinUsersLimit { get; private set; }
-        public ulong MaxUsersLimit { get; private set; }
-        public ulong MaxWishesLimit { get; private set; }
+        public uint MinUsersLimit { get; private set; }
+        public uint MaxUsersLimit { get; private set; }
+        public uint MaxWishesLimit { get; private set; }
         public string Name { get; init; }
         public string Description { get; private set; }
         public string InvitationNote { get; private set; }
         public DateTime GiftExchangeDate { get; private set; }
         public ulong GiftMaximumBudget { get; private set; }
+        public bool IsFull => Users.Count >= MaxUsersLimit;
         public IList<User> Users { get; set; } = [];
         private Room() { }
         public static Result<Room, ValidationResult> InitialCreate(DateTime? closedOn, string invitationCode, string name, string description,
             string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget, IList<User> users,
-            ulong minUsersLimit, ulong maxUsersLimit, ulong maxWishesLimit)
+            uint minUsersLimit, uint maxUsersLimit, uint maxWishesLimit)
         {
             var room = new Room()
             {
@@ -51,7 +52,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         public static Result<Room, ValidationResult> Create(ulong id, DateTime createdOn, DateTime modifiedOn,
             DateTime? closedOn, string invitationCode, string name, string description,
             string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget, IList<User> users,
-            ulong minUsersLimit, ulong maxUsersLimit, ulong maxWishesLimit)
+            uint minUsersLimit, uint maxUsersLimit, uint maxWishesLimit)
         {
             var admin = users.Where(user => user.IsAdmin);
             if (admin.FirstOrDefault() is null || admin.Count() > 1) Result.Failure("The room should contain only one admin.");

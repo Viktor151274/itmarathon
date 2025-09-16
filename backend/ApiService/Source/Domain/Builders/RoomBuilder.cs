@@ -10,9 +10,9 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
     {
         private DateTime? _closedOn;
         private string _invitationCode;
-        private ulong _minUsersLimit = 3;
-        private ulong _maxUsersLimit = 20;
-        private ulong _maxWishesLimit  = 5;
+        private uint _minUsersLimit = 3;
+        private uint _maxUsersLimit = 20;
+        private uint _maxWishesLimit  = 5;
         private string _name;
         private string _description;
         private string _invitationNote = "Hey!\nJoin our Secret Nick and make this holiday season magical! 🎄\nYou‘ll get to surprise someone with a gift — and receive one too. 🎅✨\nLet the holiday fun begin! 🌟 \n🎁 Join here:";
@@ -30,17 +30,17 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             _invitationCode = invitationCode;
             return this;
         }
-        public RoomBuilder WithMinUsersLimit(ulong minUsersLimit)
+        public RoomBuilder WithMinUsersLimit(uint minUsersLimit)
         {
             _minUsersLimit = minUsersLimit;
             return this;
         }
-        public RoomBuilder WithMaxUsersLimit(ulong maxUsersLimit)
+        public RoomBuilder WithMaxUsersLimit(uint maxUsersLimit)
         {
             _maxUsersLimit = maxUsersLimit;
             return this;
         }
-        public RoomBuilder WithMaxWishesLimit(ulong maxWishesLimit)
+        public RoomBuilder WithMaxWishesLimit(uint maxWishesLimit)
         {
             _maxWishesLimit = maxWishesLimit;
             return this;
