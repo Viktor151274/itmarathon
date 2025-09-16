@@ -1,0 +1,25 @@
+@use 'abstracts/mixins' as *;
+
+:host {
+  @include general-background;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 48px;
+  padding: 64px 0px 80px 0px;
+}
+
+.success__block {
+  padding-top: 35px;
+
+  &-title {
+    font-size: 24px;
+    font-weight: 600;
+    padding-bottom: 15px;
+  }
+}
+
+.success__hint {
+  padding-bottom: 20px;
+}

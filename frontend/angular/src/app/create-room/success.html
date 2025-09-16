@@ -1,1 +1,32 @@
-<h2>Room is built</h2>
+<app-page-layout
+  [title]="pageTitle"
+  [subtitle]="pageSubtitle"
+  [pagePictureName]="pagePictureName"
+  [buttonText]="btnText"
+  [buttonType]="btnType"
+  (buttonClick)="onButtonClick()"
+>
+  <section class="success__block">
+    <h3 class="success__block-title">Your Room Link</h3>
+    <app-copy-link [link]="roomLink"></app-copy-link>
+  </section>
+
+  <section class="success__block">
+    <h3 class="success__block-title">Invitation Note</h3>
+    <app-invitation-note
+      [invitationNote]="invitationNoteDefault"
+      [invitationLink]="roomLink"
+      [editable]="true"
+      [maxLength]="invitationNoteMaxLength"
+    />
+  </section>
+
+  <section class="success__block">
+    <h3 class="success__block-title">Your Personal Participant Link</h3>
+    <p class="success__hint">
+      This is your unique personal link to access the Secret Nick room.
+    </p>
+
+    <app-copy-link [link]="personalLink" [caption]="doNotShare"></app-copy-link>
+  </section>
+</app-page-layout>

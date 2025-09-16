@@ -1,0 +1,30 @@
+<section class="page-layout">
+  <header class="page-layout__header">
+    <hgroup class="page-layout__titles">
+      <h1 class="page-layout__title">{{ title() }}</h1>
+      <p class="page-layout__subtitle">{{ subtitle() }}</p>
+    </hgroup>
+
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      class="page-layout__picture"
+      [class]="layoutPicturePositionClass()"
+    >
+      <use [attr.xlink:href]="layoutPictureHref()"></use>
+    </svg>
+  </header>
+
+  <div class="page-layout__content">
+    <ng-content></ng-content>
+  </div>
+
+  <footer class="page-layout__footer">
+    <app-button
+      [text]="buttonText()"
+      [type]="buttonType()"
+      class="primary medium full-width"
+      (click)="buttonClick.emit()"
+    />
+  </footer>
+</section>

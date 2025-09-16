@@ -133,6 +133,7 @@ export const enum ButtonText {
   Continue = 'Continue',
   BackToPrevStep = 'Back to the previous step',
   AddWish = 'Add Wish',
+  Success = 'Visit Your Room',
 }
 
 export const enum ButtonType {
@@ -144,6 +145,7 @@ export const enum PictureName {
   Car = 'car',
   BigPresents = 'big-presents',
   Star = 'star',
+  Flat = 'flat',
 }
 
 export const enum FormTitle {
@@ -152,10 +154,18 @@ export const enum FormTitle {
   AddWishes = 'Add Your Wishes',
 }
 
+export const enum PageTitle {
+  Success = 'Your Secret Nick Room is Ready!',
+}
+
 export const enum FormSubtitle {
   CreateRoom = 'Let the holiday magic begin! Set up your gift exchange in just a few steps.',
   AddDetails = 'Secret Nick needs to know where to send your present!',
   AddWishes = 'Let your Secret Nick know what would make you smile this season.',
+}
+
+export const enum PageSubtitle {
+  Success = 'Share the link below with up to 20 friends to invite them — and don’t lose your personal link! Let the festive magic begin!',
 }
 
 export const enum RegEx {

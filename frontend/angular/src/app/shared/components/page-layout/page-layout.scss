@@ -1,0 +1,45 @@
+@use 'abstracts/variables' as *;
+@use 'colors/color-matrix' as *;
+
+:host {
+  display: block;
+}
+
+.page-layout {
+  border-radius: 16px;
+  background: $form-layout-bg;
+  box-shadow: $form-shadow;
+  padding: 48px;
+  border: 1px solid $form-layout-border-color;
+  width: 792px;
+
+  &__header {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    gap: 28px;
+    align-items: start;
+    position: relative;
+  }
+
+  &__title {
+    font-size: 32px;
+    padding-bottom: 11px;
+  }
+
+  &__picture {
+    display: block;
+    position: absolute;
+
+    &--flat {
+      width: 163px;
+      height: 163px;
+      top: 0;
+      transform: translateY(-20%);
+      right: 8px;
+    }
+  }
+
+  &__footer {
+    margin-top: 48px;
+  }
+}
