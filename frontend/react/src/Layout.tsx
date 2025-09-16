@@ -1,13 +1,16 @@
 import { Outlet } from "react-router";
 import Footer from "./components/common/footer/Footer";
 import Header from "./components/common/header/Header";
+import { ToasterProvider } from "./contexts/toaster-context/ToasterContext";
 
 const Layout = () => {
   return (
     <>
-      <Header />
-      <Outlet />
-      <Footer />
+      <ToasterProvider>
+        <Header />
+        <Outlet />
+        <Footer />
+      </ToasterProvider>
     </>
   );
 };

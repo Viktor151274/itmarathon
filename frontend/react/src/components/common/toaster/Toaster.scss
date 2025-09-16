@@ -4,23 +4,52 @@
 
 .toaster {
   position: absolute;
-  top: -54px;
-  right: -8px;
-
   display: flex;
   align-items: center;
   column-gap: 8px;
-
+  top: -46px;
+  right: 0;
   width: max-content;
-  height: 40px;
-  padding: 10px 12px;
   border-radius: 8px;
-
   background-color: colors.$g-50;
   box-shadow: variables.$shadow-message;
 
   &__text {
-    @extend %label;
     color: colors.$g-800;
+  }
+
+  &--global {
+    top: 116px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &--small {
+    height: 40px;
+    padding: 10px 12px;
+
+    & .toaster__text {
+      @extend %label;
+    }
+
+    & .toaster__icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &--large {
+    height: 66px;
+    padding: 18px 24px;
+    column-gap: 12px;
+
+    & .toaster__text {
+      @extend %body-md;
+    }
+
+    & .toaster__icon {
+      width: 24px;
+      height: 24px;
+    }
   }
 }

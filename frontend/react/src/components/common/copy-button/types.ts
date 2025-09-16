@@ -1,8 +1,3 @@
-export const ICON_NAMES = {
-  SUCCESS: "success",
-  ERROR: "error",
-} as const;
-
 export const BUTTON_COLORS = {
   GREEN: "green",
   WHITE: "white",

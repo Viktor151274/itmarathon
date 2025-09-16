@@ -1,10 +1,11 @@
 import { useRef } from "react";
 import IconButton from "../icon-button/IconButton";
 import Toaster from "../toaster/Toaster";
-import type { IconName, ToasterHandler } from "../toaster/types";
+import type { ToasterHandler, ShowToasterProps } from "../toaster/types";
 import type { CopyButtonProps } from "./types";
 import { copyToClipboard } from "./utils";
 import "./CopyButton.scss";
+import type { StatusTypes } from "../../../types/types";
 
 const CopyButton = ({
   textToCopy,
@@ -14,8 +15,11 @@ const CopyButton = ({
 }: CopyButtonProps) => {
   const toasterRef = useRef<ToasterHandler>(null);
 
-  const showToaster = (iconName: IconName, message: string) => {
-    toasterRef.current?.show(iconName, message);
+  const showToaster: ShowToasterProps = (
+    message: string,
+    toasterType: StatusTypes,
+  ) => {
+    toasterRef.current?.show(message, toasterType, "small");
   };
 
   const handleClick = () => {
@@ -25,7 +29,7 @@ const CopyButton = ({
   return (
     <div className="copy-button">
       <IconButton iconName="copy" color={buttonColor} onClick={handleClick} />
-      <Toaster ref={toasterRef} />
+      <Toaster className="copy-button__toaster" ref={toasterRef} />
     </div>
   );
 };

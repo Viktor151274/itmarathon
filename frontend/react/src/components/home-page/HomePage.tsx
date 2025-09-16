@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { HOME_PAGE_TITLE } from "./utils";
 import Button from "../common/button/Button";
 import "./HomePage.scss";
+import { HOME_PAGE_TITLE } from "./utils";
 
 const HomePage = () => {
   const navigate = useNavigate();

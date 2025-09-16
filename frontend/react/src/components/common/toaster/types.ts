@@ -1,15 +1,25 @@
-import { ICON_NAMES } from "../copy-button/types";
+import type { StatusTypes } from "../../../types/types";
 
-export type IconName = (typeof ICON_NAMES)[keyof typeof ICON_NAMES];
+export const TOASTER_SIZES = {
+  SMALL: "small",
+  LARGE: "large",
+};
+
+export type ToasterSize = (typeof TOASTER_SIZES)[keyof typeof TOASTER_SIZES];
+
 export type ShowToasterProps = (
-  iconName: IconName,
   contentText: string,
+  type: StatusTypes,
+  size: ToasterSize,
 ) => void;
 
 export interface ToasterProps {
   duration?: number;
+  isGlobal?: boolean;
+  className?: string;
 }
 
 export interface ToasterHandler {
   show: ShowToasterProps;
+  close: () => void;
 }

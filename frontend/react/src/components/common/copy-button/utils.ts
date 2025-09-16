@@ -4,8 +4,9 @@ export const copyToClipboard = (
   contentToCopy: string,
   showToaster: ShowToasterProps,
   messageConfig: { successMessage: string; errorMessage: string },
-) =>
+) => {
   navigator.clipboard
     .writeText(contentToCopy)
-    .then(() => showToaster("success", messageConfig.successMessage))
-    .catch(() => showToaster("error", messageConfig.errorMessage));
+    .then(() => showToaster(messageConfig.successMessage, "success", "small"))
+    .catch(() => showToaster(messageConfig.errorMessage, "error", "small"));
+};
