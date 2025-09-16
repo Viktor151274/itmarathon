@@ -5,17 +5,23 @@
 .toaster {
   position: absolute;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   column-gap: 8px;
-  top: -46px;
-  right: 0;
+  bottom: 38px;
+  right: -8px;
   width: max-content;
+  height: fit-content;
   border-radius: 8px;
   background-color: colors.$g-50;
   box-shadow: variables.$shadow-message;
+  white-space: pre-line;
 
   &__text {
     color: colors.$g-800;
+  }
+
+  &__icon {
+    padding-top: 2px;
   }
 
   &--global {
@@ -25,7 +31,6 @@
   }
 
   &--small {
-    height: 40px;
     padding: 10px 12px;
 
     & .toaster__text {
@@ -39,7 +44,6 @@
   }
 
   &--large {
-    height: 66px;
     padding: 18px 24px;
     column-gap: 12px;
 
