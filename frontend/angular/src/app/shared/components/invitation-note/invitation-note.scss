@@ -1,23 +1,21 @@
 @use 'colors/color-matrix' as *;
 
 .invitation-note {
-  display: grid;
-  gap: 12px;
   border: 1px $invitation-note-border solid;
   border-radius: 8px;
   background-color: $invitation-note-bg;
-}
-
-.invitation-note__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 24px 24px 0 24px;
   position: relative;
 }
 
+.invitation-note__actions {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 1;
+}
+
 .invitation-note__card {
-  padding: 0 24px 24px 24px;
+  padding: 24px;
 }
 
 .invitation-note__textarea {

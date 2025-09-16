@@ -1,22 +1,18 @@
-<section class="invitation-note">
-  <header class="invitation-note__header" #popupHost>
-    <h2 class="invitation-note__title">Invitation Note</h2>
-
-    <div class="invitation-note__actions">
-      @if (editable()) {
-        <app-icon-button
-          [iconName]="isEdit() ? iconSave : iconEdit"
-          [ariaLabel]="isEdit() ? ariaLabelSave : ariaLabelEdit"
-          (click)="toggleEdit()"
-        />
-      }
+<section class="invitation-note" #popupHost>
+  <div class="invitation-note__actions">
+    @if (editable()) {
       <app-icon-button
-        [iconName]="iconCopy"
-        [ariaLabel]="ariaLabelCopy"
-        (click)="copy()"
+        [iconName]="isEdit() ? iconSave : iconEdit"
+        [ariaLabel]="isEdit() ? ariaLabelSave : ariaLabelEdit"
+        (click)="toggleEdit()"
       />
-    </div>
-  </header>
+    }
+    <app-icon-button
+      [iconName]="iconCopy"
+      [ariaLabel]="ariaLabelCopy"
+      (click)="copy()"
+    />
+  </div>
 
   <div
     class="invitation-note__card"
