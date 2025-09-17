@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent, type KeyboardEvent } from "react";
+import { useContext, type ChangeEvent, type KeyboardEvent } from "react";
 import { DatePicker, type DatePickerProps } from "antd";
 
 import FormWrapper from "../../common/form-wrapper/FormWrapper";
@@ -17,14 +17,13 @@ import {
 
 import styles from "../../common/input/Input.module.scss";
 import "./CreateRoomForm.scss";
+import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 
 const CreateRoomForm = () => {
-  const [formData, setFormData] = useState<FormData>({
-    roomName: "",
-    roomDescription: "",
-    giftBudget: "",
-    giftExchangeDate: null,
-  });
+  const { onNextStep, createRoomData, setCreateRoomData } =
+    useContext(FormsContext);
+  const { name, description, giftExchangeDate, giftMaximumBudget } =
+    createRoomData.room;
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -33,11 +32,23 @@ const CreateRoomForm = () => {
 
     if (!isValidInputField(name, value)) return;
 
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setCreateRoomData((prev) => ({
+      ...prev,
+      room: {
+        ...prev.room,
+        [name]: value,
+      },
+    }));
   };
 
   const handleDatePickerChange: DatePickerProps["onChange"] = (date) => {
-    setFormData((prev) => ({ ...prev, giftExchangeDate: date }));
+    setCreateRoomData((prev) => ({
+      ...prev,
+      room: {
+        ...prev.room,
+        giftExchangeDate: date,
+      },
+    }));
   };
 
   const handleBudgetKeyDown = (
@@ -47,7 +58,7 @@ const CreateRoomForm = () => {
   };
 
   const isFormValid = isRequiredFieldsFilled<FormData>(
-    formData,
+    createRoomData?.room,
     requiredFields,
   );
 
@@ -58,6 +69,7 @@ const CreateRoomForm = () => {
       buttonProps={{
         children: "Continue",
         disabled: !isFormValid,
+        onClick: onNextStep,
       }}
     >
       <div className="content">
@@ -66,7 +78,7 @@ const CreateRoomForm = () => {
           label="Room name"
           name={InputNames.ROOM_NAME}
           required
-          value={formData.roomName}
+          value={name}
           onChange={handleChange}
         />
 
@@ -77,7 +89,7 @@ const CreateRoomForm = () => {
           multiline
           maxLength={200}
           required
-          value={formData.roomDescription}
+          value={description}
           onChange={handleChange}
         />
 
@@ -96,8 +108,8 @@ const CreateRoomForm = () => {
                 width: "338px",
               }}
               onChange={handleDatePickerChange}
-              value={formData.giftExchangeDate}
-              className={formData.giftExchangeDate ? "ant-picker--filled" : ""}
+              value={giftExchangeDate}
+              className={giftExchangeDate ? "ant-picker--filled" : ""}
             />
           </div>
 
@@ -110,7 +122,7 @@ const CreateRoomForm = () => {
             required
             withoutCounter
             withSuffix
-            value={formData.giftBudget}
+            value={giftMaximumBudget}
             onChange={handleChange}
             onKeyDown={handleBudgetKeyDown}
           />

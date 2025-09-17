@@ -4,8 +4,8 @@ import type { GiftIdeaField, GiftIdeaProps } from "./types";
 import "./GiftIdea.scss";
 
 const initialGiftIdea = {
-  wish: "",
-  link: "",
+  name: "",
+  infoLink: "",
 } as GiftIdeaField;
 
 const GiftIdea = ({
@@ -24,21 +24,21 @@ const GiftIdea = ({
     <div className="gift-idea">
       <Input
         placeholder="Enter your wish name"
-        value={giftItem.wish}
+        value={giftItem.name}
         onChange={handleChange}
         label="I wish for"
         required={isWishRequired}
-        name="wish"
+        name="name"
       />
 
       <Input
         placeholder="E.g. https://example.com/item"
-        value={giftItem.link}
+        value={giftItem.infoLink}
         onChange={handleChange}
         label="Add link"
         maxLength={undefined}
         withoutCounter
-        name="link"
+        name="infoLink"
       />
     </div>
   );

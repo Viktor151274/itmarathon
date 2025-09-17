@@ -8,6 +8,6 @@ export const checkValidation = (
   if (giftType === GiftTypeValue.SURPRISE) {
     return customText.trim().length > 0;
   } else {
-    return ideas[0].wish.trim() !== "";
+    return ideas[0].name.trim() !== "";
   }
 };

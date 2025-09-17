@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext } from "react";
 import Button from "../button/Button";
 import FormWrapper from "../form-wrapper/FormWrapper";
 import GiftIdea from "../gift-idea/GiftIdea";
@@ -10,39 +10,63 @@ import "./WishesForm.scss";
 import { checkValidation } from "./utils";
 import type { InputChangeEvent } from "../../../types/general";
 
-import {
-  GiftTypeValue,
-  type GiftIdeaType,
-  type GiftType,
-  type WishesFormProps,
-} from "./types";
+import { GiftTypeValue, type GiftType, type WishesFormProps } from "./types";
+import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 
-const initialValues = {
-  initialIdeas: [{ id: Date.now(), wish: "", link: "" }],
-};
+const WishesForm = ({ budget, onBack }: WishesFormProps) => {
+  const { createRoomData, setCreateRoomData } = useContext(FormsContext);
+  const { wantSurprise, interests, wishList } = createRoomData.adminUser;
 
-const WishesForm = ({ budget }: WishesFormProps) => {
-  const [ideas, setIdeas] = useState<GiftIdeaType[]>(
-    initialValues.initialIdeas,
-  );
-  const [giftType, setGiftType] = useState<GiftType>(GiftTypeValue.IDEAS);
-  const [surpriseText, setSurpriseText] = useState("");
+  const giftType = wantSurprise ? GiftTypeValue.SURPRISE : GiftTypeValue.IDEAS;
 
-  const isFormValid = checkValidation(giftType, surpriseText, ideas);
+  const isFormValid = checkValidation(giftType, interests, wishList);
 
   const handleChangeValue = (
     id: number,
     field: keyof GiftIdeaField,
     value: string,
   ) => {
-    setIdeas((prev) =>
-      prev.map((idea) => (idea.id === id ? { ...idea, [field]: value } : idea)),
-    );
+    setCreateRoomData((prev) => ({
+      ...prev,
+      adminUser: {
+        ...prev.adminUser,
+        wishList: prev.adminUser.wishList.map((idea) =>
+          idea.id === id ? { ...idea, [field]: value } : idea,
+        ),
+      },
+    }));
   };
 
   const handleFormAddWish = () => {
     const id = Date.now();
-    setIdeas((prev) => [...prev, { id, wish: "", link: "" }]);
+
+    setCreateRoomData((prev) => ({
+      ...prev,
+      adminUser: {
+        ...prev.adminUser,
+        wishList: [...prev.adminUser.wishList, { id, name: "", infoLink: "" }],
+      },
+    }));
+  };
+
+  const handleChangeGiftType = (giftType: GiftType) => {
+    setCreateRoomData((prev) => ({
+      ...prev,
+      adminUser: {
+        ...prev.adminUser,
+        wantSurprise: giftType === GiftTypeValue.SURPRISE,
+      },
+    }));
+  };
+
+  const handleChangeSurpriseText = (text: string) => {
+    setCreateRoomData((prev) => ({
+      ...prev,
+      adminUser: {
+        ...prev.adminUser,
+        interests: text,
+      },
+    }));
   };
 
   return (
@@ -55,28 +79,29 @@ const WishesForm = ({ budget }: WishesFormProps) => {
         disabled: !isFormValid,
       }}
       isBackButtonVisible
+      onBack={onBack}
     >
       <div className="wishes-form-content">
         <RadioButtonItem
           name="giftType"
           text="I have gift ideas! (add up to 5 gift ideas)"
           selected={giftType === GiftTypeValue.IDEAS}
-          onChange={() => setGiftType(GiftTypeValue.IDEAS)}
+          onChange={() => handleChangeGiftType(GiftTypeValue.IDEAS)}
         >
           {giftType === GiftTypeValue.IDEAS ? (
             <div className="wishes-form-content__gifts">
-              {ideas.map((idea, index) => (
+              {wishList.map((wish, index) => (
                 <GiftIdea
-                  key={idea.id}
+                  key={wish.id}
                   isWishRequired={index === 0}
-                  giftItem={idea}
+                  giftItem={wish}
                   onChange={(field, value) =>
-                    handleChangeValue(idea.id, field, value)
+                    handleChangeValue(wish.id, field, value)
                   }
                 />
               ))}
 
-              {ideas.length < 5 ? (
+              {wishList.length < 5 ? (
                 <div className="wishes-form-content__button-place">
                   <Button
                     type="button"
@@ -98,14 +123,14 @@ const WishesForm = ({ budget }: WishesFormProps) => {
           name="giftType"
           text="I want a surprise gift"
           selected={giftType === GiftTypeValue.SURPRISE}
-          onChange={() => setGiftType(GiftTypeValue.SURPRISE)}
+          onChange={() => handleChangeGiftType(GiftTypeValue.SURPRISE)}
         >
           {giftType === GiftTypeValue.SURPRISE ? (
             <div className="wishes-form-content__surprise">
               <Input
-                value={surpriseText}
+                value={interests}
                 onChange={(e: InputChangeEvent) =>
-                  setSurpriseText(e.target.value)
+                  handleChangeSurpriseText(e.target.value)
                 }
                 placeholder="e.g. reading, coffee, cozy socks"
                 label="Add your interests"

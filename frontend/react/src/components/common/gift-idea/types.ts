@@ -5,6 +5,6 @@ export interface GiftIdeaProps {
 }
 
 export interface GiftIdeaField {
-  wish: string;
-  link: string;
+  name: string;
+  infoLink: string;
 }

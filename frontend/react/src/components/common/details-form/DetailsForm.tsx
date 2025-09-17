@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { useContext, type ChangeEvent } from "react";
 
 import PhoneNumberInput from "../phone-number-input/PhoneNumberInput";
 import FormWrapper from "../form-wrapper/FormWrapper";
@@ -13,23 +13,31 @@ import {
 import { isRequiredFieldsFilled } from "../../../../src/utils/validation";
 
 import "./DetailsForm.scss";
+import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 
-export const DetailsForm = ({ onBack }: DetailsFormProps) => {
-  const [data, setData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
-    address: "",
-    phone: "",
-    email: "",
-  });
+const DetailsForm = ({ onBack }: DetailsFormProps) => {
+  const { onNextStep, createRoomData, setCreateRoomData } =
+    useContext(FormsContext);
+  const { firstName, lastName, phone, email, deliveryInfo } =
+    createRoomData.adminUser;
 
-  const isValidForm = isRequiredFieldsFilled<FormData>(data, requiredFields);
+  const isValidForm = isRequiredFieldsFilled<FormData>(
+    createRoomData?.adminUser,
+    requiredFields,
+  );
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+
+    setCreateRoomData((prev) => ({
+      ...prev,
+      adminUser: {
+        ...prev.adminUser,
+        [name]: value,
+      },
+    }));
   };
 
   return (
@@ -39,6 +47,7 @@ export const DetailsForm = ({ onBack }: DetailsFormProps) => {
       buttonProps={{
         children: "Continue",
         disabled: !isValidForm,
+        onClick: onNextStep,
       }}
       isBackButtonVisible
       onBack={onBack}
@@ -47,7 +56,7 @@ export const DetailsForm = ({ onBack }: DetailsFormProps) => {
         <Input
           placeholder="e.g. Nickolas"
           label="First name"
-          value={data.firstName}
+          value={firstName}
           required
           onChange={handleChange}
           width="338px"
@@ -57,7 +66,7 @@ export const DetailsForm = ({ onBack }: DetailsFormProps) => {
         <Input
           placeholder="e.g. Secret"
           label="Last name"
-          value={data.lastName}
+          value={lastName}
           required
           onChange={handleChange}
           width="338px"
@@ -65,7 +74,7 @@ export const DetailsForm = ({ onBack }: DetailsFormProps) => {
         />
 
         <PhoneNumberInput
-          value={data.phone}
+          value={phone}
           required
           onChange={handleChange}
           name={InputNames.PHONE}
@@ -74,7 +83,7 @@ export const DetailsForm = ({ onBack }: DetailsFormProps) => {
         <Input
           placeholder="nickolas@example.com"
           label="Email"
-          value={data.email}
+          value={email}
           onChange={handleChange}
           width="338px"
           name={InputNames.EMAIL}
@@ -85,14 +94,16 @@ export const DetailsForm = ({ onBack }: DetailsFormProps) => {
         <Input
           placeholder="Where should St. Nick deliver your gift?"
           label="Your delivery address (no North Pole required!)"
-          value={data.address}
+          value={deliveryInfo}
           onChange={handleChange}
           multiline
           maxLength={500}
           required
-          name={InputNames.ADDRESS}
+          name={InputNames.DELIVERY_INFO}
         />
       </div>
     </FormWrapper>
   );
 };
+
+export default DetailsForm;

@@ -10,6 +10,13 @@ export const GiftTypeValue = {
 
 export type GiftType = (typeof GiftTypeValue)[keyof typeof GiftTypeValue];
 
+export interface WishesFormData {
+  wantSurprise: boolean;
+  interests: string;
+  wishList: GiftIdeaType[];
+}
+
 export interface WishesFormProps {
-  budget?: number;
+  budget?: string;
+  onBack: () => void;
 }
