@@ -83,6 +83,7 @@ if [[ "$MICROSERVICE_NAME" == "dotnet" ]]; then
 
 elif [[ "$MICROSERVICE_NAME" == "angular" || "$MICROSERVICE_NAME" == "react" ]]; then
   echo "Setting environment variables for frontend service (${MICROSERVICE_NAME})..."
+
   EXTRA_ENV="-e API_URL=http://backend"
   echo "Using EXTRA_ENV for frontend: ${EXTRA_ENV}"
 

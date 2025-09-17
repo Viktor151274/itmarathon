@@ -5,6 +5,10 @@ inputs:
     description: "Target microservice (react, angular, dotnet)"
     required: true
 
+  docker_hub_username:
+    description: "Docker Hub username"
+    required: true
+
 runs:
   using: "composite"
   steps:
@@ -24,7 +28,7 @@ runs:
         echo "INSTANCE_NAME=react" >> $GITHUB_ENV
         echo "CONTEXT=frontend/react" >> $GITHUB_ENV
         echo "DOCKERFILE=frontend/react/Dockerfile" >> $GITHUB_ENV
-        echo "REPO=${DOCKER_HUB_USERNAME}/react" >> $GITHUB_ENV
+        echo "REPO=${{ inputs.docker_hub_username }}/react" >> $GITHUB_ENV
 
     - name: Set Angular Environment
       if: ${{ inputs.microservice == 'angular' }}
@@ -35,8 +39,8 @@ runs:
         echo "INSTANCE_NAME=angular" >> $GITHUB_ENV
         echo "CONTEXT=frontend/angular" >> $GITHUB_ENV
         echo "DOCKERFILE=frontend/angular/Dockerfile" >> $GITHUB_ENV
-        echo "REPO=${DOCKER_HUB_USERNAME}/angular" >> $GITHUB_ENV
-        
+        echo "REPO=${{ inputs.docker_hub_username }}/angular" >> $GITHUB_ENV
+
     - name: Set Dotnet Environment
       if: ${{ inputs.microservice == 'dotnet' }}
       shell: bash
@@ -46,4 +50,4 @@ runs:
         echo "INSTANCE_NAME=dotnet" >> $GITHUB_ENV
         echo "CONTEXT=backend/ApiService" >> $GITHUB_ENV
         echo "DOCKERFILE=backend/ApiService/Dockerfile" >> $GITHUB_ENV
-        echo "REPO=${DOCKER_HUB_USERNAME}/dotnet" >> $GITHUB_ENV
+        echo "REPO=${{ inputs.docker_hub_username }}/dotnet" >> $GITHUB_ENV
