@@ -1,0 +1,114 @@
+name: Run Tests
+on:
+  workflow_call:
+    inputs:
+      microservice:
+        type: string
+        required: true
+        description: 'Target microservice (react, angular, dotnet)'
+  workflow_dispatch:
+    inputs:
+      microservice:
+        description: 'Target microservice'
+        required: true
+        type: choice
+        options:
+          - react
+          - angular
+          - dotnet
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: ${{ inputs.microservice == 'react' && 'node:22.16.0-alpine' || inputs.microservice == 'angular' && 'node:22.16.0-alpine' || inputs.microservice == 'dotnet' && 'mcr.microsoft.com/dotnet/sdk:9.0-alpine' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # Frontend tests (React)
+      - name: Install React dependencies
+        if: inputs.microservice == 'react'
+        working-directory: frontend/react
+        run: |
+          echo "::notice::Installing React dependencies..."
+          npm ci --cache /tmp/npm-cache
+
+      - name: Run React tests
+        if: inputs.microservice == 'react'
+        working-directory: frontend/react
+        run: |
+          echo "::notice::Running React tests..."
+          # npm test -- --coverage --watchAll=false
+          echo "React tests placeholder - tests not implemented yet"
+
+      # Frontend tests (Angular)
+      - name: Install Angular dependencies
+        if: inputs.microservice == 'angular'
+        working-directory: frontend/angular
+        run: |
+          echo "::notice::Installing Angular dependencies..."
+          npm ci --cache /tmp/npm-cache
+
+      - name: Run Angular tests
+        if: inputs.microservice == 'angular'
+        working-directory: frontend/angular
+        run: |
+          echo "::notice::Running Angular tests..."
+          # npm run test:ci
+          echo "Angular tests placeholder - tests not implemented yet"
+
+      # Backend tests (.NET)
+      - name: Restore .NET dependencies
+        if: inputs.microservice == 'dotnet'
+        working-directory: backend/ApiService
+        run: |
+          echo "::notice::Restoring .NET dependencies..."
+          dotnet restore ApiService.sln
+
+      - name: Build .NET solution
+        if: inputs.microservice == 'dotnet'
+        working-directory: backend/ApiService
+        run: |
+          echo "::notice::Building .NET solution..."
+          dotnet build ApiService.sln -c Release --no-restore
+
+      - name: Run .NET tests
+        if: inputs.microservice == 'dotnet'
+        working-directory: backend/ApiService
+        run: |
+          echo "::notice::Running .NET tests..."
+          mkdir -p Tests/results
+          dotnet test --no-restore --no-build -c Release -v minimal \
+            -p:CollectCoverage=true \
+            -p:CoverletOutput=./Tests/results/ \
+            -p:MergeWith="./Tests/results/coverage.json" \
+            -p:CoverletOutputFormat=opencover%2cjson \
+            -m:1 \
+            -p:ExcludeByFile="**/program.cs"
+
+      # Upload test results
+      - name: Upload test coverage
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.microservice }}-test-coverage
+          path: |
+            ${{ inputs.microservice == 'dotnet' && 'backend/ApiService/Tests/results/' || '' }}
+            ${{ inputs.microservice == 'react' && 'frontend/react/coverage/' || '' }}
+            ${{ inputs.microservice == 'angular' && 'frontend/angular/coverage/' || '' }}
+          retention-days: 30
+          if-no-files-found: ignore
+
+      - name: Test completion status
+        if: always()
+        run: |
+          if [ "${{ job.status }}" == "success" ]; then
+            echo "::notice::Successfully completed tests for ${{ inputs.microservice }} microservice"
+          else
+            echo "::error::Tests failed for ${{ inputs.microservice }} microservice"
+            exit 1
+          fi

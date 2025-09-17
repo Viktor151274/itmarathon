@@ -1,0 +1,41 @@
+name: Backend Test, Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/ApiService/**'
+  pull_request:    
+    branches:
+        - main
+    paths:
+      - 'backend/ApiService/**'       
+   
+jobs:
+  test:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    name: Run Tests for React
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+  # Build Docker Image for React
+  build:
+    if: github.event_name == 'push' 
+    name: Build React Docker Image
+    uses: ./.github/workflows/build-and-push.yml
+    with:
+      microservice: dotnet
+    secrets: inherit
+
+  # Deploy React Microservice
+  deploy:
+    if: github.event_name == 'push'
+    name: Deploy React Microservice
+    needs: build
+    uses: ./.github/workflows/deploy-jobs.yml
+    with:
+      microservice: dotnet
+    secrets: inherit

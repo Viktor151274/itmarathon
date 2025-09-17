@@ -1,0 +1,49 @@
+name: "Set Deployment Variables"
+
+inputs:
+  microservice:
+    description: "Target microservice (react, angular, dotnet)"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - id: short-sha
+      name: Generate SHORT_SHA
+      shell: bash
+      run: |
+        SHORT_SHA=$(git rev-parse --short=7 HEAD)
+        echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
+    
+    - name: Set React Environment
+      if: ${{ inputs.microservice == 'react' }}
+      shell: bash
+      run: |
+        echo "PORT=3000" >> $GITHUB_ENV
+        echo "CONTAINER_NAME=react-app" >> $GITHUB_ENV
+        echo "INSTANCE_NAME=react" >> $GITHUB_ENV
+        echo "CONTEXT=frontend/react" >> $GITHUB_ENV
+        echo "DOCKERFILE=frontend/react/Dockerfile" >> $GITHUB_ENV
+        echo "REPO=${DOCKER_HUB_USERNAME}/react" >> $GITHUB_ENV
+
+    - name: Set Angular Environment
+      if: ${{ inputs.microservice == 'angular' }}
+      shell: bash
+      run: |
+        echo "PORT=4200" >> $GITHUB_ENV
+        echo "CONTAINER_NAME=angular-app" >> $GITHUB_ENV
+        echo "INSTANCE_NAME=angular" >> $GITHUB_ENV
+        echo "CONTEXT=frontend/angular" >> $GITHUB_ENV
+        echo "DOCKERFILE=frontend/angular/Dockerfile" >> $GITHUB_ENV
+        echo "REPO=${DOCKER_HUB_USERNAME}/angular" >> $GITHUB_ENV
+        
+    - name: Set Dotnet Environment
+      if: ${{ inputs.microservice == 'dotnet' }}
+      shell: bash
+      run: |
+        echo "PORT=5000" >> $GITHUB_ENV
+        echo "CONTAINER_NAME=dotnet-app" >> $GITHUB_ENV
+        echo "INSTANCE_NAME=dotnet" >> $GITHUB_ENV
+        echo "CONTEXT=backend/ApiService" >> $GITHUB_ENV
+        echo "DOCKERFILE=backend/ApiService/Dockerfile" >> $GITHUB_ENV
+        echo "REPO=${DOCKER_HUB_USERNAME}/dotnet" >> $GITHUB_ENV
