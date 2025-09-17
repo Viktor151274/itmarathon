@@ -48,10 +48,9 @@ jobs:
       - name: Set deployment variables
         id: vars
         uses: ./.github/actions/set-var
-        env:
-          DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
         with:  
           microservice: ${{ env.MICROSERVICE }}
+          docker_hub_username: ${{ secrets.DOCKER_HUB_USERNAME }}
               
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
