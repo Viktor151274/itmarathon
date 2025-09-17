@@ -15,6 +15,7 @@
   background-color: colors.$g-50;
   box-shadow: variables.$shadow-message;
   white-space: pre-line;
+  z-index: 100;
 
   &__text {
     color: colors.$g-800;
@@ -25,6 +26,7 @@
   }
 
   &--global {
+    position: fixed;
     top: 116px;
     left: 50%;
     transform: translateX(-50%);

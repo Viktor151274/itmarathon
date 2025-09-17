@@ -17,7 +17,6 @@
     box-shadow: variables.$shadow;
     background: colors.$g-50;
     position: relative;
-    z-index: 1;
 
     &::before,
     &::after {

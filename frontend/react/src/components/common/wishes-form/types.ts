@@ -19,4 +19,5 @@ export interface WishesFormData {
 export interface WishesFormProps {
   budget?: string;
   onBack: () => void;
+  onComplete: () => void;
 }

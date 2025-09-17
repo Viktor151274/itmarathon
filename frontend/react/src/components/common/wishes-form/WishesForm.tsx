@@ -13,7 +13,7 @@ import type { InputChangeEvent } from "../../../types/general";
 import { GiftTypeValue, type GiftType, type WishesFormProps } from "./types";
 import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 
-const WishesForm = ({ budget, onBack }: WishesFormProps) => {
+const WishesForm = ({ budget, onBack, onComplete }: WishesFormProps) => {
   const { createRoomData, setCreateRoomData } = useContext(FormsContext);
   const { wantSurprise, interests, wishList } = createRoomData.adminUser;
 
@@ -77,6 +77,7 @@ const WishesForm = ({ budget, onBack }: WishesFormProps) => {
       buttonProps={{
         children: "Complete",
         disabled: !isFormValid,
+        onClick: onComplete,
       }}
       isBackButtonVisible
       onBack={onBack}
