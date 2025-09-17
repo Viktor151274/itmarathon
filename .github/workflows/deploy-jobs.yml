@@ -28,9 +28,9 @@ on:
         required: false
         default: 'latest'
         type: string
-
+        
+env:
   MICROSERVICE: ${{ inputs.microservice }}
-
   IMAGE_TAG: ${{ inputs.image_tag || 'latest' }}
   DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
 
