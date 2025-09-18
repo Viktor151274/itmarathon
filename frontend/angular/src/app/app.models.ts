@@ -1,5 +1,5 @@
 import { ComponentRef } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import {
   BaseLabel,
@@ -11,6 +11,7 @@ import {
   MessageType,
 } from './app.enum';
 import { Message } from './shared/components/message/message';
+import { UrlTree } from '@angular/router';
 
 export interface StepperItem {
   isActive: boolean;
@@ -100,7 +101,6 @@ export interface RoomBase extends BasicRoomDetails {
   modifiedOn: string;
   adminId: number;
   invitationCode: string;
-  invitationLink: string;
   invitationNote: string;
 }
 
@@ -125,3 +125,5 @@ export interface NavigationLinks {
   absoluteUrl: string;
   routerPath: string;
 }
+
+export type GuardReturnType = Observable<boolean | UrlTree> | boolean | UrlTree;

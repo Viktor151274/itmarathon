@@ -28,7 +28,7 @@ export class ApiService {
     );
   }
 
-  public getRoomByCode(
+  public getRoomByRoomCode(
     roomCode: string
   ): Observable<HttpResponse<RoomDetails>> {
     const params = new HttpParams().set('roomCode', roomCode);

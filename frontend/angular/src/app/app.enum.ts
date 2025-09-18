@@ -99,6 +99,8 @@ export const enum CaptionMessage {
 export enum ErrorMessage {
   DefaultMessage = '',
   SomethingWentWrong = 'Something went wrong. Try again.',
+  UnavailableRoom = 'Room is unavailable or the link has expired',
+  FullRoom = 'This room is full already. Joining is not possible anymore',
 }
 
 export const enum InputType {

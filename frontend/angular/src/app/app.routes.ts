@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { PageTitle, Path } from './app.enum';
 import { CreateRoomService } from './create-room/services/create-room';
+import { welcomeGuard } from './core/guards/welcome-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: Path.Home, pathMatch: 'full' },
@@ -56,6 +57,7 @@ export const routes: Routes = [
         title: PageTitle.JoinSuccess,
       },
     ],
+    canActivate: [welcomeGuard],
   },
   {
     path: Path.Dashboard,
