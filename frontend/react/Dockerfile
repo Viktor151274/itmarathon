@@ -1,7 +1,7 @@
 FROM node:22.16.0 AS build
 ARG VITE_ENV=development
 WORKDIR /app
-COPY package.json ./
+COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
