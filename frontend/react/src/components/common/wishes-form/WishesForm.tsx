@@ -73,7 +73,12 @@ const WishesForm = ({ budget, onBack, onComplete }: WishesFormProps) => {
     <FormWrapper
       formKey="ADD_WISHES"
       iconName="presents"
-      subDescription={budget && `Gift Budget: ${budget} UAH`}
+      subDescription={
+        budget &&
+        (budget === "0"
+          ? "Gift Budget: Unlimited"
+          : `Gift Budget: ${budget} UAH`)
+      }
       buttonProps={{
         children: "Complete",
         disabled: !isFormValid,

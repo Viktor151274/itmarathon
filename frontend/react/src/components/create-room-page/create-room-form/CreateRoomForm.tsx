@@ -116,6 +116,7 @@ const CreateRoomForm = () => {
           <Input
             type="number"
             placeholder="Type in your budget"
+            caption="0 means unlimited budget"
             label="Gift budget"
             name={InputNames.GIFT_BUDGET}
             width="338px"
