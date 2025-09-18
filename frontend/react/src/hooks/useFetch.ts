@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import type { FetchParams, UseFetchReturn } from "./types";
 
 export function useFetch<T = unknown, N = undefined>(
-  { url, onSuccess, onError, ...options }: FetchParams,
+  { url, onSuccess, onError, ...options }: FetchParams<T>,
   immediate: boolean = true,
 ): UseFetchReturn<T, N> {
   const [data, setData] = useState<T | null>(null);

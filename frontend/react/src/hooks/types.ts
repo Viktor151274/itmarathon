@@ -1,6 +1,6 @@
-export interface FetchParams extends RequestInit {
+export interface FetchParams<T> extends RequestInit {
   url: string;
-  onSuccess?: <T>(data: T) => void;
+  onSuccess?: (data: T) => void;
   onError?: (error: Error) => void;
 }
 

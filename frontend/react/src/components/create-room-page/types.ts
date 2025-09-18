@@ -2,7 +2,7 @@ export interface CreateRoomRequest {
   room: {
     name: string;
     description: string;
-    giftExchangeDate: string;
+    giftExchangeDate: string | null;
     giftMaximumBudget: number;
   };
   adminUser: {

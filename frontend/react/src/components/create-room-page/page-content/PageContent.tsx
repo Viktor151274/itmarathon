@@ -31,7 +31,10 @@ const PageContent = () => {
   const navigate = useNavigate();
   const { showToast } = useToaster();
 
-  const { isLoading, fetchData } = useFetch(
+  const { isLoading, fetchData } = useFetch<
+    CreateRoomResponse,
+    CreateRoomRequest
+  >(
     {
       url: `${BASE_API_URL}/api/rooms/create`,
       method: "POST",
@@ -67,7 +70,7 @@ const PageContent = () => {
       room: {
         ...formData.room,
         giftExchangeDate:
-          formData?.room?.giftExchangeDate?.format("YYYY-MM-DD"),
+          formData?.room?.giftExchangeDate?.format("YYYY-MM-DD") ?? null,
         giftMaximumBudget: +formData?.room?.giftMaximumBudget,
       },
       adminUser: {
