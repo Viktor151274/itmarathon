@@ -6,6 +6,8 @@ import CreateRoomPage from "./components/create-room-page/CreateRoomPage";
 import CreateRoomSuccessPage from "./components/create-room-success-page/CreateRoomSuccessPage";
 import PrivateRoute from "./components/common/private-route/PrivateRoute";
 import RoomPage from "./components/room-page/RoomPage";
+import JoinRoomPage from "@components/join-room-page/JoinRoomPage";
+import JoinRoomDetailsPage from "@components/join-room-details-page/JoinRoomDetailsPage";
 
 const AppRoutes = () => (
   <Routes>
@@ -26,7 +28,8 @@ const AppRoutes = () => (
       />
 
       <Route path="room/:userCode" element={<RoomPage />} />
-
+      <Route path="join/:roomCode" element={<JoinRoomPage />} />
+      <Route path="join/:roomCode/details" element={<JoinRoomDetailsPage />} />
       <Route path="*" element={<NotFoundPage />} />
     </Route>
   </Routes>
