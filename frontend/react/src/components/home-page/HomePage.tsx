@@ -1,17 +1,29 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
+import useToaster from "@hooks/useToaster";
 import Button from "../common/button/Button";
-import "./HomePage.scss";
+import type { HomePageLocationState } from "./types";
 import { HOME_PAGE_TITLE } from "./utils";
+import "./HomePage.scss";
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const toaster = useToaster();
 
   const handleClick = () => navigate("/create-room");
 
   useEffect(() => {
     document.title = HOME_PAGE_TITLE;
-  }, []);
+
+    const state = location.state as HomePageLocationState | undefined;
+
+    if (state?.toastMessage) {
+      toaster.showToast(state.toastMessage, "error", "large");
+
+      navigate(".", { replace: true, state: {} });
+    }
+  }, [location, navigate, toaster]);
 
   return (
     <main className="home-page">

@@ -1,0 +1,15 @@
+@use "../../assets/styles/extends";
+
+.create-room-success-page {
+  @extend %main-element;
+  padding: 64px 0 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 32px;
+  }
+}
