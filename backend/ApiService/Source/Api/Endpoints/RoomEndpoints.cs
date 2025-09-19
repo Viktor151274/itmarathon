@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Epam.ItMarathon.ApiService.Api.Dto.CreationDtos;
 using Epam.ItMarathon.ApiService.Api.Dto.ReadDtos;
 using Epam.ItMarathon.ApiService.Api.Dto.Requests.RoomRequests;
 using Epam.ItMarathon.ApiService.Api.Dto.Responses.RoomResponses;
@@ -9,7 +8,6 @@ using Epam.ItMarathon.ApiService.Api.Filters.Validation;
 using Epam.ItMarathon.ApiService.Application.Models.Creation;
 using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Commands;
 using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Queries;
-using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using MediatR;
 
 namespace Epam.ItMarathon.ApiService.Api.Endpoints
@@ -59,7 +57,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
 
             return Task.FromResult(Results.Created(string.Empty, new RoomCreationResponse()
             {
-                RoomRead = mapper.Map<RoomReadDto>(result.Value),
+                Room = mapper.Map<RoomReadDto>(result.Value),
                 UserCode = result.Value.Users.Where(user => user.IsAdmin).First().AuthCode
             }));
         }
