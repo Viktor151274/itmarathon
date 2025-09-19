@@ -10,6 +10,7 @@
 
   &--large {
     @extend %button-m;
+    text-underline-offset: 6px;
   }
 
   &--green {

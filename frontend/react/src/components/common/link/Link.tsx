@@ -1,7 +1,7 @@
 import type { LinkProps } from "./types";
 import "./Link.scss";
 
-const LinkComponent = ({
+const Link = ({
   color = "green",
   size = "large",
   disabled,
@@ -20,4 +20,4 @@ const LinkComponent = ({
   );
 };
 
-export default LinkComponent;
+export default Link;
