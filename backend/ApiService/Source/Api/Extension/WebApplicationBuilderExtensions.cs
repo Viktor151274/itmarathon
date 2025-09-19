@@ -43,7 +43,22 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
 
             #endregion Logging
 
-            #region Serialisation
+            #region Security
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyHeader()
+                               .AllowAnyMethod();
+                    });
+            });
+
+            #endregion Security
+
+            #region Serialization
 
             _ = builder.Services.Configure<JsonOptions>(opt =>
             {
@@ -54,7 +69,7 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
                 opt.SerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
             });
 
-            #endregion Serialisation
+            #endregion Serialization
 
             #region Swagger
 

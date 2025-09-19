@@ -28,14 +28,9 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
 
             _ = app.UseHsts();
             _ = app.UseHttpsRedirection();
+            _ = app.UseCors();
 
             #endregion Security
-
-            #region API Configuration
-
-            _ = app.UseHttpsRedirection();
-
-            #endregion API Configuration
 
             #region Swagger
             var textInfo = CultureInfo.CurrentCulture.TextInfo;
@@ -55,7 +50,11 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
 
             #endregion MinimalApi
 
+            #region Database
+
             app.Services.MigrateDatabase();
+
+            #endregion Database
 
             return app;
         }
