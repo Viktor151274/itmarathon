@@ -6,7 +6,7 @@
         public required string Name { get; init; }
         public string? InfoLink { get; init; }
         public Wish() { }
-        public static Wish Create(string name, string infoLink)
+        public static Wish Create(string name, string? infoLink)
         {
             return new Wish() { Name = name, InfoLink = infoLink };
         }

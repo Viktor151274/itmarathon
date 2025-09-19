@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User;
+
 namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
 {
     internal class UserMappingProfile : Profile
@@ -20,6 +21,10 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
                 .ForMember(userEf => userEf.Interests, opt => opt.MapFrom(user => user.Interests))
                 .ForMember(userEf => userEf.TargetGift, opt => opt.MapFrom(user => user.Gift))
                 .ForMember(userEf => userEf.Wishes, opt => opt.MapFrom(user => user.Wishes));
+
+            CreateMap<UserEf, Domain.Entities.User.User>()
+                .ForMember(dest => dest.IsAdmin, opt => opt.MapFrom(user => user.IsAdminForRoom!.AdminId == user.Id))
+                .ForMember(userEf => userEf.Gift, opt => opt.MapFrom(user => user.TargetGift));
         }
     }
 }

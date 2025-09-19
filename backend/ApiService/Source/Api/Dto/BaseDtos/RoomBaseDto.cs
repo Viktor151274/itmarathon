@@ -1,6 +1,6 @@
-﻿namespace Epam.ItMarathon.ApiService.Api.Dto.CreationDtos
+﻿namespace Epam.ItMarathon.ApiService.Api.Dto.BaseDtos
 {
-    public class RoomShortDto
+    public class RoomBaseDto
     {
         public required string Name { get; set; }
         public required string Description { get; set; }

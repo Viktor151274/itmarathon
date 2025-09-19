@@ -4,7 +4,7 @@ using FluentValidation;
 
 namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
 {
-    public class UserDtoValidator : AbstractValidator<UserDto>
+    public class UserDtoValidator : AbstractValidator<UserCreationDto>
     {
         public UserDtoValidator()
         {

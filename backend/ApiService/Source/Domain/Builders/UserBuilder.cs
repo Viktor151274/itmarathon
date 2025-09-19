@@ -1,12 +1,14 @@
-﻿using Epam.ItMarathon.ApiService.Domain.Abstract;
+﻿using CSharpFunctionalExtensions;
+using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish;
+using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Domain.Builders
 {
     public class UserBuilder : BaseEntityBuilder<UserBuilder>
     {
-        private ulong? _roomId;
+        private ulong _roomId;
         private string _authCode;
         private string _firstName;
         private string _lastName;
@@ -19,7 +21,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         private string? _interests;
         private bool _isAdmin;
         private IEnumerable<Wish> _wishes;
-        public UserBuilder WithRoomId(ulong? roomId)
+        public UserBuilder WithRoomId(ulong roomId)
         {
             _roomId = roomId;
             return this;
@@ -76,17 +78,12 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         }
         public UserBuilder WithChosenGift(string name, string? link)
         {
-            _gift = new Wish()
-            {
-                Name = name,
-                InfoLink = link
-            };
+            _gift = Wish.Create(name, link);
             return this;
         }
         public UserBuilder WithWishes(Dictionary<string, string?> wishesDictionary)
         {
-            _wishes = wishesDictionary.Select(pair => new Wish() 
-            { Name = pair.Key, InfoLink = pair.Value });
+            _wishes = wishesDictionary.Select(pair => Wish.Create(pair.Key, pair.Value)).ToList();
             return this;
         }
         internal User Build()

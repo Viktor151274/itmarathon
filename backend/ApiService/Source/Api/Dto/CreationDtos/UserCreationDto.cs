@@ -1,6 +1,6 @@
 ﻿namespace Epam.ItMarathon.ApiService.Api.Dto.CreationDtos
 {
-    public class UserDto
+    public class UserCreationDto
     {
         public required string FirstName { get; set; }
         public required string LastName { get; set; }

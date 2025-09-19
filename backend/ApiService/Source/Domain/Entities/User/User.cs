@@ -9,7 +9,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
         internal static int LastNameCharLimit = 40;
         internal static int DeliveryInfoCharLimit = 500;
         internal static int InterestsCharLimit = 1000;
-        public ulong? RoomId { get; private set; }
+        public ulong RoomId { get; private set; }
         public string AuthCode { get; private set; }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
@@ -23,7 +23,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
         public bool IsAdmin { get; private set; }
         public IEnumerable<Wish> Wishes { get; set; }
         private User() { }
-        internal static User InitialCreate(ulong? roomId, string authCode,
+        internal static User InitialCreate(ulong roomId, string authCode,
             string firstName, string lastName, string phone, string? email,
             string deliveryInfo, bool wantSurprise, string? interests, bool isAdmin, IEnumerable<Wish> wishes)
         {
@@ -43,7 +43,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
             return user;
         }
         internal static User Create(ulong id, DateTime createdOn, DateTime modifiedOn,
-            ulong? roomId, string authCode,
+            ulong roomId, string authCode,
             string firstName, string lastName, string phone, string? email,
             string deliveryInfo, ulong? giftToUserId, Wish? gift, bool wantSurprise, string? interests,
             bool isAdmin, IEnumerable<Wish> wishes)
