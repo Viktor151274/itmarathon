@@ -36,7 +36,7 @@ const PageContent = () => {
     CreateRoomRequest
   >(
     {
-      url: `${BASE_API_URL}/api/rooms/create`,
+      url: `${BASE_API_URL}/api/rooms`,
       method: "POST",
       headers: { "Content-Type": "application/json" },
       onError: () => {
