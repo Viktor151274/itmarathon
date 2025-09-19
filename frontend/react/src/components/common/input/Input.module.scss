@@ -9,10 +9,31 @@
 
   &.inputWrapper--error {
     .inputWrapper__input {
-      &,
-      &:focus {
+      border-color: colors.$red-warning;
+
+      &:focus,
+      &:hover:not(:disabled),
+      &:not(:placeholder-shown) {
         border-color: colors.$red-warning;
       }
+
+      + .inputWrapper__suffix,
+      + .inputWrapper__prefix {
+        border-color: colors.$red-warning;
+      }
+
+      + .inputWrapper__suffix {
+        border-left-color: colors.$g-300;
+      }
+
+      + .inputWrapper__prefix {
+        border-right-color: colors.$g-300;
+      }
+    }
+
+    .inputWrapper__prefix,
+    .inputWrapper__suffix {
+      border-color: colors.$red-warning;
     }
 
     .inputWrapper__caption {
@@ -96,7 +117,7 @@
       border-color: colors.$green-400;
     }
 
-    &:hover:not(:disabled) {
+    &:hover:not(:disabled):not(:has(.inputWrapper__caption)) {
       border-color: colors.$g-400;
 
       + .inputWrapper__suffix,
@@ -162,6 +183,11 @@
         color: colors.$g-600;
       }
     }
+
+    &:disabled + .inputWrapper__suffix,
+    &:disabled + .inputWrapper__prefix {
+      pointer-events: none;
+    }
   }
 
   &__inputContainer {
@@ -195,7 +221,7 @@
     border: 1px solid colors.$g-300;
     background-color: colors.$green-50;
     color: colors.$g-800;
-    padding: 0px 12px;
+    padding: 0 12px;
     height: 40px;
     top: 50%;
     transform: translateY(-50%);
