@@ -15,10 +15,14 @@ import { AddYourDetailsForm } from '../components/forms/add-your-details-form/ad
 import { AddYourWishesForm } from '../components/forms/add-your-wishes-form/add-your-wishes-form';
 import { RadioButtonValue } from '../app.enum';
 import type {
+  BasicUserDetails,
   AddYourDetailsFormType,
   CreateRoomFormType,
   GiftIdeaFormType,
+  WishListItem,
+  RoomCreationRequest,
   SurpriseGiftFormType,
+  BasicRoomDetails,
 } from '../app.models';
 
 @Component({
@@ -62,21 +66,24 @@ export class CreateRoom implements OnInit {
   }
 
   public onFormCompleted(): void {
-    const combinedFormData = this.#combineFormData();
-
+    const combinedFormData: RoomCreationRequest = this.#combineFormData();
     // TODO: add implementation of sending data to the backend
   }
 
-  #combineFormData() {
+  #combineFormData(): RoomCreationRequest {
     const wantSurprise =
       this.radioControl.value === RadioButtonValue.SurpriseGift;
-    const wishList = !wantSurprise ? this.giftIdeaForm.value.wishList : [];
-    const interests = wantSurprise ? this.surpriseGiftForm.value : '';
+    const wishList = !wantSurprise
+      ? (this.giftIdeaForm.value.wishList as WishListItem[])
+      : [];
+    const interests = wantSurprise
+      ? (this.surpriseGiftForm.value.interests as string)
+      : '';
 
     return {
-      room: this.createRoomForm.value,
+      room: this.createRoomForm.value as BasicRoomDetails,
       adminUser: {
-        ...this.addYourDetailsForm.value,
+        ...(this.addYourDetailsForm.value as BasicUserDetails),
         wantSurprise,
         wishList,
         interests,

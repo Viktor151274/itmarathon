@@ -198,3 +198,8 @@ export const enum InvitationNotePopup {
   success = 'Invitation note is copied',
   error = 'Invitation note was not copied. Try again.',
 }
+
+export const enum ENDPOINT {
+  rooms = 'api/rooms',
+  users = 'api/users',
+}

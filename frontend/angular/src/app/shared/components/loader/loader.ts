@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+
 import { LoaderService } from '../../../core/services/loader';
 
 @Component({
@@ -7,5 +8,7 @@ import { LoaderService } from '../../../core/services/loader';
   styleUrl: './loader.scss',
 })
 export class Loader {
-  protected visible = inject(LoaderService).visible;
+  readonly #loaderService = inject(LoaderService);
+
+  public readonly isVisible = computed(() => this.#loaderService.isVisible());
 }
