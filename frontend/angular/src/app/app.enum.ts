@@ -1,11 +1,11 @@
 export const enum Path {
   Home = 'home',
-  Welcome = 'welcome',
   Success = 'success',
   CreateRoom = 'create-room',
-  JoinRoom = 'join-room',
+  Join = 'join',
   Dashboard = 'dashboard',
   NotFound = '**',
+  Details = 'details',
 }
 
 export const enum IconName {
@@ -176,6 +176,9 @@ export const enum PageTitle {
   Home = 'Welcome to Secret Nick',
   CreateRoom = 'Create Your Room',
   CreateSuccess = 'Your Room is Ready!',
+  Welcome = 'Join the Room – Secret Nick',
+  JoinRoom = 'Fill in Your Info',
+  JoinSuccess = 'You’ve Joined the Room!',
 }
 
 export const enum ItemPosition {

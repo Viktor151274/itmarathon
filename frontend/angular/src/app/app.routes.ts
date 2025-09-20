@@ -5,15 +5,10 @@ export const routes: Routes = [
   { path: '', redirectTo: Path.Home, pathMatch: 'full' },
   {
     path: Path.Home,
-    loadComponent: () => import('./home/home').then((module) => module.Home),
+    loadComponent: () =>
+      import('./home/home').then((component) => component.Home),
     title: PageTitle.Home,
   },
-  {
-    path: Path.Welcome,
-    loadComponent: () =>
-      import('./welcome/welcome').then((module) => module.Welcome),
-  },
-
   {
     path: Path.CreateRoom,
     children: [
@@ -21,41 +16,53 @@ export const routes: Routes = [
         path: '',
         loadComponent: () =>
           import('./create-room/create-room').then(
-            (module) => module.CreateRoom
+            (component) => component.CreateRoom
           ),
         title: PageTitle.CreateRoom,
       },
       {
         path: Path.Success,
         loadComponent: () =>
-          import('./create-room/success').then((module) => module.Success),
+          import('./create-room/success').then(
+            (component) => component.Success
+          ),
         title: PageTitle.CreateSuccess,
       },
     ],
   },
   {
-    path: Path.JoinRoom,
+    path: `${Path.Join}/:roomId`,
     children: [
       {
         path: '',
         loadComponent: () =>
-          import('./join-room/join-room').then((module) => module.JoinRoom),
+          import('./welcome/welcome').then((component) => component.Welcome),
+        title: PageTitle.Welcome,
+      },
+      {
+        path: Path.Details,
+        loadComponent: () =>
+          import('./join-room/join-room').then(
+            (component) => component.JoinRoom
+          ),
+        title: PageTitle.JoinRoom,
       },
       {
         path: Path.Success,
         loadComponent: () =>
-          import('./join-room/success').then((module) => module.Success),
+          import('./join-room/success').then((component) => component.Success),
+        title: PageTitle.JoinSuccess,
       },
     ],
   },
   {
     path: Path.Dashboard,
     loadComponent: () =>
-      import('./dashboard/dashboard').then((module) => module.Dashboard),
+      import('./dashboard/dashboard').then((component) => component.Dashboard),
   },
   {
     path: Path.NotFound,
     loadComponent: () =>
-      import('./not-found/not-found').then((module) => module.NotFound),
+      import('./not-found/not-found').then((component) => component.NotFound),
   },
 ];
