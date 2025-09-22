@@ -19,6 +19,7 @@ on:
 
 jobs:
   test:
+    name: 'Run Tests for ${{ inputs.microservice }}'
     runs-on: ubuntu-latest
     container:
       image: ${{ inputs.microservice == 'react' && 'node:22.16.0-alpine' || inputs.microservice == 'angular' && 'node:22.16.0-alpine' || inputs.microservice == 'dotnet' && 'mcr.microsoft.com/dotnet/sdk:9.0-alpine' }}

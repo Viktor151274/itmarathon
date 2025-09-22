@@ -16,10 +16,10 @@ jobs:
   test:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     name: Run Tests for React
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    uses: ./.github/workflows/test.yml
+    with:
+      microservice: react
+    secrets: inherit
 
   # Build Docker Image for React
   build:
