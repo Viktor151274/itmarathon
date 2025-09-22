@@ -15,6 +15,7 @@ export type ShowToasterProps = (
 
 export interface ToasterProps {
   duration?: number;
+  isSticky?: boolean;
   isGlobal?: boolean;
   className?: string;
 }
