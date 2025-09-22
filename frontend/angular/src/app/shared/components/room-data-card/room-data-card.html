@@ -1,0 +1,15 @@
+<div class="card__header">
+  <svg
+    class="card__icon"
+    [class]="'card__icon--' + iconName()"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <use [attr.xlink:href]="iconHref()" />
+  </svg>
+  <span class="card__title">{{ title() }}</span>
+</div>
+
+<div class="card__content">
+  <ng-content />
+</div>

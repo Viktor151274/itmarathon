@@ -146,6 +146,7 @@ export const enum PictureName {
   BigPresents = 'big-presents',
   Star = 'star',
   Flat = 'flat',
+  Letter = 'letter',
 }
 
 export const enum FormTitle {
@@ -205,4 +206,9 @@ export const enum InvitationNotePopup {
 export const enum ENDPOINT {
   rooms = 'api/rooms',
   users = 'api/users',
+}
+
+export const enum RoomDataCardVariant {
+  Light = 'light',
+  Color = 'color',
 }

@@ -1,0 +1,77 @@
+@use 'colors/color-matrix' as *;
+@use 'sass:map';
+
+$rdc-paddings: (
+  light: 10px 12px 12px 12px,
+  color: 10px 16px 16px 16px,
+);
+
+@mixin rdc-apply-colors($v) {
+  border: 1px solid map.get($v, border);
+  background: map.get($v, background);
+}
+
+:host {
+  display: block;
+  border-radius: 8px;
+}
+
+@each $name, $vals in $rdc-variants {
+  :host(.room-data-card--#{$name}) {
+    @include rdc-apply-colors($vals);
+  }
+}
+
+@each $name, $pad in $rdc-paddings {
+  :host(.room-data-card--#{$name}) {
+    padding: $pad;
+  }
+}
+
+:host(.room-data-card--color) {
+  font-weight: 700;
+
+  .card__icon {
+    inline-size: 24px;
+    block-size: 24px;
+  }
+}
+
+:host(.room-data-card--light) {
+  font-weight: 700;
+
+  .card__title {
+    font-size: 20px;
+  }
+
+  .card__icon {
+    inline-size: 36px;
+    block-size: 36px;
+
+    &--letter {
+      inline-size: 32px;
+      block-size: 32px;
+    }
+  }
+}
+
+.card__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-bottom: 8px;
+}
+
+.card__content {
+  text-align: center;
+}
+
+:host ::ng-deep .card__content p {
+  color: $rdc-content-text;
+}
+
+:host(.room-data-card--light) ::ng-deep .card__content p {
+  font-size: 20px;
+  font-weight: 600;
+}

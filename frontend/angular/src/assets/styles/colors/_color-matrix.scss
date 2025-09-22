@@ -235,3 +235,16 @@ $copy-link-bg-light: rgba($copy-link-bg-dark, 0.6);
 $invitation-note-bg: $green-100;
 $invitation-note-border: $green-400;
 $invitation-note-link-color: $blue;
+
+$rdc-variants: (
+  light: (
+    border: $transparent,
+    background: $g-50,
+  ),
+  color: (
+    border: $green-400,
+    background: $green-100,
+  ),
+);
+
+$rdc-content-text: $g-700;
