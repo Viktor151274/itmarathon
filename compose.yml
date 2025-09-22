@@ -5,9 +5,9 @@ services:
        dockerfile: Dockerfile
      restart: always
      ports:
-      - "8081:80"
+       - "8081:80"
      networks:
-      - app
+       - app
 
   front-react:
      build:
@@ -15,9 +15,9 @@ services:
        dockerfile: Dockerfile
      restart: always
      ports:
-      - "8082:80"
+       - "8082:80"
      networks:
-      - app
+       - app
 
   backend:
      build:
@@ -28,12 +28,12 @@ services:
         condition: service_healthy
      restart: always
      environment:
-        ASPNETCORE_ENVIRONMENT: Development
-        ConnectionStrings__DbConnectionString: ${CONNECTIONSTRINGS__DBCONNECTIONSTRING}
+       ASPNETCORE_ENVIRONMENT: Development
+       ConnectionStrings__DbConnectionString: ${CONNECTIONSTRINGS__DBCONNECTIONSTRING}
      ports:
-      - "8080:8080"
+       - "8080:8080"
      networks:
-      - app
+       - app
 
   db:
      image: postgres:16
@@ -41,20 +41,20 @@ services:
      # set shared memory limit when using docker compose
      shm_size: 128mb
      environment:
-        POSTGRES_USER: ${PSQL_USER}
-        POSTGRES_PASSWORD: ${PSQL_PASSWORD}
-        POSTGRES_DB: ${PSQL_DB}
+       POSTGRES_USER: ${PSQL_USER}
+       POSTGRES_PASSWORD: ${PSQL_PASSWORD}
+       POSTGRES_DB: ${PSQL_DB}
      ports:
-      - "5432:5432"
+       - "5432:5432"
      volumes:
-      - db:/var/lib/postgresql/data
+       - db:/var/lib/postgresql/data
      healthcheck:
-      test: ["CMD-SHELL", "sh -c 'pg_isready -U ${PSQL_USER} -d ${PSQL_DB}'"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+       test: ["CMD-SHELL", "sh -c 'pg_isready -U ${PSQL_USER} -d ${PSQL_DB}'"]
+       interval: 5s
+       timeout: 5s
+       retries: 5
      networks:
-      - app
+       - app
 
 networks:
   app:
