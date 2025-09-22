@@ -23,6 +23,10 @@
 
   &__icon {
     padding-top: 2px;
+
+    &--info {
+      fill: colors.$green-500;
+    }
   }
 
   &--global {

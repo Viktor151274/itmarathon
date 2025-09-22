@@ -37,7 +37,9 @@ const Toaster = forwardRef<ToasterHandler, ToasterProps>(
           isGlobal ? "toaster--global" : null
         }`}
       >
-        <svg className="toaster__icon">
+        <svg
+          className={`toaster__icon ${type === "info" ? "toaster__icon--info" : ""}`}
+        >
           <use href={iconPath} />
         </svg>
         <p className="toaster__text">{contentText}</p>

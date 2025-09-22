@@ -10,6 +10,7 @@ import type { StatusTypes } from "../../../types/types";
 const CopyButton = ({
   textToCopy,
   buttonColor,
+  iconName = "copy",
   successMessage = "Link is copied!",
   errorMessage = "Link was not copied. Try again.",
 }: CopyButtonProps) => {
@@ -28,7 +29,11 @@ const CopyButton = ({
 
   return (
     <div className="copy-button">
-      <IconButton iconName="copy" color={buttonColor} onClick={handleClick} />
+      <IconButton
+        iconName={iconName}
+        color={buttonColor}
+        onClick={handleClick}
+      />
       <Toaster className="copy-button__toaster" ref={toasterRef} />
     </div>
   );
