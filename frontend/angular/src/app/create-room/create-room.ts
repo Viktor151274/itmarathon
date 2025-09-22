@@ -14,6 +14,7 @@ import { CREATE_ROOM_STEPPER_LABELS } from '../app.constants';
 import { AddYourDetailsForm } from '../components/forms/add-your-details-form/add-your-details-form';
 import { AddYourWishesForm } from '../components/forms/add-your-wishes-form/add-your-wishes-form';
 import { RadioButtonValue } from '../app.enum';
+import { CreateRoomService } from './services/create-room';
 import type {
   BasicUserDetails,
   AddYourDetailsFormType,
@@ -47,6 +48,7 @@ import type {
 export class CreateRoom implements OnInit {
   readonly #stepperManagerService = inject(StepperManager);
   readonly #formBuilder = inject(NonNullableFormBuilder);
+  readonly #createRoomService = inject(CreateRoomService);
 
   public readonly currentStep = this.#stepperManagerService.currentStep;
   public readonly stepsCount = this.#stepperManagerService.maxSteps;
@@ -67,7 +69,7 @@ export class CreateRoom implements OnInit {
 
   public onFormCompleted(): void {
     const combinedFormData: RoomCreationRequest = this.#combineFormData();
-    // TODO: add implementation of sending data to the backend
+    this.#createRoomService.processRoomCreation(combinedFormData);
   }
 
   #combineFormData(): RoomCreationRequest {

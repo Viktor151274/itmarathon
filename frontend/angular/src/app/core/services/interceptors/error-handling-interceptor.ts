@@ -7,19 +7,30 @@ import {
 } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { tap } from 'rxjs/operators';
-import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+
+import { ToastService } from '../toast';
+import { Endpoint, ErrorMessage, MessageType } from '../../../app.enum';
 
 export const errorHandlingInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
-  const router = inject(Router);
+  const toasterService = inject(ToastService);
 
   return next(req).pipe(
     tap({
-      error: (error: HttpErrorResponse) => {
-        // TODO: implement errors handling
+      error: (_error: HttpErrorResponse) => {
+        const isRoomsRequest =
+          req.method === 'GET'
+          && req.url.includes(Endpoint.rooms)
+          && req.params.has('roomCode');
+
+        if (isRoomsRequest) {
+          return;
+        }
+
+        toasterService.show(ErrorMessage.SomethingWentWrong, MessageType.Error);
       },
     })
   );

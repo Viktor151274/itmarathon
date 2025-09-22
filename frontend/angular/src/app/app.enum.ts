@@ -92,12 +92,13 @@ export const enum TextareaLabel {
 
 export const enum CaptionMessage {
   EmptyMessage = '',
-  DontShare = 'Do not share this link with other users',
+  DoNotShare = 'Do not share this link with other users',
   BudgetExplanation = '0 means unlimited budget',
 }
 
 export enum ErrorMessage {
   DefaultMessage = '',
+  SomethingWentWrong = 'Something went wrong. Try again.',
 }
 
 export const enum InputType {
@@ -203,9 +204,14 @@ export const enum InvitationNotePopup {
   error = 'Invitation note was not copied. Try again.',
 }
 
-export const enum ENDPOINT {
-  rooms = 'api/rooms',
-  users = 'api/users',
+export const enum Endpoint {
+  rooms = '/api/rooms',
+  users = '/api/users',
+}
+
+export const enum NavigationLinkSegment {
+  Join = 'join',
+  Room = 'room',
 }
 
 export const enum RoomDataCardVariant {

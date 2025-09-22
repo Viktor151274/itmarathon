@@ -27,7 +27,7 @@
       [type]="buttonTypeSubmit"
       [text]="completeButtonText"
       [isDisabled]="!isFormValid()"
-      (click)="onComplete()"
+      (click)="onComplete($event)"
     />
   } @else {
     <app-button

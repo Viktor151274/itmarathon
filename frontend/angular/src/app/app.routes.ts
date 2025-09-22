@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { PageTitle, Path } from './app.enum';
+import { CreateRoomService } from './create-room/services/create-room';
 
 export const routes: Routes = [
   { path: '', redirectTo: Path.Home, pathMatch: 'full' },
@@ -11,6 +12,7 @@ export const routes: Routes = [
   },
   {
     path: Path.CreateRoom,
+    providers: [CreateRoomService],
     children: [
       {
         path: '',

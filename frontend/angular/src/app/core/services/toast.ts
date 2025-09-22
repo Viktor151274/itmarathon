@@ -1,5 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { MessageType } from '../../app.enum';
+
+import { ErrorMessage, MessageType } from '../../app.enum';
 import { ToasterStatus } from '../../app.enum';
 import { MESSAGE_DURATION_MS } from '../../app.constants';
 
@@ -11,26 +12,28 @@ export class ToastService {
   readonly #type = signal<MessageType>(MessageType.Success);
   readonly #status = signal<ToasterStatus>(ToasterStatus.Hidden);
 
+  public readonly message = this.#message.asReadonly();
+  public readonly type = this.#type.asReadonly();
+  public readonly status = this.#status.asReadonly();
+
+  public readonly isVisible = computed(
+    () => this.#status() === ToasterStatus.Visible
+  );
+
   #timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  message = this.#message.asReadonly();
-  type = this.#type.asReadonly();
-  status = this.#status.asReadonly();
-
-  readonly isVisible = computed(() => this.#status() === ToasterStatus.Visible);
-
-  show(message: string, type: MessageType) {
-    this.#message.set(message);
-    this.#type.set(type);
-    this.#status.set(ToasterStatus.Visible);
-
+  public show(message: ErrorMessage, type: MessageType): void {
     if (this.#timeoutId) {
       clearTimeout(this.#timeoutId);
     }
+
+    this.#message.set(message);
+    this.#type.set(type);
+    this.#status.set(ToasterStatus.Visible);
     this.#timeoutId = setTimeout(() => this.hide(), MESSAGE_DURATION_MS);
   }
 
-  hide() {
+  public hide(): void {
     this.#status.set(ToasterStatus.Hidden);
   }
 }

@@ -34,5 +34,9 @@ export const appConfig: ApplicationConfig = {
         errorHandlingInterceptor,
       ])
     ),
+    {
+      provide: Window,
+      useValue: window,
+    },
   ],
 };

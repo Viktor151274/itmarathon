@@ -1,15 +1,48 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { tap } from 'rxjs';
 
 import { ApiService } from '../../core/services/api';
-import type { RoomCreationRequest } from '../../app.models';
+import { Path } from '../../app.enum';
+import { SUCCESS_PAGE_DATA_DEFAULT } from '../../app.constants';
+import type {
+  RoomCreationRequest,
+  RoomSummary,
+  SuccessPageData,
+} from '../../app.models';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CreateRoomService {
-  readonly #apiService = inject(ApiService);
+  readonly #successPageData = signal<SuccessPageData>(
+    SUCCESS_PAGE_DATA_DEFAULT
+  );
 
-  public createRoom(roomCreationData: RoomCreationRequest): void {
-    this.#apiService.createRoom(roomCreationData);
+  public readonly successPageData = this.#successPageData.asReadonly();
+
+  readonly #apiService = inject(ApiService);
+  readonly #router = inject(Router);
+
+  public processRoomCreation(roomCreationData: RoomCreationRequest): void {
+    this.#apiService
+      .createRoom(roomCreationData)
+      .pipe(tap((response) => this.#handleRoomCreationResponse(response)))
+      .subscribe();
+  }
+
+  #handleRoomCreationResponse(response: HttpResponse<RoomSummary>): void {
+    if (response.status === 201) {
+      const userCode = response?.body?.userCode || '';
+      const invitationCode = response?.body?.room?.invitationCode || '';
+      const invitationNote = response?.body?.room?.invitationNote || '';
+
+      this.#successPageData.set({
+        userCode,
+        invitationCode,
+        invitationNote,
+      });
+
+      void this.#router.navigate([Path.CreateRoom, Path.Success]);
+    }
   }
 }

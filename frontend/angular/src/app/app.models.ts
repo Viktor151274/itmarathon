@@ -114,3 +114,14 @@ export interface RoomSummary {
   userCode: string;
   userLink: string;
 }
+
+export interface SuccessPageData {
+  userCode: string;
+  invitationCode: string;
+  invitationNote: string;
+}
+
+export interface NavigationLinks {
+  absoluteUrl: string;
+  routerPath: string;
+}

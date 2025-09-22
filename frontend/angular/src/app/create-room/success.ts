@@ -1,17 +1,21 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, Signal } from '@angular/core';
+import { Router } from '@angular/router';
+
 import { PageLayout } from '../shared/components/page-layout/page-layout';
 import {
   ButtonText,
   ButtonType,
   CaptionMessage,
+  NavigationLinkSegment,
   PageSubtitle,
   PageTitle,
   PictureName,
 } from '../app.enum';
 import { CopyLink } from '../shared/components/copy-link/copy-link';
 import { InvitationNote } from '../shared/components/invitation-note/invitation-note';
-import { Router } from '@angular/router';
 import { UrlService } from '../core/services/url';
+import { CreateRoomService } from './services/create-room';
+import type { SuccessPageData } from '../app.models';
 
 @Component({
   selector: 'app-success',
@@ -19,43 +23,51 @@ import { UrlService } from '../core/services/url';
   templateUrl: './success.html',
   styleUrl: './success.scss',
 })
-export class Success {
+export class Success implements OnInit {
   readonly #router = inject(Router);
-  private readonly urlService = inject(UrlService);
+  readonly #urlService = inject(UrlService);
+  readonly #createRoomService = inject(CreateRoomService);
 
-  // TODO: add actually data from backend
-  readonly userCode = 'yourlink456';
-  readonly roomCode = 'abc123';
+  #successPageData!: Signal<SuccessPageData>;
 
-  private readonly pathsRoom = this.urlService.build(this.roomCode, 'room');
-  private readonly pathsPersonalLink = this.urlService.build(this.userCode);
+  public invitationNote!: string;
+  public personalLink!: string;
+  public roomLink!: string;
+  public routerPath!: string;
 
-  readonly personalLink = this.pathsPersonalLink.absoluteUrl;
-  readonly roomLink = this.pathsRoom.absoluteUrl;
-  readonly routerPath = this.pathsPersonalLink.routerPath;
-
-  readonly btnText = ButtonText.Success;
-  readonly btnType = ButtonType.Button;
-
-  readonly doNotShare = CaptionMessage.DontShare;
-
-  // TODO: add actually data from backend
-  readonly invitationNoteDefault = `Hey!
-
-Join our Secret Nick and make this holiday season magical! 🎄
-You'll get to surprise someone with a gift — and receive one too. 🎅✨
-
-Let the holiday fun begin! 🌟
-
-🎁 Join here:`;
-
+  public readonly btnText = ButtonText.Success;
+  public readonly btnType = ButtonType.Button;
+  public readonly doNotShare = CaptionMessage.DoNotShare;
   public readonly pageTitle = PageTitle.Success;
   public readonly pageSubtitle = PageSubtitle.Success;
   public readonly pagePictureName = PictureName.Flat;
-
   public readonly invitationNoteMaxLength = 1000;
+
+  ngOnInit(): void {
+    this.#initSuccessPage();
+  }
 
   public onButtonClick(): void {
     void this.#router.navigateByUrl(this.routerPath);
+  }
+
+  #initSuccessPage(): void {
+    this.#successPageData = this.#createRoomService.successPageData;
+    const pageData = this.#successPageData();
+    const userCode = pageData.userCode;
+    const roomCode = pageData.invitationCode;
+    const pathsRoom = this.#urlService.getNavigationLinks(
+      roomCode,
+      NavigationLinkSegment.Join
+    );
+    const pathsPersonalLink = this.#urlService.getNavigationLinks(
+      userCode,
+      NavigationLinkSegment.Room
+    );
+
+    this.invitationNote = pageData.invitationNote;
+    this.personalLink = pathsPersonalLink.absoluteUrl;
+    this.roomLink = pathsRoom.absoluteUrl;
+    this.routerPath = pathsPersonalLink.routerPath;
   }
 }

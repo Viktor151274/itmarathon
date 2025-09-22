@@ -59,7 +59,8 @@ export class FormLayout {
     this.#stepperManagerService.handlePreviousStep();
   }
 
-  public onComplete(): void {
+  public onComplete(e: MouseEvent): void {
+    e.preventDefault();
     this.formCompleted.emit();
   }
 }

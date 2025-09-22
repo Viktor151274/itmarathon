@@ -1,16 +1,19 @@
 import { inject, Injectable } from '@angular/core';
-import { WINDOW } from './tokens/window.token';
+
+import type { NavigationLinks } from '../../app.models';
 
 @Injectable({ providedIn: 'root' })
 export class UrlService {
-  private readonly window = inject(WINDOW);
+  readonly #window = inject(Window);
+  readonly #origin = this.#window.location.origin;
 
-  build(userCode: string, segment = 'join') {
+  public getNavigationLinks(
+    userCode: string,
+    segment: string
+  ): NavigationLinks {
     const code = encodeURIComponent(userCode.trim());
-
     const routerPath = `/${segment}/${code}`;
-    const origin = this.window.location.origin;
-    const absoluteUrl = `${origin}${routerPath}`;
+    const absoluteUrl = `${this.#origin}${routerPath}`;
 
     return { absoluteUrl, routerPath };
   }
