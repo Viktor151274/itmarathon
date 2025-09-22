@@ -5,6 +5,7 @@ import { InputSidebarText, InputPlaceholder, RegEx } from '../../../app.enum';
 import { Input } from '../input/input';
 import { InputType } from '../../../app.enum';
 import type { InputLabel } from '../../../app.models';
+import { generateId } from '../../../utils/generate-id';
 
 @Component({
   selector: 'app-phone-input',
@@ -21,7 +22,7 @@ export class PhoneInput {
 
   public readonly inputSidebarText = InputSidebarText.PhoneCodeUA;
   public readonly type = InputType.Tel;
-  public readonly sidebarId = crypto.randomUUID();
+  public readonly sidebarId = generateId();
 
   public onInput(event: Event): void {
     this.#restrictInput(event);

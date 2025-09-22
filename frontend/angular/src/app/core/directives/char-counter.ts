@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 
 import { ItemPosition } from '../../app.enum';
 import type { StyleMap } from '../../app.models';
+import { generateId } from '../../utils/generate-id';
 
 @Directive({
   selector: '[appCharCounter]',
@@ -25,7 +26,7 @@ export class CharCounter implements AfterViewInit, OnDestroy {
   readonly #el = inject(ElementRef);
   readonly #renderer = inject(Renderer2);
 
-  readonly #counterId: string = crypto.randomUUID();
+  readonly #counterId: string = generateId();
 
   #maxLength!: string | null;
   #counterElement!: HTMLElement;

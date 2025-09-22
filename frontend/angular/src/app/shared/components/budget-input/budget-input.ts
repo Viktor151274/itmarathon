@@ -9,6 +9,7 @@ import {
 } from '../../../app.enum';
 import { Input } from '../input/input';
 import type { InputLabel } from '../../../app.models';
+import { generateId } from '../../../utils/generate-id';
 
 @Component({
   selector: 'app-budget-input',
@@ -23,9 +24,9 @@ export class BudgetInput {
   readonly isRequired = input<boolean>(false);
   readonly placeholder = input<InputPlaceholder>(InputPlaceholder.Budget);
 
-  public readonly sidebarId = crypto.randomUUID();
   public readonly inputSidebarText = InputSidebarText.CurrencyUAH;
   public readonly type = InputType.Number;
+  public readonly sidebarId = generateId();
 
   public onInput(event: Event): void {
     this.#restrictInput(event);
