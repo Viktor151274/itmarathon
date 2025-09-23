@@ -1,0 +1,115 @@
+name: Create Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: 'Version bump type'
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  create-release:
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Verify versions
+        id: current_version
+        run: |
+          ANGULAR_VERSION=$(node -p "require('./frontend/angular/package.json').version")
+          REACT_VERSION=$(node -p "require('./frontend/react/package.json').version")
+          BACKEND_VERSION=$(grep "VERSION_PREFIX=" backend/ApiService/Dockerfile | cut -d= -f2)
+          
+          echo "Angular version: $ANGULAR_VERSION"
+          echo "React version: $REACT_VERSION"
+          echo "Backend version: $BACKEND_VERSION"
+          
+          if [ "$ANGULAR_VERSION" != "$REACT_VERSION" ]; then
+            echo "Error: Version mismatch between Angular ($ANGULAR_VERSION) and React ($REACT_VERSION) projects"
+            echo "Please ensure both package.json files have the same version before creating a release"
+            exit 1
+          fi
+          
+          if [ "$ANGULAR_VERSION" != "$BACKEND_VERSION" ]; then
+            echo "Error: Version mismatch between Frontend ($ANGULAR_VERSION) and Backend ($BACKEND_VERSION)"
+            echo "Please ensure all services have the same version before creating a release"
+            exit 1
+          fi
+          
+          echo "Current version: $ANGULAR_VERSION"
+          echo "current_version=$ANGULAR_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+
+      - name: Update versions
+        id: version
+        run: |
+          # Bump version in Angular package.json and get new version
+          cd frontend/angular
+          echo "Bumping version in Angular package.json..."
+          npm --no-git-tag-version version "${{ inputs.bump }}"
+          NEW_VERSION=$(node -p "require('./package.json').version")
+          cd - > /dev/null
+          
+          echo "Updating version to $NEW_VERSION in all projects..."
+          
+          # Update React package.json
+          cd frontend/react
+          echo "Updating React package.json..."
+          npm version "$NEW_VERSION" --no-git-tag-version --allow-same-version
+          cd - > /dev/null
+          
+          # Update VERSION_PREFIX in Dockerfile
+          echo "Updating VERSION_PREFIX in Dockerfile..."
+          sed -i "s/^ARG VERSION_PREFIX=.*/ARG VERSION_PREFIX=$NEW_VERSION/" backend/ApiService/Dockerfile
+
+          # Clean up version (remove v prefix if present)
+          CLEAN_VERSION=$(echo "$NEW_VERSION" | sed 's/^v//')
+          
+          echo "Version bumped to: $CLEAN_VERSION" >&2
+          echo "new_version=$CLEAN_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "release/v${{ steps.version.outputs.new_version }}"
+          base: main
+          title: "chore: release version v${{ steps.version.outputs.new_version }}"
+          body: |
+            ## Release v${{ steps.version.outputs.new_version }}
+            
+            This PR updates the version across all services:
+            - Angular: v${{ steps.version.outputs.new_version }}
+            - React: v${{ steps.version.outputs.new_version }}
+            - .NET API: v${{ steps.version.outputs.new_version }}
+            
+            **What happens after merge:**
+            - Docker images will be built and tagged with v${{ steps.version.outputs.new_version }}
+            - Git tag v${{ steps.version.outputs.new_version }} will be created
+            - GitHub Release will be created automatically
+            
+            Please review and merge to trigger the build and release process.
+          commit-message: "chore: bump version to v${{ steps.version.outputs.new_version }}"
+          add-paths: |
+            frontend/angular/package.json
+            frontend/react/package.json
+            backend/ApiService/Dockerfile
+          draft: false
+          delete-branch: true
