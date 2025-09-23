@@ -37,6 +37,14 @@
       transform: translateY(-20%);
       right: 8px;
     }
+
+    &--firework {
+      width: 240px;
+      height: 370px;
+      top: 0;
+      transform: translateX(12%) translateY(-20%);
+      right: 0;
+    }
   }
 
   &__footer {

@@ -13,7 +13,6 @@ import {
   MessageType,
 } from './app.enum';
 import { Message } from './shared/components/message/message';
-import { UrlTree } from '@angular/router';
 
 export interface StepperItem {
   isActive: boolean;

@@ -168,6 +168,13 @@
     $page-bg no-repeat;
 }
 
+@mixin page-layout($padding: 64px 0 80px 0) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $padding;
+}
+
 @mixin base-form-styles {
   &__input-control {
     margin-bottom: 20px;

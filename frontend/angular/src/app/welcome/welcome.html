@@ -1,1 +1,45 @@
-<h2>Hey, howz't goin'</h2>
+<app-page-layout
+  [title]="pageTitle"
+  [subtitle]="pageSubtitle"
+  [pagePictureName]="pagePictureName"
+  [buttonText]="btnText"
+  [buttonType]="btnType"
+  (buttonClick)="onButtonClick()"
+>
+  <div class="cards">
+    <app-room-data-card
+      iconName="star2"
+      title="Exchange Date"
+      [variant]="roomDataCardColorVariant"
+    >
+      <p>{{ giftExchangeDate() | date: dateFormat }}</p>
+    </app-room-data-card>
+    <app-room-data-card
+      iconName="big-presents"
+      title="Gift Budget"
+      [variant]="roomDataCardColorVariant"
+    >
+      <p>{{ giftMaximumBudget() | budget }}</p>
+    </app-room-data-card>
+  </div>
+
+  <section class="welcome-note">
+    <h3 class="welcome-note__title">To join the fun, you’ll just need to:</h3>
+    <ul class="welcome-note__list">
+      <li class="welcome-note__item">
+        <svg class="welcome-note__icon" aria-hidden="true">
+          <use xlink:href="/assets/images/images-sprite.svg#fly-star"></use>
+        </svg>
+        <span>Fill in your details</span>
+      </li>
+
+      <li class="welcome-note__item">
+        <svg class="welcome-note__icon" aria-hidden="true">
+          <use xlink:href="/assets/images/images-sprite.svg#gifts"></use>
+        </svg>
+        <span>Add your wishlist (or let the magic decide!)</span>
+      </li>
+    </ul>
+    <p>It only takes a minute — and the joy will last all season long!</p>
+  </section>
+</app-page-layout>

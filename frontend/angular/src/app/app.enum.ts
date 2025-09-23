@@ -138,6 +138,7 @@ export const enum ButtonText {
   BackToPrevStep = 'Back to the previous step',
   AddWish = 'Add Wish',
   Success = 'Visit Your Room',
+  WelcomeJoin = 'Join the Room',
 }
 
 export const enum ButtonType {
@@ -151,6 +152,7 @@ export const enum PictureName {
   Star = 'star',
   Flat = 'flat',
   Letter = 'letter',
+  Firework = 'firework',
 }
 
 export const enum FormTitle {
@@ -161,6 +163,7 @@ export const enum FormTitle {
 
 export const enum PageTitle {
   Success = 'Your Secret Nick Room is Ready!',
+  WelcomeJoin = 'Welcome to the Secret Squad!',
 }
 
 export const enum FormSubtitle {
@@ -171,6 +174,7 @@ export const enum FormSubtitle {
 
 export const enum PageSubtitle {
   Success = 'Share the link below with up to 20 friends to invite them — and don’t lose your personal link! Let the festive magic begin!',
+  WelcomeJoin = `You've been invited to a cozy holiday gift exchange!Get ready to surprise and be surprised!`,
 }
 
 export const enum RegEx {
@@ -220,4 +224,8 @@ export const enum NavigationLinkSegment {
 export const enum RoomDataCardVariant {
   Light = 'light',
   Color = 'color',
+}
+
+export enum DateFormat {
+  Short = 'dd MMM yyyy',
 }

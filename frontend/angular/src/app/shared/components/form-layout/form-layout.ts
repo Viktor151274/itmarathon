@@ -11,12 +11,13 @@ import {
   PictureName,
 } from '../../../app.enum';
 import { StepperManager } from '../../../core/services/stepper-manager';
+import { BudgetPipe } from '../../pipes/budget.pipe';
 
 @Component({
   selector: 'app-form-layout',
   templateUrl: './form-layout.html',
   styleUrl: './form-layout.scss',
-  imports: [Button],
+  imports: [Button, BudgetPipe],
 })
 export class FormLayout {
   readonly title = input.required<FormTitle>();
