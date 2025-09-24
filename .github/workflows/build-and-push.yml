@@ -1,4 +1,5 @@
 name: Build and Push Docker Image
+run-name: Build and Push ${{ inputs.microservice }} 
 
 on:
   workflow_call:

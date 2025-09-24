@@ -1,4 +1,6 @@
 name: Deploy Workflow
+run-name: Deploy ${{ inputs.microservice }}
+
 on:
   workflow_call:
     inputs:

@@ -47,7 +47,7 @@ project_name      = "app"
 alb_ingress_cidr  = ["0.0.0.0/0"]
 alb_ingress_ports = [80]
 web_backend_port  = 8080
-web_ui_port       = 3000
+web_ui_port       = 80
 
 ################################################################################
 # EC2 configuration

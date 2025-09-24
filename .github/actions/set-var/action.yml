@@ -23,7 +23,7 @@ runs:
       if: ${{ inputs.microservice == 'react' }}
       shell: bash
       run: |
-        echo "PORT=3000" >> $GITHUB_ENV
+        echo "PORT=80" >> $GITHUB_ENV
         echo "CONTAINER_NAME=react-app" >> $GITHUB_ENV
         echo "INSTANCE_NAME=react" >> $GITHUB_ENV
         echo "CONTEXT=frontend/react" >> $GITHUB_ENV
@@ -34,7 +34,7 @@ runs:
       if: ${{ inputs.microservice == 'angular' }}
       shell: bash
       run: |
-        echo "PORT=4200" >> $GITHUB_ENV
+        echo "PORT=80" >> $GITHUB_ENV
         echo "CONTAINER_NAME=angular-app" >> $GITHUB_ENV
         echo "INSTANCE_NAME=angular" >> $GITHUB_ENV
         echo "CONTEXT=frontend/angular" >> $GITHUB_ENV

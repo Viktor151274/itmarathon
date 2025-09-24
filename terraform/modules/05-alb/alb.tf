@@ -65,22 +65,17 @@ resource "aws_lb_listener" "http" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.web_ui_react.arn
-  }
-}
-
-resource "aws_lb_listener_rule" "angular_path" {
-  listener_arn = aws_lb_listener.http.arn
-  priority     = 100
-
-  action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.web_ui_angular.arn
-  }
-
-  condition {
-    path_pattern {
-      values = ["/angular*"]
+    
+    forward {
+      target_group {
+        arn  = aws_lb_target_group.web_ui_react.arn
+        weight = 50 # 50% to React
+      }
+      target_group {
+        arn  = aws_lb_target_group.web_ui_angular.arn
+        weight = 50 # 50% to Angular
+      }
     }
   }
 }
+

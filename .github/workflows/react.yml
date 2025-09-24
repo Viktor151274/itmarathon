@@ -1,5 +1,4 @@
-name: React Test, Build and Deploy
-
+name: ci react
 on:
   push:
     branches:
