@@ -1,7 +1,9 @@
 import { Routes } from '@angular/router';
+
 import { PageTitle, Path } from './app.enum';
 import { CreateRoomService } from './create-room/services/create-room';
 import { welcomeGuard } from './core/guards/welcome-guard';
+import { createRoomSuccessCanActivateGuard } from './core/guards/create-room-success-can-activate-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: Path.Home, pathMatch: 'full' },
@@ -25,6 +27,7 @@ export const routes: Routes = [
       },
       {
         path: Path.Success,
+        canActivate: [createRoomSuccessCanActivateGuard],
         loadComponent: () =>
           import('./create-room/success').then(
             (component) => component.Success

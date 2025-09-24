@@ -1,16 +1,17 @@
 import { inject, Injectable } from '@angular/core';
-import { ErrorMessage, MessageType, Path } from '../../app.enum';
 import { Router, UrlTree } from '@angular/router';
+
+import { ErrorMessage, MessageType, Path } from '../../app.enum';
 import { ToastService } from './toast';
 
 @Injectable({
   providedIn: 'root',
 })
-export class RedirectWithToastService {
-  #router = inject(Router);
-  #toaster = inject(ToastService);
+export class NavigationService {
+  readonly #router = inject(Router);
+  readonly #toaster = inject(ToastService);
 
-  public redirect(
+  public redirectWithToast(
     path: Path,
     errorMessage: ErrorMessage,
     type: MessageType

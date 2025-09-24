@@ -101,6 +101,7 @@ export enum ErrorMessage {
   SomethingWentWrong = 'Something went wrong. Try again.',
   UnavailableRoom = 'Room is unavailable or the link has expired',
   FullRoom = 'This room is full already. Joining is not possible anymore',
+  PleaseCreateYourRoom = 'Please create your room first.',
 }
 
 export const enum InputType {

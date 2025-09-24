@@ -1,14 +1,15 @@
 import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
+import { catchError, map, of } from 'rxjs';
+
 import { ErrorMessage, MessageType, Path } from '../../app.enum';
 import { JoinRoomService } from '../../join-room/services/join-room';
-import { catchError, map, of } from 'rxjs';
-import { RedirectWithToastService } from '../services/redirect-with-toast';
-import { GuardReturnType } from '../../app.models';
+import { NavigationService } from '../services/navigation';
+import type { GuardReturnType } from '../../app.models';
 
 export const welcomeGuard: CanActivateFn = (route): GuardReturnType => {
   const roomApi = inject(JoinRoomService);
-  const redirectWithToast = inject(RedirectWithToastService);
+  const navigationService = inject(NavigationService);
 
   return roomApi.getRoomByRoomCode(route.params['roomId']).pipe(
     map((result) => {
@@ -20,7 +21,7 @@ export const welcomeGuard: CanActivateFn = (route): GuardReturnType => {
         ? ErrorMessage.UnavailableRoom
         : ErrorMessage.FullRoom;
 
-      return redirectWithToast.redirect(
+      return navigationService.redirectWithToast(
         Path.Home,
         errorMessage,
         MessageType.Error
@@ -28,7 +29,7 @@ export const welcomeGuard: CanActivateFn = (route): GuardReturnType => {
     }),
     catchError(() =>
       of(
-        redirectWithToast.redirect(
+        navigationService.redirectWithToast(
           Path.Home,
           ErrorMessage.UnavailableRoom,
           MessageType.Error
