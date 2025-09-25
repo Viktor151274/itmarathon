@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'frontend/angular/**'
-  pull_request:    
+  pull_request:   
     branches:
         - main
     paths:
@@ -21,21 +21,14 @@ jobs:
       microservice: angular
     secrets: inherit
 
-  # Build Docker Image for React
+  # Build Docker Image for Angular
   build:
-    if: github.event_name == 'push' 
-    name: Build React Docker Image
+    if: github.event_name == 'push'
+    name: Build Angular Docker Image
+    permissions:
+      contents: read
+      pull-requests: read
     uses: ./.github/workflows/build-and-push.yml
-    with:
-      microservice: angular
-    secrets: inherit
-
-  # Deploy React Microservice
-  deploy:
-    if: github.event_name == 'push' 
-    name: Deploy React Microservice
-    needs: build
-    uses: ./.github/workflows/deploy-jobs.yml
     with:
       microservice: angular
     secrets: inherit

@@ -1,4 +1,4 @@
-name: Deploy Workflow
+name: deploy workflow
 run-name: Deploy ${{ inputs.microservice }}
 
 on:

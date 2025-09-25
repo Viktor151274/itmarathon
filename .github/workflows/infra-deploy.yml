@@ -1,8 +1,7 @@
-name: Terraform AWS Deployment
+name: terraform AWS deployment
 run-name: ${{ inputs.action }} ${{ inputs.module }}
 
 on:
-  
   workflow_dispatch:
     inputs:
       module:
