@@ -3,7 +3,7 @@ import { DatePicker, type DatePickerProps } from "antd";
 
 import FormWrapper from "../../common/form-wrapper/FormWrapper";
 import Input from "../../common/input/Input";
-import { InputNames, type FormData } from "./types";
+import { InputNames, type DateType, type FormData } from "./types";
 import {
   LABEL_DATE_PICKER,
   INPUT_ID_DATE_PICKER,
@@ -57,6 +57,20 @@ const CreateRoomForm = () => {
     blockInvalidNumberKeys(e);
   };
 
+  const disablePastDates = (current: DateType) => {
+    if (!current) {
+      return false;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const currentDate = current.toDate();
+    currentDate.setHours(0, 0, 0, 0);
+
+    return currentDate < today;
+  };
+
   const isFormValid = isRequiredFieldsFilled<FormData>(
     createRoomData?.room,
     requiredFields,
@@ -104,6 +118,7 @@ const CreateRoomForm = () => {
             <DatePicker
               id={INPUT_ID_DATE_PICKER}
               format="DD-MM-YYYY"
+              disabledDate={disablePastDates}
               style={{
                 width: "338px",
               }}
