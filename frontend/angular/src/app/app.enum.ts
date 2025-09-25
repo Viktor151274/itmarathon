@@ -3,7 +3,7 @@ export const enum Path {
   Success = 'success',
   CreateRoom = 'create-room',
   Join = 'join',
-  Dashboard = 'dashboard',
+  Room = 'room',
   NotFound = '**',
   Details = 'details',
 }
@@ -164,6 +164,13 @@ export const enum FormTitle {
 export const enum PageTitle {
   Success = 'Your Secret Nick Room is Ready!',
   WelcomeJoin = 'Welcome to the Secret Squad!',
+  Home = 'Welcome to Secret Nick',
+  CreateRoom = 'Create Your Room',
+  CreateSuccess = 'Your Room is Ready!',
+  Welcome = 'Join the Room – Secret Nick',
+  JoinRoom = 'Fill in Your Info',
+  JoinSuccess = 'You’ve Joined the Room!',
+  Room = 'Your Room',
 }
 
 export const enum FormSubtitle {
@@ -179,15 +186,6 @@ export const enum PageSubtitle {
 
 export const enum RegEx {
   Digits = '\\d+',
-}
-
-export const enum PageTitle {
-  Home = 'Welcome to Secret Nick',
-  CreateRoom = 'Create Your Room',
-  CreateSuccess = 'Your Room is Ready!',
-  Welcome = 'Join the Room – Secret Nick',
-  JoinRoom = 'Fill in Your Info',
-  JoinSuccess = 'You’ve Joined the Room!',
 }
 
 export const enum ItemPosition {

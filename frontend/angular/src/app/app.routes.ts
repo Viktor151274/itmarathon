@@ -63,9 +63,10 @@ export const routes: Routes = [
     canActivate: [welcomeGuard],
   },
   {
-    path: Path.Dashboard,
+    path: `${Path.Room}/:userCode`,
     loadComponent: () =>
-      import('./dashboard/dashboard').then((component) => component.Dashboard),
+      import('./room/room').then((component) => component.Room),
+    title: PageTitle.Room,
   },
   {
     path: Path.NotFound,
