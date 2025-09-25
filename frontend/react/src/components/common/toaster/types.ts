@@ -7,7 +7,7 @@ export const TOASTER_SIZES = {
 
 export type ToasterSize = (typeof TOASTER_SIZES)[keyof typeof TOASTER_SIZES];
 
-export type ShowToasterProps = (
+export type ShowToaster = (
   contentText: string,
   type: StatusTypes,
   size: ToasterSize,
@@ -21,6 +21,6 @@ export interface ToasterProps {
 }
 
 export interface ToasterHandler {
-  show: ShowToasterProps;
+  show: ShowToaster;
   close: () => void;
 }
