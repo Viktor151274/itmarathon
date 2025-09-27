@@ -9,12 +9,12 @@ import { SUCCESS_PAGE_DATA_DEFAULT } from '../../app.constants';
 import type {
   RoomCreationRequest,
   RoomSummary,
-  SuccessPageData,
+  CreateRoomSuccessPageData,
 } from '../../app.models';
 
 @Injectable()
 export class CreateRoomService {
-  readonly #successPageData = signal<SuccessPageData>(
+  readonly #successPageData = signal<CreateRoomSuccessPageData>(
     SUCCESS_PAGE_DATA_DEFAULT
   );
 

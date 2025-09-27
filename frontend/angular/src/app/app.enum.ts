@@ -33,7 +33,7 @@ export const enum InputSidebarText {
 
 export const enum StepLabel {
   CreateRoom = 'Create room',
-  AddParticipantInfo = 'Add participant info',
+  AddPersonalInfo = 'Add personal info',
   AddWishlist = 'Add wishlist',
 }
 

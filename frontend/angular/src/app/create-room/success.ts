@@ -15,7 +15,7 @@ import { CopyLink } from '../shared/components/copy-link/copy-link';
 import { InvitationNote } from '../shared/components/invitation-note/invitation-note';
 import { UrlService } from '../core/services/url';
 import { CreateRoomService } from './services/create-room';
-import type { SuccessPageData } from '../app.models';
+import type { CreateRoomSuccessPageData } from '../app.models';
 
 @Component({
   selector: 'app-success',
@@ -28,7 +28,7 @@ export class Success implements OnInit {
   readonly #urlService = inject(UrlService);
   readonly #createRoomService = inject(CreateRoomService);
 
-  #successPageData!: Signal<SuccessPageData>;
+  #successPageData!: Signal<CreateRoomSuccessPageData>;
 
   public invitationNote!: string;
   public personalLink!: string;

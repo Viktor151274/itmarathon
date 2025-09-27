@@ -1,7 +1,6 @@
 @use 'abstracts/mixins' as *;
 
 :host {
-  @include general-background;
   @include page-layout(40px 0 80px);
 }
 

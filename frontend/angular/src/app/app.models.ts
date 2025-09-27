@@ -116,10 +116,16 @@ export interface RoomSummary {
   userLink: string;
 }
 
-export interface SuccessPageData {
+export interface CreateRoomSuccessPageData {
   userCode: string;
   invitationCode: string;
   invitationNote: string;
+}
+
+export interface JoinRoomWelcomePageData {
+  giftMaximumBudget: number;
+  invitationCode: string;
+  giftExchangeDate: string;
 }
 
 export interface NavigationLinks {

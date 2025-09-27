@@ -38,6 +38,7 @@ export const routes: Routes = [
   },
   {
     path: `${Path.Join}/:roomId`,
+    canActivate: [welcomeGuard],
     children: [
       {
         path: '',
@@ -60,7 +61,6 @@ export const routes: Routes = [
         title: PageTitle.JoinSuccess,
       },
     ],
-    canActivate: [welcomeGuard],
   },
   {
     path: `${Path.Room}/:userCode`,

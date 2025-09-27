@@ -1,0 +1,5 @@
+@use 'abstracts/mixins' as *;
+
+:host {
+  @include page-layout($gap: 48px);
+}
