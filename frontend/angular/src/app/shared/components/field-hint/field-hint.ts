@@ -1,9 +1,20 @@
-import { Component, computed, inject, input } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
+import {
+  FormControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+} from '@angular/forms';
 
 import { CaptionMessage } from '../../../app.enum';
 import { FormValidation } from '../../../core/services/form-validation';
-import type { FieldHintMessage } from '../../../app.models';
+import { merge, tap } from 'rxjs';
 
 @Component({
   selector: 'app-field-hint',
@@ -11,20 +22,28 @@ import type { FieldHintMessage } from '../../../app.models';
   templateUrl: './field-hint.html',
   styleUrl: './field-hint.scss',
 })
-export class FieldHint {
+export class FieldHint implements OnInit {
   readonly control = input.required<FormControl>();
   readonly captionMessage = input<CaptionMessage>(CaptionMessage.EmptyMessage);
 
-  public readonly hintMessage = computed(() => this.#getHintMessage());
-  public readonly hasError = computed(() =>
-    this.#formValidationService.hasError(this.control())
-  );
-
+  readonly #errorsSig = signal<ValidationErrors | null>(null);
   readonly #formValidationService = inject(FormValidation);
 
-  #getHintMessage(): FieldHintMessage {
-    return this.hasError()
-      ? this.#formValidationService.getErrorMessage(this.control())
-      : this.captionMessage();
+  ngOnInit() {
+    merge(this.control().valueChanges, this.control().statusChanges)
+      .pipe(tap(() => this.#errorsSig.set(this.control().errors)))
+      .subscribe();
   }
+
+  public readonly errorMessage = computed(() => {
+    this.#errorsSig();
+    return this.control().invalid
+      ? this.#formValidationService.getErrorMessage(this.control())
+      : null;
+  });
+
+  public readonly hintMessage = computed(() => {
+    this.#errorsSig();
+    return this.errorMessage() || this.captionMessage();
+  });
 }

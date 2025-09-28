@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-import { ErrorMessage, MessageType } from '../../app.enum';
+import { ToastMessage, MessageType } from '../../app.enum';
 import { ToasterStatus } from '../../app.enum';
 import { MESSAGE_DURATION_MS } from '../../app.constants';
 
@@ -22,7 +22,7 @@ export class ToastService {
 
   #timeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  public show(message: ErrorMessage, type: MessageType): void {
+  public show(message: ToastMessage, type: MessageType): void {
     if (this.#timeoutId) {
       clearTimeout(this.#timeoutId);
     }

@@ -4,6 +4,7 @@ import {
   FormGroup,
   NonNullableFormBuilder,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
 
 import { Stepper } from '../shared/components/stepper/stepper';
@@ -22,6 +23,7 @@ import type {
   UserDetails,
   WishListItem,
 } from '../app.models';
+import { FormValidation as CustomValidators } from '../core/services/form-validation';
 
 @Component({
   selector: 'app-join-room',
@@ -97,7 +99,13 @@ export class JoinRoom implements OnInit {
     return this.formBuilder.group({
       firstName: [''],
       lastName: [''],
-      phone: [''],
+      phone: [
+        '',
+        {
+          validators: [Validators.required, CustomValidators.phone],
+          updateOn: 'blur',
+        },
+      ],
       email: [''],
       deliveryInfo: [''],
     });

@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { ToastService } from '../toast';
-import { Endpoint, ErrorMessage, MessageType } from '../../../app.enum';
+import { Endpoint, ToastMessage, MessageType } from '../../../app.enum';
 
 export const errorHandlingInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
@@ -30,7 +30,7 @@ export const errorHandlingInterceptor: HttpInterceptorFn = (
           return;
         }
 
-        toasterService.show(ErrorMessage.SomethingWentWrong, MessageType.Error);
+        toasterService.show(ToastMessage.SomethingWentWrong, MessageType.Error);
       },
     })
   );

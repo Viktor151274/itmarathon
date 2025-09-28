@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FormControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
 
-import { ErrorMessage } from '../../app.enum';
+import { ErrorMessage, RegEx } from '../../app.enum';
+import { CustomError } from '../../app.models';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,15 @@ export class FormValidation {
     );
   }
 
-  public hasError(control: FormControl): boolean {
-    return Boolean(control.invalid && control.touched);
+  static phone(control: AbstractControl): CustomError | null {
+    const value = control.value as string;
+    const phoneRegExp = new RegExp(RegEx.Phone);
+    if (!value) return null;
+
+    if (!phoneRegExp.test(value)) {
+      return { invalidPhone: true };
+    }
+
+    return null;
   }
 }

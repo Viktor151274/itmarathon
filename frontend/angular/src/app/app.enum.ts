@@ -98,6 +98,12 @@ export const enum CaptionMessage {
 
 export enum ErrorMessage {
   DefaultMessage = '',
+  requiredField = 'This field is required',
+  invalidPhone = 'Phone number must be 9 digits',
+}
+
+export enum ToastMessage {
+  DefaultMessage = '',
   SomethingWentWrong = 'Something went wrong. Try again.',
   UnavailableRoom = 'Room is unavailable or the link has expired',
   FullRoom = 'This room is full already. Joining is not possible anymore',
@@ -186,6 +192,7 @@ export const enum PageSubtitle {
 
 export const enum RegEx {
   Digits = '\\d+',
+  Phone = '^\\d{9}$',
 }
 
 export const enum ItemPosition {

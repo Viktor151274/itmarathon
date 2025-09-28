@@ -134,3 +134,5 @@ export interface NavigationLinks {
 }
 
 export type GuardReturnType = Observable<boolean | UrlTree> | boolean | UrlTree;
+
+export type CustomError = Record<string, boolean>;

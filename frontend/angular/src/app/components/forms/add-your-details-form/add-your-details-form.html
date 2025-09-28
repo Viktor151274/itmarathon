@@ -31,13 +31,19 @@
       </fieldset>
 
       <fieldset class="form__input-group">
-        <app-phone-input
-          class="form__input-control"
-          [label]="phoneNumber"
-          [control]="phoneNumberControl"
-          [placeholder]="phoneNumberPlaceholder"
-          [isRequired]="true"
-        />
+        <fieldset class="form__input-control">
+          <app-phone-input
+            class="form__input-control"
+            [label]="phoneNumber"
+            [control]="phoneNumberControl"
+            [placeholder]="phoneNumberPlaceholder"
+            [isRequired]="true"
+          />
+          <app-field-hint
+            [control]="phoneNumberControl"
+            class="form__field-hint"
+          />
+        </fieldset>
 
         <app-input
           class="form__input-control"

@@ -1,4 +1,4 @@
-import { Component, HostBinding, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { InputType } from '../../../app.enum';
@@ -22,9 +22,7 @@ export class Input {
   readonly maxLength = input<number | null>(null);
   readonly ariaDescribedBy = input<string>();
 
-  @HostBinding('attr.aria-invalid')
   get ariaInvalid(): 'true' | 'false' {
-    const c = this.control();
     return (this.control().touched || this.control().dirty)
       && this.control().invalid
       ? 'true'

@@ -18,6 +18,7 @@ import { FormLayout } from '../../../shared/components/form-layout/form-layout';
 import { CharCounter } from '../../../core/directives/char-counter';
 import { PhoneInput } from '../../../shared/components/phone-input/phone-input';
 import type { AddYourDetailsFormType } from '../../../app.models';
+import { FieldHint } from '../../../shared/components/field-hint/field-hint';
 
 @Component({
   selector: 'app-add-your-details-form',
@@ -28,6 +29,7 @@ import type { AddYourDetailsFormType } from '../../../app.models';
     CharCounter,
     PhoneInput,
     ReactiveFormsModule,
+    FieldHint,
   ],
   templateUrl: './add-your-details-form.html',
   styleUrl: './add-your-details-form.scss',

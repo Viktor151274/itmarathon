@@ -1,4 +1,10 @@
-import { Component, computed, input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  input,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { InputSidebarText, InputPlaceholder, RegEx } from '../../../app.enum';
@@ -13,7 +19,9 @@ import { generateId } from '../../../utils/generate-id';
   templateUrl: './phone-input.html',
   styleUrl: './phone-input.scss',
 })
-export class PhoneInput {
+export class PhoneInput implements AfterViewInit {
+  @ViewChild(Input, { read: ElementRef })
+  private inputRef!: ElementRef<HTMLInputElement>;
   readonly control = input.required<FormControl>();
   readonly label = input.required<InputLabel>();
 
@@ -27,22 +35,20 @@ export class PhoneInput {
   public onInput(event: Event): void {
     this.#restrictInput(event);
   }
-
-  public onBlur(): void {
-    this.control().markAsTouched();
+  ngAfterViewInit(): void {
+    const el = this.inputRef.nativeElement.querySelector('input');
+    if (el) {
+      el.addEventListener('input', this.#restrictInput.bind(this), true);
+    }
   }
-
-  readonly showError = computed(() => {
-    const c = this.control();
-    return (c.touched || c.dirty) && c.invalid;
-  });
-
   #restrictInput(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const onlyDigits =
-      (input.value ?? '').match(new RegExp(RegEx.Digits, 'g'))?.join('') ?? '';
-    const digits = onlyDigits.slice(0, 9);
-    input.value = digits;
-    this.control().setValue(digits, { emitEvent: false });
+    const pattern = new RegExp(RegEx.Digits, 'g');
+    const digits = input.value.match(pattern);
+    input.value = digits ? digits.join('') : '';
+
+    if (input.value.length > 9) {
+      input.value = input.value.slice(0, 9);
+    }
   }
 }

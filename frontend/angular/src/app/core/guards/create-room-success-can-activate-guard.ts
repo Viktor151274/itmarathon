@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 
-import { ErrorMessage, MessageType, Path } from '../../app.enum';
+import { ToastMessage, MessageType, Path } from '../../app.enum';
 import { CreateRoomService } from '../../create-room/services/create-room';
 import { GuardReturnType } from '../../app.models';
 import { NavigationService } from '../services/navigation';
@@ -19,7 +19,7 @@ export const createRoomSuccessCanActivateGuard: CanActivateFn = (
 
   return navigationService.redirectWithToast(
     Path.Home,
-    ErrorMessage.PleaseCreateYourRoom,
+    ToastMessage.PleaseCreateYourRoom,
     MessageType.Error
   );
 };

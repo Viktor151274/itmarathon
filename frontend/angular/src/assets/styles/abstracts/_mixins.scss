@@ -134,9 +134,7 @@
     cursor: not-allowed;
   }
 
-  &[aria-invalid='true'],
-  &.ng-invalid.ng-touched,
-  &.ng-invalid.ng-dirty {
+  &.ng-invalid.ng-touched {
     border-color: $error-border !important;
   }
 }
@@ -181,6 +179,10 @@
 @mixin base-form-styles {
   &__input-control {
     margin-bottom: 20px;
+
+    &:has(.hint.hint--error) {
+      margin-bottom: 40px;
+    }
   }
 
   &__input-group {

@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { catchError, map, of } from 'rxjs';
 
-import { ErrorMessage, MessageType, Path } from '../../app.enum';
+import { ToastMessage, MessageType, Path } from '../../app.enum';
 import { JoinRoomService } from '../../join-room/services/join-room';
 import { NavigationService } from '../services/navigation';
 import type { GuardReturnType } from '../../app.models';
@@ -17,9 +17,9 @@ export const welcomeGuard: CanActivateFn = (route): GuardReturnType => {
         return true;
       }
 
-      const errorMessage: ErrorMessage = result.body?.closedOn
-        ? ErrorMessage.UnavailableRoom
-        : ErrorMessage.FullRoom;
+      const errorMessage: ToastMessage = result.body?.closedOn
+        ? ToastMessage.UnavailableRoom
+        : ToastMessage.FullRoom;
 
       return navigationService.redirectWithToast(
         Path.Home,
@@ -31,7 +31,7 @@ export const welcomeGuard: CanActivateFn = (route): GuardReturnType => {
       of(
         navigationService.redirectWithToast(
           Path.Home,
-          ErrorMessage.UnavailableRoom,
+          ToastMessage.UnavailableRoom,
           MessageType.Error
         )
       )
