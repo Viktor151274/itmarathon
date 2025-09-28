@@ -36,6 +36,9 @@ export class BudgetInput {
     const input = event.target as HTMLInputElement;
     const pattern = new RegExp(RegEx.Digits, 'g');
     const digits = input.value.match(pattern);
-    input.value = digits ? digits.join('') : '';
+    const clearValue = Number(digits ? digits.join('') : '');
+    input.value = clearValue.toString();
+
+    this.control().setValue(clearValue, { emitEvent: false });
   }
 }

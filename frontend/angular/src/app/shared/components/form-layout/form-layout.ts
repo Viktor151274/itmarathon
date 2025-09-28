@@ -12,6 +12,7 @@ import {
 } from '../../../app.enum';
 import { StepperManager } from '../../../core/services/stepper-manager';
 import { BudgetPipe } from '../../pipes/budget.pipe';
+import { BudgetControl } from '../../../app.models';
 
 @Component({
   selector: 'app-form-layout',
@@ -24,7 +25,7 @@ export class FormLayout {
   readonly subtitle = input.required<FormSubtitle>();
   readonly formPictureName = input.required<PictureName>();
 
-  readonly budget = input<number>(0);
+  readonly budget = input<BudgetControl>(0);
   readonly isFormValid = input<boolean>(false);
 
   readonly formCompleted = output<void>();

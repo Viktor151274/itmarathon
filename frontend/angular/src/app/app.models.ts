@@ -37,11 +37,13 @@ export interface PopupInstance {
 
 export type StyleMap = Record<string, string>;
 
+export type BudgetControl = number | null;
+
 export interface CreateRoomFormType {
   name: FormControl<string>;
   description: FormControl<string>;
   giftExchangeDate: FormControl<string>;
-  giftMaximumBudget: FormControl<number>;
+  giftMaximumBudget: FormControl<BudgetControl>;
 }
 
 export interface AddYourDetailsFormType {

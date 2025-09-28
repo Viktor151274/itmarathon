@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { Stepper } from '../shared/components/stepper/stepper';
 import { CreateRoomForm } from '../components/forms/create-room-form/create-room-form';
@@ -10,7 +10,7 @@ import { AddYourDetailsForm } from '../components/forms/add-your-details-form/ad
 import { AddYourWishesForm } from '../components/forms/add-your-wishes-form/add-your-wishes-form';
 import { CreateRoomService } from './services/create-room';
 import { JoinRoom } from '../join-room/join-room';
-import type { CreateRoomFormType, BasicRoomDetails } from '../app.models';
+import type { CreateRoomFormType, BasicRoomDetails, BudgetControl } from '../app.models';
 
 @Component({
   selector: 'app-create-room',
@@ -33,6 +33,7 @@ import type { CreateRoomFormType, BasicRoomDetails } from '../app.models';
 })
 export class CreateRoom extends JoinRoom implements OnInit {
   readonly #createRoomService = inject(CreateRoomService);
+  readonly #nullableFormBuilder = inject(FormBuilder);
 
   public createRoomForm!: FormGroup<CreateRoomFormType>;
 
@@ -55,7 +56,7 @@ export class CreateRoom extends JoinRoom implements OnInit {
       name: [''],
       description: [''],
       giftExchangeDate: [''],
-      giftMaximumBudget: [0],
+      giftMaximumBudget: this.#nullableFormBuilder.control<BudgetControl>(null),
     });
   }
 }
