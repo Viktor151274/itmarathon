@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { InputSidebarText, InputPlaceholder, RegEx } from '../../../app.enum';
@@ -28,14 +28,21 @@ export class PhoneInput {
     this.#restrictInput(event);
   }
 
+  public onBlur(): void {
+    this.control().markAsTouched();
+  }
+
+  readonly showError = computed(() => {
+    const c = this.control();
+    return (c.touched || c.dirty) && c.invalid;
+  });
+
   #restrictInput(event: Event): void {
     const input = event.target as HTMLInputElement;
-    const pattern = new RegExp(RegEx.Digits, 'g');
-    const digits = input.value.match(pattern);
-    input.value = digits ? digits.join('') : '';
-
-    if (input.value.length > 9) {
-      input.value = input.value.slice(0, 9);
-    }
+    const onlyDigits =
+      (input.value ?? '').match(new RegExp(RegEx.Digits, 'g'))?.join('') ?? '';
+    const digits = onlyDigits.slice(0, 9);
+    input.value = digits;
+    this.control().setValue(digits, { emitEvent: false });
   }
 }

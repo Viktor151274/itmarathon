@@ -1,5 +1,5 @@
 import { Directive, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 
 import { StepperManager } from '../services/stepper-manager';
 import { RadioButtonValue } from '../../app.enum';
@@ -11,6 +11,7 @@ import type {
   UserDetails,
   WishListItem,
 } from '../../app.models';
+import { phoneValidator } from '../../shared/validators/phone.validator';
 
 @Directive()
 export class ParentRoom implements OnInit {

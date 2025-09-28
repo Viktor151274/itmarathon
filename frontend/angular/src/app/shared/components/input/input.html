@@ -6,7 +6,7 @@
       [type]="type()"
       [placeholder]="placeholder()"
       [formControl]="control()"
-      [attr.aria-invalid]="control().invalid ? true : null"
+      [attr.aria-invalid]="control()"
       [attr.maxlength]="maxLength() ?? null"
       [attr.aria-describedby]="ariaDescribedBy()"
     />
