@@ -35,8 +35,11 @@
 
   &.small {
     > button {
+      @include button-small;
+
       padding: 8px 32px;
       font-size: 14px;
+      font-weight: 600;
     }
 
     .btn__icon {

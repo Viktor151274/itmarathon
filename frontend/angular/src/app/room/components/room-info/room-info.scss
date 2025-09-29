@@ -1,0 +1,45 @@
+@use 'colors/color-matrix' as *;
+@use 'base/typography' as *;
+@use 'abstracts/mixins' as *;
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  min-height: 350px;
+  padding: 24px;
+  color: $room-info-text;
+  border-radius: 16px;
+  background:
+    url('/assets/images/ball-decor.svg') right -2px top 0px no-repeat,
+    $room-info-bg;
+}
+
+.room-info {
+  &__text-container {
+    width: 453px;
+    color: $room-info-text;
+  }
+
+  &__title {
+    @include multiline-truncate(2);
+    @include heading(36px, $line-height-md);
+
+    color: inherit;
+    padding-bottom: 8px;
+  }
+
+  &__description {
+    @include multiline-truncate(4);
+
+    line-height: $line-height-xl;
+    white-space: pre-wrap;
+  }
+
+  &__cards-container {
+    display: flex;
+    gap: 16px;
+    color: $room-info-card-text;
+  }
+}

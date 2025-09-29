@@ -1,0 +1,34 @@
+<header class="room-info__text-container">
+  <h1 class="room-info__title">{{ title() }}</h1>
+  <p class="room-info__description">{{ description() }}</p>
+</header>
+<div class="room-info__cards-container">
+  <app-room-data-card
+    [iconName]="starIcon"
+    [title]="dataTitle"
+    [variant]="variant"
+  >
+    <time dateTime="{{ exchangeDate() | date: 'yyyy-mm-dd' }}">{{
+      exchangeDate() | date: 'dd MMM yyyy'
+    }}</time>
+  </app-room-data-card>
+  <app-room-data-card
+    [iconName]="presentsIcon"
+    [title]="budgetTitle"
+    [variant]="variant"
+  >
+    <p>{{ budget() | budget }}</p></app-room-data-card
+  >
+  @if (isAdmin() && !isDrawn()) {
+    <app-room-data-card
+      [iconName]="letterIcon"
+      [title]="invitationTitle"
+      [variant]="variant"
+    >
+      <app-button
+        [text]="inviteButtonText"
+        class="secondary small"
+        (click)="onClick($event)"
+    /></app-room-data-card>
+  }
+</div>

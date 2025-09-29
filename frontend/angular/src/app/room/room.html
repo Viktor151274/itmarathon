@@ -1,5 +1,15 @@
 <div class="room">
-  <section class="room__details"></section>
+  <section class="room__details">
+    <app-room-info
+      [exchangeDateString]="dummyDate"
+      [budget]="dummyNum"
+      [title]="title"
+      [description]="description"
+      [isAdmin]="isAdmin"
+      [invitationNote]="invitationNote"
+      [invitationLink]="invitationLink"
+    ></app-room-info>
+  </section>
   <aside class="room__participant-info"></aside>
   <section class="room__participant-list"></section>
   <aside class="room__widgets"></aside>

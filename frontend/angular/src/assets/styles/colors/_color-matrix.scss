@@ -145,6 +145,23 @@ $btn-color-matrix: (
       border: $g-50,
     ),
   ),
+  small: (
+    default: (
+      text: $green-500,
+      border: $green-500,
+    ),
+    hover: (
+      text: $green-400,
+      border: $green-400,
+    ),
+    active: (
+      text: $green-700,
+      border: $green-700,
+    ),
+    focus: (
+      text: $green-400,
+    ),
+  ),
 ) !default;
 
 $header-bg: $g-50;
@@ -248,3 +265,8 @@ $rdc-variants: (
 );
 
 $rdc-content-text: $g-700;
+
+$room-info-bg: $green-700;
+$room-info-text: $g-100;
+
+$room-info-card-text: $g-900;

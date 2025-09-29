@@ -118,7 +118,7 @@ export class InvitationNote implements AfterViewInit, OnInit {
       host,
       PopupPosition.Right,
       {
-        message: ok ? InvitationNotePopup.success : InvitationNotePopup.error,
+        message: ok ? InvitationNotePopup.Success : InvitationNotePopup.Error,
         type: ok ? MessageType.Success : MessageType.Error,
       },
       false

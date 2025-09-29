@@ -101,6 +101,25 @@
   }
 }
 
+@mixin button-small {
+  color: cm(small, default, text);
+  border-color: cm(small, default, border);
+
+  &:hover:not(:disabled) {
+    color: cm(small, hover, text);
+    border-color: cm(small, hover, border);
+  }
+
+  &:active:not(:disabled) {
+    color: cm(small, active, text);
+    border-color: cm(small, active, border);
+  }
+
+  &:focus-visible {
+    color: cm(small, active, text);
+  }
+}
+
 @mixin input-states(
   $border-hover: $input-color-border-hover,
   $border-focus: $input-color-border-focus,
@@ -197,4 +216,16 @@
   &__field-hint {
     position: absolute;
   }
+}
+
+@mixin multiline-truncate($lines) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $lines;
+  overflow: hidden;
+}
+
+@mixin heading($size, $height) {
+  font-size: $size;
+  line-height: $height;
 }

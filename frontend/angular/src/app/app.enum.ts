@@ -145,6 +145,7 @@ export const enum ButtonText {
   AddWish = 'Add Wish',
   Success = 'Visit Your Room',
   WelcomeJoin = 'Join the Room',
+  InviteNewMembers = 'Invite New Members',
 }
 
 export const enum ButtonType {
@@ -159,6 +160,7 @@ export const enum PictureName {
   Flat = 'flat',
   Letter = 'letter',
   Firework = 'firework',
+  Star2 = 'star2',
 }
 
 export const enum FormTitle {
@@ -212,8 +214,8 @@ export const enum CopyLinkType {
 }
 
 export const enum InvitationNotePopup {
-  success = 'Invitation note is copied',
-  error = 'Invitation note was not copied. Try again.',
+  Success = 'Invitation note is copied',
+  Error = 'Invitation note was not copied. Try again.',
 }
 
 export const enum Endpoint {
@@ -233,4 +235,10 @@ export const enum RoomDataCardVariant {
 
 export enum DateFormat {
   Short = 'dd MMM yyyy',
+}
+
+export const enum RoomInfoCardTitle {
+  ExchangeDate = 'Exchange Date',
+  GiftBudget = 'Gift Budget',
+  InvitationNote = 'Invitation Note',
 }
