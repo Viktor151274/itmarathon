@@ -1,0 +1,24 @@
+@use "@assets/styles/_colors";
+@use "@assets/styles/_variables";
+@use "@assets/styles/_extends";
+
+.surprise-item {
+  padding: 24px;
+  border-bottom: 1px solid colors.$g-200;
+  border-radius: 8px;
+  box-shadow: variables.$shadow-list-item;
+  background-color: colors.$g-100;
+  color: colors.$g-800;
+  text-align: left;
+
+  &__title {
+    @extend %title-sm;
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid colors.$green-400;
+  }
+
+  &__description {
+    @extend %input-text;
+  }
+}

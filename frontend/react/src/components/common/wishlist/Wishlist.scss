@@ -1,0 +1,16 @@
+@use "@assets/styles/_colors";
+
+.wishlist {
+  text-align: left;
+
+  &__title {
+    margin-bottom: 16px;
+    color: colors.$g-950;
+  }
+
+  &__items-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+  }
+}
