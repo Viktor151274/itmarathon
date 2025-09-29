@@ -50,10 +50,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
-// Do not delete: configuration console.log for DevOps team to make sure it will work on the cloud environment
-// eslint-disable-next-line no-console
-console.log(
-  '"window.location.protocol" + "window.location.hostname" for React application',
-  `${window.location.protocol}//${window.location.host}`,
-);

@@ -1,7 +1,8 @@
+import config from "../../config.json";
+
 const { protocol, host } = window.location;
 
-// TODO: to be defind with DevOps
-export const BASE_API_URL = "http://localhost:8080";
+export const BASE_API_URL = config?.environment?.backendApiUrl;
 export const BASE_FRONTEND_URL = `${protocol}//${host}`;
 
 export const generateRoomLink = (invitationCode: string) => {
