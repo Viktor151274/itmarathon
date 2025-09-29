@@ -1,6 +1,6 @@
-@use "../../assets/styles/extends";
+@use "@assets/styles/extends";
 
-.create-room-page {
+.forms-room-page {
   @extend %main-element;
   padding-top: 64px;
   padding-bottom: 80px;

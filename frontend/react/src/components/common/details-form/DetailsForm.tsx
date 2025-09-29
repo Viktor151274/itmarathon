@@ -16,13 +16,11 @@ import "./DetailsForm.scss";
 import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 
 const DetailsForm = ({ onBack }: DetailsFormProps) => {
-  const { onNextStep, createRoomData, setCreateRoomData } =
-    useContext(FormsContext);
-  const { firstName, lastName, phone, email, deliveryInfo } =
-    createRoomData.adminUser;
+  const { onNextStep, roomData, setRoomData } = useContext(FormsContext);
+  const { firstName, lastName, phone, email, deliveryInfo } = roomData.user;
 
   const isValidForm = isRequiredFieldsFilled<FormData>(
-    createRoomData?.adminUser,
+    roomData?.user,
     requiredFields,
   );
 
@@ -31,10 +29,10 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
   ) => {
     const { name, value } = e.target;
 
-    setCreateRoomData((prev) => ({
+    setRoomData((prev) => ({
       ...prev,
-      adminUser: {
-        ...prev.adminUser,
+      user: {
+        ...prev.user,
         [name]: value,
       },
     }));
@@ -49,7 +47,7 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
         disabled: !isValidForm,
         onClick: onNextStep,
       }}
-      isBackButtonVisible
+      isBackButtonVisible={!!onBack}
       onBack={onBack}
     >
       <div className="details-form-content">

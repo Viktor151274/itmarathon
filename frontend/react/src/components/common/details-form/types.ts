@@ -15,7 +15,7 @@ export interface FormData {
 }
 
 export interface DetailsFormProps {
-  onBack: () => void;
+  onBack?: () => void;
 }
 
 export const requiredFields: (keyof FormData)[] = [

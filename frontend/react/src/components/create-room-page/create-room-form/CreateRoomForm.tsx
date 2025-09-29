@@ -16,14 +16,13 @@ import {
 } from "../../../utils/validation";
 
 import styles from "../../common/input/Input.module.scss";
-import "./CreateRoomForm.scss";
 import { FormsContext } from "../../../contexts/forms-context/FormsContext";
+import "./CreateRoomForm.scss";
 
 const CreateRoomForm = () => {
-  const { onNextStep, createRoomData, setCreateRoomData } =
-    useContext(FormsContext);
+  const { onNextStep, roomData, setRoomData } = useContext(FormsContext);
   const { name, description, giftExchangeDate, giftMaximumBudget } =
-    createRoomData.room;
+    roomData.room;
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -32,7 +31,7 @@ const CreateRoomForm = () => {
 
     if (!isValidInputField(name, value)) return;
 
-    setCreateRoomData((prev) => ({
+    setRoomData((prev) => ({
       ...prev,
       room: {
         ...prev.room,
@@ -42,7 +41,7 @@ const CreateRoomForm = () => {
   };
 
   const handleDatePickerChange: DatePickerProps["onChange"] = (date) => {
-    setCreateRoomData((prev) => ({
+    setRoomData((prev) => ({
       ...prev,
       room: {
         ...prev.room,
@@ -72,7 +71,7 @@ const CreateRoomForm = () => {
   };
 
   const isFormValid = isRequiredFieldsFilled<FormData>(
-    createRoomData?.room,
+    roomData?.room,
     requiredFields,
   );
 

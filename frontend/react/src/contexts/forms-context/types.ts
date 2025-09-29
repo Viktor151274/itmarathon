@@ -1,29 +1,34 @@
 import { type Dispatch, type SetStateAction } from "react";
-import type { WishesFormData } from "@components/common/wishes-form/types";
-import type { FormData as RoomData } from "@components/create-room-page/create-room-form/types";
-import type { FormData as DetailsData } from "@components/common/details-form/types";
+import type {
+  GiftIdeaType,
+  WishesFormData,
+} from "@components/common/wishes-form/types";
+import type { FormData as RoomFormData } from "@components/create-room-page/create-room-form/types";
+import type { FormData as DetailsFormData } from "@components/common/details-form/types";
 
-type AdminUserData = DetailsData & WishesFormData;
+export type UserData = DetailsFormData & WishesFormData;
 
-export interface CreateRoomData {
-  room: RoomData;
-  adminUser: AdminUserData;
+export interface RoomData {
+  room: RoomFormData;
+  user: UserData;
 }
 
-export type CreateRoomSubmitData = {
-  room: CreateRoomData["room"];
-  adminUser: Omit<CreateRoomData["adminUser"], "wishList"> & {
-    wishList: Array<
-      Omit<CreateRoomData["adminUser"]["wishList"][number], "id">
-    >;
+type UserSubmitData = DetailsFormData &
+  Omit<WishesFormData, "wishList"> & {
+    wishList: Omit<GiftIdeaType, "id">[];
   };
+
+export type CreateRoomSubmitData = {
+  room: RoomFormData;
+  adminUser: UserSubmitData;
 };
 
 export type FormContextType = {
   currentStep: number;
   onNextStep: () => void;
   onPreviousStep: () => void;
-  createRoomData: CreateRoomData;
-  setCreateRoomData: Dispatch<SetStateAction<CreateRoomData>>;
+  roomData: RoomData;
+  setRoomData: Dispatch<SetStateAction<RoomData>>;
   getCreateRoomData: () => CreateRoomSubmitData;
+  getJoinRoomDetailsData: () => UserSubmitData;
 };

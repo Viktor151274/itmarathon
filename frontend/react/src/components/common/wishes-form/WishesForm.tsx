@@ -14,8 +14,8 @@ import { GiftTypeValue, type GiftType, type WishesFormProps } from "./types";
 import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 
 const WishesForm = ({ budget, onBack, onComplete }: WishesFormProps) => {
-  const { createRoomData, setCreateRoomData } = useContext(FormsContext);
-  const { wantSurprise, interests, wishList } = createRoomData.adminUser;
+  const { roomData, setRoomData } = useContext(FormsContext);
+  const { wantSurprise, interests, wishList } = roomData.user;
 
   const giftType = wantSurprise ? GiftTypeValue.SURPRISE : GiftTypeValue.IDEAS;
 
@@ -26,11 +26,11 @@ const WishesForm = ({ budget, onBack, onComplete }: WishesFormProps) => {
     field: keyof GiftIdeaField,
     value: string,
   ) => {
-    setCreateRoomData((prev) => ({
+    setRoomData((prev) => ({
       ...prev,
-      adminUser: {
-        ...prev.adminUser,
-        wishList: prev.adminUser.wishList.map((idea) =>
+      user: {
+        ...prev.user,
+        wishList: prev.user.wishList.map((idea) =>
           idea.id === id ? { ...idea, [field]: value } : idea,
         ),
       },
@@ -40,30 +40,30 @@ const WishesForm = ({ budget, onBack, onComplete }: WishesFormProps) => {
   const handleFormAddWish = () => {
     const id = Date.now();
 
-    setCreateRoomData((prev) => ({
+    setRoomData((prev) => ({
       ...prev,
-      adminUser: {
-        ...prev.adminUser,
-        wishList: [...prev.adminUser.wishList, { id, name: "", infoLink: "" }],
+      user: {
+        ...prev.user,
+        wishList: [...prev.user.wishList, { id, name: "", infoLink: "" }],
       },
     }));
   };
 
   const handleChangeGiftType = (giftType: GiftType) => {
-    setCreateRoomData((prev) => ({
+    setRoomData((prev) => ({
       ...prev,
-      adminUser: {
-        ...prev.adminUser,
+      user: {
+        ...prev.user,
         wantSurprise: giftType === GiftTypeValue.SURPRISE,
       },
     }));
   };
 
   const handleChangeSurpriseText = (text: string) => {
-    setCreateRoomData((prev) => ({
+    setRoomData((prev) => ({
       ...prev,
-      adminUser: {
-        ...prev.adminUser,
+      user: {
+        ...prev.user,
         interests: text,
       },
     }));

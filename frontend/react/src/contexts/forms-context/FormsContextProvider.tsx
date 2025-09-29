@@ -1,24 +1,28 @@
 import { useState, type ReactNode } from "react";
-import { type CreateRoomData } from "./types";
-import { defaultCreateRoomData, FormsContext } from "./FormsContext";
+import { defaultRoomData, FormsContext } from "./FormsContext";
+import { removeIdFromArray } from "@utils/general";
+import { type RoomData } from "./types";
 
 export const FormsContextProvider = ({ children }: { children: ReactNode }) => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [createRoomData, setCreateRoomData] = useState<CreateRoomData>(
-    defaultCreateRoomData,
-  );
+  const [roomData, setRoomData] = useState<RoomData>(defaultRoomData);
 
   const getCreateRoomData = () => {
     return {
-      ...createRoomData,
-      adminUser: {
-        ...createRoomData.adminUser,
-
-        wishList: createRoomData.adminUser.wishList.map(({ id, ...rest }) => {
-          void id;
-          return rest;
-        }),
+      room: {
+        ...roomData.room,
       },
+      adminUser: {
+        ...roomData.user,
+        wishList: removeIdFromArray(roomData.user.wishList),
+      },
+    };
+  };
+
+  const getJoinRoomDetailsData = () => {
+    return {
+      ...roomData.user,
+      wishList: removeIdFromArray(roomData.user.wishList),
     };
   };
 
@@ -36,9 +40,10 @@ export const FormsContextProvider = ({ children }: { children: ReactNode }) => {
         currentStep,
         onNextStep,
         onPreviousStep,
-        createRoomData,
-        setCreateRoomData,
+        roomData,
+        setRoomData,
         getCreateRoomData,
+        getJoinRoomDetailsData,
       }}
     >
       {children}

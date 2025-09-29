@@ -20,3 +20,12 @@ export const generateInvitationNoteContent = (
 
   return `${invitationNote}\n${roomLink}`;
 };
+
+export const removeIdFromArray = <T extends { id?: number }>(
+  array: T[],
+): Omit<T, "id">[] => {
+  return array.map(({ id, ...rest }) => {
+    void id;
+    return rest;
+  });
+};
