@@ -79,10 +79,10 @@ Rebuilding Containers:
 
 - If you did changes to the code and want to rebuild the containers, use:
 ```
-docker-compose up --build
+docker compose up --build
 ```
 
 Removing All Containers and Volumes:
 ```
-docker-compose down -v
+docker compose down -v
 ```
