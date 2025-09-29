@@ -14,6 +14,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
                 .ForMember(roomEf => roomEf.CreatedOn, opt => opt.MapFrom(room => room.CreatedOn))
                 .ForMember(roomEf => roomEf.ModifiedOn, opt => opt.MapFrom(room => room.ModifiedOn))
                 .ForMember(roomEf => roomEf.ClosedOn, opt => opt.MapFrom(room => room.ClosedOn))
+                .ForMember(roomEf => roomEf.AdminId, opt => opt.MapFrom(room => room.Users.Where(user => user.IsAdmin).Select(user => user.Id).FirstOrDefault()))
                 .ForMember(roomEf => roomEf.InvitationCode, opt => opt.MapFrom(room => room.InvitationCode))
                 .ForMember(roomEf => roomEf.MinUsersLimit, opt => opt.MapFrom(room => room.MinUsersLimit))
                 .ForMember(roomEf => roomEf.MaxUsersLimit, opt => opt.MapFrom(room => room.MaxUsersLimit))

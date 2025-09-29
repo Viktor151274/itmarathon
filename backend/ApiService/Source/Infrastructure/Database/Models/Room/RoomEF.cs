@@ -28,7 +28,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room
         /// <summary>
         /// Name of room.
         /// </summary>
-        public required string Name { get; init; }
+        public required string Name { get; set; }
         /// <summary>
         /// Description of the room.
         /// </summary>

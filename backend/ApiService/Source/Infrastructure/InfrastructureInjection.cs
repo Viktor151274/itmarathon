@@ -41,6 +41,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure
         private static void ConfigureRepositories(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IRoomRepository, RoomRepository>();
+            services.AddScoped<IUserReadOnlyRepository, UserReadOnlyRepository>();
         }
     }
 }

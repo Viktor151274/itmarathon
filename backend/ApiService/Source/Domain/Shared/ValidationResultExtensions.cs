@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using FluentValidation.Results;
+using System.Text.Json;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace Epam.ItMarathon.ApiService.Domain.Shared
@@ -22,6 +23,11 @@ namespace Epam.ItMarathon.ApiService.Domain.Shared
                         g => g.Select(e => e.ErrorMessage).ToList()
                     );
             return JsonSerializer.Serialize(errorDict);
+        }
+
+        public static ValidationResult ValidationFailure(this ValidationResult result, string property, string text)
+        {
+            return new ValidationResult([new ValidationFailure(property, text)]);
         }
     }
 }

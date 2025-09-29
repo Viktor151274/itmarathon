@@ -1,6 +1,8 @@
 ﻿using CSharpFunctionalExtensions;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
+using Epam.ItMarathon.ApiService.Domain.Builders;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
+using Epam.ItMarathon.ApiService.Domain.Shared;
 using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
@@ -15,13 +17,13 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         public uint MinUsersLimit { get; private set; }
         public uint MaxUsersLimit { get; private set; }
         public uint MaxWishesLimit { get; private set; }
-        public string Name { get; init; }
+        public string Name { get; private set; }
         public string Description { get; private set; }
         public string InvitationNote { get; private set; }
         public DateTime GiftExchangeDate { get; private set; }
         public ulong GiftMaximumBudget { get; private set; }
         public bool IsFull => Users.Count >= MaxUsersLimit;
-        public IList<User> Users { get; set; } = [];
+        public IList<User> Users { get; private set; } = [];
         private Room() { }
         public static Result<Room, ValidationResult> InitialCreate(DateTime? closedOn, string invitationCode, string name, string description,
             string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget, IList<User> users,
@@ -80,6 +82,24 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
                 return Result.Failure<Room, ValidationResult>(validationResult);
             }
             return room;
+        }
+
+        public Result<Room, ValidationResult> AddUser(Func<UserBuilder, UserBuilder> userBuilderConfiguration)
+        {
+            if (ClosedOn is not null)
+            {
+                return new ValidationResult().ValidationFailure("room", $"Room {Id} is closed!");
+            }
+            var userBuilder = new UserBuilder();
+            var user = userBuilderConfiguration(userBuilder).InitialBuild();
+            Users.Add(user);
+            var validationResult = new RoomValidator().Validate(this);
+            if (!validationResult.IsValid)
+            {
+                Users.Remove(user);
+                return Result.Failure<Room, ValidationResult>(validationResult);
+            }
+            return this;
         }
     }
 }

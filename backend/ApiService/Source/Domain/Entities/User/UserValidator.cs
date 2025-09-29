@@ -9,7 +9,6 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
         {
             FirstNameValidation();
             LastNameValidation();
-            EmailValidation();
             DeliveryInfoValidation();
             InterestsValidation();
             WishListValidation();
@@ -22,12 +21,6 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
             RuleFor(user => user.LastName).MaximumLength(User.LastNameCharLimit).WithMessage($"Maximum length is {User.LastNameCharLimit}.")
                 .WithName("lastName")
                 .OverridePropertyName("lastName");
-        public void EmailValidation() =>
-            RuleFor(user => user.Email).EmailAddress()
-            .When(x => !string.IsNullOrEmpty(x.Email))
-            .WithMessage("Email must be valid if provided.")
-            .WithName("email")
-            .OverridePropertyName("email");
 
         private void DeliveryInfoValidation() =>
             RuleFor(user => user.DeliveryInfo).MaximumLength(User.DeliveryInfoCharLimit).WithMessage($"Maximum length is {User.DeliveryInfoCharLimit}.")

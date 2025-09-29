@@ -1,11 +1,16 @@
 ﻿using AutoMapper;
 using Epam.ItMarathon.ApiService.Api.Dto.CreationDtos;
+using Epam.ItMarathon.ApiService.Api.Dto.Requests.UserRequests;
+using Epam.ItMarathon.ApiService.Api.Dto.Responses.UserResponses;
 using Epam.ItMarathon.ApiService.Api.Endpoints.Extension;
 using Epam.ItMarathon.ApiService.Api.Endpoints.Extension.SwaggerTagExtension;
 using Epam.ItMarathon.ApiService.Api.Filters.Validation;
+using Epam.ItMarathon.ApiService.Application.Models.Creation;
+using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands;
 using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Epam.ItMarathon.ApiService.Api.Endpoints
 {
@@ -37,6 +42,19 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithSummary("Auth by UserCode and Read user info by user Id.")
                 .WithDescription("Return user info.");
 
+            _ = root.MapPost("", JoinUserToRoomAsync)
+                .Produces<UserCreationResponse>(StatusCodes.Status201Created)
+                .ProducesProblem(StatusCodes.Status400BadRequest)
+                .ProducesProblem(StatusCodes.Status404NotFound)
+                .ProducesProblem(StatusCodes.Status500InternalServerError)
+                .WithOpenApi(operation =>
+                {
+                    operation.Responses.Remove(StatusCodes.Status200OK.ToString());
+                    return operation;
+                })
+                .WithSummary("Create and add user to a room.")
+                .WithDescription("Return created user info.");
+
             return app;
         }
 
@@ -64,6 +82,18 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             var responseUser = mapper.Map<List<UserReadDto>>(new[] { result.Value.First(user => user.Id.Equals(id)) },
                 options => { options.SetUserMappingOptions(result.Value, userCode!); });
             return Results.Ok(responseUser);
+        }
+
+        public static async Task<IResult> JoinUserToRoomAsync([FromQuery, Required] string roomCode, UserCreationRequest user, IMediator mediator, IMapper mapper)
+        {
+            var result = await mediator.Send(new CreateUserInRoomRequest
+                (mapper.Map<UserApplication>(user),
+                roomCode));
+            if (result.IsFailure)
+            {
+                return result.Error.ValidationProblem();
+            }
+            return Results.Created(string.Empty, mapper.Map<UserCreationResponse>(result.Value));
         }
     }
 }
