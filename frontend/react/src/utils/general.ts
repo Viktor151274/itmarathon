@@ -30,3 +30,9 @@ export const removeIdFromArray = <T extends { id?: number }>(
     return rest;
   });
 };
+
+export const formatBudget = (budget?: number) => {
+  if (budget === undefined || budget === null) return "No data";
+  if (budget === 0) return "Unlimited";
+  return `${budget} UAH`;
+};

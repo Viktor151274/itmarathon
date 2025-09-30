@@ -7,8 +7,3 @@ export const translateDate = (dateString: string) => {
   };
   return date.toLocaleDateString("en-GB", options);
 };
-
-export const formatBudget = (budget: number) => {
-  if (budget === 0) return "Unlimited";
-  return `${budget} UAH`;
-};

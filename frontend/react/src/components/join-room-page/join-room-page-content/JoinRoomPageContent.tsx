@@ -1,10 +1,8 @@
 import JoinRoomSprite from "@assets/images/icons/join-room-sprite.svg";
 import FormWrapper from "@components/common/form-wrapper/FormWrapper";
 import InfoCard from "@components/common/info-card/InfoCard";
-import {
-  formatBudget,
-  translateDate,
-} from "@components/join-room-page/join-room-page-content/utils";
+import { translateDate } from "@components/join-room-page/join-room-page-content/utils";
+import { formatBudget } from "@utils/general";
 import type { JoinRoomContentProps } from "./types";
 import "./JoinRoomPageContent.scss";
 
@@ -32,7 +30,7 @@ const JoinRoomPageContent = ({
           />
           <InfoCard
             title="Gift Budget"
-            description={giftBudget ? formatBudget(giftBudget) : "No data"}
+            description={formatBudget(giftBudget)}
             iconName="presents"
             width="244px"
           />
