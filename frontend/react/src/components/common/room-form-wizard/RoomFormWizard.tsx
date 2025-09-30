@@ -71,7 +71,11 @@ const RoomFormWizard = <TResponse, TRequest>({
     <DetailsForm key="details-form" />,
     <WishesForm
       key="wishes-form"
-      budget={giftMaxBudget ? String(giftMaxBudget) : undefined}
+      budget={
+        giftMaxBudget !== undefined && giftMaxBudget !== null
+          ? String(giftMaxBudget)
+          : undefined
+      }
       onBack={onPreviousStep}
       onComplete={() => {}}
     />,
