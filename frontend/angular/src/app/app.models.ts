@@ -138,3 +138,13 @@ export interface NavigationLinks {
 export type GuardReturnType = Observable<boolean | UrlTree> | boolean | UrlTree;
 
 export type CustomError = Record<string, boolean>;
+
+export interface UserProfile extends UserDetails {
+  id: number;
+  createdOn: string;
+  modifiedOn: string;
+  roomId: number;
+  isAdmin: boolean;
+  userCode: string;
+  userLink: string;
+}

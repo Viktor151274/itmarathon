@@ -9,6 +9,7 @@ import {
   RoomCreationRequest,
   RoomSummary,
   RoomDetails,
+  UserProfile,
 } from '../../app.models';
 
 @Injectable({
@@ -42,10 +43,10 @@ export class ApiService {
   public addUserToRoom(
     roomCode: string,
     userData: UserDetails
-  ): Observable<HttpResponse<UserDetails>> {
+  ): Observable<HttpResponse<UserProfile>> {
     const params = new HttpParams().set('roomCode', roomCode);
 
-    return this.#http.post<UserDetails>(
+    return this.#http.post<UserProfile>(
       `${this.#baseUrl}${Endpoint.users}`,
       userData,
       { params, observe: 'response' }

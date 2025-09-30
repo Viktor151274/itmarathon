@@ -15,6 +15,7 @@ import { StepperManager } from '../core/services/stepper-manager';
 import { JOIN_ROOM_STEPPER_LABELS } from '../app.constants';
 import { JoinRoomService } from './services/join-room';
 import { RadioButtonValue } from '../app.enum';
+import { FormValidation as CustomValidators } from '../core/services/form-validation';
 import type {
   AddYourDetailsFormType,
   BasicUserDetails,
@@ -23,7 +24,6 @@ import type {
   UserDetails,
   WishListItem,
 } from '../app.models';
-import { FormValidation as CustomValidators } from '../core/services/form-validation';
 
 @Component({
   selector: 'app-join-room',
@@ -58,12 +58,12 @@ export class JoinRoom implements OnInit {
   public giftIdeaForm!: FormGroup<GiftIdeaFormType>;
   public surpriseGiftForm!: FormGroup<SurpriseGiftFormType>;
 
-  readonly #roomData = this.#joinRoomService.roomData;
-
   public giftMaximumBudget = new FormControl();
 
   ngOnInit(): void {
-    this.giftMaximumBudget.setValue(this.#roomData().giftMaximumBudget);
+    const giftMaximumBudget =
+      this.#joinRoomService.roomData().giftMaximumBudget;
+    this.giftMaximumBudget.setValue(giftMaximumBudget);
     this.addYourDetailsForm = this.#initAddYourDetailsForm();
     this.giftIdeaForm = this.#initGiftIdeaForm();
     this.surpriseGiftForm = this.#initSurpriseGiftForm();
@@ -71,10 +71,7 @@ export class JoinRoom implements OnInit {
 
   public onFormCompleted(): void {
     const userData = this.getUserDetails();
-    const userCode = this.#roomData().invitationCode;
-
-    // TODO: implement processAddingUserToRoom
-    // this.#joinRoomService.processAddingUserToRoom(userCode, userData);
+    this.#joinRoomService.processAddingUserToRoom(userData);
   }
 
   public getUserDetails(): UserDetails {
