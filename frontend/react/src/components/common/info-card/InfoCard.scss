@@ -5,28 +5,28 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 4px;
+  width: 100%;
+  height: fit-content;
+  padding: 10px 12px 12px;
+  background-color: colors.$green-100;
   border: 1px solid colors.$green-400;
   border-radius: 8px;
-  width: 100%;
-  background-color: colors.$green-100;
-  padding: 10px 12px 12px;
-  height: fit-content;
-  gap: 4px;
 
   &__title {
     @extend %title-sm;
     position: relative;
-    color: colors.$g-900;
     padding: 4px 0 4px 28px;
+    color: colors.$g-900;
 
     &::before {
       content: "";
       position: absolute;
-      pointer-events: none;
-      background: center no-repeat;
-      left: -4px;
+      left: 0;
       width: 24px;
       height: 24px;
+      pointer-events: none;
+      background: center / contain no-repeat;
     }
 
     &--star::before {
@@ -35,6 +35,33 @@
 
     &--presents::before {
       background-image: url("../../../assets/images/icons/info-card-icons-sprite.svg#presents");
+    }
+
+    &--note::before {
+      background-image: url("../../../assets/images/icons/info-card-icons-sprite.svg#note");
+    }
+  }
+
+  &--white {
+    gap: 8px;
+    padding: 10px 16px 20px;
+    background-color: colors.$g-50;
+    border: none;
+
+    .info-card__title::before {
+      top: 4px;
+      width: 36px;
+      height: 36px;
+      background-size: 36px;
+    }
+
+    .info-card__title {
+      @extend %title-md;
+      padding: 8px 14px 8px 44px;
+    }
+
+    .info-card__description {
+      @extend %title-md;
     }
   }
 
