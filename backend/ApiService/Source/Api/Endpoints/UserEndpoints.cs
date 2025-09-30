@@ -58,7 +58,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             return app;
         }
 
-        public static async Task<IResult> GetUsersRequest([FromQuery][Validate] string? userCode, IMediator mediator, IMapper mapper)
+        public static async Task<IResult> GetUsersRequest([FromQuery, Required] string? userCode, IMediator mediator, IMapper mapper)
         {
             var result = await mediator.Send(new GetUsersQuery(userCode!, null));
             if (result.IsFailure)
@@ -71,7 +71,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             return Results.Ok(responseUsers);
         }
 
-        public static async Task<IResult> GetUserWithIdRequest([FromRoute] ulong id, [FromQuery][Validate] string? userCode, IMediator mediator, IMapper mapper)
+        public static async Task<IResult> GetUserWithIdRequest([FromRoute] ulong id, [FromQuery, Required] string? userCode, IMediator mediator, IMapper mapper)
         {
             var result = await mediator.Send(new GetUsersQuery(userCode!, id));
             if (result.IsFailure)

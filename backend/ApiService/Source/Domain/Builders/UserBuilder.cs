@@ -86,13 +86,13 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             _wishes = wishesDictionary.Select(pair => Wish.Create(pair.Key, pair.Value)).ToList();
             return this;
         }
-        internal User Build()
+        public User Build()
         {
             return User.Create(_id, _createdOn, _modifiedOn,
                 _roomId, _authCode, _firstName, _lastName, _phone, _email,
                 _deliveryInfo, _giftToUserId, _gift, _wantSurprise, _interests, _isAdmin, _wishes);
         }
-        internal User InitialBuild()
+        public User InitialBuild()
         {
             return User.InitialCreate(_roomId, _authCode, _firstName, _lastName, _phone, _email, _deliveryInfo,
                 _wantSurprise, _interests, _isAdmin, _wishes

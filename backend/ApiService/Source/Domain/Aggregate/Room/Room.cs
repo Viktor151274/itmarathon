@@ -2,6 +2,7 @@
 using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Builders;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
+using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using Epam.ItMarathon.ApiService.Domain.Shared;
 using FluentValidation.Results;
 
@@ -12,7 +13,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         internal const int NameCharLimit = 40;
         internal const int DescriptionCharLimit = 200;
         internal const int InvitationNoteCharLimit = 1000;
-        public DateTime? ClosedOn { get; private init; }
+        public DateTime? ClosedOn { get; private set; }
         public string InvitationCode { get; private set; }
         public uint MinUsersLimit { get; private set; }
         public uint MaxUsersLimit { get; private set; }
@@ -82,6 +83,44 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
                 return Result.Failure<Room, ValidationResult>(validationResult);
             }
             return room;
+        }
+
+        public Result<Room, ValidationResult> Draw()
+        {
+            // Room has MinUsersCount or more
+            if (Users.Count < MinUsersLimit)
+            {
+                return Result.Failure<Room, ValidationResult>(
+                    new BadRequestError([new ValidationFailure("room.MinUsersLimit", "Not enough users to draw the room.")
+                    ]));
+            }
+
+            // Check room is not closed
+            if (ClosedOn is not null)
+            {
+                return Result.Failure<Room, ValidationResult>(
+                    new BadRequestError([new ValidationFailure("room.ClosedOn", "Room is already closed.")
+                    ]));
+            }
+
+            var shuffledIds = Users.Select(user => user.Id).ToList();
+            var random = new Random();
+
+            // Shuffle list
+            for (var idIndex = 0; idIndex < shuffledIds.Count-1; idIndex++)
+            {
+                var swapIndex = random.Next(idIndex+1, shuffledIds.Count);
+                (shuffledIds[idIndex], shuffledIds[swapIndex]) = (shuffledIds[swapIndex], shuffledIds[idIndex]);
+            }
+
+            // Assign each participant their gift recipient
+            for (var index = 0; index < Users.Count; index++)
+            {
+                Users[index].GiftToUserId = shuffledIds[index];
+            }
+
+            ClosedOn = DateTime.UtcNow;
+            return this;
         }
 
         public Result<Room, ValidationResult> AddUser(Func<UserBuilder, UserBuilder> userBuilderConfiguration)

@@ -14,7 +14,9 @@ internal static class ValidationExtensions
     {
         return error switch
         {
+            BadRequestError => StatusCodes.Status400BadRequest,
             NotAuthorizedError => StatusCodes.Status401Unauthorized,
+            ForbiddenError => StatusCodes.Status403Forbidden,
             NotFoundError => StatusCodes.Status404NotFound,
             _ => StatusCodes.Status400BadRequest,
         };
