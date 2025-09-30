@@ -27,4 +27,14 @@ export class DatePicker {
       return daysDiff < this.enableFromDaysOffset();
     };
   });
+
+  onOpenChange(isOpen: boolean): void {
+    if (!isOpen) {
+      this.control().markAsTouched();
+      this.control().updateValueAndValidity({
+        onlySelf: true,
+        emitEvent: true,
+      });
+    }
+  }
 }

@@ -41,6 +41,7 @@ import type {
   GiftIdeaFormType,
   SurpriseGiftFormType,
 } from '../../../app.models';
+import { FormValidation as CustomValidators } from '../../../core/services/form-validation';
 
 @Component({
   selector: 'app-add-your-wishes-form',
@@ -111,7 +112,13 @@ export class AddYourWishesForm implements OnInit, OnDestroy {
     this.giftIdeas.push(
       this.#formBuilder.group({
         name: [''],
-        infoLink: [''],
+        infoLink: [
+          '',
+          {
+            validators: [CustomValidators.safeUrl],
+            updateOn: 'blur',
+          },
+        ],
       })
     );
   }

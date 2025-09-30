@@ -35,9 +35,16 @@ export class FieldHint implements OnInit {
       .subscribe();
   }
 
+  readonly showError = computed(() => {
+    this.#errorsSig();
+    return (
+      this.control().invalid && (this.control().touched || this.control().dirty)
+    );
+  });
+
   public readonly errorMessage = computed(() => {
     this.#errorsSig();
-    return this.control().invalid
+    return this.showError()
       ? this.#formValidationService.getErrorMessage(this.control())
       : null;
   });

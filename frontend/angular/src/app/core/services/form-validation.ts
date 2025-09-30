@@ -28,4 +28,12 @@ export class FormValidation {
 
     return null;
   }
+
+  static safeUrl(control: AbstractControl): CustomError | null {
+    const value = control.value as string;
+    if (!value) return null;
+
+    const urlRegExp = new RegExp(RegEx.SafeUrl, 'i');
+    return urlRegExp.test(value) ? null : { unsafeUrl: true };
+  }
 }

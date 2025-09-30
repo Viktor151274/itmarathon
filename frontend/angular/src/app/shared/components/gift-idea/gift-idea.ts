@@ -5,10 +5,11 @@ import { Input } from '../input/input';
 import { InputPlaceholder, ItemPosition } from '../../../app.enum';
 import { BaseLabel } from '../../../app.enum';
 import { CharCounter } from '../../../core/directives/char-counter';
+import { FieldHint } from '../field-hint/field-hint';
 
 @Component({
   selector: 'app-gift-idea',
-  imports: [Input, CharCounter, ReactiveFormsModule],
+  imports: [Input, CharCounter, ReactiveFormsModule, FieldHint],
   templateUrl: './gift-idea.html',
   styleUrl: './gift-idea.scss',
 })

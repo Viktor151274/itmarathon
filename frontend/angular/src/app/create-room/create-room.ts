@@ -1,6 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Stepper } from '../shared/components/stepper/stepper';
 import { CreateRoomForm } from '../components/forms/create-room-form/create-room-form';
 import { StepperManager } from '../core/services/stepper-manager';
@@ -10,7 +14,11 @@ import { AddYourDetailsForm } from '../components/forms/add-your-details-form/ad
 import { AddYourWishesForm } from '../components/forms/add-your-wishes-form/add-your-wishes-form';
 import { CreateRoomService } from './services/create-room';
 import { JoinRoom } from '../join-room/join-room';
-import type { CreateRoomFormType, BasicRoomDetails, BudgetControl } from '../app.models';
+import type {
+  CreateRoomFormType,
+  BasicRoomDetails,
+  BudgetControl,
+} from '../app.models';
 
 @Component({
   selector: 'app-create-room',
@@ -53,10 +61,34 @@ export class CreateRoom extends JoinRoom implements OnInit {
 
   #initCreateRoomForm(): FormGroup<CreateRoomFormType> {
     return this.formBuilder.group({
-      name: [''],
-      description: [''],
-      giftExchangeDate: [''],
-      giftMaximumBudget: this.#nullableFormBuilder.control<BudgetControl>(null),
+      name: [
+        '',
+        {
+          validators: [Validators.required],
+          updateOn: 'blur',
+        },
+      ],
+      description: [
+        '',
+        {
+          validators: [Validators.required],
+          updateOn: 'blur',
+        },
+      ],
+      giftExchangeDate: [
+        '',
+        {
+          validators: [Validators.required],
+          updateOn: 'blur',
+        },
+      ],
+      giftMaximumBudget: this.#nullableFormBuilder.control<BudgetControl>(
+        null,
+        {
+          validators: [Validators.required],
+          updateOn: 'blur',
+        }
+      ),
     });
   }
 }

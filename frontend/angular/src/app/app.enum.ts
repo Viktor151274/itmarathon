@@ -98,8 +98,9 @@ export const enum CaptionMessage {
 
 export enum ErrorMessage {
   DefaultMessage = '',
-  requiredField = 'This field is required',
   invalidPhone = 'Phone number must be 9 digits',
+  email = 'Please enter a valid email address',
+  unsafeUrl = 'Please enter a valid link format',
 }
 
 export enum ToastMessage {
@@ -195,6 +196,7 @@ export const enum PageSubtitle {
 export const enum RegEx {
   Digits = '\\d+',
   Phone = '^\\d{9}$',
+  SafeUrl = '^https://',
 }
 
 export const enum ItemPosition {

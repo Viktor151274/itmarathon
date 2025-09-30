@@ -94,8 +94,20 @@ export class JoinRoom implements OnInit {
 
   #initAddYourDetailsForm(): FormGroup<AddYourDetailsFormType> {
     return this.formBuilder.group({
-      firstName: [''],
-      lastName: [''],
+      firstName: [
+        '',
+        {
+          validators: [Validators.required],
+          updateOn: 'blur',
+        },
+      ],
+      lastName: [
+        '',
+        {
+          validators: [Validators.required],
+          updateOn: 'blur',
+        },
+      ],
       phone: [
         '',
         {
@@ -103,8 +115,20 @@ export class JoinRoom implements OnInit {
           updateOn: 'blur',
         },
       ],
-      email: [''],
-      deliveryInfo: [''],
+      email: [
+        '',
+        {
+          validators: [Validators.email],
+          updateOn: 'blur',
+        },
+      ],
+      deliveryInfo: [
+        '',
+        {
+          validators: [Validators.required],
+          updateOn: 'blur',
+        },
+      ],
     });
   }
 
@@ -112,8 +136,20 @@ export class JoinRoom implements OnInit {
     return this.formBuilder.group({
       wishList: this.formBuilder.array([
         this.formBuilder.group({
-          name: [''],
-          infoLink: [''],
+          name: [
+            '',
+            {
+              validators: [Validators.required],
+              updateOn: 'blur',
+            },
+          ],
+          infoLink: [
+            '',
+            {
+              validators: [CustomValidators.safeUrl],
+              updateOn: 'blur',
+            },
+          ],
         }),
       ]),
     });
@@ -121,7 +157,13 @@ export class JoinRoom implements OnInit {
 
   #initSurpriseGiftForm(): FormGroup<SurpriseGiftFormType> {
     return this.formBuilder.group({
-      interests: [''],
+      interests: [
+        '',
+        {
+          validators: [Validators.required],
+          updateOn: 'blur',
+        },
+      ],
     });
   }
 }

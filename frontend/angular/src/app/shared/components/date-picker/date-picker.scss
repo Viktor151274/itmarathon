@@ -31,6 +31,10 @@ nz-date-picker {
   .ant-picker-input input {
     color: $input-color-text;
   }
+
+  &.ng-invalid.ng-touched {
+    border-color: $input-color-error !important;
+  }
 }
 
 ::ng-deep {

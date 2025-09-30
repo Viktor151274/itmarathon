@@ -45,13 +45,15 @@
           />
         </fieldset>
 
-        <app-input
-          class="form__input-control"
-          [label]="email"
-          [control]="emailControl"
-          [placeholder]="emailPlaceholder"
-          [type]="inputTypeEmail"
-        />
+        <fieldset class="form__input-control">
+          <app-input
+            [label]="email"
+            [control]="emailControl"
+            [placeholder]="emailPlaceholder"
+            [type]="inputTypeEmail"
+          />
+          <app-field-hint [control]="emailControl" class="form__field-hint" />
+        </fieldset>
       </fieldset>
 
       <app-textarea
