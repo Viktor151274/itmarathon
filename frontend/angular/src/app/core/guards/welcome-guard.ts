@@ -22,7 +22,7 @@ export const welcomeGuard: CanActivateFn = (route): GuardReturnType => {
         : ToastMessage.FullRoom;
 
       return navigationService.redirectWithToast(
-        Path.Home,
+        [Path.Home],
         errorMessage,
         MessageType.Error
       );
@@ -30,7 +30,7 @@ export const welcomeGuard: CanActivateFn = (route): GuardReturnType => {
     catchError(() =>
       of(
         navigationService.redirectWithToast(
-          Path.Home,
+          [Path.Home],
           ToastMessage.UnavailableRoom,
           MessageType.Error
         )

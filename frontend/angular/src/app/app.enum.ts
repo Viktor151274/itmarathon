@@ -109,6 +109,7 @@ export enum ToastMessage {
   UnavailableRoom = 'Room is unavailable or the link has expired',
   FullRoom = 'This room is full already. Joining is not possible anymore',
   PleaseCreateYourRoom = 'Please create your room first.',
+  PleaseJoinTheRoom = 'Please join the room first',
 }
 
 export const enum InputType {
@@ -180,6 +181,7 @@ export const enum PageTitle {
   JoinRoom = 'Fill in Your Info',
   JoinSuccess = 'You’ve Joined the Room!',
   Room = 'Your Room',
+  YouHaveJoinedTheRoom = 'You Have Joined the Room! 🎅',
 }
 
 export const enum FormSubtitle {
@@ -191,6 +193,7 @@ export const enum FormSubtitle {
 export const enum PageSubtitle {
   Success = 'Share the link below with up to 20 friends to invite them — and don’t lose your personal link! Let the festive magic begin!',
   WelcomeJoin = `You've been invited to a cozy holiday gift exchange!Get ready to surprise and be surprised!`,
+  SuccessJoin = 'Your holiday adventure is about to begin! Thank you for joining the Secret Nick room.',
 }
 
 export const enum RegEx {

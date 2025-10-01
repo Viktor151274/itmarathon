@@ -1,0 +1,17 @@
+@use 'abstracts/mixins' as *;
+
+:host {
+  @include page-layout;
+}
+
+.participant-link {
+  margin-block: 32px 48px;
+
+  &__heading-group {
+    margin-bottom: 20px;
+  }
+
+  &__title {
+    margin-bottom: 8px;
+  }
+}

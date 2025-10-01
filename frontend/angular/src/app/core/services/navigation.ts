@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Router, UrlTree } from '@angular/router';
 
-import { ToastMessage, MessageType, Path } from '../../app.enum';
+import { ToastMessage, MessageType } from '../../app.enum';
 import { ToastService } from './toast';
 
 @Injectable({
@@ -12,11 +12,11 @@ export class NavigationService {
   readonly #toaster = inject(ToastService);
 
   public redirectWithToast(
-    path: Path,
+    route: string[],
     errorMessage: ToastMessage,
     type: MessageType
   ): UrlTree {
     this.#toaster.show(errorMessage, type);
-    return this.#router.createUrlTree([`/${path}`]);
+    return this.#router.createUrlTree(route);
   }
 }
