@@ -1,0 +1,26 @@
+name: Automation deploy microservices
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag for deployment'
+        required: true
+        default: latest
+
+jobs:
+  deploy:
+    name: Deploy ${{ matrix.microservice }}
+    uses: ./.github/workflows/deploy-jobs.yml
+    strategy:
+      matrix:
+        microservice: ["react", "angular", "dotnet"]
+    with:
+      microservice: ${{ matrix.microservice }}
+      image_tag: ${{ inputs.tag }}
+    secrets: inherit
