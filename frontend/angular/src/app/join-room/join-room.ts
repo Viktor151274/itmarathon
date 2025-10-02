@@ -12,7 +12,7 @@ import { AddYourDetailsForm } from '../components/forms/add-your-details-form/ad
 import { AddYourWishesForm } from '../components/forms/add-your-wishes-form/add-your-wishes-form';
 import { STEPPER_LABELS_TOKEN } from '../core/services/tokens/stepper-labels.token';
 import { StepperManager } from '../core/services/stepper-manager';
-import { JOIN_ROOM_STEPPER_LABELS } from '../app.constants';
+import { JOIN_ROOM_STEPPER_LABELS, PHONE_CODE_UA } from '../app.constants';
 import { JoinRoomService } from './services/join-room';
 import { RadioButtonValue } from '../app.enum';
 import { FormValidation as CustomValidators } from '../core/services/form-validation';
@@ -77,6 +77,7 @@ export class JoinRoom implements OnInit {
   public getUserDetails(): UserDetails {
     const wantSurprise =
       this.radioControl.value === RadioButtonValue.SurpriseGift;
+    const phone = `${PHONE_CODE_UA}${this.addYourDetailsForm.value.phone}`;
     const wishList = !wantSurprise
       ? (this.giftIdeaForm.value.wishList as WishListItem[])
       : [];
@@ -86,6 +87,7 @@ export class JoinRoom implements OnInit {
 
     return {
       ...(this.addYourDetailsForm.value as BasicUserDetails),
+      phone,
       wantSurprise,
       wishList,
       interests,

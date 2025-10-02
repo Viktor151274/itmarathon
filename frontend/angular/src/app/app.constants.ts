@@ -36,3 +36,5 @@ export const JOIN_ROOM_DATA_DEFAULT: JoinRoomWelcomePageData = {
   invitationCode: '',
   giftExchangeDate: '',
 };
+
+export const PHONE_CODE_UA = '+380';
