@@ -1,6 +1,5 @@
-import type { FetchParams } from "@hooks/types";
-
-export interface RoomFormWizardProps<TResponse> {
+export interface RoomFormWizardProps {
   isAdmin?: boolean;
-  fetchConfig: FetchParams<TResponse>;
+  onComplete: () => void;
+  isRequestLoading: boolean;
 }
