@@ -1,15 +1,19 @@
 import { useEffect } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useParams, useNavigate, useLocation } from "react-router";
 import Loader from "@components/common/loader/Loader";
 import { useFetch } from "@hooks/useFetch";
 import type { GetRoomResponse } from "@types/api";
 import { BASE_API_URL } from "@utils/general";
+import useToaster from "@hooks/useToaster";
 import JoinRoomPageContent from "./join-room-page-content/JoinRoomPageContent";
 import { JOIN_ROOM_PAGE_TITLE } from "./utils";
+import type { JoinRoomLocationState } from "./types";
 import "./JoinRoomPage.scss";
 
 const JoinRoomPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const toaster = useToaster();
   const { roomCode } = useParams();
 
   const {
@@ -48,7 +52,13 @@ const JoinRoomPage = () => {
 
   useEffect(() => {
     document.title = JOIN_ROOM_PAGE_TITLE;
-  }, []);
+    const state = location.state as JoinRoomLocationState | undefined;
+
+    if (state?.toastMessage) {
+      toaster.showToast(state.toastMessage, "error", "large");
+      navigate(".", { replace: true, state: {} });
+    }
+  }, [location, navigate, toaster]);
 
   return (
     <main className="join-room">

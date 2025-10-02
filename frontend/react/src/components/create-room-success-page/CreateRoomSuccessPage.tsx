@@ -11,8 +11,7 @@ import {
   generateParticipantLink,
   generateInvitationNoteContent,
 } from "../../utils/general";
-
-import "./CreateRoomSuccessPage.scss";
+import "@assets/styles/common/room-success-page.scss";
 
 const CreateRoomSuccessPage = ({
   roomAndUserData: roomAndUserDataProp,
@@ -48,7 +47,7 @@ const CreateRoomSuccessPage = ({
   };
 
   return (
-    <main className="create-room-success-page">
+    <main className="room-success-page">
       <FormWrapper
         formKey="READY_ROOM"
         iconName="wreath"
@@ -57,7 +56,7 @@ const CreateRoomSuccessPage = ({
           onClick: handleVisitRoom,
         }}
       >
-        <div className="create-room-success-page__content">
+        <div className="room-success-page__content">
           <RoomLink title="Your Room Link" url={roomLink} />
           <InvitationNote value={invitationNoteContent} />
           <RoomLink

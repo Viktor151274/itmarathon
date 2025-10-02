@@ -1,6 +1,6 @@
-@use "../../assets/styles/extends";
+@use "../extends";
 
-.create-room-success-page {
+.room-success-page {
   @extend %main-element;
   padding: 64px 0 80px;
   display: flex;
