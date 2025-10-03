@@ -57,13 +57,9 @@ jobs:
 
   deploy:
     needs: [get-latest-tag, verify-images]
-    uses: ./.github/workflows/deploy-jobs.yml
-    strategy:
-      matrix:
-        microservice: ["react", "angular", "dotnet"]
+    uses: ./.github/workflows/auto-deploy.yml
     with:
-      microservice: ${{ matrix.microservice }}
-      image_tag: ${{ needs.get-latest-tag.outputs.tag_version }}
+      tag: ${{ needs.get-latest-tag.outputs.tag_version }}
     secrets: inherit
 
   create-github-release:

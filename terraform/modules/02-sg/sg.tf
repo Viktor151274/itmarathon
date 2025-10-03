@@ -90,6 +90,16 @@ resource "aws_vpc_security_group_ingress_rule" "web_ui_from_alb" {
   description                  = "Allow traffic from ALB to Web UI"
 }
 
+resource "aws_vpc_security_group_ingress_rule" "web_ui_http_public" {
+  security_group_id = aws_security_group.web_ui.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = var.web_ui_port
+  to_port     = var.web_ui_port
+  ip_protocol = "tcp"
+  description = "Allow HTTP from anywhere"
+}
+
 resource "aws_vpc_security_group_egress_rule" "web_ui_egress" {
   security_group_id = aws_security_group.web_ui.id
 

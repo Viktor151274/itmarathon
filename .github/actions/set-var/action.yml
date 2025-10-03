@@ -9,6 +9,18 @@ inputs:
     description: "Docker Hub username"
     required: true
 
+  aws-access-key-id:
+    description: "AWS Access Key ID"
+    required: true
+
+  aws-secret-access-key:
+    description: "AWS Secret Access Key"
+    required: true    
+
+  aws-region:
+    description: "AWS Region"
+    required: true    
+
 runs:
   using: "composite"
   steps:
@@ -18,7 +30,36 @@ runs:
       run: |
         SHORT_SHA=$(git rev-parse --short=7 HEAD)
         echo "SHORT_SHA=$SHORT_SHA" >> $GITHUB_ENV
-    
+
+    - name: Configure AWS Credentials
+      if: ${{ inputs.aws-access-key-id && inputs.aws-secret-access-key }}
+      uses: aws-actions/configure-aws-credentials@v5
+      with:
+        aws-access-key-id: ${{ inputs.aws-access-key-id }}
+        aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
+        aws-region: ${{ inputs.aws-region }}
+   
+    - name: Fetch Backend (Dotnet) DNS
+      shell: bash
+      run: |
+        echo "Fetching Backend (Dotnet) DNS name from AWS..."
+        DOTNET_DNS=$(aws ec2 describe-instances \
+          --region eu-central-1 \
+          --filters "Name=tag:Name,Values=dotnet" "Name=instance-state-name,Values=running" \
+          --query "Reservations[0].Instances[0].PublicIpAddress" \
+          --output text)
+
+        echo "Raw DOTNET_DNS fetched value: $DOTNET_DNS" 
+
+        if [ -z "$DOTNET_DNS" ]; then
+          echo "Warning: DOTNET_DNS name could not be fetched! Defaulting to localhost:8080."
+          DOTNET_DNS="localhost:8080"
+        fi
+
+        export BASE_API_URL="http://${DOTNET_DNS}:8080"
+        echo "BASE_API_URL=${BASE_API_URL}" >> $GITHUB_ENV
+        echo "Successfully fetched and exported BASE_API_URL: ${BASE_API_URL}"
+
     - name: Set React Environment
       if: ${{ inputs.microservice == 'react' }}
       shell: bash
@@ -29,6 +70,10 @@ runs:
         echo "CONTEXT=frontend/react" >> $GITHUB_ENV
         echo "DOCKERFILE=frontend/react/Dockerfile" >> $GITHUB_ENV
         echo "REPO=${{ inputs.docker_hub_username }}/react" >> $GITHUB_ENV
+
+        echo "Updating BASE_API_URL in React project"
+        jq --arg url "$BASE_API_URL" '.environment.backendApiUrl = $url' frontend/react/config.json > tmp.config.json && mv tmp.config.json frontend/react/config.json
+        cat frontend/react/config.json
 
     - name: Set Angular Environment
       if: ${{ inputs.microservice == 'angular' }}
@@ -41,11 +86,15 @@ runs:
         echo "DOCKERFILE=frontend/angular/Dockerfile" >> $GITHUB_ENV
         echo "REPO=${{ inputs.docker_hub_username }}/angular" >> $GITHUB_ENV
 
+        echo "Updating BASE_API_URL in Angular project"
+        jq --arg url "$BASE_API_URL" '.environment.apiBackendUrl = $url' frontend/angular/config.json > tmp.config.json && mv tmp.config.json frontend/angular/config.json
+        cat frontend/angular/config.json
+
     - name: Set Dotnet Environment
       if: ${{ inputs.microservice == 'dotnet' }}
       shell: bash
       run: |
-        echo "PORT=5000" >> $GITHUB_ENV
+        echo "PORT=8080" >> $GITHUB_ENV
         echo "CONTAINER_NAME=dotnet-app" >> $GITHUB_ENV
         echo "INSTANCE_NAME=dotnet" >> $GITHUB_ENV
         echo "CONTEXT=backend/ApiService" >> $GITHUB_ENV

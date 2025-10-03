@@ -22,3 +22,8 @@ output "ec2_id" {
   description = "EC2 module output"
   value       = try(module.ec2, null)
 }
+
+output "alb_dns_name" {
+  description = "The DNS name of the load balancer"
+  value       = try(module.alb.lb_dns_name, null)
+}

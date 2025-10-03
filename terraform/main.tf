@@ -41,17 +41,16 @@ module "ec2" {
   ami      = var.ami
   sgs      = each.key == "dotnet" ? [module.security_groups.web_backend_security_group_id] : [module.security_groups.web_ui_security_group_id]
   ec2_name = each.key
-  #place dotnet(backend) to private subnet
-  subnet                      = each.key == "dotnet" ? module.vpc.vpc_subnet_ids["subnet2"] : module.vpc.vpc_subnet_ids["subnet0"]
+  subnet                      = module.vpc.vpc_subnet_ids["subnet0"]
   instance_type               = var.instance_type
   create_iam_instance_profile = true
   iam_role_description        = "IAM role for EC2 instance"
   iam_role_policies           = var.iam_role_policies
   web_ui_port                 = var.web_ui_port
   web_backend_port            = var.web_backend_port
-  port                        = each.key == "react" ? var.web_ui_port : (each.key == "dotnet" ? var.web_backend_port : (each.key == "angular" ? var.web_ui_port : 80))
-  target_group_arn            = each.key == "angular" ? module.alb.web_ui_angular_target_group_arn : (each.key == "react" ? module.alb.web_ui_react_target_group_arn : null)
-  associate_public_ip_address = each.key != "dotnet"
+  port                        = each.key == "dotnet" ? var.web_backend_port : (each.key == "react" || each.key == "angular" ? var.web_ui_port : 80)
+  target_group_arn            = each.key == "angular" ? module.alb.web_ui_angular_target_group_arn : each.key == "react" ? module.alb.web_ui_react_target_group_arn : null
+  associate_public_ip_address = true
 
 }
 

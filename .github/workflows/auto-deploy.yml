@@ -1,4 +1,4 @@
-name: Automation deploy microservices
+name: deploy all
 
 on:
   workflow_call:

@@ -14,14 +14,14 @@ done
 IMAGE_NAME="${REPO}:${IMAGE_TAG}"
 echo "Using Docker image: ${IMAGE_NAME}"
 
-
 EXTRA_ENV=""
 DB_PORT=${DB_PORT:-5432}
 
-if [[ "$MICROSERVICE_NAME" == "dotnet" ]]; then
+case "$MICROSERVICE_NAME" in
+  dotnet)
   echo "Fetching DB credentials dynamically from AWS Secrets Manager..."
-
-# Automatically retrieve RDS instance identifier and get its private IP (Host)
+  
+  # Automatically retrieve RDS instance identifier and get its private IP (Host)
 
   RDS_IDENTIFIER=$(aws rds describe-db-instances \
     --query "DBInstances[0].DBInstanceIdentifier" \
@@ -33,8 +33,8 @@ if [[ "$MICROSERVICE_NAME" == "dotnet" ]]; then
   fi
 
   echo "Detected RDS Instance Identifier: ${RDS_IDENTIFIER}"
-
-# Get Private IP of RDS (Host)
+ 
+  # Get Private IP of RDS (Host)
 
   DB_HOST=$(aws rds describe-db-instances \
     --db-instance-identifier "$RDS_IDENTIFIER" \
@@ -76,22 +76,22 @@ if [[ "$MICROSERVICE_NAME" == "dotnet" ]]; then
 
   CONNECTIONSTRING="Host=${DB_HOST};Port=${DB_PORT};Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD};"
 
-  ESCAPED_CONNECTIONSTRING=$(echo $CONNECTIONSTRING | sed 's/;/\\;/g')
-  EXTRA_ENV="-e ASPNETCORE_ENVIRONMENT=Development -e ConnectionStrings__DbConnectionString=\"$CONNECTIONSTRING\""
+  ESCAPED_CONNECTIONSTRING=${CONNECTIONSTRING//\$/\\\$}
+  EXTRA_ENV="-e ASPNETCORE_ENVIRONMENT=Development -e ConnectionStrings__DbConnectionString=\"$ESCAPED_CONNECTIONSTRING\""
 
   echo "Generated ConnectionString: ${CONNECTIONSTRING}"
+  ;;
 
-elif [[ "$MICROSERVICE_NAME" == "angular" || "$MICROSERVICE_NAME" == "react" ]]; then
+  angular|react)
   echo "Setting environment variables for frontend service (${MICROSERVICE_NAME})..."
 
-  EXTRA_ENV="-e API_URL=http://backend"
-  echo "Using EXTRA_ENV for frontend: ${EXTRA_ENV}"
+  ;;
 
-else
-  echo "::error::Unknown MICROSERVICE_NAME: ${MICROSERVICE_NAME}"
-  exit 1
-fi
-
+  *)
+    echo "::error::Unknown MICROSERVICE_NAME: ${MICROSERVICE_NAME}"
+    exit 1
+    ;;
+esac
 # Form SMM command -added {EXTRA_ENV} to docker run
 
 COMMAND_ID=$(aws ssm send-command \
@@ -104,7 +104,7 @@ COMMAND_ID=$(aws ssm send-command \
     'docker container rm -f ${CONTAINER_NAME} || true',
     'docker image prune -f',
     'docker pull ${IMAGE_NAME}',
-    'docker run -d --name ${CONTAINER_NAME} -p 80:${PORT} ${EXTRA_ENV} --restart always ${IMAGE_NAME}',
+    'docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} ${EXTRA_ENV} --restart always ${IMAGE_NAME}',
     'docker ps -f name=${CONTAINER_NAME}',
     'sleep 3',
     'docker logs ${CONTAINER_NAME} --tail 20'
