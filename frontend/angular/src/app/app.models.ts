@@ -115,7 +115,6 @@ export interface RoomDetails extends RoomBase {
 export interface RoomSummary {
   room: RoomBase;
   userCode: string;
-  userLink: string;
 }
 
 export interface CreateRoomSuccessPageData {
@@ -139,12 +138,16 @@ export type GuardReturnType = Observable<boolean | UrlTree> | boolean | UrlTree;
 
 export type CustomError = Record<string, boolean>;
 
-export interface UserProfile extends UserDetails {
+export interface User extends Partial<UserDetails> {
   id: number;
   createdOn: string;
   modifiedOn: string;
   roomId: number;
   isAdmin: boolean;
-  userCode: string;
-  userLink: string;
+  firstName: string;
+  lastName: string;
+  userCode?: string;
+  giftToUserId?: number;
 }
+
+export type JoinRoomResponse = Required<Omit<User, 'giftToUserId'>>;

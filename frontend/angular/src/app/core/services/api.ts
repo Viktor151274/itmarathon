@@ -9,7 +9,8 @@ import {
   RoomCreationRequest,
   RoomSummary,
   RoomDetails,
-  UserProfile,
+  User,
+  JoinRoomResponse,
 } from '../../app.models';
 
 @Injectable({
@@ -43,10 +44,10 @@ export class ApiService {
   public addUserToRoom(
     roomCode: string,
     userData: UserDetails
-  ): Observable<HttpResponse<UserProfile>> {
+  ): Observable<HttpResponse<JoinRoomResponse>> {
     const params = new HttpParams().set('roomCode', roomCode);
 
-    return this.#http.post<UserProfile>(
+    return this.#http.post<JoinRoomResponse>(
       `${this.#baseUrl}${Endpoint.users}`,
       userData,
       { params, observe: 'response' }
@@ -59,6 +60,15 @@ export class ApiService {
     const params = new HttpParams().set('userCode', userCode);
 
     return this.#http.get<RoomDetails>(`${this.#baseUrl}${Endpoint.rooms}`, {
+      params,
+      observe: 'response',
+    });
+  }
+
+  public getUsers(userCode: string): Observable<HttpResponse<User[]>> {
+    const params = new HttpParams().set('userCode', userCode);
+
+    return this.#http.get<User[]>(`${this.#baseUrl}${Endpoint.users}`, {
       params,
       observe: 'response',
     });

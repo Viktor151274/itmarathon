@@ -1,13 +1,13 @@
 <div class="room">
   <section class="room__details">
     <app-room-info
-      [exchangeDateString]="dummyDate"
-      [budget]="dummyNum"
-      [title]="title"
-      [description]="description"
-      [isAdmin]="isAdmin"
-      [invitationNote]="invitationNote"
-      [invitationLink]="invitationLink"
+      [exchangeDateString]="roomData().giftExchangeDate"
+      [budget]="roomData().giftMaximumBudget"
+      [title]="roomData().name"
+      [description]="roomData().description"
+      [isAdmin]="isAdmin()"
+      [invitationNote]="roomData().invitationNote"
+      [invitationLink]="invitationLink()"
     ></app-room-info>
   </section>
   <aside class="room__participant-info"></aside>

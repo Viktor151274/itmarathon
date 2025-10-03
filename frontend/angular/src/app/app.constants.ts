@@ -38,3 +38,17 @@ export const JOIN_ROOM_DATA_DEFAULT: JoinRoomWelcomePageData = {
 };
 
 export const PHONE_CODE_UA = '+380';
+
+export const ROOM_PAGE_DATA_DEFAULT = {
+  name: '',
+  description: '',
+  giftExchangeDate: '',
+  giftMaximumBudget: 0,
+  adminId: 0,
+  invitationNote: '',
+  invitationCode: '',
+  isFull: false,
+  createdOn: '',
+  modifiedOn: '',
+  id: 0,
+};

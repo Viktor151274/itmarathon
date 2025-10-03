@@ -8,9 +8,11 @@
     [title]="dataTitle"
     [variant]="variant"
   >
-    <time dateTime="{{ exchangeDate() | date: 'yyyy-mm-dd' }}">{{
-      exchangeDate() | date: 'dd MMM yyyy'
-    }}</time>
+    @if (exchangeDateString()) {
+      <time dateTime="{{ exchangeDate() | date: 'yyyy-mm-dd' }}">{{
+        exchangeDate() | date: 'dd MMM yyyy'
+      }}</time>
+    }
   </app-room-data-card>
   <app-room-data-card
     [iconName]="presentsIcon"

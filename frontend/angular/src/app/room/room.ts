@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RoomInfo } from './components/room-info/room-info';
+import { ActivatedRoute } from '@angular/router';
+import { RoomService } from './services/room';
+import { UserService } from './services/user';
 
 @Component({
   selector: 'app-room',
@@ -7,13 +10,21 @@ import { RoomInfo } from './components/room-info/room-info';
   templateUrl: './room.html',
   styleUrl: './room.scss',
 })
-export class Room {
-  public readonly dummyDate = '10/31/2025 17:41:11';
-  public readonly dummyNum: number = 100500;
-  public readonly isAdmin: boolean = true;
-  public readonly title: string = 'Secret Squad';
-  public readonly invitationNote: string = 'Wosup';
-  public readonly invitationLink: string = 'Go there';
-  public readonly description: string = `Hey everyone!
-Welcome to our Secret Nick gift exchange! Check the wishlist, see who’s playing, and get ready for some holiday magic. Let’s make this a festive and fun surprise!`;
+export class Room implements OnInit {
+  readonly route = inject(ActivatedRoute);
+  readonly roomService = inject(RoomService);
+  readonly userService = inject(UserService);
+
+  public readonly roomData = this.roomService.roomData;
+  public readonly isAdmin = this.userService.isAdmin;
+  public readonly invitationLink = this.roomService.invitationLink;
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      this.userService.setUserCode(params.get('userCode') ?? '');
+    });
+
+    this.roomService.getRoomByUserCode(this.userService.userCode());
+    this.userService.getUsers();
+  }
 }
