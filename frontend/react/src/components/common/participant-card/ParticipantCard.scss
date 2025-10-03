@@ -1,0 +1,28 @@
+@use "@assets/styles/_extends";
+@use "@assets/styles/_colors";
+
+.participant-card-info-container {
+  display: flex;
+  align-items: center;
+  column-gap: 28px;
+
+  & > :not(:last-child) {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: -14px;
+      width: 1px;
+      height: 40px;
+      transform: translateY(-50%);
+      background-color: colors.$g-200;
+    }
+  }
+}
+
+.participant-card-role {
+  @extend %label;
+  color: colors.$g-800;
+}
