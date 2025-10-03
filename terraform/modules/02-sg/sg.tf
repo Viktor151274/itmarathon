@@ -88,6 +88,16 @@ resource "aws_vpc_security_group_egress_rule" "web_backend_egress" {
 # Web UI Security Group
 ################################################################################
 
+resource "aws_vpc_security_group_ingress_rule" "web_ui_http_public" {
+  security_group_id = aws_security_group.web_ui.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = var.web_ui_port
+  to_port     = var.web_ui_port
+  ip_protocol = "tcp"
+  description = "Allow HTTP from anywhere"
+}
+
 resource "aws_security_group" "web_ui" {
   name        = "${var.name_prefix}-web-ui-sg"
   description = "Security group for Web UI instances"
