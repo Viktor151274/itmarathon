@@ -38,6 +38,7 @@ runs:
         aws-access-key-id: ${{ inputs.aws-access-key-id }}
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         aws-region: ${{ inputs.aws-region }}
+
    
     - name: set backend url
       if: ${{ inputs.microservice == 'react' || inputs.microservice == 'angular' }}
@@ -78,6 +79,9 @@ runs:
         echo "CONTEXT=frontend/react" >> $GITHUB_ENV
         echo "DOCKERFILE=frontend/react/Dockerfile" >> $GITHUB_ENV
         echo "REPO=${{ inputs.docker_hub_username }}/react" >> $GITHUB_ENV
+        echo "Updating BASE_API_URL in React project"
+        jq --arg url "$BASE_API_URL" '.environment.backendApiUrl = $url' frontend/react/config.json > tmp.config.json && mv tmp.config.json frontend/react/config.json
+        cat frontend/react/config.json
 
         echo "Updating BASE_API_URL in React project"
         jq --arg url "$BASE_API_URL" '.environment.backendApiUrl = $url' frontend/react/config.json > tmp.config.json && mv tmp.config.json frontend/react/config.json
@@ -93,6 +97,9 @@ runs:
         echo "CONTEXT=frontend/angular" >> $GITHUB_ENV
         echo "DOCKERFILE=frontend/angular/Dockerfile" >> $GITHUB_ENV
         echo "REPO=${{ inputs.docker_hub_username }}/angular" >> $GITHUB_ENV
+        echo "Updating BASE_API_URL in Angular project"
+        jq --arg url "$BASE_API_URL" '.environment.apiBackendUrl = $url' frontend/angular/config.json > tmp.config.json && mv tmp.config.json frontend/angular/config.json
+        cat frontend/angular/config.json
 
         echo "Updating BASE_API_URL in Angular project"
         jq --arg url "$BASE_API_URL" '.environment.backendApiUrl = $url' frontend/angular/config.json > tmp.config.json && mv tmp.config.json frontend/angular/config.json
