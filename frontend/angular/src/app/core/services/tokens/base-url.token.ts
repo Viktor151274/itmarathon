@@ -1,10 +1,10 @@
 import { InjectionToken } from '@angular/core';
 
-import { environment } from '../../../../environments/environment';
+import config from '../../../../../config.json';
 
 export const BASE_URL = new InjectionToken<string>('BaseUrl', {
   providedIn: 'root',
   factory: () => {
-    return environment.apiBackendUrl;
+    return config?.environment?.backendApiUrl;
   },
 });
