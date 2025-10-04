@@ -229,3 +229,23 @@
   font-size: $size;
   line-height: $height;
 }
+
+@mixin li-item {
+  display: flex;
+  align-items: center;
+  gap: $li-gap;
+  min-height: $li-min-height;
+  padding: $li-padding;
+  border-radius: $li-radius;
+  background: $li-bg-color;
+  border: 1px solid $li-border-color;
+  box-shadow: $shadow-li;
+
+  &:hover {
+    background-color: $li-bg-hover;
+  }
+
+  &:focus {
+    border: 2px solid $li-border-focus;
+  }
+}
