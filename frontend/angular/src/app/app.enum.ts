@@ -149,6 +149,8 @@ export const enum ButtonText {
   Success = 'Visit Your Room',
   WelcomeJoin = 'Join the Room',
   InviteNewMembers = 'Invite New Members',
+  ReadDetails = 'Read Details',
+  DrawNames = 'Draw Names',
 }
 
 export const enum ButtonType {
@@ -164,6 +166,9 @@ export const enum PictureName {
   Letter = 'letter',
   Firework = 'firework',
   Star2 = 'star2',
+  ActionCardBg = 'action-card-bg',
+  BigGifts = 'big-gifts',
+  StNick = 'st-nick',
 }
 
 export const enum FormTitle {
@@ -247,4 +252,10 @@ export const enum RoomInfoCardTitle {
   ExchangeDate = 'Exchange Date',
   GiftBudget = 'Gift Budget',
   InvitationNote = 'Invitation Note',
+}
+
+export const enum ActionCardTitle {
+  LetMagicBegin = 'Let the Magic Begin!',
+  LookWhoYouGot = 'Look Who You Got!',
+  MyWishlist = 'My Wishlist',
 }

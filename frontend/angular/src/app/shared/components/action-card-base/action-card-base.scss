@@ -1,0 +1,54 @@
+@use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
+@use 'colors/color-matrix' as *;
+@use 'base/typography' as *;
+
+.action-card {
+  position: relative;
+  border-radius: 16px;
+  box-shadow: $action-card-shadow;
+
+  &__header {
+    padding-block: 32px 16px;
+    text-align: center;
+    background: url($action-card-header-bg);
+    border-radius: 16px 16px 0px 0px;
+  }
+
+  &__picture {
+    position: absolute;
+  }
+
+  &__title {
+    @include heading(28px, $line-height-xl);
+
+    color: $action-card-title;
+  }
+
+  &__content {
+    padding: 16px 24px 24px 24px;
+    background: $action-card-content-bg;
+  }
+
+  &--big-gifts {
+    margin-top: 74px;
+
+    .action-card__picture {
+      top: -74px;
+      right: 16px;
+      width: 150px;
+      height: 106px;
+    }
+  }
+
+  &--st-nick {
+    margin-top: 133px;
+
+    .action-card__picture {
+      top: -133px;
+      width: 256px;
+      height: 160px;
+      transform: translateX(-50%);
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<section class="action-card" [class]="`action-card--${headerPictureName()}`">
+  <header class="action-card__header">
+    <svg class="action-card__picture" aria-hidden="true">
+      <use [attr.xlink:href]="headerPictureHref()" />
+    </svg>
+
+    <h2 class="action-card__title">{{ headerTitle() }}</h2>
+  </header>
+
+  <div class="action-card__content">
+    <ng-content />
+
+    <app-button
+      class="secondary medium full-width"
+      [text]="buttonText()"
+      (click)="onButtonClick()"
+    />
+  </div>
+</section>

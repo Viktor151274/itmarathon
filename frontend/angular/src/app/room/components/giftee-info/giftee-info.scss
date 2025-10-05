@@ -1,0 +1,20 @@
+@use 'base/typography' as *;
+@use 'abstracts/mixins' as *;
+
+.giftee-info {
+  &__heading-group {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  &__title {
+    @include heading(36px, $line-height-md);
+  }
+
+  &__subtitle {
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: $line-height-lg;
+  }
+}

@@ -1,0 +1,12 @@
+<app-action-card-base
+  [headerTitle]="headerTitle"
+  [headerPictureName]="headerPictureName"
+  [buttonText]="buttonText"
+  (buttonAction)="onButtonClick()"
+>
+  <hgroup class="giftee-info__heading-group">
+    <p class="giftee-info__subtitle">You are a Secret Nick to</p>
+
+    <h3 class="giftee-info__title">{{ gifteeName() }}</h3>
+  </hgroup>
+</app-action-card-base>
