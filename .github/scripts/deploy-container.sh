@@ -143,9 +143,9 @@ COMMAND_ID=$(aws ssm send-command \
 sleep 5
 
 if [[ "$MICROSERVICE_NAME" == "prometheus" ]]; then
-  echo "Setting up CloudWatch Exporter (YACE) on Prometheus instance..."
+  echo "Setting up CloudWatch Exporter on Prometheus instance..."
 
-  # 1. Create cloudwatch-config.yml for EC2 and ALB
+  # 1. Create cloudwatch-config.yml
   aws ssm send-command \
     --instance-ids "${INSTANCE_ID}" \
     --document-name "AWS-RunShellScript" \
@@ -171,8 +171,6 @@ discovery:
 EOT",
       "chown ec2-user:ec2-user /home/ec2-user/cloudwatch-config.yml",
       "chmod 600 /home/ec2-user/cloudwatch-config.yml",
-
-      # Billing config for YACE
       "cat <<EOT > /home/ec2-user/cloudwatch-config-billing.yml
 apiVersion: v1alpha1
 discovery:
@@ -193,7 +191,8 @@ EOT",
       "chmod 600 /home/ec2-user/cloudwatch-config-billing.yml"
     ]'
 
-  # 2. Run YACE containers
+
+   # 2. Run YACE containers
   aws ssm send-command \
     --instance-ids "${INSTANCE_ID}" \
     --document-name "AWS-RunShellScript" \
@@ -216,7 +215,6 @@ EOT",
     --query "Command.CommandId" --output text)
   echo "YACE Exporter health check Command ID: $HEALTH"
 fi
-
 
 echo "Command ID: $COMMAND_ID"
 echo "Waiting for deployment to complete..."
