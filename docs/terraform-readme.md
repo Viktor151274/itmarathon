@@ -56,9 +56,62 @@ Once the user is created, go to it's settings and click on 'Security credentials
 Find 'Create access keys' button below and click on it.
 - Specify 'Command Line Interface' as Use Case when presented, click on 'Confirmation' checkbox and click on 'Next'. Download the generated keys as a CSV file on the final screen.
 
+### Set up GitHub Secrets
+
+To securely store sensitive credentials (like AWS keys) for GitHub Actions, add the following secrets to your repository:
+
+1. Go to your GitHub repository on GitHub.com.
+2. Click on the **Settings** tab.
+3. In the left sidebar, expand **Secrets and variables** and click **Actions**.
+4. Under **Secrets**, click **New repository secret**.
+5. For each secret below, add a new one with the exact name (e.g., `AWS_ACCESS_KEY_ID`), paste the value (from your AWS CSV or other sources), and click **Add secret**.
+
+| Secret Name            | Description |
+|------------------------|-------------|
+| AWS_ACCESS_KEY_ID     | AWS IAM access key ID for authentication (from CSV). |
+| AWS_REGION            | AWS region to deploy resources (e.g., `us-east-1`). |
+| AWS_SECRET_ACCESS_KEY | AWS IAM secret access key for authentication (from CSV). |
+| DOCKER_HUB_TOKEN      | Personal access token for Docker Hub authentication. |
+| DOCKER_HUB_USERNAME   | Docker Hub username for pushing/pulling images. |
+
+![picsec](assets/terraform-readme/picsec.jpg)
+
 ## Deploy via GitHub Actions
 
-...
+GitHub Actions runs the "terraform AWS deployment" workflow to manage AWS resources.
+
+### Steps to Run the Workflow
+
+1. Go to your repository on GitHub.com.
+
+2. Click on the **Actions** tab (in the top menu).
+
+3. In the left panel, select the **terraform AWS deployment** workflow 
+
+4. Click the green **Run workflow** button (top right).
+
+5. In the popup window, select parameters:
+   - **module**: What to deploy? Choose `all` for everything or a specific module, e.g.:
+     - `vpc` — network.
+     - `sg` — security groups.
+     - `ec2` — virtual machines.
+     - `alb` — load balancer.
+     - `rds` — database.
+   - **action**: What action?
+     - First, choose **`plan`** — preview changes (safe!).
+     - If the plan is OK, run again with **`apply`** — apply changes (creates resources!).
+     - (Optional) `destroy` — delete everything (use carefully).
+
+6. Click **Run workflow**. The workflow will start!
+
+7. Go back to the **Actions** tab and select your run. Click on it to see logs (execution steps). Here you'll see:
+   - **Terraform Init**: Automatic setup.
+   - **Terraform Plan** (for plan): List of resources to create (green = add, yellow = change).
+   - **Terraform Apply** (for apply): Actual creation + plan before it.
+
+If there are errors (red status), check secrets, `backend.tf` file (S3 bucket name), and `terraform.tfvars`. Run plan again.
+
+![picdep](assets/terraform-readme/picdep.jpg)
 
 ## Deploy manually using Terraform locally
 1. Create .aws/credentials file in your home directory (Linux/WSL) and copy the content of the CSV file you downloaded before. Your file should look like this:
