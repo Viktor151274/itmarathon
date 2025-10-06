@@ -52,3 +52,5 @@ export const ROOM_PAGE_DATA_DEFAULT = {
   modifiedOn: '',
   id: 0,
 };
+
+export const MAX_BUDGET = 100000;

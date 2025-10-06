@@ -101,6 +101,7 @@ export enum ErrorMessage {
   invalidPhone = 'Phone number must be 9 digits',
   email = 'Please enter a valid email address',
   unsafeUrl = 'Please enter a valid link format',
+  budgetOutOfRange = 'Maximum budget is 100 000 UAH',
 }
 
 export enum ToastMessage {

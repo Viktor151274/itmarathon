@@ -3,6 +3,7 @@ import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
 
 import { ErrorMessage, RegEx } from '../../app.enum';
 import { CustomError } from '../../app.models';
+import { MAX_BUDGET } from '../../app.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +36,13 @@ export class FormValidation {
 
     const urlRegExp = new RegExp(RegEx.SafeUrl, 'i');
     return urlRegExp.test(value) ? null : { unsafeUrl: true };
+  }
+
+  static budgetInRange(control: AbstractControl): CustomError | null {
+    const value = control.value as string;
+    if (+value > MAX_BUDGET) {
+      return { budgetOutOfRange: true };
+    }
+    return null;
   }
 }

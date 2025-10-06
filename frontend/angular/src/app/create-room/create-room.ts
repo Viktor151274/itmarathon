@@ -19,6 +19,7 @@ import type {
   BasicRoomDetails,
   BudgetControl,
 } from '../app.models';
+import { FormValidation as CustomValidators } from '../core/services/form-validation';
 
 @Component({
   selector: 'app-create-room',
@@ -85,7 +86,7 @@ export class CreateRoom extends JoinRoom implements OnInit {
       giftMaximumBudget: this.#nullableFormBuilder.control<BudgetControl>(
         null,
         {
-          validators: [Validators.required],
+          validators: [Validators.required, CustomValidators.budgetInRange],
           updateOn: 'blur',
         }
       ),
