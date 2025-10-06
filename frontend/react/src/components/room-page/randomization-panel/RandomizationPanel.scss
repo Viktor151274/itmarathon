@@ -1,0 +1,32 @@
+.randomization-panel {
+  width: 384px;
+  border-radius: 16px;
+  position: relative;
+
+  &--stNick,
+  &--presents {
+    height: max-content;
+  }
+
+  &--stNick::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 256px;
+    height: 161px;
+    background: url("../../../assets/images/icons/randomization-sprite.svg#S.Nick")
+      top 0 left 0 / 256px 161px no-repeat;
+  }
+
+  &--presents::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 16px;
+    width: 150px;
+    height: 106px;
+    background: url("../../../assets/images/icons/randomization-sprite.svg#Gifts")
+      top 0 right 0 / 150px 106px no-repeat;
+  }
+}

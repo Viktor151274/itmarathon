@@ -1,0 +1,61 @@
+@use "@assets/styles/extends";
+@use "@assets/styles/colors";
+@use "@assets/styles/variables";
+
+.random-panel-content {
+  margin-top: 80px;
+  width: 384px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  overflow: hidden;
+  box-shadow: variables.$shadow;
+
+  &--randomized {
+    margin-top: 130px;
+  }
+
+  &__top {
+    height: 90px;
+    width: 100%;
+    background-image: url("@assets/images/backgrounds/snow-background.svg");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__title {
+    color: colors.$red-500;
+  }
+
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    gap: 24px;
+    padding: 16px 24px 24px;
+    background-color: colors.$g-50;
+    text-align: center;
+
+    &--randomized {
+      height: 187px;
+      gap: 8px;
+    }
+  }
+
+  &__text {
+    @extend %body-md;
+    color: colors.$g-800;
+  }
+
+  &__subtitle {
+    @extend %input-text;
+    color: colors.$g-800;
+  }
+
+  &__name {
+    margin-bottom: 16px;
+    color: colors.$g-950;
+  }
+}
