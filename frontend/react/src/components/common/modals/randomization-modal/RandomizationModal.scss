@@ -1,0 +1,57 @@
+@use "../../../../assets/styles/colors";
+@use "../../../../assets/styles/variables";
+
+.randomization-modal-container {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  background: variables.$modal-background;
+  z-index: 101;
+}
+
+.randomization-modal {
+  position: relative;
+  width: 1088px;
+  height: fit-content;
+  overflow: visible;
+  border-radius: 16px;
+  border: 1.6px solid colors.$green-500;
+  padding: 0 40px 40px;
+  background:
+    url("../../../../assets/images/backgrounds/snow-background.svg") top left /
+      auto 90px repeat-x,
+    colors.$g-50;
+
+  &__title {
+    text-align: center;
+    padding: 36px 0 16px;
+    color: colors.$red-500;
+    margin-bottom: 40px;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    background: center no-repeat;
+    top: -160px;
+    left: 384px;
+    width: 314px;
+    height: 200px;
+    background-image: url("../../../../assets/images/icons/s-nick.svg");
+  }
+
+  &__close-button {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+  }
+
+  &__back-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 48px;
+  }
+}
