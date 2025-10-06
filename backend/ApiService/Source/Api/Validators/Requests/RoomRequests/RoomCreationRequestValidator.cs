@@ -11,9 +11,6 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.Requests.RoomRequests
             RuleFor(roomRequest => roomRequest.Room).SetValidator(new RoomDtoValidator())
                 .WithName("room")
                 .OverridePropertyName("room");
-            RuleFor(roomRequest => roomRequest.AdminUser).SetValidator(new UserDtoValidator())
-                .WithName("adminUser")
-                .OverridePropertyName("adminUser");
         }
     }
 }

@@ -13,6 +13,8 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         internal const int NameCharLimit = 40;
         internal const int DescriptionCharLimit = 200;
         internal const int InvitationNoteCharLimit = 1000;
+        internal const ulong RoomMaximumBudget = 100_000;
+
         public DateTime? ClosedOn { get; private set; }
         public string InvitationCode { get; private set; }
         public uint MinUsersLimit { get; private set; }

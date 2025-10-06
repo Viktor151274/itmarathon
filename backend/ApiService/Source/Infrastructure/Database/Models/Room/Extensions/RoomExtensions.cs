@@ -5,7 +5,8 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
 {
     internal static class RoomExtensions
     {
-        public static RoomEf SyncRoom(this RoomEf trackedRoom, RoomEf updatedRoom)
+        public static RoomEf SyncRoom(this RoomEf trackedRoom,
+            RoomEf updatedRoom)
         {
             trackedRoom.ClosedOn = updatedRoom.ClosedOn;
             trackedRoom.AdminId = updatedRoom.AdminId;
@@ -22,7 +23,8 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
             return trackedRoom;
         }
 
-        private static ICollection<UserEf> SyncUsersInRoom(ICollection<UserEf> trackedUsers, ICollection<UserEf> updatedUsers)
+        private static ICollection<UserEf> SyncUsersInRoom(ICollection<UserEf> trackedUsers,
+            ICollection<UserEf> updatedUsers)
         {
             var trackedDict = trackedUsers.ToDictionary(user => user.Id);
             var updatedDict = updatedUsers.ToDictionary(user => user.Id);
@@ -60,10 +62,15 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
             return trackedUsers;
         }
 
-        private static ICollection<GiftEf> SyncUserWishes(ICollection<GiftEf> trackedWishes, ICollection<GiftEf> updatedWishes)
+        private static ICollection<GiftEf> SyncUserWishes(ICollection<GiftEf> trackedWishes,
+        ICollection<GiftEf> updatedWishes)
         {
+            var comparer = StringComparer.OrdinalIgnoreCase; // or Ordinal if case sensitive
+            // Delete entities witch not present in updated
             var toRemove = trackedWishes
-                .Where(trackedWish => !updatedWishes.Any(updatedWish => updatedWish.Name == trackedWish.Name))
+                .Where(trackedWish => !updatedWishes.Any(updatedWish =>
+                    comparer.Equals(updatedWish.Name ?? "", trackedWish.Name ?? "") &&
+                    comparer.Equals(updatedWish.InfoLink ?? "", trackedWish.InfoLink ?? "")))
                 .ToList();
 
             foreach (var remove in toRemove)
@@ -71,28 +78,23 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
                 trackedWishes.Remove(remove);
             }
 
-            var existingNames = new HashSet<string>();
-
+            // Update existing one
             foreach (var updatedWish in updatedWishes)
             {
-                var existing = trackedWishes.FirstOrDefault(ef => ef.Name == updatedWish.Name);
+                var existing = trackedWishes.FirstOrDefault(tracked =>
+                    comparer.Equals(tracked.Name ?? "", updatedWish.Name ?? "") &&
+                    comparer.Equals(tracked.InfoLink ?? "", updatedWish.InfoLink ?? ""));
+
                 if (existing != null)
                 {
                     existing.ModifiedOn = updatedWish.ModifiedOn;
-                    existing.InfoLink = updatedWish.InfoLink;
-                    existingNames.Add(updatedWish.Name);
+                }
+                else
+                {
+                    trackedWishes.Add(updatedWish);
                 }
             }
 
-            var toAdd = updatedWishes
-                .Where(updatedWish => !existingNames.Contains(updatedWish.Name))
-                .ToList();
-
-            foreach (var updatedWish in toAdd)
-            {
-                trackedWishes.Add(updatedWish);
-            }
-            
             return trackedWishes;
         }
     }

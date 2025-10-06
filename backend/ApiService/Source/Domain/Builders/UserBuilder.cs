@@ -76,14 +76,14 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             _isAdmin = isAdmin;
             return this;
         }
-        public UserBuilder WithChosenGift(string name, string? link)
+        public UserBuilder WithChosenGift(string? name, string? link)
         {
             _gift = Wish.Create(name, link);
             return this;
         }
-        public UserBuilder WithWishes(Dictionary<string, string?> wishesDictionary)
+        public UserBuilder WithWishes(IEnumerable<(string?, string?)> wishes)
         {
-            _wishes = wishesDictionary.Select(pair => Wish.Create(pair.Key, pair.Value)).ToList();
+            _wishes = wishes.Select(pair => Wish.Create(pair.Item1, pair.Item2)).ToList();
             return this;
         }
         public User Build()

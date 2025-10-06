@@ -1,4 +1,5 @@
 ﻿using Epam.ItMarathon.ApiService.Domain.Entities.User;
+using Epam.ItMarathon.ApiService.Domain.Shared;
 using FluentValidation;
 
 namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
@@ -7,9 +8,50 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
     {
         public RoomValidator()
         {
+            #region Name
+
+            RuleFor(room => room.Name)
+                .NotEmpty()
+                .WithMessage(ValidationConstants.RequiredMessage)
+                .WithName("name")
+                .OverridePropertyName("name");
+
+            #endregion
+
+            #region Description
+
+            RuleFor(room => room.Description)
+                .NotEmpty()
+                .WithMessage(ValidationConstants.RequiredMessage)
+                .WithName("description")
+                .OverridePropertyName("description");
+
+            #endregion
+
+            #region GiftExchangeDate
+
+            RuleFor(room => room.GiftExchangeDate)
+                .NotEmpty()
+                .WithMessage(ValidationConstants.RequiredMessage)
+                .WithName("giftExchangeDate")
+                .OverridePropertyName("giftExchangeDate");
+
+            #endregion
+
+            #region GiftMaximumBudget
+
+            RuleFor(room => room.GiftMaximumBudget)
+                .NotNull()
+                .WithMessage(ValidationConstants.RequiredMessage)
+                .WithName("giftMaximumBudget")
+                .OverridePropertyName("giftMaximumBudget");
+
+            #endregion
+
             NameValidation();
             DescriptionValidation();
             GiftExchangeDateValidation();
+            GiftMinimumBudgetValidation();
             GiftMaximumBudgetValidation();
             LimitValidation();
             UsersValidation();
@@ -28,9 +70,14 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
                 .WithMessage("Timestamp must be not before today.")
                 .WithName("giftExchangeDate")
                 .OverridePropertyName("giftExchangeDate");
-        private void GiftMaximumBudgetValidation() =>
+        private void GiftMinimumBudgetValidation() =>
             RuleFor(room => room.GiftMaximumBudget).GreaterThanOrEqualTo(ulong.MinValue)
                 .WithMessage("giftMaximumBudget must be greater or equal to 0.")
+                .WithName("giftMaximumBudget")
+                .OverridePropertyName("giftMaximumBudget");
+        private void GiftMaximumBudgetValidation() =>
+            RuleFor(room => room.GiftMaximumBudget).LessThanOrEqualTo(Room.RoomMaximumBudget)
+                .WithMessage($"giftMaximumBudget must be less or equal to {Room.RoomMaximumBudget}.")
                 .WithName("giftMaximumBudget")
                 .OverridePropertyName("giftMaximumBudget");
         private void LimitValidation() =>

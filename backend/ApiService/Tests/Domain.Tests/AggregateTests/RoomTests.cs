@@ -11,9 +11,17 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.AggregateTests
         {
             // Arrange
             var room = new RoomBuilder()
+                .WithName("Test Room")
+                .WithDescription("Test Room")
                 .WithMinUsersLimit(2)
                 .WithGiftExchangeDate(DateTime.UtcNow.AddDays(1))
-                .AddUser(userBuilder => userBuilder.WithId(1).WithWishes(new ()))
+                .AddUser(userBuilder => userBuilder
+                    .WithFirstName("Jone")
+                    .WithLastName("Doe")
+                    .WithDeliveryInfo("Some info...")
+                    .WithPhone("+380000000000")
+                    .WithId(1)
+                    .WithWishes([]))
                 .Build();
 
             // Act
@@ -31,6 +39,8 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.AggregateTests
         {
             // Arrange
             var room = new RoomBuilder()
+                .WithName("Test Room")
+                .WithDescription("Test Room")
                 .WithMinUsersLimit(0)
                 .WithGiftExchangeDate(DateTime.UtcNow.AddDays(1))
                 .WithShouldBeClosedOn(DateTime.UtcNow)
@@ -58,14 +68,21 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.AggregateTests
         {
             // Arrange
             var roomBuilder = new RoomBuilder()
+                .WithName("Test Room")
+                .WithDescription("Test Room")
                 .WithMinUsersLimit(3)
                 .WithMaxUsersLimit((uint)usersToGenerate)
                 .WithGiftExchangeDate(DateTime.UtcNow.AddDays(1));
 
             for (ulong id = 1; id <= usersToGenerate; id++)
             {
-                roomBuilder.AddUser(userBuilder =>
-                    userBuilder.WithId(id).WithWishes(new ()));
+                roomBuilder.AddUser(userBuilder => userBuilder
+                    .WithFirstName("Jone")
+                    .WithLastName("Doe")
+                    .WithDeliveryInfo("Some info...")
+                    .WithPhone("+380000000000")
+                    .WithId(id)
+                    .WithWishes([]));
             }
 
             var room = roomBuilder.Build();

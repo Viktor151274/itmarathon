@@ -20,7 +20,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Gift.Configu
 
             builder.Property(gift => gift.UserId).IsRequired();
 
-            builder.Property(gift => gift.Name).HasMaxLength(40).IsRequired();
+            builder.Property(gift => gift.Name).HasMaxLength(40);
 
             #endregion
         }

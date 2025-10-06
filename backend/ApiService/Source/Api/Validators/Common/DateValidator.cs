@@ -4,7 +4,7 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.Common
 {
     public static class DateValidators
     {
-        public static bool DateNotPastUtcIso(string date)
+        public static bool DateCorrectUtcIsoFormat(string date)
         {
             try
             {

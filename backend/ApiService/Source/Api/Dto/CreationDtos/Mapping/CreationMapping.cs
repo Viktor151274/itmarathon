@@ -21,8 +21,14 @@ namespace Epam.ItMarathon.ApiService.Api.Dto.CreationDtos.Mapping
                 )));
 
             CreateMap<UserCreationDto, UserApplication>()
-                .ForMember(userApplication => userApplication.Wishes, opt => opt
-                .MapFrom(userDto => userDto.WishList.ToDictionary(wish => wish.Name, wish => wish.InfoLink)));
+                .ForMember(userApplication => userApplication.Wishes, opt => opt.Ignore())
+                .AfterMap((src, dest) =>
+                {
+                    if (src.WishList is not null)
+                    {
+                        dest.Wishes = src.WishList.Select(wish => (wish.Name, wish.InfoLink)).ToList();
+                    }
+                });
 
             CreateMap<Room, RoomReadDto>().
                 ForMember(roomDto => roomDto.AdminId, opt => opt.MapFrom(room => room.Users.Where(user => user.IsAdmin).First().Id));

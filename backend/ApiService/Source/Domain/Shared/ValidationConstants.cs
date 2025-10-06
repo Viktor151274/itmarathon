@@ -1,4 +1,4 @@
-﻿namespace Epam.ItMarathon.ApiService.Api.Validators.Common
+﻿namespace Epam.ItMarathon.ApiService.Domain.Shared
 {
     public static class ValidationConstants
     {

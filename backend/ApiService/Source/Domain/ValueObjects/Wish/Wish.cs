@@ -3,10 +3,10 @@
     public sealed class Wish : IEquatable<Wish>
     {
         internal const int NameCharLimit = 40;
-        public required string Name { get; init; }
+        public required string? Name { get; init; }
         public string? InfoLink { get; init; }
         public Wish() { }
-        public static Wish Create(string name, string? infoLink)
+        internal static Wish Create(string? name, string? infoLink)
         {
             return new Wish() { Name = name, InfoLink = infoLink };
         }

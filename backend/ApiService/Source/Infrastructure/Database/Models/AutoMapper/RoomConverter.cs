@@ -26,9 +26,8 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
                 .WithGiftMaximumBudget(source.GiftMaximumBudget);
             foreach (var user in source.Users)
             {
-                var wishesDict = user.Wishes.ToDictionary(
-                    gift => gift.Name,
-                    gift => gift.InfoLink
+                var wishesDict = user.Wishes.OrderBy(gift => gift.Id).Select(
+                    gift => (gift.Name, gift.InfoLink)
                     );
                 builder.AddUser(
                     configure => {

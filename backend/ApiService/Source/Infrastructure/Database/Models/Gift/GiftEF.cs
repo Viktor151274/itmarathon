@@ -11,7 +11,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Gift
         /// <summary>
         /// Name of gift.
         /// </summary>
-        public required string Name { get; set; }
+        public string? Name { get; set; }
         /// <summary>
         /// Link to gift.
         /// </summary>

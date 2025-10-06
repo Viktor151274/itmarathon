@@ -2,7 +2,7 @@
 {
     public class WishDto
     {
-        public required string Name { get; set; }
+        public string? Name { get; set; }
         public string? InfoLink { get; set; }
     }
 }
