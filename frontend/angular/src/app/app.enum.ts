@@ -16,6 +16,7 @@ export const enum IconName {
   ArrowLeft = 'arrow-left',
   SuccessMark = 'success-mark',
   House = 'house',
+  Close = 'close',
 }
 
 export const enum AriaLabel {
@@ -25,6 +26,7 @@ export const enum AriaLabel {
   AddButton = 'Add new point',
   ArrowButton = 'Arrow',
   Logo = 'To home page',
+  Close = 'Close',
 }
 
 export const enum InputSidebarText {
@@ -152,6 +154,7 @@ export const enum ButtonText {
   InviteNewMembers = 'Invite New Members',
   ReadDetails = 'Read Details',
   DrawNames = 'Draw Names',
+  GoBackToRoom = 'Go Back To Room',
 }
 
 export const enum ButtonType {
@@ -260,4 +263,8 @@ export const enum ActionCardTitle {
   LetMagicBegin = 'Let the Magic Begin!',
   LookWhoYouGot = 'Look Who You Got!',
   MyWishlist = 'My Wishlist',
+}
+
+export const enum ModalTitle {
+  LookWhoYouGot = 'Look Who You Got!',
 }

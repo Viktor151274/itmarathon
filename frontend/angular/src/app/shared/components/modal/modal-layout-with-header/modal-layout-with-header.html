@@ -1,0 +1,40 @@
+@if (isModalOpen()) {
+  <div @dissolve class="modal__wrapper">
+    <div class="modal__overlay" aria-hidden="true"></div>
+
+    <section
+      appFocusTrap
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      tabindex="0"
+    >
+      <header class="modal__header">
+        <svg class="modal__picture" aria-hidden="true">
+          <use [attr.href]="headerPictureHref()" />
+        </svg>
+
+        <h3 class="modal__title">{{ headerTitle() }}</h3>
+
+        <app-icon-button
+          class="modal__button-close"
+          [iconName]="closeIcon"
+          [ariaLabel]="closeButtonAriaLabel"
+          (click)="onCloseModal()"
+        />
+      </header>
+
+      <div class="modal__content">
+        <ng-content />
+
+        <div class="modal__actions">
+          <app-button
+            class="primary medium"
+            [text]="buttonText()"
+            (click)="onActionButtonClick()"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
+}
