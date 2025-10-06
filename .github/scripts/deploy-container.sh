@@ -143,60 +143,69 @@ COMMAND_ID=$(aws ssm send-command \
 sleep 5
 
 if [[ "$MICROSERVICE_NAME" == "prometheus" ]]; then
-  echo "Setting up CloudWatch Exporter on Prometheus instance..."
+  echo "Setting up CloudWatch Exporter (YACE) on Prometheus instance..."
 
-  # 1. Create cloudwatch-config.yml
+  # 1. Create cloudwatch-config.yml for EC2 and ALB
   aws ssm send-command \
     --instance-ids "${INSTANCE_ID}" \
     --document-name "AWS-RunShellScript" \
     --parameters 'commands=[
       "cat <<EOT > /home/ec2-user/cloudwatch-config.yml
-region: eu-central-1
-metrics:
-  - aws_namespace: AWS/EC2
-    aws_metric_name: CPUUtilization
-    aws_dimensions: [InstanceId]
-    aws_statistics: [Average]
-    period_seconds: 300
-    range_seconds: 600
-
-  - aws_namespace: AWS/ApplicationELB
-    aws_metric_name: RequestCount
-    aws_dimensions: [LoadBalancer]
-    aws_statistics: [Sum]
-    period_seconds: 60
-    range_seconds: 900
+apiVersion: v1alpha1
+discovery:
+  jobs:
+    - type: AwsNamespace
+      regions:
+        - eu-central-1
+      metrics:
+        - name: CPUUtilization
+          namespace: AWS/EC2
+          statistics: [Average]
+          period: 300
+          length: 600
+        - name: RequestCount
+          namespace: AWS/ApplicationELB
+          statistics: [Sum]
+          period: 60
+          length: 900
 EOT",
       "chown ec2-user:ec2-user /home/ec2-user/cloudwatch-config.yml",
       "chmod 600 /home/ec2-user/cloudwatch-config.yml",
+
+      # Billing config for YACE
       "cat <<EOT > /home/ec2-user/cloudwatch-config-billing.yml
-region: us-east-1
-metrics:
-  - aws_namespace: AWS/Billing
-    aws_metric_name: EstimatedCharges
-    aws_dimensions: [Currency]
-    aws_statistics: [Maximum]
-    period_seconds: 21600
-    range_seconds: 86400
-    delay_seconds: 3600
+apiVersion: v1alpha1
+discovery:
+  jobs:
+    - type: AwsNamespace
+      regions:
+        - us-east-1
+      metrics:
+        - name: EstimatedCharges
+          namespace: AWS/Billing
+          statistics: [Maximum]
+          period: 21600
+          length: 2678400
+          delay: 3600
+          nilToZero: true
 EOT",
       "chown ec2-user:ec2-user /home/ec2-user/cloudwatch-config-billing.yml",
       "chmod 600 /home/ec2-user/cloudwatch-config-billing.yml"
     ]'
 
-
-  # 2. Run CloudWatch Exporter container
+  # 2. Run YACE containers
   aws ssm send-command \
     --instance-ids "${INSTANCE_ID}" \
     --document-name "AWS-RunShellScript" \
     --parameters 'commands=[
-      "docker container rm -f cloudwatch-exporter || true",
-      "docker pull prom/cloudwatch-exporter:latest",
-      "docker run -d --name cloudwatch-exporter -p 9106:9106 -v /home/ec2-user/cloudwatch-config.yml:/config/config.yml prom/cloudwatch-exporter:latest",
-       "docker run -d --name cloudwatch-exporter-billing -p 9107:9106 -v /home/ec2-user/cloudwatch-config-billing.yml:/config/config.yml prom/cloudwatch-exporter:latest"
+      "docker container rm -f yace || true",
+      "docker container rm -f yace-billing || true",
+      "docker pull ghcr.io/nerdswords/yet-another-cloudwatch-exporter:latest",
+      "docker run -d --name yace -p 9106:5000 -v /home/ec2-user/cloudwatch-config.yml:/tmp/config.yml ghcr.io/nerdswords/yet-another-cloudwatch-exporter:latest --config.file=/tmp/config.yml",
+      "docker run -d --name yace-billing -p 9107:5000 -v /home/ec2-user/cloudwatch-config-billing.yml:/tmp/config.yml ghcr.io/nerdswords/yet-another-cloudwatch-exporter:latest --config.file=/tmp/config.yml"
     ]'
 
-  echo "CloudWatch Exporter started on port 9106"
+  echo "YACE exporters started on ports 9106 (main) and 9107 (billing)"
 
   # 3. Optional: check exporter health
   sleep 5
@@ -205,8 +214,9 @@ EOT",
     --document-name "AWS-RunShellScript" \
     --parameters 'commands=["curl -s -o /dev/null -w \"%{http_code}\" http://localhost:9106/metrics"]' \
     --query "Command.CommandId" --output text)
-  echo "CloudWatch Exporter health check Command ID: $HEALTH"
+  echo "YACE Exporter health check Command ID: $HEALTH"
 fi
+
 
 echo "Command ID: $COMMAND_ID"
 echo "Waiting for deployment to complete..."
