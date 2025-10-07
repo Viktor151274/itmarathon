@@ -50,6 +50,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
 
             NameValidation();
             DescriptionValidation();
+            InvitationNoteValidation();
             GiftExchangeDateValidation();
             GiftMinimumBudgetValidation();
             GiftMaximumBudgetValidation();
@@ -64,7 +65,11 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             RuleFor(room => room.Description).MaximumLength(Room.DescriptionCharLimit).WithMessage($"Maximum length is {Room.DescriptionCharLimit}.")
                 .WithName("description")
                 .OverridePropertyName("description");
-
+        private void InvitationNoteValidation() =>
+            RuleFor(room => room)
+                .Must(room => room.InvitationNote.Length <= Room.InvitationNoteCharLimit)
+                .WithMessage($"Maximum length is {Room.InvitationNoteCharLimit}.")
+                .OverridePropertyName("invitationNote");
         private void GiftExchangeDateValidation() => RuleFor(room => room.GiftExchangeDate)
                 .Must(DateIsNotPast)
                 .WithMessage("Timestamp must be not before today.")

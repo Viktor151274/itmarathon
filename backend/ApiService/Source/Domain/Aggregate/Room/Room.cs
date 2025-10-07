@@ -4,6 +4,8 @@ using Epam.ItMarathon.ApiService.Domain.Builders;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using Epam.ItMarathon.ApiService.Domain.Shared;
+using FluentValidation;
+using FluentValidation.Internal;
 using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
@@ -87,6 +89,31 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             return room;
         }
 
+        public Result<Room, ValidationResult> SetName(string value)
+        {
+            return SetProperty(nameof(Name), room => room.Name = value);
+        }
+
+        public Result<Room, ValidationResult> SetDescription(string value)
+        {
+            return SetProperty(nameof(Description), room => room.Description = value);
+        }
+
+        public Result<Room, ValidationResult> SetInvitationNote(string value)
+        {
+            return SetProperty(nameof(InvitationNote), room => room.InvitationNote = value);
+        }
+
+        public Result<Room, ValidationResult> SetGiftExchangeDate(DateTime value)
+        {
+            return SetProperty(nameof(GiftExchangeDate), room => room.GiftExchangeDate = value.ToUniversalTime().Date);
+        }
+
+        public Result<Room, ValidationResult> SetGiftMaximumBudget(ulong value)
+        {
+            return SetProperty(nameof(GiftMaximumBudget), room => room.GiftMaximumBudget = value);
+        }
+
         public Result<Room, ValidationResult> Draw()
         {
             // Room has MinUsersCount or more
@@ -98,11 +125,10 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             }
 
             // Check room is not closed
-            if (ClosedOn is not null)
+            var roomCanBeModifiedResult = CheckRoomCanBeModified();
+            if (roomCanBeModifiedResult.IsFailure)
             {
-                return Result.Failure<Room, ValidationResult>(
-                    new BadRequestError([new ValidationFailure("room.ClosedOn", "Room is already closed.")
-                    ]));
+                return Result.Failure<Room, ValidationResult>(roomCanBeModifiedResult.Error);
             }
 
             var shuffledIds = Users.Select(user => user.Id).ToList();
@@ -141,6 +167,49 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
                 return Result.Failure<Room, ValidationResult>(validationResult);
             }
             return this;
+        }
+
+        private Result<bool, ValidationResult> CheckRoomCanBeModified()
+        {
+            if (ClosedOn is not null)
+            {
+                return Result.Failure<bool, ValidationResult>(
+                    new BadRequestError([new ValidationFailure("room.ClosedOn", "Room is already closed.")
+                ]));
+            }
+
+            return true;
+        }
+
+        private Result<Room, ValidationResult> SetProperty(string propertyName, Action<Room> setterExpression)
+        {
+            if (string.IsNullOrEmpty(propertyName))
+            {
+                return Result.Failure<Room, ValidationResult>(
+                    new BadRequestError([
+                        new ValidationFailure(nameof(propertyName), "Property name cannot be null or empty.")
+                    ]));
+            }
+
+            // Check room is not closed
+            var roomCanBeModifiedResult = CheckRoomCanBeModified();
+            if (roomCanBeModifiedResult.IsFailure)
+            {
+                return Result.Failure<Room, ValidationResult>(roomCanBeModifiedResult.Error);
+            }
+
+            // Invoke expression to set value
+            setterExpression(this);
+
+            // Call a RoomValidator to validate updated property
+            return ValidateProperty(char.ToLowerInvariant(propertyName[0]) + propertyName[1..]);
+        }
+
+        private Result<Room, ValidationResult> ValidateProperty(string propertyName)
+        {
+            var validationResult = new RoomValidator().Validate(this, 
+                options => options.UseCustomSelector(new MemberNameValidatorSelector([propertyName])));
+            return validationResult.IsValid ? this : Result.Failure<Room, ValidationResult>(validationResult);
         }
     }
 }

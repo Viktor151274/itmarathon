@@ -54,7 +54,17 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .ProducesProblem(StatusCodes.Status404NotFound)
                 .ProducesProblem(StatusCodes.Status500InternalServerError)
                 .WithSummary("Get room by User code and draw it.")
-                .WithDescription("Return admin's gift recipient info");
+                .WithDescription("Return admin's gift recipient info.");
+
+            _ = root.MapPatch("", UpdateRoomRequest)
+                .AddEndpointFilterFactory(ValidationFactoryFilter.GetValidationFactory)
+                .Produces<RoomReadDto>(StatusCodes.Status200OK)
+                .ProducesProblem(StatusCodes.Status400BadRequest)
+                .ProducesProblem(StatusCodes.Status403Forbidden)
+                .ProducesProblem(StatusCodes.Status404NotFound)
+                .ProducesProblem(StatusCodes.Status500InternalServerError)
+                .WithSummary("Get room by User code and patch update it.")
+                .WithDescription("Return updated room info.");
 
             return app;
         }
@@ -99,6 +109,17 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             var responseUser = mapper.Map<UserReadDto>(responseUsers.First(user => user.Id.Equals(adminUser.GiftToUserId)),
                 options => { options.SetUserMappingOptions(responseUsers, userCode!); });
             return Task.FromResult(Results.Ok(responseUser));
+        }
+
+        public static Task<IResult> UpdateRoomRequest([FromQuery, Required] string userCode,
+            [FromBody] RoomPatchRequest patchRequest, IMediator mediator, IMapper mapper)
+        {
+            var result = mediator.Send(new UpdateRoomCommand(userCode, patchRequest.Name, patchRequest.Description,
+                patchRequest.InvitationNote, patchRequest.GiftExchangeDate, patchRequest.GiftMaximumBudget)).Result;
+
+            return Task.FromResult(result.IsFailure
+                ? result.Error.ValidationProblem()
+                : Results.Ok(mapper.Map<RoomReadDto>(result.Value)));
         }
     }
 }
