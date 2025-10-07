@@ -2,6 +2,8 @@
 @use 'abstracts/mixins' as *;
 
 .label {
+  display: block;
+
   &__star {
     font-size: 14px;
     color: $label-star-color;
