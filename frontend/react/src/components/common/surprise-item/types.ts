@@ -1,3 +1,3 @@
 export interface SurpriseItemProps {
-  text: string;
+  text?: string;
 }

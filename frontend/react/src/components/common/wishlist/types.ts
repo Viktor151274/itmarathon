@@ -1,5 +1,6 @@
 interface WishlistBaseProps {
   width?: string;
+  withoutHeader?: boolean;
 }
 
 interface WishlistListProps extends WishlistBaseProps {
@@ -12,7 +13,7 @@ interface WishlistListProps extends WishlistBaseProps {
 
 interface WishlistSurpriseProps extends WishlistBaseProps {
   variant: "surprise";
-  interests: string;
+  interests?: string;
 }
 
 export type WishlistProps = WishlistListProps | WishlistSurpriseProps;

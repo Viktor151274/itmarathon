@@ -5,11 +5,11 @@ import type { WishlistProps } from "./types";
 import "./Wishlist.scss";
 
 const Wishlist = (props: WishlistProps) => {
-  const { width = "100%" } = props;
+  const { width = "100%", withoutHeader = false } = props;
 
   return (
     <div className="wishlist" style={{ width }}>
-      <h4 className="wishlist__title">Wishlist</h4>
+      {!withoutHeader ? <h4 className="wishlist__title">Wishlist</h4> : null}
 
       {props.variant === "wishlist" ? (
         <div className="wishlist__items-container">

@@ -5,7 +5,7 @@ const SurpriseItem = ({ text }: SurpriseItemProps) => {
   return (
     <div className="surprise-item">
       <p className="surprise-item__title">Surprise me!</p>
-      <p className="surprise-item__description">{text}</p>
+      {text ? <p className="surprise-item__description">{text}</p> : null}
     </div>
   );
 };
