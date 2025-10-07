@@ -1,1 +1,20 @@
-<h2>404 Not Found</h2>
+<section class="not-found__content-container">
+  <div class="not-found__content-block">
+    <h1 class="not-found__title">{{ title }}</h1>
+    <svg class="not-found__picture">
+      <use [attr.xlink:href]="imageHref" />
+    </svg>
+  </div>
+  <div class="not-found__content-block">
+    <p class="not-found__info">
+      This page doesn’t exist or was moved (Maybe, somebody has stolen it!)
+    </p>
+    <a [routerLink]="`/${homeLink}`">
+      <app-button
+        text="Go Home"
+        class="primary large"
+        [iconName]="homeButtonIconName"
+      />
+    </a>
+  </div>
+</section>

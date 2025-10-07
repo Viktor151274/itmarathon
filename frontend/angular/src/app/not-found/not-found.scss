@@ -1,0 +1,40 @@
+@use 'colors/color-matrix' as *;
+@use 'base/typography' as *;
+@use 'abstracts/mixins' as *;
+
+:host {
+  @include page-layout;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found {
+  &__content-container {
+    @include flex-centered-column;
+
+    gap: 24x;
+    width: 792px;
+  }
+
+  &__content-block {
+    @include flex-centered-column;
+
+    gap: 32px;
+  }
+
+  &__title {
+    @include heading(36px);
+  }
+
+  &__picture {
+    width: 774px;
+    height: 336px;
+  }
+
+  &__info {
+    font-size: $text-lg;
+    color: $not-found-info-color;
+  }
+}

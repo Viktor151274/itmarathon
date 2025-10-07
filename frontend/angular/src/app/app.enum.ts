@@ -15,6 +15,7 @@ export const enum IconName {
   Add = 'plus',
   ArrowLeft = 'arrow-left',
   SuccessMark = 'success-mark',
+  House = 'house',
 }
 
 export const enum AriaLabel {
@@ -188,6 +189,7 @@ export const enum PageTitle {
   JoinSuccess = 'You’ve Joined the Room!',
   Room = 'Your Room',
   YouHaveJoinedTheRoom = 'You Have Joined the Room! 🎅',
+  NotFound = 'Oops! Page Not Found',
 }
 
 export const enum FormSubtitle {
