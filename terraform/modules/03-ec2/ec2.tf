@@ -102,7 +102,7 @@ resource "aws_instance" "this" {
 
 resource "aws_lb_target_group_attachment" "this" {
 
-  count = contains(["angular", "react"], var.ec2_name) ? 1 : 0
+  count = contains(["angular", "react", "dotnet"], var.ec2_name) ? 1 : 0
 
 
   target_group_arn = var.target_group_arn

@@ -47,6 +47,15 @@ resource "aws_security_group" "web_backend" {
   )
 }
 
+resource "aws_vpc_security_group_ingress_rule" "alb_to_backend" {
+  security_group_id            = aws_security_group.web_backend.id
+  referenced_security_group_id = aws_security_group.alb.id
+  from_port                    = var.web_backend_port
+  to_port                      = var.web_backend_port
+  ip_protocol                  = "tcp"
+  description                  = "Allow ALB to forward traffic to Backend on port 8080"
+}
+
 resource "aws_vpc_security_group_ingress_rule" "web_backend_from_web_ui" {
   security_group_id = aws_security_group.web_backend.id
 
@@ -136,7 +145,5 @@ resource "aws_vpc_security_group_egress_rule" "rds_block_all_outbound" {
   description       = "Block all outbound traffic"
   security_group_id = aws_security_group.rds.id
   cidr_ipv4         = "0.0.0.0/0"
-  from_port         = 0
-  to_port           = 0
   ip_protocol       = "-1"
 }

@@ -45,7 +45,7 @@ subnets = {
 name_prefix       = "app"
 project_name      = "app"
 alb_ingress_cidr  = ["0.0.0.0/0"]
-alb_ingress_ports = [80]
+alb_ingress_ports = [80, 8080]
 web_backend_port  = 8080
 web_ui_port       = 80
 

@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-and-push:
-    name: Build and Push ${{ matrix.microservice }}
+    name: build and push ${{ matrix.microservice }}
     uses: ./.github/workflows/build-and-push.yml
     strategy:
       matrix:

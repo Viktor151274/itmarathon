@@ -39,26 +39,31 @@ runs:
         aws-secret-access-key: ${{ inputs.aws-secret-access-key }}
         aws-region: ${{ inputs.aws-region }}
    
-    - name: Fetch Backend (Dotnet) DNS
+    - name: Fetch ALB DNS name
       shell: bash
       run: |
-        echo "Fetching Backend (Dotnet) DNS name from AWS..."
-        DOTNET_DNS=$(aws ec2 describe-instances \
-          --region eu-central-1 \
-          --filters "Name=tag:Name,Values=dotnet" "Name=instance-state-name,Values=running" \
-          --query "Reservations[0].Instances[0].PublicIpAddress" \
-          --output text)
+        echo "Fetching ALB DNS name from AWS..."
+        ALB_DNS=$(aws elbv2 describe-load-balancers --region ${{ inputs.aws-region }} \
+          --names app-alb \
+          --query "LoadBalancers[0].DNSName" --output text)
 
-        echo "Raw DOTNET_DNS fetched value: $DOTNET_DNS" 
+        echo "Raw ALB_DNS fetched value: $ALB_DNS" 
 
-        if [ -z "$DOTNET_DNS" ]; then
-          echo "Warning: DOTNET_DNS name could not be fetched! Defaulting to localhost:8080."
-          DOTNET_DNS="localhost:8080"
-        fi
+        if [ -z "$ALB_DNS" ]; then
+          echo "Warning: ALB DNS name could not be fetched! Defaulting to localhost:8080."
+          ALB_DNS="localhost:8080"
+        fi  
 
-        export BASE_API_URL="http://${DOTNET_DNS}:8080"
-        echo "BASE_API_URL=${BASE_API_URL}" >> $GITHUB_ENV
-        echo "Successfully fetched and exported BASE_API_URL: ${BASE_API_URL}"
+        echo "ALB_DNS=$ALB_DNS" >> $GITHUB_ENV
+        echo "Successfully fetched and exported ALB_DNS: $ALB_DNS"
+
+    - name: Prepare BASE_API_URL
+      if: ${{ inputs.microservice == 'react' || inputs.microservice == 'angular' }}
+      shell: bash
+      run: |
+        URL="http://${ALB_DNS}"
+        echo "BASE_API_URL=$URL"
+        echo "BASE_API_URL=$URL" >> $GITHUB_ENV
 
     - name: Set React Environment
       if: ${{ inputs.microservice == 'react' }}
@@ -87,7 +92,7 @@ runs:
         echo "REPO=${{ inputs.docker_hub_username }}/angular" >> $GITHUB_ENV
 
         echo "Updating BASE_API_URL in Angular project"
-        jq --arg url "$BASE_API_URL" '.environment.apiBackendUrl = $url' frontend/angular/config.json > tmp.config.json && mv tmp.config.json frontend/angular/config.json
+        jq --arg url "$BASE_API_URL" '.environment.backendApiUrl = $url' frontend/angular/config.json > tmp.config.json && mv tmp.config.json frontend/angular/config.json
         cat frontend/angular/config.json
 
     - name: Set Dotnet Environment
