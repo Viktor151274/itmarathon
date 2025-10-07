@@ -145,9 +145,14 @@ resource "aws_lb_listener" "http" {
 
 resource "aws_lb_listener" "https" {
   load_balancer_arn = aws_lb.this.arn
+<<<<<<< HEAD
   port              = 443
   protocol          = "HTTPS"
   certificate_arn   = var.certificate_arn
+=======
+  port              = var.web_ui_port
+  protocol          = "HTTPS"
+>>>>>>> 2e2e30c (chore: Add ssl)
 
   default_action {
     type             = "forward"
