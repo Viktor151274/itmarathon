@@ -1,4 +1,4 @@
-# How to Fork a GitHub Project Without Using Fork
+# How to upload Project on GitHub
 
 ## Step 1: Download the Project as a ZIP Archive
 
@@ -33,9 +33,8 @@ If you prefer working in the terminal, this is the fastest method:
 
 6. **Navigate into the extracted folder:**
    ```bash
-   cd marathon2025-main
+   cd marathon2025.git
    ```
-   *Note: The folder name might be different. Use `ls` to see available folders.*
 
 **Done!** You can now proceed to Step 2.
 
@@ -74,15 +73,17 @@ Now you need to create an empty repository on your account where you will upload
    ![Create new repository](assets/zip-manual/2.jpg)
 
 4. **Fill in the new repository information:**
-   - **Repository name:** Enter a name for your project (e.g., `my-marathon-project`)
+   - **Repository name:** Enter a name for your project (e.g., `itmarathon`)
    - **Description (optional):** Add a short description of the project
    - **Public/Private:** Choose **Private** to make your repository not visible to everyone
    
    **IMPORTANT:** Do not check the boxes for "Add a README file", "Add .gitignore", or "Choose a license". The repository must be completely empty.
 
+<div style="page-break-before: always;"></div>
+
 5. **Click the "Create repository" button.**
 
-   ![Create repository button](assets/zip-manual/3.jpg)
+   ![Create repository button](assets/zip-manual/3.jpg)
 
 ---
 
@@ -105,11 +106,11 @@ Now you need to create an empty repository on your account where you will upload
    ```
    - Enter your password when prompted
 
-### 3.2. Navigate to Your Project Folder
+### 3.2. Navigate to the Mirror Repository Folder
 
 1. **Find the full path to your extracted folder:**
-   - **Windows:** Open the folder in File Explorer, click on the address bar at the top, and copy the path (e.g., `C:\Users\YourName\Downloads\marathon2025-main`)
-   - **Linux:** Open the folder in File Manager, right-click and select "Properties" to see the path (e.g., `/home/yourname/Downloads/marathon2025-main`)
+   - **Windows:** Open the folder in File Explorer, click on the address bar at the top, and copy the path (e.g., `C:\Users\YourName\Downloads\marathon2025.git`)
+   - **Linux:** Open the folder in File Manager, right-click and select "Properties" to see the path (e.g., `/home/yourname/Downloads/marathon2025.git`)
 
 2. **Open the terminal:**
    - **Windows:** Open **Git Bash** (search in Start menu)
@@ -119,12 +120,12 @@ Now you need to create an empty repository on your account where you will upload
    
    **Windows example:**
    ```bash
-   cd /c/Users/YourName/Downloads/marathon2025-main
+   cd /c/Users/YourName/Downloads/marathon2025.git
    ```
    
    **Linux example:**
    ```bash
-   cd /home/yourname/Downloads/marathon2025-main
+   cd /home/yourname/Downloads/marathon2025.git
    ```
    
    Press **Enter**.
@@ -140,50 +141,47 @@ git config --global user.email "your.email@example.com"
 
 Replace with your actual name and the email you use for GitHub.
 
-### 3.4. Upload Files to GitHub
+### 3.4. Create a Personal Access Token (Required for Authentication)
 
-1. **Initialize Git in the folder:**
-   ```bash
-   git init
-   ```
-   ![Git init result](assets/zip-manual/4.jpg)
+GitHub requires a Personal Access Token for pushing code. Let's create one:
 
-2. **Connect to your GitHub repository:**
+1. **Go to GitHub Settings:**
+   - Click your profile picture in the top-right corner
+   - Select **Settings**
+   - Scroll down and click **Developer settings** (at the bottom of the left sidebar)
+   - Click **Personal access tokens** → **Tokens (classic)**
+
+2. **Generate new token:**
+   - Click **Generate new token** → **Generate new token (classic)**
+   - **Note:** Enter a description like "Marathon 2025 Upload"
+   - **Expiration:** Select 90 days (or custom date)
+   - **Select scopes:** Check only **repo** (this will check all sub-options)
+   - Scroll down and click **Generate token**
+
+3. **IMPORTANT:** Copy the token immediately! It looks like `ghp_xxxxxxxxxxxxxxxxxxxx`. You won't be able to see it again. Save it in a safe place temporarily.
+
+### 3.5. Upload the Mirror Repository to GitHub
+
+1. **Push all branches, tags, and history to your repository:**
    ```bash
-   git remote add origin https://github.com/YOUR-USERNAME/my-marathon-project.git
+   git push --mirror https://github.com/YOUR-USERNAME/itmarathon.git
    ```
    
-   **Important:** Replace `YOUR-USERNAME` with your actual GitHub username and `my-marathon-project` with your repository name!
+   **Important:** Replace `YOUR-USERNAME` with your actual GitHub username and `itmarathon` with your repository name!
    
    **Tip:** You can copy this URL from your empty repository page on GitHub.
 
    ![Empty repository page with upload link highlighted](assets/zip-manual/5.jpg)
 
-3. **Add all files (including hidden ones):**
-   ```bash
-   git add .
-   ```
-
-4. **Save the changes with a message:**
-   ```bash
-   git commit -m "Initial project setup"
-   ```
-
-5. **Set the main branch name:**
-   ```bash
-   git branch -M main
-   ```
-
-6. **Upload everything to GitHub:**
-   ```bash
-   git push -u origin main
-   ```
+2. **When prompted for credentials:**
+   - **Username:** Enter your GitHub username
+   - **Password:** Paste your Personal Access Token (the one you just created, starting with `ghp_`)
    
-   You may be asked to log in to GitHub. Follow the instructions in the terminal.
+   **Note:** When you paste the token, you won't see it on screen - this is normal for security reasons. Just paste it and press Enter.
 
-### 3.5. Verify the Upload
+### 3.6. Verify the Upload
 
-Go to your repository page on GitHub and refresh it. You should now see all the project files, including hidden ones! Next manuals you will find on the front page of your repository.
+Go to your repository page on GitHub and refresh it. You should now see all the project files, complete commit history, and all branches! Next manuals you will find on the front page of your repository.
 
 ![Uploaded repository](assets/zip-manual/6.jpg)
 
