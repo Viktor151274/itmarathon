@@ -1,3 +1,4 @@
+import type { ShowToaster } from "@components/common/toaster/types";
 import config from "../../config.json";
 
 const { protocol, host } = window.location;
@@ -35,4 +36,29 @@ export const formatBudget = (budget?: number) => {
   if (budget === undefined || budget === null) return "No data";
   if (budget === 0) return "Unlimited";
   return `${budget} UAH`;
+};
+
+export const copyToClipboard = (contentToCopy: string) =>
+  navigator.clipboard.writeText(contentToCopy);
+
+export const copyToClipboardWithToaster = (
+  contentToCopy: string,
+  showToaster: ShowToaster,
+  messageConfig: { successMessage: string; errorMessage: string },
+) => {
+  copyToClipboard(contentToCopy)
+    .then(() => showToaster(messageConfig.successMessage, "success", "small"))
+    .catch(() => showToaster(messageConfig.errorMessage, "error", "small"));
+};
+
+export const formatDate = (dateString?: string) => {
+  if (dateString === undefined || dateString === null) return "No data";
+
+  const date = new Date(dateString);
+  const options: Intl.DateTimeFormatOptions = {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  };
+  return date.toLocaleDateString("en-GB", options);
 };

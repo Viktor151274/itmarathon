@@ -1,8 +1,7 @@
 import JoinRoomSprite from "@assets/images/icons/join-room-sprite.svg";
 import FormWrapper from "@components/common/form-wrapper/FormWrapper";
 import InfoCard from "@components/common/info-card/InfoCard";
-import { translateDate } from "@components/join-room-page/join-room-page-content/utils";
-import { formatBudget } from "@utils/general";
+import { formatBudget, formatDate } from "@utils/general";
 import type { JoinRoomContentProps } from "./types";
 import "./JoinRoomPageContent.scss";
 
@@ -24,7 +23,7 @@ const JoinRoomPageContent = ({
         <div className="join-room-content__cards">
           <InfoCard
             title="Exchange Date"
-            description={exchangeDate ? translateDate(exchangeDate) : "No data"}
+            description={formatDate(exchangeDate)}
             iconName="star"
             width="244px"
           />
