@@ -36,7 +36,13 @@ $input-border-width: 1px;
 $textarea-height: 40px;
 
 $li-radius: 8px;
-$li-padding: 24px;
+$li-padding: 15px 24px;
 $li-gap: 12px;
 $li-min-height: 70px;
 $li-shadow: $shadow-li;
+
+$pl-shadow: $shadow;
+$pl-row-gap: 8px;
+$pl-visible-rows: 10.5;
+$pl-item-height: 72.5px;
+$pl-padding: 24px;

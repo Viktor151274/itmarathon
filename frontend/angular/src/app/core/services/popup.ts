@@ -127,4 +127,8 @@ export class PopupService {
       clearTimeout(popupData.timerId);
     }
   }
+
+  public hide(hostElement: HTMLElement): void {
+    this.#hide(hostElement);
+  }
 }

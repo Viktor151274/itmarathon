@@ -17,6 +17,8 @@ export const enum IconName {
   SuccessMark = 'success-mark',
   House = 'house',
   Close = 'close',
+  Link = 'link',
+  Info = 'info',
 }
 
 export const enum AriaLabel {
@@ -27,6 +29,8 @@ export const enum AriaLabel {
   ArrowButton = 'Arrow',
   Logo = 'To home page',
   Close = 'Close',
+  ParticipantLink = 'Copy personal link',
+  Info = 'Info',
 }
 
 export const enum InputSidebarText {
@@ -232,6 +236,12 @@ export const enum CopyLinkType {
 export const enum InvitationNotePopup {
   Success = 'Invitation note is copied',
   Error = 'Invitation note was not copied. Try again.',
+}
+
+export const enum PersonalLink {
+  Success = 'Personal Link is copied!',
+  Error = 'Personal Link was not copied. Try again.',
+  Info = 'Copy Personal Link',
 }
 
 export const enum Endpoint {

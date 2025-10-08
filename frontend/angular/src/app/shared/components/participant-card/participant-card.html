@@ -1,0 +1,29 @@
+<span class="li-content" [title]="fullName()">
+  {{ fullName() }}
+</span>
+
+<span class="li-end">
+  @if (isCurrentUser()) {
+    <span class="pill">You</span>
+  } @else if (participant().isAdmin) {
+    <span class="pill">Admin</span>
+  }
+
+  @if (showCopyIcon() && !participant().isAdmin) {
+    <app-icon-button
+      [iconName]="iconCopy"
+      [ariaLabel]="ariaLabelCopy"
+      (click)="copyRoomLink()"
+      (mouseenter)="onCopyHover($event.currentTarget)"
+      (mouseleave)="onCopyLeave($event.currentTarget)"
+    ></app-icon-button>
+  }
+
+  @if (!isCurrentUser() && participant().isAdmin) {
+    <app-icon-button
+      [iconName]="iconInfo"
+      [ariaLabel]="ariaLabelInfo"
+      (click)="onInfoClick()"
+    ></app-icon-button>
+  }
+</span>

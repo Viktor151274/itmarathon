@@ -1,0 +1,43 @@
+@use 'abstracts/mixins' as *;
+@use 'colors/color-matrix' as *;
+
+:host {
+  @include li-item;
+}
+
+.li-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.li-end {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+
+  .pill {
+    font-size: 14px;
+    margin: 0 3px;
+
+    &:has(+ app-icon-button) {
+      margin: 0 21px;
+    }
+  }
+
+  app-icon-button:not(:first-child) {
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -4px;
+      transform: translateY(-50%);
+      width: 1px;
+      height: 40px;
+      background-color: $pl-li-divider-color;
+    }
+  }
+}

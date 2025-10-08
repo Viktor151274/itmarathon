@@ -1,0 +1,92 @@
+@use 'colors/color-matrix' as *;
+@use 'abstracts/variables' as *;
+
+:host {
+  display: block;
+  position: relative;
+  border: 1px solid $pl-border-color;
+  border-radius: 16px;
+  box-shadow: $pl-shadow;
+  padding: $pl-padding;
+  background-color: $pl-background-color;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 16px;
+    right: 29.5px;
+    width: 366px;
+    height: 66px;
+    background: url('/assets/images/Raindeers.svg') no-repeat right top;
+    background-size: contain;
+    pointer-events: none;
+  }
+
+  &.non-admin-list {
+    ::ng-deep .popover-container {
+      top: 110px;
+      z-index: 10;
+      right: 35px;
+      white-space: pre-line;
+
+      .message {
+        align-items: flex-start;
+      }
+
+      svg {
+        margin-top: 2px;
+      }
+    }
+
+    &:has(.pl-list > li:nth-last-child(n + 11)) {
+      ::ng-deep .popover-container {
+        right: 58px;
+      }
+    }
+  }
+
+  &:not(.non-admin-list) {
+    ::ng-deep .popover-container {
+      top: 15px;
+    }
+
+    ::ng-deep .li-end .popover-container {
+      top: 0px;
+    }
+  }
+}
+
+.pl-header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 32px;
+
+  .pl-title {
+    font-size: 32px;
+  }
+
+  .pl-counter {
+    color: $pl-counter-color;
+
+    &-max-value {
+      color: $pl-counter-max-value-color;
+    }
+  }
+}
+
+.pl-list {
+  display: grid;
+  row-gap: $pl-row-gap;
+  max-height: calc(
+    #{$pl-visible-rows} * #{$pl-item-height} +
+      (#{$pl-visible-rows - 1} * #{$pl-row-gap})
+  );
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 5px;
+
+  &:has(> li:nth-last-child(n + 11)) {
+    padding-right: 15px;
+  }
+}

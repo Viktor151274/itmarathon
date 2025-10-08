@@ -1,0 +1,18 @@
+<header class="pl-header">
+  <h2 class="pl-title">Who's playing?</h2>
+  <span class="pl-counter">
+    {{ currentCount() }} /
+    <span class="pl-counter-max-value">{{ maxParticipants() }}</span>
+  </span>
+</header>
+
+<ul #list class="pl-list" role="list" aria-label="Participants">
+  @for (p of sortedParticipants(); track p.id) {
+    <li
+      app-participant-card
+      [participant]="p"
+      [showCopyIcon]="isAdmin() && !!userCode()"
+      [userCode]="userCode()"
+    ></li>
+  }
+</ul>
