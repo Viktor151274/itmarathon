@@ -9,7 +9,7 @@ ARG BASE_IMAGE_RUNTIME_TAG=9.0
 FROM ${BASE_IMAGE_REPO}/${BASE_IMAGE_BUILD}:${BASE_IMAGE_BUILD_TAG} AS build
 
 # Build, Test and Publish ARGS
-ARG VERSION_PREFIX=0.0.0
+ARG VERSION_PREFIX=0.0.1
 ARG VERSION_SUFFIX
 ARG ENVIRONMENT=docker
 
@@ -41,7 +41,7 @@ COPY --from=test /sln/Tests/results/*.xml .
 
 # Dotnet Publish
 FROM build AS publish
-ARG VERSION_PREFIX=0.0.0
+ARG VERSION_PREFIX=0.0.1
 ARG VERSION_SUFFIX
 RUN dotnet publish ./Source/**/Api.csproj --no-restore -c Release -v quiet -o app -p:VersionPrefix=${VERSION_PREFIX} -p:VersionSuffix=${VERSION_SUFFIX}
 
