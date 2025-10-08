@@ -34,7 +34,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set build context, Dockerfile and Repo 
+      - name: set environment variables
         id: vars
         uses: ./.github/actions/set-var
         with:

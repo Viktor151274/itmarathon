@@ -45,7 +45,7 @@ runs:
         echo "Fetching ALB DNS name from AWS..."
         ALB_DNS=$(aws elbv2 describe-load-balancers --region ${{ inputs.aws-region }} \
           --names app-alb \
-          --query "LoadBalancers[0].DNSName" --output text)
+          --query "LoadBalancers[0].DNSName" --output text || true)
 
         echo "Raw ALB_DNS fetched value: $ALB_DNS" 
 
