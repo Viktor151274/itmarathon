@@ -24,6 +24,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
+          token: ${{ secrets.ACTIONS_PAT }}
           
       - name: Verify versions
         id: current_version
@@ -84,17 +85,11 @@ jobs:
           echo "Version bumped to: $CLEAN_VERSION" >&2
           echo "new_version=$CLEAN_VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Create Git Tag
-        run: |
-          TAG_NAME="v${{ steps.version.outputs.new_version }}"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git tag "$TAG_NAME"
-          git push origin "$TAG_NAME"
-
       - name: Create Pull Request
+        id: create_pr
         uses: peter-evans/create-pull-request@v5
         with:
+          token: ${{ secrets.ACTIONS_PAT }}
           branch: "release/v${{ steps.version.outputs.new_version }}"
           base: main
           title: "chore: release version v${{ steps.version.outputs.new_version }}"
@@ -118,3 +113,12 @@ jobs:
             backend/ApiService/Dockerfile
           draft: false
           delete-branch: true
+
+      - name: Create Git Tag
+        if: steps.create_pr.outputs.pull-request-number != ''
+        run: |
+          TAG_NAME="v${{ steps.version.outputs.new_version }}"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git tag "$TAG_NAME"
+          git push origin "$TAG_NAME"
