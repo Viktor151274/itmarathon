@@ -10,14 +10,15 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
     public class GetRoomHandler(IRoomRepository roomRepository)
         : IRequestHandler<GetRoomQuery, Result<Room, ValidationResult>>
     {
-        public async Task<Result<Room, ValidationResult>> Handle(GetRoomQuery request, CancellationToken cancellationToken)
+        public async Task<Result<Room, ValidationResult>> Handle(GetRoomQuery request,
+            CancellationToken cancellationToken)
         {
             if (!string.IsNullOrEmpty(request.UserCode))
             {
-                return await roomRepository.GetByUserCodeAsync(request.UserCode!);
+                return await roomRepository.GetByUserCodeAsync(request.UserCode!, cancellationToken);
             }
 
-            return await roomRepository.GetByRoomCodeAsync(request.RoomCode!);
+            return await roomRepository.GetByRoomCodeAsync(request.RoomCode!, cancellationToken);
         }
     }
 }

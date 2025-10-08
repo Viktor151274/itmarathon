@@ -23,7 +23,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithTagDescription("User", "User endpoints")
                 .WithOpenApi();
 
-            _ = root.MapGet("", GetUsersRequest)
+            _ = root.MapGet("", GetUsers)
                 .AddEndpointFilterFactory(ValidationFactoryFilter.GetValidationFactory)
                 .Produces<List<UserReadDto>>(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
@@ -32,7 +32,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithSummary("Auth by UserCode and Read all user in auth user's room.")
                 .WithDescription("Return list of users.");
 
-            _ = root.MapGet("{id:long}", GetUserWithIdRequest)
+            _ = root.MapGet("{id:long}", GetUserWithId)
                 .AddEndpointFilterFactory(ValidationFactoryFilter.GetValidationFactory)
                 .Produces<List<UserReadDto>>(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
@@ -42,7 +42,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithSummary("Auth by UserCode and Read user info by user Id.")
                 .WithDescription("Return user info.");
 
-            _ = root.MapPost("", JoinUserToRoomAsync)
+            _ = root.MapPost("", JoinUserToRoom)
                 .Produces<UserCreationResponse>(StatusCodes.Status201Created)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
                 .ProducesProblem(StatusCodes.Status404NotFound)
@@ -58,9 +58,10 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             return app;
         }
 
-        public static async Task<IResult> GetUsersRequest([FromQuery, Required] string? userCode, IMediator mediator, IMapper mapper)
+        public static async Task<IResult> GetUsers([FromQuery, Required] string? userCode, IMediator mediator,
+            IMapper mapper, CancellationToken cancellationToken)
         {
-            var result = await mediator.Send(new GetUsersQuery(userCode!, null));
+            var result = await mediator.Send(new GetUsersQuery(userCode!, null), cancellationToken);
             if (result.IsFailure)
             {
                 return result.Error.ValidationProblem();
@@ -71,9 +72,10 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             return Results.Ok(responseUsers);
         }
 
-        public static async Task<IResult> GetUserWithIdRequest([FromRoute] ulong id, [FromQuery, Required] string? userCode, IMediator mediator, IMapper mapper)
+        public static async Task<IResult> GetUserWithId([FromRoute] ulong id, [FromQuery, Required] string? userCode,
+            IMediator mediator, IMapper mapper, CancellationToken cancellationToken)
         {
-            var result = await mediator.Send(new GetUsersQuery(userCode!, id));
+            var result = await mediator.Send(new GetUsersQuery(userCode!, id), cancellationToken);
             if (result.IsFailure)
             {
                 return result.Error.ValidationProblem();
@@ -84,16 +86,14 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             return Results.Ok(responseUser);
         }
 
-        public static async Task<IResult> JoinUserToRoomAsync([FromQuery, Required] string roomCode, UserCreationRequest user, IMediator mediator, IMapper mapper)
+        public static async Task<IResult> JoinUserToRoom([FromQuery, Required] string roomCode,
+            UserCreationRequest user, IMediator mediator, IMapper mapper, CancellationToken cancellationToken)
         {
-            var result = await mediator.Send(new CreateUserInRoomRequest
-                (mapper.Map<UserApplication>(user),
-                roomCode));
-            if (result.IsFailure)
-            {
-                return result.Error.ValidationProblem();
-            }
-            return Results.Created(string.Empty, mapper.Map<UserCreationResponse>(result.Value));
+            var result = await mediator.Send(new CreateUserInRoomRequest(
+                mapper.Map<UserApplication>(user), roomCode), cancellationToken);
+            return result.IsFailure
+                ? result.Error.ValidationProblem()
+                : Results.Created(string.Empty, mapper.Map<UserCreationResponse>(result.Value));
         }
     }
 }

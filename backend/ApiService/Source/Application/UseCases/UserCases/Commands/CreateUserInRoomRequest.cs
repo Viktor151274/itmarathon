@@ -6,5 +6,6 @@ using MediatR;
 
 namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands
 {
-    public record CreateUserInRoomRequest(UserApplication User, string RoomCode) : IRequest <IResult<User, ValidationResult>>;
+    public record CreateUserInRoomRequest(UserApplication User, string RoomCode)
+        : IRequest<IResult<User, ValidationResult>>;
 }

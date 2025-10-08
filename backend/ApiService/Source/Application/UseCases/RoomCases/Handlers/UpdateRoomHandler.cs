@@ -15,10 +15,10 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
             CancellationToken cancellationToken)
         {
             var areAllFieldsEmpty = string.IsNullOrWhiteSpace(request.Name) &&
-                                   string.IsNullOrWhiteSpace(request.Description) &&
-                                   string.IsNullOrWhiteSpace(request.InvitationNote) &&
-                                   !request.GiftExchangeDate.HasValue &&
-                                   !request.GiftMaximumBudget.HasValue;
+                                    string.IsNullOrWhiteSpace(request.Description) &&
+                                    string.IsNullOrWhiteSpace(request.InvitationNote) &&
+                                    !request.GiftExchangeDate.HasValue &&
+                                    !request.GiftMaximumBudget.HasValue;
 
             if (areAllFieldsEmpty)
             {
@@ -28,7 +28,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
                     ]));
             }
 
-            var roomResult = await roomRepository.GetByUserCodeAsync(request.UserCode);
+            var roomResult = await roomRepository.GetByUserCodeAsync(request.UserCode, cancellationToken);
             if (roomResult.IsFailure)
             {
                 return roomResult;
@@ -62,7 +62,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
                 return Result.Failure<Room, ValidationResult>(new BadRequestError(validationFailures));
             }
 
-            var updatingResult = await roomRepository.UpdateAsync(room);
+            var updatingResult = await roomRepository.UpdateAsync(room, cancellationToken);
             if (updatingResult.IsFailure)
             {
                 return Result.Failure<Room, ValidationResult>(new BadRequestError([
@@ -70,14 +70,16 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
                 ]));
             }
 
-            var updatedRoomResult = await roomRepository.GetByUserCodeAsync(request.UserCode);
+            var updatedRoomResult = await roomRepository.GetByUserCodeAsync(request.UserCode, cancellationToken);
             return updatedRoomResult.Value;
         }
 
         private static Result<Room, ValidationResult> SetFieldIfNotNull<T>(T? fieldValue,
             Func<T, Result<Room, ValidationResult>> validationAction)
         {
-            return fieldValue is not null ? validationAction(fieldValue) : Result.Success<Room?, ValidationResult>(null)!;
+            return fieldValue is not null
+                ? validationAction(fieldValue)
+                : Result.Success<Room?, ValidationResult>(null)!;
         }
     }
 }

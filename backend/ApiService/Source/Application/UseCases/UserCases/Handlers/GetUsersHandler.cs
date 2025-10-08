@@ -8,34 +8,38 @@ using MediatR;
 
 namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers
 {
-    public class GetUsersHandler(IRoomRepository roomRepository, IUserReadOnlyRepository userRepository)
+    public class GetUsersHandler(IUserReadOnlyRepository userRepository)
         : IRequestHandler<GetUsersQuery, Result<List<User>, ValidationResult>>
     {
-        public async Task<Result<List<User>, ValidationResult>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        public async Task<Result<List<User>, ValidationResult>> Handle(GetUsersQuery request,
+            CancellationToken cancellationToken)
         {
-            var authUserResponse =
-                await userRepository.GetByCodeAsync(request.UserCode, includeRoom: false, includeWishes: true);
-            if (authUserResponse.IsFailure)
+            var authUserResult =
+                await userRepository.GetByCodeAsync(request.UserCode, cancellationToken, includeRoom: false,
+                    includeWishes: true);
+            if (authUserResult.IsFailure)
             {
-                return Result.Failure<List<User>, ValidationResult>(authUserResponse.Error);
+                return authUserResult.ConvertFailure<List<User>>();
             }
 
-            if (request.UserId == null)
+            if (request.UserId is null)
             {
                 // Get all users in room
-                var roomId = authUserResponse.Value.RoomId;
-                var result = await userRepository.GetManyByRoomIdAsync(roomId);
+                var roomId = authUserResult.Value.RoomId;
+                var result = await userRepository.GetManyByRoomIdAsync(roomId, cancellationToken);
                 return result;
             }
 
             // Otherwise, Get user by id
-            var requestedUserResponse =
-                await userRepository.GetByIdAsync(request.UserId.Value, includeRoom: false, includeWishes: true);
-            if (requestedUserResponse.IsFailure)
+            var requestedUserResult =
+                await userRepository.GetByIdAsync(request.UserId.Value, cancellationToken, includeRoom: false,
+                    includeWishes: true);
+            if (requestedUserResult.IsFailure)
             {
-                return Result.Failure<List<User>, ValidationResult>(requestedUserResponse.Error);
+                return requestedUserResult.ConvertFailure<List<User>>();
             }
-            if (requestedUserResponse.Value.RoomId != authUserResponse.Value.RoomId)
+
+            if (requestedUserResult.Value.RoomId != authUserResult.Value.RoomId)
             {
                 return Result.Failure<List<User>, ValidationResult>(
                     new NotAuthorizedError([
@@ -43,7 +47,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers
                     ]));
             }
 
-            return Result.Success<List<User>, ValidationResult>([requestedUserResponse.Value, authUserResponse.Value]);
+            return new List<User> { requestedUserResult.Value, authUserResult.Value };
         }
     }
 }

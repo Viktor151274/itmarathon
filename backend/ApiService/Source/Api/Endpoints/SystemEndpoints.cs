@@ -20,7 +20,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithTagDescription("System", "System wide endpoints")
                 .WithOpenApi();
 
-            _ = root.MapGet("/info", GetSystemInfoResponse)
+            _ = root.MapGet("/info", GetSystemInfo)
                 .Produces<AppInfoResponse>(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status500InternalServerError)
                 .WithSummary("Get application system info.")
@@ -33,14 +33,14 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
         /// Returns application system info.
         /// </summary>
         /// <returns>OK with information if the service is running.</returns> 
-        public static Task<IResult> GetSystemInfoResponse(IWebHostEnvironment environment)
+        public static IResult GetSystemInfo(IWebHostEnvironment environment)
         {
-            return Task.FromResult(Results.Ok(new AppInfoResponse
+            return Results.Ok(new AppInfoResponse
             {
                 DateTime = DateTime.UtcNow,
                 Environment = environment.EnvironmentName,
                 Build = Assembly.GetExecutingAssembly().GetName().Version
-            }));
+            });
         }
     }
 }

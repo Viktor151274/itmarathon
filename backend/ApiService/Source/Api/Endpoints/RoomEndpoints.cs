@@ -24,7 +24,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithTagDescription("Room", "Room endpoints")
                 .WithOpenApi();
 
-            _ = root.MapPost("", CreateRoomRequest)
+            _ = root.MapPost("", CreateRoom)
                 .AddEndpointFilterFactory(ValidationFactoryFilter.GetValidationFactory)
                 .Produces<RoomCreationResponse>(StatusCodes.Status201Created)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
@@ -37,7 +37,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithSummary("Create room for prize draw.")
                 .WithDescription("Return created room info.");
 
-            _ = root.MapGet("", GetRoomRequest)
+            _ = root.MapGet("", GetRoom)
                 .AddEndpointFilterFactory(ValidationFactoryFilter.GetValidationFactory)
                 .Produces<RoomReadDto>(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
@@ -46,7 +46,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithSummary("Read room info by User code or Room code.")
                 .WithDescription("Return room info.");
 
-            _ = root.MapPost("draw", DrawRoomRequest)
+            _ = root.MapPost("draw", DrawRoom)
                 .AddEndpointFilterFactory(ValidationFactoryFilter.GetValidationFactory)
                 .Produces<UserReadDto>(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
@@ -56,7 +56,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithSummary("Get room by User code and draw it.")
                 .WithDescription("Return admin's gift recipient info.");
 
-            _ = root.MapPatch("", UpdateRoomRequest)
+            _ = root.MapPatch("", UpdateRoom)
                 .AddEndpointFilterFactory(ValidationFactoryFilter.GetValidationFactory)
                 .Produces<RoomReadDto>(StatusCodes.Status200OK)
                 .ProducesProblem(StatusCodes.Status400BadRequest)
@@ -69,57 +69,62 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             return app;
         }
 
-        public static Task<IResult> CreateRoomRequest([Validate] RoomCreationRequest request, IMediator mediator, IMapper mapper)
+        public static async Task<IResult> CreateRoom([Validate] RoomCreationRequest request, IMediator mediator,
+            IMapper mapper, CancellationToken cancellationToken)
         {
-            var result = mediator.Send(new CreateRoomCommand(mapper.Map<RoomApplication>(request.Room),
-                mapper.Map<UserApplication>(request.AdminUser))).Result;
+            var result = await mediator.Send(new CreateRoomCommand(mapper.Map<RoomApplication>(request.Room),
+                mapper.Map<UserApplication>(request.AdminUser)), cancellationToken);
             if (result.IsFailure)
             {
-                return Task.FromResult(result.Error.ValidationProblem());
+                return result.Error.ValidationProblem();
             }
 
-            return Task.FromResult(Results.Created(string.Empty, new RoomCreationResponse()
+            return Results.Created(string.Empty, new RoomCreationResponse()
             {
                 Room = mapper.Map<RoomReadDto>(result.Value),
-                UserCode = result.Value.Users.Where(user => user.IsAdmin).First().AuthCode
-            }));
+                UserCode = result.Value.Users.First(user => user.IsAdmin).AuthCode
+            });
         }
 
-        public static Task<IResult> GetRoomRequest([AsParameters][Validate] RoomReadingRequest request, IMediator mediator, IMapper mapper)
+        public static async Task<IResult> GetRoom([AsParameters] [Validate] RoomReadingRequest request,
+            IMediator mediator, IMapper mapper, CancellationToken cancellationToken)
         {
-            var result = mediator.Send(new GetRoomQuery(request.UserCode, request.RoomCode)).Result;
-            if (result.IsFailure)
-            {
-                return Task.FromResult(result.Error.ValidationProblem());
-            }
+            var result = await mediator.Send(new GetRoomQuery(request.UserCode, request.RoomCode), cancellationToken);
 
-            return Task.FromResult(Results.Ok(mapper.Map<RoomReadDto>(result.Value)));
+            return result.IsFailure
+                ? result.Error.ValidationProblem()
+                : Results.Ok(mapper.Map<RoomReadDto>(result.Value));
         }
 
-        public static Task<IResult> DrawRoomRequest([FromQuery, Required] string? userCode, IMediator mediator, IMapper mapper)
+        public static async Task<IResult> DrawRoom([FromQuery, Required] string? userCode, IMediator mediator,
+            IMapper mapper, CancellationToken cancellationToken)
         {
-            var result = mediator.Send(new DrawRoomCommand(userCode!)).Result;
+            var result = await mediator.Send(new DrawRoomCommand(userCode!), cancellationToken);
             if (result.IsFailure)
             {
-                return Task.FromResult(result.Error.ValidationProblem());
+                return result.Error.ValidationProblem();
             }
 
             var responseUsers = result.Value;
             var adminUser = responseUsers.First(user => user.AuthCode.Equals(userCode));
-            var responseUser = mapper.Map<UserReadDto>(responseUsers.First(user => user.Id.Equals(adminUser.GiftToUserId)),
+            var responseUser = mapper.Map<UserReadDto>(
+                responseUsers.First(user => user.Id.Equals(adminUser.GiftToUserId)),
                 options => { options.SetUserMappingOptions(responseUsers, userCode!); });
-            return Task.FromResult(Results.Ok(responseUser));
+            return Results.Ok(responseUser);
         }
 
-        public static Task<IResult> UpdateRoomRequest([FromQuery, Required] string userCode,
-            [FromBody] RoomPatchRequest patchRequest, IMediator mediator, IMapper mapper)
+        public static async Task<IResult> UpdateRoom([FromQuery, Required] string userCode,
+            [FromBody] RoomPatchRequest patchRequest, IMediator mediator, IMapper mapper,
+            CancellationToken cancellationToken)
         {
-            var result = mediator.Send(new UpdateRoomCommand(userCode, patchRequest.Name, patchRequest.Description,
-                patchRequest.InvitationNote, patchRequest.GiftExchangeDate, patchRequest.GiftMaximumBudget)).Result;
+            var result = await mediator.Send(
+                new UpdateRoomCommand(userCode, patchRequest.Name, patchRequest.Description,
+                    patchRequest.InvitationNote, patchRequest.GiftExchangeDate, patchRequest.GiftMaximumBudget),
+                cancellationToken);
 
-            return Task.FromResult(result.IsFailure
+            return result.IsFailure
                 ? result.Error.ValidationProblem()
-                : Results.Ok(mapper.Map<RoomReadDto>(result.Value)));
+                : Results.Ok(mapper.Map<RoomReadDto>(result.Value));
         }
     }
 }

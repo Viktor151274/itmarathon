@@ -15,7 +15,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
             CancellationToken cancellationToken)
         {
             // Get room by user.RoomId
-            var roomResult = await roomRepository.GetByUserCodeAsync(request.UserCode);
+            var roomResult = await roomRepository.GetByUserCodeAsync(request.UserCode, cancellationToken);
             if (roomResult.IsFailure)
             {
                 return Result.Failure<List<User>, ValidationResult>(roomResult.Error);
@@ -39,7 +39,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
             }
 
             // Update room in DB
-            var updatingResult = await roomRepository.UpdateAsync(drawResult.Value);
+            var updatingResult = await roomRepository.UpdateAsync(drawResult.Value, cancellationToken);
             if (updatingResult.IsFailure)
             {
                 return Result.Failure<List<User>, ValidationResult>(new BadRequestError([

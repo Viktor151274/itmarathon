@@ -5,7 +5,5 @@ using MediatR;
 
 namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Commands
 {
-    public record DrawRoomCommand(string UserCode) : IRequest<Result<List<User>, ValidationResult>>
-    {
-    }
+    public record DrawRoomCommand(string UserCode) : IRequest<Result<List<User>, ValidationResult>>;
 }

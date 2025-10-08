@@ -13,42 +13,44 @@ using System.Linq.Expressions;
 
 namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
 {
-    internal class RoomRepository(AppDbContext context, IMapper mapper, ILogger<RoomRepository> logger) : IRoomRepository
+    internal class RoomRepository(AppDbContext context, IMapper mapper, ILogger<RoomRepository> logger)
+        : IRoomRepository
     {
-        public async Task<Result<Room, ValidationResult>> AddAsync(Room item)
+        public async Task<Result<Room, ValidationResult>> AddAsync(Room item, CancellationToken cancellationToken)
         {
-            using var transaction = await context.Database.BeginTransactionAsync();
+            await using var transaction = await context.Database.BeginTransactionAsync(cancellationToken);
             try
             {
-                var adminAuthCode = item.Users.Where(user => user.IsAdmin).First().AuthCode;
+                var adminAuthCode = item.Users.First(user => user.IsAdmin).AuthCode;
                 var roomEf = mapper.Map<RoomEf>(item);
-                var adminEf = roomEf.Users.Where(user => user.AuthCode == adminAuthCode).FirstOrDefault();
+                var adminEf = roomEf.Users.FirstOrDefault(user => user.AuthCode == adminAuthCode);
                 roomEf.Admin = null;
                 roomEf.AdminId = null;
-                await context.Rooms.AddAsync(roomEf);
-                await context.SaveChangesAsync();
+                await context.Rooms.AddAsync(roomEf, cancellationToken);
+                await context.SaveChangesAsync(cancellationToken);
+
                 roomEf.Admin = adminEf;
                 roomEf.AdminId = adminEf.Id;
-                await context.SaveChangesAsync();
+                await context.SaveChangesAsync(cancellationToken);
 
-                await transaction.CommitAsync();
+                await transaction.CommitAsync(cancellationToken);
 
                 return mapper.Map<Result<Room, ValidationResult>>(roomEf);
             }
             catch (DbUpdateException exception)
             {
-                await transaction.RollbackAsync();
+                await transaction.RollbackAsync(cancellationToken);
                 logger.LogError(exception.ToString());
                 throw;
             }
         }
 
-        public async Task<Result> UpdateAsync(Room roomToUpdate)
+        public async Task<Result> UpdateAsync(Room roomToUpdate, CancellationToken cancellationToken)
         {
             var existingRoom = await context.Rooms
                 .Include(room => room.Users)
                 .ThenInclude(user => user.Wishes)
-                .FirstOrDefaultAsync(room => room.Id == roomToUpdate.Id);
+                .FirstOrDefaultAsync(room => room.Id == roomToUpdate.Id, cancellationToken);
 
             if (existingRoom == null)
                 return Result.Failure($"Room with Id={roomToUpdate.Id} not found.");
@@ -58,29 +60,34 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
             try
             {
                 context.Rooms.Update(existingRoom.SyncRoom(updatedRoomEf));
-                await context.SaveChangesAsync();
+                await context.SaveChangesAsync(cancellationToken);
             }
             catch (DbUpdateException exception)
             {
                 logger.LogError(exception.ToString());
                 throw;
             }
+
             return Result.Success();
         }
 
-        public async Task<Result<Room, ValidationResult>> GetByUserCodeAsync(string userCode)
+        public async Task<Result<Room, ValidationResult>> GetByUserCodeAsync(string userCode,
+            CancellationToken cancellationToken)
         {
-            var result = await GetByCodeAsync(room => room.Users.Any(user => user.AuthCode == userCode), true);
+            var result = await GetByCodeAsync(room => room.Users.Any(user => user.AuthCode == userCode),
+                cancellationToken, true);
             return result;
         }
 
-        public async Task<Result<Room, ValidationResult>> GetByRoomCodeAsync(string roomCode)
+        public async Task<Result<Room, ValidationResult>> GetByRoomCodeAsync(string roomCode,
+            CancellationToken cancellationToken)
         {
-            var result = await GetByCodeAsync(room => room.InvitationCode == roomCode, true);
+            var result = await GetByCodeAsync(room => room.InvitationCode == roomCode, cancellationToken, true);
             return result;
         }
 
-        private async Task<Result<Room, ValidationResult>> GetByCodeAsync(Expression<Func<RoomEf, bool>> codeExpression, bool includeUsers = false)
+        private async Task<Result<Room, ValidationResult>> GetByCodeAsync(Expression<Func<RoomEf, bool>> codeExpression,
+            CancellationToken cancellationToken, bool includeUsers = false)
         {
             var roomQuery = context.Rooms.AsQueryable();
             if (includeUsers)
@@ -88,7 +95,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
                 roomQuery = roomQuery.Include(room => room.Users).ThenInclude(user => user.Wishes);
             }
 
-            var roomEf = await roomQuery.FirstOrDefaultAsync(codeExpression);
+            var roomEf = await roomQuery.FirstOrDefaultAsync(codeExpression, cancellationToken);
             var result = roomEf == null
                 ? Result.Failure<Room, ValidationResult>(new NotFoundError([
                     new ValidationFailure("code", "Room with such code not found")
