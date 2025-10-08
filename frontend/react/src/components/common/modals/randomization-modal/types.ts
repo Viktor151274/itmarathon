@@ -1,7 +1,9 @@
-import type { ReactNode } from "react";
+import type { PersonalInformationProps } from "../../../common/personal-information/types";
+import type { WishlistProps } from "../../../common/wishlist/types";
 
 export interface RandomizationModalProps {
   isOpen?: boolean;
   onClose: () => void;
-  children: ReactNode;
+  personalInfoData: PersonalInformationProps;
+  wishlistData: WishlistProps;
 }

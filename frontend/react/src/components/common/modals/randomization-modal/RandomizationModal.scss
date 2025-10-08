@@ -49,6 +49,11 @@
     right: 32px;
   }
 
+  &__content {
+    display: flex;
+    column-gap: 24px;
+  }
+
   &__back-button {
     display: flex;
     justify-content: flex-end;

@@ -2,13 +2,16 @@ import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import IconButton from "@components/common/icon-button/IconButton";
 import Button from "@components/common/button/Button";
+import Wishlist from "@components/common/wishlist/Wishlist";
+import PersonalInformation from "@components/common/personal-information/PersonalInformation";
 import type { RandomizationModalProps } from "./types";
 import "./RandomizationModal.scss";
 
 const RandomizationModal = ({
   isOpen = false,
   onClose,
-  children,
+  personalInfoData,
+  wishlistData,
 }: RandomizationModalProps) => {
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -29,7 +32,13 @@ const RandomizationModal = ({
           <IconButton iconName="cross" onClick={onClose} />
         </div>
 
-        {children}
+        <div className="randomization-modal__content">
+          {personalInfoData ? (
+            <PersonalInformation {...personalInfoData} />
+          ) : null}
+
+          {wishlistData ? <Wishlist {...wishlistData} /> : null}
+        </div>
 
         <div className="randomization-modal__back-button">
           <Button width={228} size="medium" onClick={onClose}>
