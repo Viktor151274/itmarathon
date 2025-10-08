@@ -30,7 +30,7 @@ jobs:
         run: |
           ANGULAR_VERSION=$(node -p "require('./frontend/angular/package.json').version")
           REACT_VERSION=$(node -p "require('./frontend/react/package.json').version")
-          BACKEND_VERSION=$(grep "VERSION_PREFIX=" backend/ApiService/Dockerfile | cut -d= -f2)
+          BACKEND_VERSION=$(grep "^ARG VERSION_PREFIX=" backend/ApiService/Dockerfile | head -n 1 | cut -d= -f2)
           
           echo "Angular version: $ANGULAR_VERSION"
           echo "React version: $REACT_VERSION"
