@@ -110,12 +110,17 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
         
         private void WishListValidation()
         {
-            RuleForEach(user => user.Wishes).NotEmpty().SetValidator(new WishValidator())
+            RuleForEach(user => user.Wishes)
+                .SetValidator(new WishValidator());
+            RuleFor(user => user.Wishes)
+                .NotEmpty()
                 .When(user => !user.WantSurprise)
-                .WithMessage("Wishes should be provided if user does not want surprise.")
+                .WithMessage("At least one wish should be provided if user does not want surprise.")
                 .WithName("wishList")
                 .OverridePropertyName("wishList");
-            RuleForEach(user => user.Wishes).Empty().When(user => user.WantSurprise)
+            RuleFor(user => user.Wishes)
+                .Empty()
+                .When(user => user.WantSurprise)
                 .WithMessage("Wishes should not be provided if user want surprise.")
                 .WithName("wishList")
                 .OverridePropertyName("wishList");

@@ -21,6 +21,8 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.AggregateTests
                     .WithDeliveryInfo("Some info...")
                     .WithPhone("+380000000000")
                     .WithId(1)
+                    .WithWantSurprise(true)
+                    .WithInterests("Some interests...")
                     .WithWishes([]))
                 .Build();
 
@@ -82,6 +84,8 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.AggregateTests
                     .WithDeliveryInfo("Some info...")
                     .WithPhone("+380000000000")
                     .WithId(id)
+                    .WithWantSurprise(true)
+                    .WithInterests("Some interests...")
                     .WithWishes([]));
             }
 
