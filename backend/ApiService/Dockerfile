@@ -41,7 +41,7 @@ COPY --from=test /sln/Tests/results/*.xml .
 
 # Dotnet Publish
 FROM build AS publish
-ARG VERSION_PREFIX
+ARG VERSION_PREFIX=0.0.0
 ARG VERSION_SUFFIX
 RUN dotnet publish ./Source/**/Api.csproj --no-restore -c Release -v quiet -o app -p:VersionPrefix=${VERSION_PREFIX} -p:VersionSuffix=${VERSION_SUFFIX}
 
