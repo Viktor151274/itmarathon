@@ -3,8 +3,25 @@
 @use 'colors/color-matrix' as *;
 @use 'base/typography' as *;
 
+:host {
+  &.wish-list {
+    .action-card {
+      &__header {
+        padding-top: 24px;
+        background: url($action-card-header-picture--wish-list)
+          $action-card-header-bg-color;
+      }
+
+      &__title {
+        color: $action-card-title--wish-list;
+      }
+    }
+  }
+}
+
 .action-card {
   position: relative;
+  background: $action-card-bg;
   border-radius: 16px;
   box-shadow: $action-card-shadow;
 
@@ -27,7 +44,6 @@
 
   &__content {
     padding: 16px 24px 24px 24px;
-    background: $action-card-content-bg;
   }
 
   &--big-gifts {

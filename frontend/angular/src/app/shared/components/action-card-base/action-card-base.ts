@@ -12,14 +12,20 @@ import { IMAGES_SPRITE_PATH } from '../../../app.constants';
 })
 export class ActionCardBase {
   readonly headerTitle = input.required<ActionCardTitle>();
-  readonly headerPictureName = input.required<PictureName>();
   readonly buttonText = input.required<ButtonText>();
+
+  readonly headerPictureName = input<PictureName>();
 
   readonly buttonAction = output<void>();
 
   public readonly headerPictureHref = computed(
     () => `${IMAGES_SPRITE_PATH}#${this.headerPictureName()}`
   );
+  public readonly pictureClass = computed(() => {
+    return this.headerPictureName()
+      ? `action-card--${this.headerPictureName()}`
+      : '';
+  });
 
   public onButtonClick(): void {
     this.buttonAction.emit();

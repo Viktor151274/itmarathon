@@ -1,8 +1,10 @@
-<section class="action-card" [class]="`action-card--${headerPictureName()}`">
+<section class="action-card" [class]="pictureClass()">
   <header class="action-card__header">
-    <svg class="action-card__picture" aria-hidden="true">
-      <use [attr.xlink:href]="headerPictureHref()" />
-    </svg>
+    @if (headerPictureName()) {
+      <svg class="action-card__picture" aria-hidden="true">
+        <use [attr.xlink:href]="headerPictureHref()" />
+      </svg>
+    }
 
     <h2 class="action-card__title">{{ headerTitle() }}</h2>
   </header>
