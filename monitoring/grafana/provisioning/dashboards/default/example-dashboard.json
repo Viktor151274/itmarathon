@@ -59,7 +59,7 @@
       "title": "RDS Freeable Memory (MB)",
       "targets": [
         {
-          "expr": "aws_rds_freeable_memory{DBInstanceIdentifier=\"postgres-db\"} / 1024 / 1024",
+          "expr": "aws_rds_freeable_memory_average{dbinstance_identifier=\"postgres-db\"} / 1024 / 1024",
           "legendFormat": "{{DBInstanceIdentifier}}",
           "refId": "A"
         }
