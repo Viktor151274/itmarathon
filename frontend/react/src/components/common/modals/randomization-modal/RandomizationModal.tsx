@@ -5,6 +5,7 @@ import Button from "@components/common/button/Button";
 import Wishlist from "@components/common/wishlist/Wishlist";
 import PersonalInformation from "@components/common/personal-information/PersonalInformation";
 import type { RandomizationModalProps } from "./types";
+import "@assets/styles/common/modal-container.scss";
 import "./RandomizationModal.scss";
 
 const RandomizationModal = ({
@@ -24,7 +25,7 @@ const RandomizationModal = ({
   if (!isOpen) return null;
 
   const randomizationModalElement = (
-    <div className="randomization-modal-container">
+    <div className="modal-container">
       <div className="randomization-modal">
         <h3 className="randomization-modal__title">Look Who You Got!</h3>
 

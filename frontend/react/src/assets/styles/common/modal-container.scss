@@ -1,0 +1,11 @@
+@use "@assets/styles/_variables";
+
+.modal-container {
+  display: flex;
+  position: fixed;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  background: variables.$modal-background;
+  z-index: 101;
+}

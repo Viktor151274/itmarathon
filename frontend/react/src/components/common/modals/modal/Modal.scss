@@ -1,0 +1,60 @@
+@use "@assets/styles/_colors";
+@use "@assets/styles/_variables";
+@use "@assets/styles/_extends";
+
+.modal {
+  position: relative;
+  width: 792px;
+  height: fit-content;
+  padding: 36px;
+  border: 1.6px solid colors.$green-500;
+  border-radius: 16px;
+  background-color: colors.$g-50;
+  box-shadow: variables.$shadow;
+
+  &__heading {
+    margin-bottom: 32px;
+    padding-left: 86px;
+    text-align: left;
+    background: left center / 74px 74px no-repeat;
+
+    &--presents {
+      background-image: url("../../../../assets/images/backgrounds/modal-background-sprites.svg#presents");
+    }
+
+    &--cookie {
+      background-image: url("../../../../assets/images/backgrounds/modal-background-sprites.svg#cookie");
+    }
+
+    &--note {
+      background-image: url("../../../../assets/images/backgrounds/modal-background-sprites.svg#note");
+    }
+  }
+
+  &__title {
+    margin-bottom: 12px;
+    color: colors.$g-950;
+  }
+
+  &__description {
+    @extend %body-sm;
+    color: colors.$g-800;
+  }
+
+  &__subdescription {
+    @extend %title-sm;
+    margin-top: 8px;
+    color: colors.$g-800;
+  }
+
+  &__close-button {
+    position: absolute;
+    top: 44px;
+    right: 44px;
+  }
+
+  &__back-button {
+    margin-top: 48px;
+    text-align: right;
+  }
+}
