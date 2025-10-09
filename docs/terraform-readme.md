@@ -73,6 +73,7 @@ To securely store sensitive credentials (like AWS keys) for GitHub Actions, add 
 | AWS_SECRET_ACCESS_KEY | AWS IAM secret access key for authentication (from CSV). |
 | DOCKER_HUB_TOKEN      | Personal access token for Docker Hub authentication. |
 | DOCKER_HUB_USERNAME   | Docker Hub username for pushing/pulling images. |
+| ACTIONS_PAT   | GitHub Personal Access Token. |
 
 ![picsec](assets/terraform-readme/picsec.jpg)
 

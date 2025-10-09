@@ -92,7 +92,7 @@ jobs:
           token: ${{ secrets.ACTIONS_PAT }}
           branch: "release/v${{ steps.version.outputs.new_version }}"
           base: main
-          title: "chore: release version v${{ steps.version.outputs.new_version }}"
+          title: "release/v${{ steps.version.outputs.new_version }}"
           body: |
             ## Release v${{ steps.version.outputs.new_version }}
             
@@ -106,7 +106,7 @@ jobs:
             - Use the post-release workflow manually to deploy the release and create GitHub Release
             
             Please review and merge to trigger the build and release process.
-          commit-message: "chore: bump version to v${{ steps.version.outputs.new_version }}"
+          commit-message: "release/v${{ steps.version.outputs.new_version }}"
           add-paths: |
             frontend/angular/package.json
             frontend/react/package.json
