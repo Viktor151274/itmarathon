@@ -1,15 +1,22 @@
-export interface RoomDetailsResponse {
+export type WishList = {
+  name?: string;
+  infoLink?: string;
+};
+
+export type Participant = {
   id: number;
   createdOn: string;
   modifiedOn: string;
-  closedOn?: string;
-  adminId: number;
-  invitationCode: string;
-  invitationLink: string;
-  name: string;
-  description: string;
-  invitationNote: string;
-  giftExchangeDate: string;
-  giftMaximumBudget: number;
-  isFull: boolean;
-}
+  roomId: number;
+  isAdmin: boolean;
+  userCode: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email?: string;
+  giftToUserId?: number;
+  deliveryInfo: string;
+  wantSurprise: boolean;
+  interests?: string;
+  wishList?: WishList[];
+};

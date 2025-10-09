@@ -1,3 +1,5 @@
+import type { Participant } from "@components/room-page/types";
+
 export type GetRoomResponse = {
   id: number;
   createdOn: string;
@@ -13,3 +15,5 @@ export type GetRoomResponse = {
   giftMaximumBudget: number;
   isFull: boolean;
 };
+
+export type GetParticipantsResponse = Participant[];

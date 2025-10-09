@@ -1,39 +1,66 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
+import type { GetParticipantsResponse, GetRoomResponse } from "@types/api.ts";
 import Loader from "@components/common/loader/Loader.tsx";
 import { useFetch } from "@hooks/useFetch.ts";
 import useToaster from "@hooks/useToaster.ts";
 import { BASE_API_URL } from "@utils/general.ts";
-import type { RoomDetailsResponse } from "./types.ts";
+import RoomPageContent from "./room-page-content/RoomPageContent.tsx";
 import { ROOM_PAGE_TITLE } from "./utils.ts";
+import type {} from "./types.ts";
 import "./RoomPage.scss";
 
 const RoomPage = () => {
   const { showToast } = useToaster();
   const { userCode } = useParams();
 
-  const { data: roomDetails, isLoading: isLoadingRoomDetails } =
-    useFetch<RoomDetailsResponse>(
-      {
-        url: `${BASE_API_URL}/api/rooms?userCode=${userCode}`,
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-        onError: () => {
-          showToast("Something went wrong. Try again.", "error", "large");
-        },
-      },
-      true,
-    );
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const isRandomized = !!roomDetails?.closedOn;
-
   useEffect(() => {
     document.title = ROOM_PAGE_TITLE;
   }, []);
 
+  const {
+    data: roomDetails,
+    isError: isErrorRoomDetails,
+    isLoading: isLoadingRoomDetails,
+  } = useFetch<GetRoomResponse>(
+    {
+      url: `${BASE_API_URL}/api/rooms?userCode=${userCode}`,
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+      onError: () => {
+        showToast("Something went wrong. Try again.", "error", "large");
+      },
+    },
+    true,
+  );
+
+  const {
+    isLoading: isLoadingParticipants,
+    isError: isErrorParticipants,
+    data: participants,
+  } = useFetch<GetParticipantsResponse>({
+    url: `${BASE_API_URL}/api/users?userCode=${userCode}`,
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+    onError: () => {
+      showToast("Something went wrong. Try again.", "error", "large");
+    },
+  });
+
+  const isLoading = isLoadingParticipants || isLoadingRoomDetails;
+  const isError = isErrorParticipants || isErrorRoomDetails;
+
+  if (!userCode) {
+    return null;
+  }
+
   return (
     <main className="room-page">
-      {isLoadingRoomDetails ? <Loader /> : null}
+      {isLoading ? <Loader /> : null}
+
+      {!isLoading && !isError && !!participants && !!roomDetails ? (
+        <RoomPageContent users={participants} roomDetails={roomDetails} />
+      ) : null}
     </main>
   );
 };
