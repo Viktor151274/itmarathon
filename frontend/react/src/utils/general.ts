@@ -5,6 +5,7 @@ const { protocol, host } = window.location;
 
 export const BASE_API_URL = config?.environment?.backendApiUrl;
 export const BASE_FRONTEND_URL = `${protocol}//${host}`;
+export const MAX_PARTICIPANTS_NUMBER = 20;
 
 export const generateRoomLink = (invitationCode: string) => {
   return `${BASE_FRONTEND_URL}/join/${invitationCode}`;
