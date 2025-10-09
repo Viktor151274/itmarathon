@@ -8,7 +8,8 @@
 
 .input-sidebar {
   @include input-sidebar;
-  left: 1px;
+  left: 0;
+  transform: translate(1px, -1px);
   width: 56px;
   border-radius: 6px 0 0 6px;
   border-right: 1px solid $input-sidebar-border-color;
