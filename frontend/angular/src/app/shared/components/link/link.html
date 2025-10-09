@@ -1,0 +1,11 @@
+<a
+  href="{{ link() }}"
+  target="_blank"
+  rel="noopener noreferrer"
+  class="link__anchor"
+  [attr.aria-label]="ariaLabel() ? ariaLabel() : null"
+  [attr.tabIndex]="isDisabled() ? -1 : null"
+  [attr.aria-disabled]="isDisabled() ? true : null"
+>
+  {{ text() }}
+</a>

@@ -1,0 +1,67 @@
+@use 'colors/color-matrix' as *;
+
+:host {
+  &.link {
+    $link: &;
+
+    &--white {
+      #{$link}__anchor {
+        color: $link-text--secondary;
+        border-color: $link-border-color--secondary;
+
+        &:hover,
+        &:focus-visible {
+          color: $link-text--secondary-hover;
+          border-color: $link-border-color--secondary-hover;
+        }
+
+        &:active {
+          color: $link-text--secondary-active;
+          border-color: $link-border-color--secondary-active;
+        }
+      }
+    }
+
+    &--small {
+      #{$link}__anchor {
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    &--disabled {
+      cursor: not-allowed;
+
+      #{$link}__anchor {
+        color: $link-text--disabled;
+        border-color: $link-border-color--disabled;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+.link {
+  &__anchor {
+    color: $link-text--primary;
+    border-bottom: 1px solid $link-border-color--primary;
+    font-weight: 700;
+
+    &:hover,
+    &:focus-visible {
+      color: $link-text--primary-hover;
+      border-color: $link-border-color--primary-hover;
+    }
+
+    &:focus-visible {
+      outline: 1px solid $icon-button-outline;
+      border: none;
+      border-radius: 2px;
+    }
+
+    &:active {
+      color: $link-text--primary-active;
+      border-color: $link-border-color--primary-active;
+    }
+  }
+}
