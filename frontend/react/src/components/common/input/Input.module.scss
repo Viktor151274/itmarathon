@@ -110,7 +110,7 @@
       background-color: colors.$green-100;
       border: 1px solid colors.$green-400;
       border-radius: 8px;
-      padding: 24px;
+      padding: 24px 24px 48px 24px;
     }
 
     &.inputWrapper__input--invitation-note:not(:placeholder-shown) {

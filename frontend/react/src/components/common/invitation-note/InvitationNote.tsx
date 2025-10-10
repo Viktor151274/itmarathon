@@ -5,6 +5,7 @@ import "./InvitationNote.scss";
 
 const InvitationNote = ({
   value,
+  invitationLink,
   width,
   ...restProps
 }: InvitationNoteProps) => {
@@ -21,9 +22,12 @@ const InvitationNote = ({
           variant="invitation-note"
           {...restProps}
         />
+
+        <p className="note-invitation-link">{invitationLink}</p>
+
         <div className="note-copy-button">
           <CopyButton
-            textToCopy={value}
+            textToCopy={`${value}\n${invitationLink}`}
             successMessage="Invitation note is copied"
             errorMessage="Invitation note was not copied. Try again."
           />

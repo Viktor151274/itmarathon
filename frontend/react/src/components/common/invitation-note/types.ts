@@ -5,4 +5,5 @@ export type InvitationNoteProps = Omit<
   "type" | "label" | "placeholder"
 > & {
   value: string;
+  invitationLink: string;
 };

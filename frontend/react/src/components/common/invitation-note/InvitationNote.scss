@@ -11,6 +11,14 @@
   position: relative;
 }
 
+.note-invitation-link {
+  @extend %body-sm;
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  color: colors.$blue-link;
+}
+
 .note-copy-button {
   position: absolute;
   right: 16px;
