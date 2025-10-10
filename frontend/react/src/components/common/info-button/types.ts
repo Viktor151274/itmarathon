@@ -1,3 +1,5 @@
 export interface InfoButtonProps {
-  infoMessage: string;
+  withoutToaster?: boolean;
+  infoMessage?: string;
+  onClick?: () => void;
 }

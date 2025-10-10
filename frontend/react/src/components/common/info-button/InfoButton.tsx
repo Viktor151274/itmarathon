@@ -5,11 +5,18 @@ import type { ToasterHandler } from "../toaster/types";
 import type { InfoButtonProps } from "./types";
 import "./InfoButton.scss";
 
-const InfoButton = ({ infoMessage }: InfoButtonProps) => {
+const InfoButton = ({
+  infoMessage,
+  onClick,
+  withoutToaster = false,
+}: InfoButtonProps) => {
   const toasterRef = useRef<ToasterHandler>(null);
 
   const handleClick = () => {
-    toasterRef.current?.show(infoMessage, "info", "small");
+    if (!withoutToaster && infoMessage) {
+      toasterRef.current?.show(infoMessage, "info", "small");
+    }
+    onClick?.();
   };
 
   return (
