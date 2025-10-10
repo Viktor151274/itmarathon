@@ -83,7 +83,8 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         }
         public UserBuilder WithWishes(IEnumerable<(string?, string?)> wishes)
         {
-            _wishes = wishes.Select(pair => Wish.Create(pair.Item1, pair.Item2)).ToList();
+            _wishes = wishes.Where(wish => !string.IsNullOrEmpty(wish.Item1) || !string.IsNullOrEmpty(wish.Item2))
+                .Select(pair => Wish.Create(pair.Item1, pair.Item2)).ToList();
             return this;
         }
         public User Build()
