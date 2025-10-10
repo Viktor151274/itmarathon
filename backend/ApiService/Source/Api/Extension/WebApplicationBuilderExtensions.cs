@@ -81,7 +81,7 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
                 options.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
-                        Version = Assembly.GetExecutingAssembly().GetName().Version!.ToString(),
+                        Version = Assembly.GetExecutingAssembly().GetName().Version!.ToString(3),
                         Title = $"Mycolaychik API - {textInfo.ToTitleCase(builder.Environment.EnvironmentName)}",
                         Description = "EPAM IT Marathon 2025 (Mycolaychik) WEB API.",
                         License = new OpenApiLicense
