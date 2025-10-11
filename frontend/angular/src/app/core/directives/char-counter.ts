@@ -1,23 +1,24 @@
 import {
   AfterViewInit,
+  DestroyRef,
   Directive,
   ElementRef,
   inject,
   input,
-  OnDestroy,
   Renderer2,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs';
 
 import { ItemPosition } from '../../app.enum';
-import type { StyleMap } from '../../app.models';
 import { generateId } from '../../utils/generate-id';
+import type { StyleMap } from '../../app.models';
 
 @Directive({
   selector: '[appCharCounter]',
 })
-export class CharCounter implements AfterViewInit, OnDestroy {
+export class CharCounter implements AfterViewInit {
   readonly control = input.required<FormControl>();
 
   readonly positionX = input<ItemPosition>(ItemPosition.Right);
@@ -25,13 +26,13 @@ export class CharCounter implements AfterViewInit, OnDestroy {
 
   readonly #el = inject(ElementRef);
   readonly #renderer = inject(Renderer2);
+  readonly #destroyRef = inject(DestroyRef);
 
   readonly #counterId: string = generateId();
 
   #maxLength!: string | null;
   #counterElement!: HTMLElement;
   #targetElement!: HTMLInputElement | HTMLTextAreaElement | null;
-  #subscription!: Subscription;
 
   ngAfterViewInit(): void {
     this.#targetElement = this.#findTarget();
@@ -43,18 +44,16 @@ export class CharCounter implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    this.#subscription?.unsubscribe();
-  }
-
   #observeTargetValueChanges(): void {
-    this.#updateCounter(0);
+    const baseValue = this.#targetElement?.value?.length || 0;
+    this.#updateCounter(baseValue);
 
-    this.#subscription = this.control().valueChanges.subscribe(
-      (value: string) => {
-        this.#updateCounter(value.length);
-      }
-    );
+    this.control()
+      .valueChanges.pipe(
+        tap((value: string) => this.#updateCounter(value.length)),
+        takeUntilDestroyed(this.#destroyRef)
+      )
+      .subscribe();
   }
 
   #findTarget(): HTMLInputElement | HTMLTextAreaElement | null {
