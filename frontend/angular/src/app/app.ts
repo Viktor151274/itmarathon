@@ -7,10 +7,11 @@ import { ToastService } from './core/services/toast';
 import { MessageSize } from './app.enum';
 import { Message } from './shared/components/message/message';
 import { Loader } from './shared/components/loader/loader';
+import { ModalHost } from './components/modal-host/modal-host';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header, Footer, Message, Loader],
+  imports: [RouterOutlet, Header, Footer, Message, Loader, ModalHost],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

@@ -56,3 +56,5 @@ export const ROOM_PAGE_DATA_DEFAULT = {
 export const MAX_BUDGET = 100000;
 
 export const MIN_USERS_NUMBER = 3;
+
+export const FADE_IN_ANIMATION_DURATION_MS = 500;

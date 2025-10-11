@@ -1,4 +1,4 @@
-import { ComponentRef } from '@angular/core';
+import { ComponentRef, Type } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { UrlTree } from '@angular/router';
@@ -11,8 +11,12 @@ import {
   StepLabel,
   TextareaLabel,
   MessageType,
+  PictureName,
+  ModalTitle,
+  ButtonText,
 } from './app.enum';
 import { Message } from './shared/components/message/message';
+import { ModalLayoutWithHeader } from './shared/components/modal/modal-layout-with-header/modal-layout-with-header';
 
 export interface StepperItem {
   isActive: boolean;
@@ -151,3 +155,23 @@ export interface User extends Partial<UserDetails> {
 }
 
 export type JoinRoomResponse = Required<Omit<User, 'giftToUserId'>>;
+
+export interface ModalEntry {
+  component: ModalComponentType;
+  inputs?: ModalInputs;
+  outputs?: ModalOutputs;
+}
+
+export type ModalEntryNullable = ModalEntry | null;
+
+export interface ParentModalLayoutType {
+  headerPictureName: PictureName;
+  headerTitle: ModalTitle;
+  buttonText: ButtonText;
+}
+
+export type ModalInputs = ParentModalLayoutType;
+
+export type ModalOutputs = Record<string, (...args: unknown[]) => void>;
+
+export type ModalComponentType = Type<ModalLayoutWithHeader>;
