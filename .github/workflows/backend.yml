@@ -10,7 +10,11 @@ on:
     branches:
         - main
     paths:
-      - 'backend/ApiService/**'       
+      - 'backend/ApiService/**'  
+      
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref_name }}
+  cancel-in-progress: true        
    
 jobs:
   test:
@@ -21,9 +25,13 @@ jobs:
       microservice: dotnet
     secrets: inherit
 
-  # Build Docker Image for Backend
+  check-infra:
+    uses: ./.github/workflows/check-infra.yml  
+    secrets: inherit
+
   build:
-    if: github.event_name == 'push'
+    needs: check-infra
+    if: github.event_name == 'push' && needs.check-infra.outputs.infra-available == 'true'
     name: Build Backend Docker Image
     permissions:
       contents: read
@@ -32,3 +40,13 @@ jobs:
     with:
       microservice: dotnet
     secrets: inherit
+
+  deploy:
+    needs: [check-infra, build]
+    if: github.event_name == 'push' && needs.check-infra.outputs.infra-available == 'true'
+    uses: ./.github/workflows/deploy-jobs.yml
+    with:
+      microservice: dotnet
+      image_tag: latest
+    secrets: inherit  
+  

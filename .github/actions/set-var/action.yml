@@ -49,11 +49,6 @@ runs:
 
         echo "Raw ALB_DNS fetched value: $ALB_DNS" 
 
-        if [ -z "$ALB_DNS" ]; then
-          echo "Warning: ALB DNS name could not be fetched! Defaulting to localhost:8080."
-          ALB_DNS="localhost:8080"
-        fi  
-
         echo "ALB_DNS=$ALB_DNS" >> $GITHUB_ENV
         echo "Successfully fetched and exported ALB_DNS: $ALB_DNS"
 

@@ -1,0 +1,41 @@
+name: Check Infrastructure Deployment
+
+on:
+  workflow_call: 
+    outputs:
+      infra-available:
+        description: "Indicates if the infrastructure (ALB) is available"
+        value: ${{ jobs.check-alb.outputs.infra-available }}    
+
+jobs:
+  check-alb:
+    name: Check if infra was deployed
+    runs-on: ubuntu-latest
+    outputs:
+      infra-available: ${{ steps.check.outputs.infra-available }}
+    steps:
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION || 'eu-central-1' }} 
+
+      - name: Check if ALB Exists
+        id: check
+        run: |
+          echo "Fetching ALB DNS name from AWS region: ${{ secrets.AWS_REGION || 'eu-central-1' }}"
+          ALB_DNS=$(aws elbv2 describe-load-balancers --region ${{ secrets.AWS_REGION || 'eu-central-1' }} \
+            --query "LoadBalancers[0].DNSName" \
+            --output text 2> aws_error.log || echo "")
+
+          if [ -s aws_error.log ]; then
+            echo "infra-available=false" >> $GITHUB_OUTPUT
+            echo "🚫 Warning: No infrastructure available. Please deploy infrastructure first."
+          elif [ -z "$ALB_DNS" ] || [ "$ALB_DNS" = "None" ]; then 
+            echo "infra-available=false" >> $GITHUB_OUTPUT
+            echo "🚫 Warning: No infrastructure available. Please deploy infrastructure first."
+          else
+            echo "infra-available=true" >> $GITHUB_OUTPUT
+            echo "✅ Infrastructure is available. ALB DNS: $ALB_DNS"
+          fi
