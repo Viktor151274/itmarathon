@@ -1,0 +1,9 @@
+<app-action-card-base
+  [headerTitle]="headerTitle"
+  [headerPictureName]="headerPictureName"
+  [buttonText]="buttonText"
+  [isButtonDisabled]="isCardDisabled()"
+  (buttonAction)="onButtonClick()"
+>
+  <p class="randomize-card__text">{{ cardText() }}</p>
+</app-action-card-base>

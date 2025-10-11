@@ -1,21 +1,26 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { User } from '../../app.models';
-import { ApiService } from '../../core/services/api';
 import { tap } from 'rxjs';
+
+import { ApiService } from '../../core/services/api';
+import type { User } from '../../app.models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
   readonly #apiService = inject(ApiService);
+
   readonly #userCode = signal<string>('');
+  readonly #users = signal<User[]>([]);
 
   public readonly userCode = this.#userCode.asReadonly();
-  public readonly users = signal<User[]>([]);
+  public readonly users = this.#users.asReadonly();
+
+  public readonly currentUser = computed(() =>
+    this.users().find((user) => user.userCode === this.#userCode())
+  );
   public readonly isAdmin = computed(
-    () =>
-      this.users().find((user) => user.userCode === this.#userCode())
-        ?.isAdmin ?? false
+    () => this.currentUser()?.isAdmin ?? false
   );
 
   public setUserCode(code: string) {
@@ -28,7 +33,7 @@ export class UserService {
       .pipe(
         tap((result) => {
           if (result?.body) {
-            this.users.set(result.body);
+            this.#users.set(result.body);
           }
         })
       )

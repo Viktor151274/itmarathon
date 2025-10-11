@@ -15,6 +15,7 @@ export class ActionCardBase {
   readonly buttonText = input.required<ButtonText>();
 
   readonly headerPictureName = input<PictureName>();
+  readonly isButtonDisabled = input<boolean>(false);
 
   readonly buttonAction = output<void>();
 

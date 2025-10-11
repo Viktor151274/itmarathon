@@ -8,16 +8,33 @@
       [isAdmin]="isAdmin()"
       [invitationNote]="roomData().invitationNote"
       [invitationLink]="invitationLink()"
-    ></app-room-info>
+    />
   </section>
+
   <aside class="room__participant-info"></aside>
+
   <section class="room__participant-list">
     <app-participant-list
       [participants]="users()"
       [isAdmin]="isAdmin()"
       [userCode]="userCode()"
       [maxParticipants]="20"
-    ></app-participant-list>
+    />
   </section>
-  <aside class="room__widgets"></aside>
+
+  <aside class="room__widgets">
+    @if (isAdmin() && !roomData().closedOn) {
+      <app-randomize-card
+        [isCardDisabled]="isRandomizeCardDisabled()"
+        (buttonAction)="onDrawNames()"
+      />
+    }
+
+    @if (roomData().closedOn) {
+      <app-giftee-info
+        [gifteeName]="gifteeName()"
+        (buttonAction)="onReadDetails()"
+      />
+    }
+  </aside>
 </div>
