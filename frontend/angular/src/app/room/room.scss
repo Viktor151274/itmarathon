@@ -9,4 +9,10 @@
   display: grid;
   grid-template-columns: 792px 384px;
   gap: 24px;
+
+  &__widgets {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
 }

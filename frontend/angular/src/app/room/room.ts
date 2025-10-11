@@ -8,10 +8,11 @@ import { ParticipantList } from '../shared/components/participant-list/participa
 import { RandomizeCard } from './components/randomize-card/randomize-card';
 import { GifteeInfo } from './components/giftee-info/giftee-info';
 import { MIN_USERS_NUMBER } from '../app.constants';
+import { MyWishlist } from './components/my-wishlist/my-wishlist';
 
 @Component({
   selector: 'app-room',
-  imports: [RoomInfo, RandomizeCard, GifteeInfo, ParticipantList],
+  imports: [RoomInfo, RandomizeCard, GifteeInfo, ParticipantList, MyWishlist],
   templateUrl: './room.html',
   styleUrl: './room.scss',
 })

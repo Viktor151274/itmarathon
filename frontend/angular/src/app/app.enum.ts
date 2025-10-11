@@ -159,6 +159,7 @@ export const enum ButtonText {
   ReadDetails = 'Read Details',
   DrawNames = 'Draw Names',
   GoBackToRoom = 'Go Back To Room',
+  ViewWishlist = 'View Wishlist',
 }
 
 export const enum ButtonType {

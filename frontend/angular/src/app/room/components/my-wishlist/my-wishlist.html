@@ -1,0 +1,18 @@
+<app-action-card-base
+  [headerTitle]="headerTitle"
+  [buttonText]="buttonText"
+  (buttonAction)="onButtonClick()"
+  class="wish-list"
+>
+  @if (currentUser(); as user) {
+    <ul class="list">
+      @if (user.wantSurprise) {
+        <li app-item-card text="Surprise me!"></li>
+      } @else {
+        @for (item of user.wishList; track $index) {
+          <li app-item-card [text]="item.name" [link]="item.infoLink"></li>
+        }
+      }
+    </ul>
+  }
+</app-action-card-base>
