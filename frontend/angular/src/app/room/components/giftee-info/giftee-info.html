@@ -7,6 +7,8 @@
   <hgroup class="giftee-info__heading-group">
     <p class="giftee-info__subtitle">You are a Secret Nick to</p>
 
-    <h3 class="giftee-info__title">{{ gifteeName() }}</h3>
+    <h3 class="giftee-info__title" [title]="gifteeName()">
+      {{ gifteeName() }}
+    </h3>
   </hgroup>
 </app-action-card-base>

@@ -17,34 +17,35 @@ import { MyWishlist } from './components/my-wishlist/my-wishlist';
   styleUrl: './room.scss',
 })
 export class Room implements OnInit {
-  readonly route = inject(ActivatedRoute);
-  readonly roomService = inject(RoomService);
-  readonly userService = inject(UserService);
+  readonly #route = inject(ActivatedRoute);
+  readonly #roomService = inject(RoomService);
+  readonly #userService = inject(UserService);
 
-  public readonly roomData = this.roomService.roomData;
-  public readonly users = this.userService.users;
-  public readonly isAdmin = this.userService.isAdmin;
-  public readonly invitationLink = this.roomService.invitationLink;
-  public readonly isRoomDrawn = this.roomService.isRoomDrawn;
+  public readonly roomData = this.#roomService.roomData;
+  public readonly users = this.#userService.users;
+  public readonly isAdmin = this.#userService.isAdmin;
+  public readonly invitationLink = this.#roomService.invitationLink;
+  public readonly isRoomDrawn = this.#roomService.isRoomDrawn;
+  public readonly currentUser = this.#userService.currentUser;
 
   public readonly isRandomizeCardDisabled = computed(
     () => this.users().length < MIN_USERS_NUMBER
   );
   public readonly gifteeName = computed(() => this.#getGifteeName());
 
-  readonly userCode = this.userService.userCode;
+  readonly userCode = this.#userService.userCode;
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((params) => {
-      this.userService.setUserCode(params.get('userCode') ?? '');
+    this.#route.paramMap.subscribe((params) => {
+      this.#userService.setUserCode(params.get('userCode') ?? '');
     });
 
-    this.roomService.getRoomByUserCode(this.userService.userCode());
-    this.userService.getUsers();
+    this.#roomService.getRoomByUserCode(this.#userService.userCode());
+    this.#userService.getUsers();
   }
 
   public onDrawNames(): void {
-    // TODO: implement the randomization logic https://jiraeu.epam.com/browse/EPMRDUAITM-189
+    this.#userService.drawNames();
   }
 
   public onReadDetails(): void {
@@ -52,7 +53,7 @@ export class Room implements OnInit {
   }
 
   #getGifteeName(): string {
-    const gifteeId = this.userService.currentUser()?.giftToUserId || 0;
+    const gifteeId = this.#userService.currentUser()?.giftToUserId || 0;
     const gifteeUser = this.users().find((user) => user.id === gifteeId);
     const [firstName, lastName] = [gifteeUser?.firstName, gifteeUser?.lastName];
 

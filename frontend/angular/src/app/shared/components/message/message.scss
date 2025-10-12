@@ -31,12 +31,15 @@
 .message {
   $message: &;
   display: inline-flex;
-  align-items: center;
   background-color: $message-bg;
   box-shadow: $shadow-message;
   border-radius: 8px;
   background-color: $message-bg;
   text-wrap: nowrap;
+
+  &__icon {
+    margin-top: 4px;
+  }
 
   &--toaster {
     gap: 12px;

@@ -1,6 +1,5 @@
-<div class="message message--{{ size() }}">
+<div [class]="`message message--${size()}`">
   <svg class="message__icon">
-    <use [attr.xlink:href]="iconHref()" />
-  </svg>
-  {{ text() }}
+    <use [attr.xlink:href]="iconHref()" /></svg
+  >{{ text() }}
 </div>

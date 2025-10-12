@@ -118,6 +118,7 @@ export enum ToastMessage {
   FullRoom = 'This room is full already. Joining is not possible anymore',
   PleaseCreateYourRoom = 'Please create your room first.',
   PleaseJoinTheRoom = 'Please join the room first',
+  SuccessDrawNames = 'Success! All participants are matched. Let the gifting magic start!',
 }
 
 export const enum InputType {
@@ -248,6 +249,7 @@ export const enum PersonalLink {
 export const enum Endpoint {
   rooms = '/api/rooms',
   users = '/api/users',
+  roomsDraw = '/api/rooms/draw',
 }
 
 export const enum NavigationLinkSegment {

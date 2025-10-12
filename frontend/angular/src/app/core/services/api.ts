@@ -73,4 +73,14 @@ export class ApiService {
       observe: 'response',
     });
   }
+
+  public drawNames(userCode: string): Observable<HttpResponse<string>> {
+    const params = new HttpParams().set('userCode', userCode);
+
+    return this.#http.post<string>(
+      `${this.#baseUrl}${Endpoint.roomsDraw}`,
+      null,
+      { params, observe: 'response' }
+    );
+  }
 }
