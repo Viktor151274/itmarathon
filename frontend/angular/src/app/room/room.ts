@@ -24,6 +24,7 @@ export class Room implements OnInit {
   public readonly users = this.userService.users;
   public readonly isAdmin = this.userService.isAdmin;
   public readonly invitationLink = this.roomService.invitationLink;
+  public readonly isRoomDrawn = this.roomService.isRoomDrawn;
 
   public readonly isRandomizeCardDisabled = computed(
     () => this.users().length < MIN_USERS_NUMBER

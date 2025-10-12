@@ -23,6 +23,8 @@ export class RoomService {
       ).absoluteUrl
   );
 
+  public readonly isRoomDrawn = computed(() => !!this.roomData().closedOn);
+
   public getRoomByUserCode(code: string) {
     this.#apiService
       .getRoomByUserCode(code)
