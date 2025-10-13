@@ -9,9 +9,11 @@ const JoinRoomPageContent = ({
   exchangeDate,
   giftBudget,
   handleNavigate,
+  title,
 }: JoinRoomContentProps) => {
   return (
     <FormWrapper
+      title={title}
       formKey="WELCOME_ROOM"
       iconName="welcome-group"
       buttonProps={{

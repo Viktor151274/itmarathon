@@ -6,9 +6,10 @@ export const FormWrapperContent = ({
   subDescription,
   iconName,
   children,
+  title,
 }: FormWrapperContentProps) => {
   const descriptionWrapperClass = `form-wrapper__description-wrapper ${getDescriptionWrapperClass(iconName)}`;
-  const { title, description } = getFormContent(formKey);
+  const { title: defaultTitle, description } = getFormContent(formKey);
 
   return (
     <div
@@ -16,7 +17,7 @@ export const FormWrapperContent = ({
         iconName === "welcome-group" ? "form-wrapper__content--welcome" : ""
       }`}
     >
-      <h3 className="form-wrapper__title">{title}</h3>
+      <h3 className="form-wrapper__title">{title || defaultTitle}</h3>
       {description ? (
         <div className={descriptionWrapperClass}>
           <p className="form-wrapper__description">{description}</p>

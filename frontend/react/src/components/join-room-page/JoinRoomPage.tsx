@@ -6,7 +6,7 @@ import type { GetRoomResponse } from "@types/api";
 import { BASE_API_URL } from "@utils/general";
 import useToaster from "@hooks/useToaster";
 import JoinRoomPageContent from "./join-room-page-content/JoinRoomPageContent";
-import { JOIN_ROOM_PAGE_TITLE } from "./utils";
+import { JOIN_ROOM_PAGE_TITLE, JOIN_ROOM_DEFAULT_NAME } from "./utils";
 import type { JoinRoomLocationState } from "./types";
 import "./JoinRoomPage.scss";
 
@@ -42,6 +42,8 @@ const JoinRoomPage = () => {
     },
   });
 
+  const title = `Welcome to the ${joinRoomInfo?.name || JOIN_ROOM_DEFAULT_NAME}!`;
+
   const handleNavigate = () => {
     navigate(`/join/${roomCode}/details`, {
       state: {
@@ -69,6 +71,7 @@ const JoinRoomPage = () => {
           exchangeDate={joinRoomInfo?.giftExchangeDate}
           giftBudget={joinRoomInfo?.giftMaximumBudget}
           handleNavigate={handleNavigate}
+          title={title}
         />
       ) : null}
     </main>

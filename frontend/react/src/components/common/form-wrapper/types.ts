@@ -46,11 +46,13 @@ export const FORM_WRAPPER_CONTENT_PROPS = {
   ICON_NAME: "iconName",
   CHILDREN: "children",
   SUB_DESCRIPTION: "subDescription",
+  TITLE: "title",
 } as const;
 
 export type IconName = (typeof ICON_NAMES)[keyof typeof ICON_NAMES];
 
 export interface FormWrapperProps extends HTMLAttributes<HTMLDivElement> {
+  title?: string;
   formKey: FormKey;
   subDescription?: ReactNode;
   iconName: IconName;

@@ -11,6 +11,7 @@ const FormWrapper = ({
   isBackButtonVisible = false,
   onBack,
   children,
+  title,
 }: FormWrapperProps) => {
   const backButton = isBackButtonVisible ? (
     <Button
@@ -34,6 +35,7 @@ const FormWrapper = ({
       <div className={`form-wrapper__form form-wrapper__form--${iconName}`}>
         {welcomeGroupIcons}
         <FormWrapperContent
+          title={title}
           formKey={formKey}
           subDescription={subDescription}
           iconName={iconName}
