@@ -1,0 +1,32 @@
+@use "@assets/styles/_colors";
+@use "@assets/styles/_variables";
+
+.wishlist-preview {
+  width: 384px;
+  height: fit-content;
+  border-radius: 16px;
+  background:
+    url("../../../assets/images/backgrounds/wishlist-preview-background-sprite.svg#snowflake")
+      left 48px top 24px / 42px 42px no-repeat,
+    url("../../../assets/images/backgrounds/wishlist-preview-background-sprite.svg#snowflake")
+      right 48px top 24px / 42px 42px no-repeat,
+    colors.$green-700;
+  box-shadow: variables.$shadow;
+
+  &__title {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    text-align: center;
+    color: colors.$g-100;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+    padding: 16px 24px 24px;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    background-color: colors.$g-50;
+  }
+}
