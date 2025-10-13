@@ -35,7 +35,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
 
                 await transaction.CommitAsync(cancellationToken);
 
-                return mapper.Map<Result<Room, ValidationResult>>(roomEf);
+                return mapper.Map<Room>(roomEf);
             }
             catch (DbUpdateException exception)
             {
@@ -100,7 +100,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
                 ? Result.Failure<Room, ValidationResult>(new NotFoundError([
                     new ValidationFailure("code", "Room with such code not found")
                 ]))
-                : mapper.Map<Result<Room, ValidationResult>>(roomEf);
+                : mapper.Map<Room>(roomEf);
             return result;
         }
     }

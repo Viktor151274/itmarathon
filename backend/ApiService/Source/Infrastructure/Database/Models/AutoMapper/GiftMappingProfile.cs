@@ -9,13 +9,9 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
         public GiftMappingProfile()
         {
             CreateMap<Wish, GiftEf>()
-                .ForMember(giftEf => giftEf.Name, opt => opt.MapFrom(wish => wish.Name))
-                .ForMember(giftEf => giftEf.InfoLink, opt => opt.MapFrom(wish => wish.InfoLink))
                 .ForMember(giftEf => giftEf.CreatedOn, opt => opt.MapFrom(_ => DateTime.UtcNow))
                 .ForMember(giftEf => giftEf.ModifiedOn, opt => opt.MapFrom(_ => DateTime.UtcNow));
-            CreateMap<GiftEf, Wish>()
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(user => user.Name))
-                .ForMember(dest => dest.InfoLink, opt => opt.MapFrom(user => user.InfoLink));
+            CreateMap<GiftEf, Wish>();
         }
     }
 }

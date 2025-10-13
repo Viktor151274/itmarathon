@@ -29,7 +29,6 @@ namespace Epam.ItMarathon.ApiService.Infrastructure
 
         private static void ConfigureMapper(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton<RoomConverter>();
             services.AddAutoMapper(config =>
             {
                 config.AddProfile(new GiftMappingProfile());

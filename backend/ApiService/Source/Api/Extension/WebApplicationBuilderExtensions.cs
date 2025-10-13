@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Epam.ItMarathon.ApiService.Api.Dto.CreationDtos.Mapping;
+using Epam.ItMarathon.ApiService.Api.Dto.Mapping;
 using Epam.ItMarathon.ApiService.Api.Filters.Swagger;
 using Epam.ItMarathon.ApiService.Application;
 using Epam.ItMarathon.ApiService.Infrastructure;
@@ -124,7 +124,8 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
         private static void ConfigureMapper(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAutoMapper(config => {
-                config.AddProfile(new CreationMapping());
+                config.AddProfile(new RoomMappingProfile());
+                config.AddProfile(new UserMappingProfile());
             });
         }
     }
