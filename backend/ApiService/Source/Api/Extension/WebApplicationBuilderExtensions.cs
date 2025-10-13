@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 using System.Text.Json;
@@ -82,11 +82,11 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
                     new OpenApiInfo
                     {
                         Version = Assembly.GetExecutingAssembly().GetName().Version!.ToString(3),
-                        Title = $"Mycolaychik API - {textInfo.ToTitleCase(builder.Environment.EnvironmentName)}",
-                        Description = "EPAM IT Marathon 2025 (Mycolaychik) WEB API.",
+                        Title = $"Secret Nick API - {textInfo.ToTitleCase(builder.Environment.EnvironmentName)}",
+                        Description = "EPAM IT Marathon 2025 (Secret Nick) WEB API.",
                         License = new OpenApiLicense
                         {
-                            Name = "Mycolaychik API - License - MIT",
+                            Name = "Secret Nick API - License - MIT",
                             Url = new Uri("https://opensource.org/licenses/MIT")
                         }
                     });

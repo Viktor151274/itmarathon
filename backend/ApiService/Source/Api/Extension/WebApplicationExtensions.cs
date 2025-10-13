@@ -39,7 +39,7 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
             _ = app.UseSwaggerUI(c =>
                 c.SwaggerEndpoint(
                     "/swagger/v1/swagger.json",
-                    $"Mycolaychik API - {textInfo.ToTitleCase(app.Environment.EnvironmentName)} - V1"));
+                    $"Secret Nick API - {textInfo.ToTitleCase(app.Environment.EnvironmentName)} - V1"));
 
             #endregion Swagger
 
