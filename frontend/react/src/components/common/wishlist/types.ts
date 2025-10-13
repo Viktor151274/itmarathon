@@ -1,3 +1,5 @@
+import type { WishList } from "@types/api";
+
 interface WishlistBaseProps {
   width?: string;
   withoutHeader?: boolean;
@@ -5,10 +7,7 @@ interface WishlistBaseProps {
 
 interface WishlistListProps extends WishlistBaseProps {
   variant: "wishlist";
-  wishList: {
-    name?: string;
-    infoLink?: string;
-  }[];
+  wishList: WishList;
 }
 
 interface WishlistSurpriseProps extends WishlistBaseProps {

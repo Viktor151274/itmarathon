@@ -7,7 +7,6 @@ import useToaster from "@hooks/useToaster.ts";
 import { BASE_API_URL } from "@utils/general.ts";
 import RoomPageContent from "./room-page-content/RoomPageContent.tsx";
 import { ROOM_PAGE_TITLE } from "./utils.ts";
-import type {} from "./types.ts";
 import "./RoomPage.scss";
 
 const RoomPage = () => {

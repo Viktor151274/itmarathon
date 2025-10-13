@@ -1,4 +1,4 @@
-export type WishList = {
+export type WishListItem = {
   name?: string;
   infoLink?: string;
 };
@@ -18,7 +18,7 @@ export type Participant = {
   deliveryInfo: string;
   wantSurprise: boolean;
   interests?: string;
-  wishList?: WishList[];
+  wishList?: WishList;
 };
 
 export type GetRoomResponse = {
@@ -38,3 +38,5 @@ export type GetRoomResponse = {
 };
 
 export type GetParticipantsResponse = Participant[];
+
+export type WishList = WishListItem[];
