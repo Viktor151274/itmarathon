@@ -1,0 +1,13 @@
+.room-page-content {
+  display: flex;
+  justify-content: left;
+  column-gap: 24px;
+  width: 1200px;
+  padding: 40px 120px;
+
+  &-column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+  }
+}

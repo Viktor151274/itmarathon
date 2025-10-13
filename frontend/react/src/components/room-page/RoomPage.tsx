@@ -59,7 +59,10 @@ const RoomPage = () => {
       {isLoading ? <Loader /> : null}
 
       {!isLoading && !isError && !!participants && !!roomDetails ? (
-        <RoomPageContent users={participants} roomDetails={roomDetails} />
+        <RoomPageContent
+          participants={participants}
+          roomDetails={roomDetails}
+        />
       ) : null}
     </main>
   );
