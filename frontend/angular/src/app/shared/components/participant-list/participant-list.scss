@@ -76,7 +76,8 @@
 }
 
 .pl-list {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   row-gap: $pl-row-gap;
   max-height: calc(
     #{$pl-visible-rows} * #{$pl-item-height} +
@@ -84,7 +85,7 @@
   );
   overflow-y: auto;
   overflow-x: hidden;
-  padding-bottom: 5px;
+  padding: 0 3px 8px 3px;
 
   &:has(> li:nth-last-child(n + 11)) {
     padding-right: 15px;
