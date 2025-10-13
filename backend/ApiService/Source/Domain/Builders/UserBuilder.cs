@@ -2,7 +2,6 @@
 using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish;
-using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Domain.Builders
 {
