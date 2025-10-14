@@ -43,7 +43,7 @@ const RandomizationModal = ({
 
         <div className="randomization-modal__back-button">
           <Button width={228} size="medium" onClick={onClose}>
-            Go Back To Room
+            Go Back to Room
           </Button>
         </div>
       </div>
