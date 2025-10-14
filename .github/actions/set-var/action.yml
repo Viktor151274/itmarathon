@@ -55,7 +55,7 @@ runs:
         echo "got: $ALB_DNS"
 
         TEMP_URL="https://backend.${DOMAIN_NAME}"
-        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "${TEMP_URL}/api/system/info")
+        RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" "${TEMP_URL}/api/system/info" || true)
 
         if [[ "$RESPONSE" == "200" ]] ; then
           BASE_API_URL="$TEMP_URL"
