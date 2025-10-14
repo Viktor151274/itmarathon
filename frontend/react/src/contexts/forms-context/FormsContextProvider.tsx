@@ -2,10 +2,14 @@ import { useState, type ReactNode } from "react";
 import { defaultRoomData, FormsContext } from "./FormsContext";
 import { removeIdFromArray } from "@utils/general";
 import { type RoomData } from "./types";
-import type { ValidationErrors, FieldValidation } from "../../types/general";
-import { InputNames, type InputName } from "../../types/general";
+import {
+  InputNames,
+  type FieldValidation,
+  type InputName,
+  type ValidationErrors,
+} from "@types/general";
 import type { DetailsFormInputName } from "../../components/common/details-form/types";
-import { DETAILS_FORM_RELEVANT_KEYS } from "./utils";
+import { DETAILS_FORM_VALIDATION_KEYS } from "./utils";
 
 export const FormsContextProvider = ({ children }: { children: ReactNode }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -34,7 +38,7 @@ export const FormsContextProvider = ({ children }: { children: ReactNode }) => {
 
   const getDetailsFormFieldsErrors = () => {
     return Object.fromEntries(
-      DETAILS_FORM_RELEVANT_KEYS.map((field) => [
+      DETAILS_FORM_VALIDATION_KEYS.map((field) => [
         field,
         formFieldsErrors[field],
       ]),

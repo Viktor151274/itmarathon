@@ -20,5 +20,5 @@ export function useFieldsValidation<T extends string>(
     (validation) => validation.isValid === true,
   );
 
-  return { formFieldsErrors, validateField, isFieldsValid };
+  return { validateField, isFieldsValid };
 }

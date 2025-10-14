@@ -34,11 +34,7 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
 
   const { firstName, lastName, phone, email, deliveryInfo } = roomData.user;
 
-  const formFieldsErrors = getDetailsFormFieldsErrors();
-
-  const detailsFormFieldsErrors = {
-    phone: formFieldsErrors.phone,
-  } as const;
+  const detailsFormFieldsErrors = getDetailsFormFieldsErrors();
 
   const { validateField, isFieldsValid } = useFieldsValidation(
     detailsFormFieldsErrors,
@@ -110,8 +106,8 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
           onChange={handleChange}
           onBlur={handleBlur}
           name={DetailsFormInputNames.PHONE}
-          hasError={formFieldsErrors.phone.isValid === false}
-          caption={formFieldsErrors.phone.errorMessage}
+          hasError={detailsFormFieldsErrors.phone.isValid === false}
+          caption={detailsFormFieldsErrors.phone.errorMessage}
         />
 
         <Input
