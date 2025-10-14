@@ -3,7 +3,11 @@ import { DatePicker, type DatePickerProps } from "antd";
 
 import FormWrapper from "../../common/form-wrapper/FormWrapper";
 import Input from "../../common/input/Input";
-import { InputNames, type DateType, type FormData } from "./types";
+import {
+  CreateRoomFormInputNames,
+  type DateType,
+  type FormData,
+} from "./types";
 import {
   LABEL_DATE_PICKER,
   INPUT_ID_DATE_PICKER,
@@ -89,7 +93,7 @@ const CreateRoomForm = () => {
         <Input
           placeholder="Enter your room name"
           label="Room name"
-          name={InputNames.ROOM_NAME}
+          name={CreateRoomFormInputNames.ROOM_NAME}
           required
           value={name}
           onChange={handleChange}
@@ -98,7 +102,7 @@ const CreateRoomForm = () => {
         <Input
           placeholder="Enter your message here..."
           label="Room description"
-          name={InputNames.ROOM_DESCRIPTION}
+          name={CreateRoomFormInputNames.ROOM_DESCRIPTION}
           multiline
           maxLength={200}
           required
@@ -132,7 +136,7 @@ const CreateRoomForm = () => {
             placeholder="Type in your budget"
             caption="0 means unlimited budget"
             label="Gift budget"
-            name={InputNames.GIFT_BUDGET}
+            name={CreateRoomFormInputNames.GIFT_BUDGET}
             width="338px"
             required
             withoutCounter

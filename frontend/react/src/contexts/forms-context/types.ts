@@ -5,6 +5,9 @@ import type {
 } from "@components/common/wishes-form/types";
 import type { FormData as RoomFormData } from "@components/create-room-page/create-room-form/types";
 import type { FormData as DetailsFormData } from "@components/common/details-form/types";
+import type { ValidationErrors, FieldValidation } from "../../types/general";
+import type { InputNames } from "../../types/general";
+import type { DetailsFormInputName } from "../../components/common/details-form/types";
 
 export type UserData = DetailsFormData & WishesFormData;
 
@@ -31,4 +34,9 @@ export type FormContextType = {
   setRoomData: Dispatch<SetStateAction<RoomData>>;
   getCreateRoomData: () => CreateRoomSubmitData;
   getJoinRoomDetailsData: () => UserSubmitData;
+  setFormFieldError: (
+    field: (typeof InputNames)[keyof typeof InputNames],
+    validation: FieldValidation,
+  ) => void;
+  getDetailsFormFieldsErrors: () => ValidationErrors<DetailsFormInputName>;
 };

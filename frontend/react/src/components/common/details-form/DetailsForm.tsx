@@ -1,32 +1,61 @@
-import { useContext, type ChangeEvent } from "react";
+import { useContext, type FocusEvent } from "react";
 
 import PhoneNumberInput from "../phone-number-input/PhoneNumberInput";
 import FormWrapper from "../form-wrapper/FormWrapper";
 import Input from "../input/Input";
 
 import {
-  InputNames,
+  DetailsFormInputNames,
   type FormData,
   type DetailsFormProps,
   requiredFields,
 } from "./types";
-import { isRequiredFieldsFilled } from "../../../../src/utils/validation";
+import type {
+  InputChangeEvent,
+  InputChangeHandler,
+} from "../../../types/general";
+import {
+  isRequiredFieldsFilled,
+  phoneValidator,
+} from "../../../../src/utils/validation";
+import { useFieldsValidation } from "@hooks/useFieldsValidation";
 
 import "./DetailsForm.scss";
 import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 
 const DetailsForm = ({ onBack }: DetailsFormProps) => {
-  const { onNextStep, roomData, setRoomData } = useContext(FormsContext);
+  const {
+    onNextStep,
+    roomData,
+    setRoomData,
+    getDetailsFormFieldsErrors,
+    setFormFieldError,
+  } = useContext(FormsContext);
+
   const { firstName, lastName, phone, email, deliveryInfo } = roomData.user;
 
-  const isValidForm = isRequiredFieldsFilled<FormData>(
-    roomData?.user,
-    requiredFields,
+  const formFieldsErrors = getDetailsFormFieldsErrors();
+
+  const detailsFormFieldsErrors = {
+    phone: formFieldsErrors.phone,
+  } as const;
+
+  const { validateField, isFieldsValid } = useFieldsValidation(
+    detailsFormFieldsErrors,
+    (field, validation) => setFormFieldError(field, validation),
   );
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  const handleBlur = (
+    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
+    const { name, value } = e.target;
+
+    if (name === DetailsFormInputNames.PHONE) {
+      validateField(DetailsFormInputNames.PHONE, phoneValidator, value);
+    }
+  };
+
+  const handleChange: InputChangeHandler = (e: InputChangeEvent) => {
     const { name, value } = e.target;
 
     setRoomData((prev) => ({
@@ -37,6 +66,10 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
       },
     }));
   };
+
+  const isValidForm =
+    isRequiredFieldsFilled<FormData>(roomData.user, requiredFields) &&
+    isFieldsValid;
 
   return (
     <FormWrapper
@@ -58,7 +91,7 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
           required
           onChange={handleChange}
           width="338px"
-          name={InputNames.FIRST_NAME}
+          name={DetailsFormInputNames.FIRST_NAME}
         />
 
         <Input
@@ -68,14 +101,17 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
           required
           onChange={handleChange}
           width="338px"
-          name={InputNames.LAST_NAME}
+          name={DetailsFormInputNames.LAST_NAME}
         />
 
         <PhoneNumberInput
           value={phone}
           required
           onChange={handleChange}
-          name={InputNames.PHONE}
+          onBlur={handleBlur}
+          name={DetailsFormInputNames.PHONE}
+          hasError={formFieldsErrors.phone.isValid === false}
+          caption={formFieldsErrors.phone.errorMessage}
         />
 
         <Input
@@ -84,7 +120,7 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
           value={email}
           onChange={handleChange}
           width="338px"
-          name={InputNames.EMAIL}
+          name={DetailsFormInputNames.EMAIL}
           withoutCounter
           type="email"
         />
@@ -97,7 +133,7 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
           multiline
           maxLength={500}
           required
-          name={InputNames.DELIVERY_INFO}
+          name={DetailsFormInputNames.DELIVERY_INFO}
         />
       </div>
     </FormWrapper>

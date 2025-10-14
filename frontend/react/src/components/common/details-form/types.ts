@@ -1,10 +1,13 @@
-export const InputNames = {
+export const DetailsFormInputNames = {
   FIRST_NAME: "firstName",
   LAST_NAME: "lastName",
   DELIVERY_INFO: "deliveryInfo",
   EMAIL: "email",
   PHONE: "phone",
 } as const;
+
+export type DetailsFormInputName =
+  (typeof DetailsFormInputNames)[keyof typeof DetailsFormInputNames];
 
 export interface FormData {
   firstName: string;
@@ -21,6 +24,5 @@ export interface DetailsFormProps {
 export const requiredFields: (keyof FormData)[] = [
   "firstName",
   "lastName",
-  "phone",
   "deliveryInfo",
 ];

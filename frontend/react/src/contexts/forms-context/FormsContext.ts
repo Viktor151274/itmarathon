@@ -1,5 +1,10 @@
 import { createContext } from "react";
 import type { FormContextType } from "./types";
+import type { ValidationErrors } from "../../types/general";
+import {
+  DetailsFormInputNames,
+  type DetailsFormInputName,
+} from "../../components/common/details-form/types";
 
 const roomData = {
   name: "",
@@ -43,7 +48,14 @@ export const defaultCreateRoomData = {
   },
 };
 
-export const defaultContext = {
+const defaultDetailsFormFieldsErrors = Object.fromEntries(
+  Object.values(DetailsFormInputNames).map((field) => [
+    field,
+    { isValid: null, errorMessage: "" },
+  ]),
+) as ValidationErrors<DetailsFormInputName>;
+
+export const defaultContext: FormContextType = {
   currentStep: 0,
   onNextStep: () => {},
   onPreviousStep: () => {},
@@ -51,6 +63,8 @@ export const defaultContext = {
   setRoomData: () => {},
   getCreateRoomData: () => defaultCreateRoomData,
   getJoinRoomDetailsData: () => defaultUserData,
+  setFormFieldError: () => {},
+  getDetailsFormFieldsErrors: () => defaultDetailsFormFieldsErrors,
 };
 
 export const FormsContext = createContext<FormContextType>(defaultContext);
