@@ -1,8 +1,8 @@
 export interface PersonalInformationProps {
   firstName: string;
   lastName: string;
-  phoneNumber: string;
+  phone: string;
   email?: string;
-  deliveryAddress: string;
+  deliveryInfo: string;
   width?: string;
 }

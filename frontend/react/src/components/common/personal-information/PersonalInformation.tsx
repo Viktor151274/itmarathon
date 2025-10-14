@@ -5,9 +5,9 @@ import "./PersonalInformation.scss";
 const PersonalInformation = ({
   firstName,
   lastName,
-  phoneNumber,
+  phone,
   email = "-",
-  deliveryAddress,
+  deliveryInfo,
   width = "100%",
 }: PersonalInformationProps) => {
   return (
@@ -28,7 +28,7 @@ const PersonalInformation = ({
         <div className="personal-info-content__field">
           <p className="personal-info-content__label">Phone number</p>
           <p className="personal-info-content__value">
-            {formatPhoneNumber(phoneNumber)}
+            {formatPhoneNumber(phone)}
           </p>
         </div>
 
@@ -39,7 +39,7 @@ const PersonalInformation = ({
 
         <div className="personal-info-content__field">
           <p className="personal-info-content__label">Delivery address</p>
-          <p className="personal-info-content__value">{deliveryAddress}</p>
+          <p className="personal-info-content__value">{deliveryInfo}</p>
         </div>
       </div>
     </div>
