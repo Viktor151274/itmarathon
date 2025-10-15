@@ -10,6 +10,6 @@ internal static class ModelsMappingExtensions
         var authUser = users.First(user => user.AuthCode == userAuthCode);
         mappingOptions.Items["OwnerCode"] = userAuthCode;
         mappingOptions.Items["AuthAsAdmin"] = authUser.IsAdmin;
-        mappingOptions.Items["GiftToUserId"] = authUser.GiftToUserId;
+        mappingOptions.Items["GiftRecipientUserId"] = authUser.GiftRecipientUserId;
     }
 }

@@ -33,11 +33,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
         /// <summary>
         /// Id of user witch current user targets to gift.
         /// </summary>
-        public ulong? GiftToUserId { get; set; }
-        /// <summary>
-        /// Id of gift witch user decided to gift.
-        /// </summary>
-        public ulong? GiftId { get; set; }
+        public ulong? GiftRecipientUserId { get; set; }
         /// <summary>
         /// Represents user's wish to have a surprise.
         /// </summary>
@@ -53,22 +49,18 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
         /// <summary>
         /// Mapping property to a room where the user is admin, if he is.
         /// </summary>
-        public RoomEf? IsAdminForRoom { get; set; }
+        public RoomEf? AdminRoom { get; set; }
         /// <summary>
         /// Number of gifts that user want to receive.
         /// </summary>
         public ICollection<GiftEf> Wishes { get; set; } = default!;
         /// <summary>
-        /// Gift that user decided to gift to target user.
+        /// User that current user chose to give.
         /// </summary>
-        public GiftEf? TargetGift { get; set; }
-        /// <summary>
-        /// User that current user chose to gift.
-        /// </summary>
-        public UserEf? TargetUser { get; set; }
+        public UserEf? GiftRecipientUser { get; set; }
         /// <summary>
         /// User from witch the current user will receive the gift.
         /// </summary>
-        public UserEf? GotGiftFromUser { get; set; }
+        public UserEf? GiftSenderUser { get; set; }
     }
 }

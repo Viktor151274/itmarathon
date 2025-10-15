@@ -3,6 +3,7 @@ using System;
 using Epam.ItMarathon.ApiService.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251015122750_NavPropertiesRenaming")]
+    partial class NavPropertiesRenaming
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -218,7 +221,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Migrations
                     b.HasOne("Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User.UserEf", "GiftRecipientUser")
                         .WithOne("GiftSenderUser")
                         .HasForeignKey("Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User.UserEf", "GiftRecipientUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.RoomEf", "Room")
                         .WithMany("Users")

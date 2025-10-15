@@ -7,11 +7,9 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.AutoMapper
     {
         public UserMappingProfile()
         {
-            CreateMap<Domain.Entities.User.User, UserEf>()
-                .ForMember(userEf => userEf.TargetGift, opt => opt.MapFrom(user => user.Gift));
+            CreateMap<Domain.Entities.User.User, UserEf>();
             CreateMap<UserEf, Domain.Entities.User.User>()
-                .ForMember(dest => dest.IsAdmin, opt => opt.MapFrom(user => user.IsAdminForRoom!.AdminId == user.Id))
-                .ForMember(userEf => userEf.Gift, opt => opt.MapFrom(user => user.TargetGift));
+                .ForMember(dest => dest.IsAdmin, opt => opt.MapFrom(user => user.AdminRoom != null));
         }
     }
 }

@@ -98,9 +98,9 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.AggregateTests
             result.IsSuccess.Should().BeTrue();
             result.Value.ClosedOn.Should().NotBeNull();
             result.Value.ClosedOn.Should().BeOnOrBefore(DateTime.UtcNow);
-            result.Value.Users.Should().OnlyHaveUniqueItems(u => u.GiftToUserId);
+            result.Value.Users.Should().OnlyHaveUniqueItems(u => u.GiftRecipientUserId);
             result.Value.Users.Should()
-                .NotContain(u => u.GiftToUserId == u.Id); // Ensure no user is assigned to themselves
+                .NotContain(u => u.GiftRecipientUserId == u.Id); // Ensure no user is assigned to themselves
         }
     }
 }

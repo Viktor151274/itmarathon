@@ -20,9 +20,5 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Gift
         /// Mapping property to user.
         /// </summary>
         public UserEf? User { get; set; } = default!;
-        /// <summary>
-        /// Mapping property to user who chose to gift that gift.
-        /// </summary>
-        public UserEf? UserChose { get; set; } = default!;
     }
 }

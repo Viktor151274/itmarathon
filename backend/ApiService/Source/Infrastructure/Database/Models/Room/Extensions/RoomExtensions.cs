@@ -5,8 +5,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
 {
     internal static class RoomExtensions
     {
-        public static RoomEf SyncRoom(this RoomEf trackedRoom,
-            RoomEf updatedRoom)
+        public static RoomEf SyncRoom(this RoomEf trackedRoom, RoomEf updatedRoom)
         {
             trackedRoom.ClosedOn = updatedRoom.ClosedOn;
             trackedRoom.AdminId = updatedRoom.AdminId;
@@ -50,8 +49,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
                     trackedUser.LastName = updatedUser.LastName;
                     trackedUser.Phone = updatedUser.Phone;
                     trackedUser.DeliveryInfo = updatedUser.DeliveryInfo;
-                    trackedUser.GiftToUserId = updatedUser.GiftToUserId;
-                    trackedUser.GiftId = updatedUser.GiftId;
+                    trackedUser.GiftRecipientUserId = updatedUser.GiftRecipientUserId;
                     trackedUser.Email = updatedUser.Email;
                     trackedUser.WantSurprise = updatedUser.WantSurprise;
                     trackedUser.Interests = updatedUser.Interests;
@@ -63,7 +61,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
         }
 
         private static ICollection<GiftEf> SyncUserWishes(ICollection<GiftEf> trackedWishes,
-        ICollection<GiftEf> updatedWishes)
+            ICollection<GiftEf> updatedWishes)
         {
             var comparer = StringComparer.OrdinalIgnoreCase; // or Ordinal if case sensitive
             // Delete entities witch not present in updated

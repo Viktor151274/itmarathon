@@ -9,28 +9,22 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User.Configu
         {
             #region Relations
 
-            builder.HasKey(u => u.Id);
+            builder.HasKey(user => user.Id);
 
-            builder.HasOne(u => u.TargetUser)
-                .WithOne(u => u.GotGiftFromUser)
-                .HasForeignKey<UserEf>(u => u.GiftToUserId)
+            builder.HasOne(user => user.GiftRecipientUser)
+                .WithOne(user => user.GiftSenderUser)
+                .HasForeignKey<UserEf>(user => user.GiftRecipientUserId)
                 .IsRequired(false)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
 
-            builder.HasOne(u => u.TargetGift)
-                .WithOne(g => g.UserChose)
-                .HasForeignKey<UserEf>(u => u.GiftId)
-                .IsRequired(false)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(user => user.Room)
+                .WithMany(room => room.Users)
+                .HasForeignKey(user => user.RoomId)
+                .OnDelete(DeleteBehavior.Cascade);
 
-            builder.HasOne(u => u.Room)
-                .WithMany(r => r.Users)
-                .HasForeignKey(u => u.RoomId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasMany(u => u.Wishes)
-                .WithOne(g => g.User)
-                .HasForeignKey(g => g.UserId);
+            builder.HasMany(user => user.Wishes)
+                .WithOne(gift => gift.User)
+                .HasForeignKey(gift => gift.UserId);
 
             #endregion
 

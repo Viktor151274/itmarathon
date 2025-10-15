@@ -108,7 +108,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             var responseUsers = result.Value;
             var adminUser = responseUsers.First(user => user.AuthCode.Equals(userCode));
             var responseUser = mapper.Map<UserReadDto>(
-                responseUsers.First(user => user.Id.Equals(adminUser.GiftToUserId)),
+                responseUsers.First(user => user.Id.Equals(adminUser.GiftRecipientUserId)),
                 options => { options.SetUserMappingOptions(responseUsers, userCode!); });
             return Results.Ok(responseUser);
         }

@@ -12,8 +12,9 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Configu
             builder.HasKey(room => room.Id);
 
             builder.HasOne(room => room.Admin)
-                .WithOne(user => user.IsAdminForRoom)
-                .HasForeignKey<RoomEf>(r => r.AdminId);
+                .WithOne(user => user.AdminRoom)
+                .HasForeignKey<RoomEf>(room => room.AdminId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             #endregion
 

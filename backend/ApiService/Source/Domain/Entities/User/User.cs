@@ -16,8 +16,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
         public string Phone { get; private set; }
         public string? Email { get; private set; }
         public string DeliveryInfo { get; set; }
-        public ulong? GiftToUserId { get; set; }
-        public Wish? Gift { get; set; }
+        public ulong? GiftRecipientUserId { get; set; }
         public bool WantSurprise { get; set; }
         public string? Interests { get; set; }
         public bool IsAdmin { get; private set; }
@@ -45,7 +44,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
         internal static User Create(ulong id, DateTime createdOn, DateTime modifiedOn,
             ulong roomId, string authCode,
             string firstName, string lastName, string phone, string? email,
-            string deliveryInfo, ulong? giftToUserId, Wish? gift, bool wantSurprise, string? interests,
+            string deliveryInfo, ulong? giftRecipientUserId, bool wantSurprise, string? interests,
             bool isAdmin, IEnumerable<Wish> wishes)
         {
             var user = InitialCreate(roomId, authCode, firstName, lastName, phone, email, deliveryInfo,
@@ -53,8 +52,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
             user.Id = id;
             user.ModifiedOn = modifiedOn;
             user.CreatedOn = createdOn;
-            user.GiftToUserId = giftToUserId;
-            user.Gift = gift;
+            user.GiftRecipientUserId = giftRecipientUserId;
             return user;
         }
         public void PromoteToAdmin()

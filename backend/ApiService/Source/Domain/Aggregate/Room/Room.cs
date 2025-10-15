@@ -144,7 +144,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             // Assign each participant their gift recipient
             for (var index = 0; index < Users.Count; index++)
             {
-                Users[index].GiftToUserId = shuffledIds[index];
+                Users[index].GiftRecipientUserId = shuffledIds[index];
             }
 
             ClosedOn = DateTime.UtcNow;
