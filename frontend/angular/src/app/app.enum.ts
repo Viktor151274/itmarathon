@@ -161,6 +161,7 @@ export const enum ButtonText {
   DrawNames = 'Draw Names',
   GoBackToRoom = 'Go Back To Room',
   ViewWishlist = 'View Wishlist',
+  Cancel = 'Cancel',
 }
 
 export const enum ButtonType {

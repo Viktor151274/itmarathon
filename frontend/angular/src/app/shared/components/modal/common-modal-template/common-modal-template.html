@@ -1,0 +1,57 @@
+@if (!isModalOpen()) {
+  <div @dissolve class="modal__wrapper">
+    <div class="modal__overlay" aria-hidden="true"></div>
+
+    <section
+      appFocusTrap
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      tabindex="0"
+    >
+      <header class="modal__header">
+        <svg class="modal__picture" aria-hidden="true">
+          <use [attr.href]="headerPictureHref()" />
+        </svg>
+
+        <div class="modal__header-text">
+          <h3 class="modal__title">{{ headerTitle() }}</h3>
+          <p class="modal__subtitle">{{ subtitle() }}</p>
+
+          @if (budget(); as budgetValue) {
+            <p class="modal__budget title-sm">
+              Gift Budget: {{ budgetValue | budget }}
+            </p>
+          }
+        </div>
+
+        <app-icon-button
+          class="modal__button-close"
+          [iconName]="closeIcon"
+          [ariaLabel]="closeButtonAriaLabel"
+          (click)="onCloseModal()"
+        />
+      </header>
+
+      <div class="modal__content">
+        <ng-content />
+
+        <div class="modal__actions">
+          @if (cancelButtonText(); as text) {
+            <app-button
+              class="secondary medium"
+              [text]="text"
+              (click)="onCancelButtonClick()"
+            />
+          }
+
+          <app-button
+            class="primary medium"
+            [text]="buttonText()"
+            (click)="onActionButtonClick()"
+          />
+        </div>
+      </div>
+    </section>
+  </div>
+}
