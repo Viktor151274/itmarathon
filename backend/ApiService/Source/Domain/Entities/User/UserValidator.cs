@@ -48,16 +48,6 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
 
             #endregion
 
-            #region Phone
-
-            RuleFor(user => user.Phone)
-                .NotEmpty()
-                .WithMessage(ValidationConstants.RequiredMessage)
-                .WithName("phone")
-                .OverridePropertyName("phone");
-
-            #endregion
-
             FirstNameValidation();
             LastNameValidation();
             DeliveryInfoValidation();
