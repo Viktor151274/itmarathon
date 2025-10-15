@@ -1,1 +1,7 @@
 @use 'index.scss';
+@use 'abstracts/mixins' as *;
+
+html {
+  overflow-x: hidden;
+  @include custom-scrollbar;
+}

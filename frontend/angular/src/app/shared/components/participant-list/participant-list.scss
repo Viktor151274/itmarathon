@@ -1,5 +1,6 @@
 @use 'colors/color-matrix' as *;
 @use 'abstracts/variables' as *;
+@use 'abstracts/mixins' as *;
 
 :host {
   display: block;
@@ -86,6 +87,8 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0 3px 8px 3px;
+  @include custom-scrollbar;
+  min-width: 0;
 
   &:has(> li:nth-last-child(n + 11)) {
     padding-right: 15px;

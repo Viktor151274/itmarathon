@@ -4,6 +4,10 @@
 
 .modal {
   @include modal-base-layout;
+  max-height: 70vh;
+  margin-top: 70px;
+  display: flex;
+  flex-direction: column;
 
   &__header {
     position: relative;
@@ -11,14 +15,15 @@
     text-align: center;
     background: url($modal-header-bg);
     border-radius: 16px 16px 0px 0px;
+    flex-shrink: 0;
   }
 
   &__picture {
     position: absolute;
-    top: -160px;
+    top: 0;
     width: 314px;
     height: 200px;
-    transform: translateX(-50%);
+    transform: translate(-50%, -80%);
   }
 
   &__button-close {
