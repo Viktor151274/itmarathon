@@ -9,6 +9,9 @@ import { RandomizeCard } from './components/randomize-card/randomize-card';
 import { GifteeInfo } from './components/giftee-info/giftee-info';
 import { MIN_USERS_NUMBER } from '../app.constants';
 import { MyWishlist } from './components/my-wishlist/my-wishlist';
+import { ModalService } from '../core/services/modal';
+import { GifteeInfoModal } from './components/giftee-info-modal/giftee-info-modal';
+import { getPersonalInfo } from '../utils/get-personal-info';
 
 @Component({
   selector: 'app-room',
@@ -20,6 +23,7 @@ export class Room implements OnInit {
   readonly #route = inject(ActivatedRoute);
   readonly #roomService = inject(RoomService);
   readonly #userService = inject(UserService);
+  readonly #modalService = inject(ModalService);
 
   public readonly roomData = this.#roomService.roomData;
   public readonly users = this.#userService.users;
@@ -49,7 +53,20 @@ export class Room implements OnInit {
   }
 
   public onReadDetails(): void {
-    // TODO: implement the opening of giftee info modal https://jiraeu.epam.com/browse/EPMRDUAITM-159
+    this.#modalService.openWithResult(
+      GifteeInfoModal,
+      {
+        personalInfo: getPersonalInfo(this.currentUser()),
+        wishListInfo: {
+          interests: this.currentUser()?.interests || '',
+          wishList: this.currentUser()?.wishList || [],
+        },
+      },
+      {
+        buttonAction: () => this.#modalService.close(),
+        closeModal: () => this.#modalService.close(),
+      }
+    );
   }
 
   #getGifteeName(): string {

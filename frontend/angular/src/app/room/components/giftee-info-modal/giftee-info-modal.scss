@@ -1,0 +1,25 @@
+@use 'base/typography' as *;
+
+.modal {
+  &__content {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 48px;
+
+    &-item {
+      flex: 0 1 100%;
+    }
+  }
+
+  &__title {
+    margin-bottom: 16px;
+    font-size: 28px;
+    line-height: $line-height-xl;
+  }
+
+  &__wish-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

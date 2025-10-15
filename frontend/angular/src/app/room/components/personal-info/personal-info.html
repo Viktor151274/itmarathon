@@ -1,0 +1,14 @@
+<dl class="personal-info__list">
+  @if (showBackgroundPicture()) {
+    <svg class="personal-info__picture" aria-hidden="true" focusable="false">
+      <use [attr.href]="pictureHref"></use>
+    </svg>
+  }
+
+  @for (item of personalInfo(); track $index) {
+    <div class="personal-info__item">
+      <dt class="personal-info__term">{{ item.term }}</dt>
+      <dd class="personal-info__value title-sm">{{ item.value || '-' }}</dd>
+    </div>
+  }
+</dl>

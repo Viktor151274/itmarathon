@@ -282,3 +282,11 @@ export const enum ActionCardTitle {
 export const enum ModalTitle {
   LookWhoYouGot = 'Look Who You Got!',
 }
+
+export const enum PersonalInfoTerm {
+  FirstName = 'First name',
+  LastName = 'Last name',
+  Phone = 'Phone number',
+  Email = 'Email',
+  DeliveryInfo = 'Delivery address',
+}

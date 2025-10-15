@@ -1,0 +1,51 @@
+@use 'colors/color-matrix' as *;
+
+:host {
+  &.participant-info {
+    .personal-info {
+      &__list {
+        flex-wrap: wrap;
+        flex-direction: row;
+      }
+
+      &__item {
+        flex: 0 1 49%;
+      }
+    }
+  }
+}
+
+.personal-info {
+  &__list {
+    position: relative;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    padding: 24px;
+    background: $personal-info-list-bg;
+    border: 1px solid $personal-info-list-border;
+    border-radius: 8px;
+  }
+
+  &__item {
+    position: relative;
+  }
+
+  &__term {
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: $personal-info-term;
+  }
+
+  &__value {
+    color: $personal-info-value;
+  }
+
+  &__picture {
+    position: absolute;
+    top: 16px;
+    right: 12px;
+    width: 56px;
+    height: 48px;
+  }
+}

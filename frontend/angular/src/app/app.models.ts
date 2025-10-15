@@ -11,12 +11,9 @@ import {
   StepLabel,
   TextareaLabel,
   MessageType,
-  PictureName,
-  ModalTitle,
-  ButtonText,
 } from './app.enum';
 import { Message } from './shared/components/message/message';
-import { ModalLayoutWithHeader } from './shared/components/modal/modal-layout-with-header/modal-layout-with-header';
+import { GifteeInfoModal } from './room/components/giftee-info-modal/giftee-info-modal';
 
 export interface StepperItem {
   isActive: boolean;
@@ -164,14 +161,23 @@ export interface ModalEntry {
 
 export type ModalEntryNullable = ModalEntry | null;
 
-export interface ParentModalLayoutType {
-  headerPictureName: PictureName;
-  headerTitle: ModalTitle;
-  buttonText: ButtonText;
-}
-
-export type ModalInputs = ParentModalLayoutType;
+export type ModalInputs = GifteeInfoModalInputs;
 
 export type ModalOutputs = Record<string, (...args: unknown[]) => void>;
 
-export type ModalComponentType = Type<ModalLayoutWithHeader>;
+export type ModalComponentType = Type<GifteeInfoModal>;
+
+export interface GifteePersonalInfoItem {
+  term: string;
+  value: string;
+}
+
+export interface GifteeWishlistInfo {
+  interests: string;
+  wishList: WishListItem[];
+}
+
+export interface GifteeInfoModalInputs {
+  personalInfo: GifteePersonalInfoItem[];
+  wishListInfo: GifteeWishlistInfo;
+}
