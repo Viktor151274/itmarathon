@@ -26,7 +26,8 @@ export class Welcome {
   readonly #joinRoomService = inject(JoinRoomService);
   readonly #roomData = this.#joinRoomService.roomData;
 
-  public readonly pageTitle = PageTitle.WelcomeJoin;
+  public readonly pageTitle =
+    `${PageTitle.WelcomeJoin} ${this.#roomData().name}!` as PageTitle;
   public readonly pageSubtitle = PageSubtitle.WelcomeJoin;
   public readonly pagePictureName = PictureName.Firework;
   public readonly btnText = ButtonText.WelcomeJoin;

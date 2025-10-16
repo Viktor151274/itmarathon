@@ -190,7 +190,7 @@ export const enum FormTitle {
 
 export const enum PageTitle {
   Success = 'Your Secret Nick Room is Ready!',
-  WelcomeJoin = 'Welcome to the Secret Squad!',
+  WelcomeJoin = 'Welcome to the',
   Home = 'Welcome to Secret Nick',
   CreateRoom = 'Create Your Room',
   CreateSuccess = 'Your Room is Ready!',

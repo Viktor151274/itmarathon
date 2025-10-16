@@ -128,6 +128,7 @@ export interface JoinRoomWelcomePageData {
   giftMaximumBudget: number;
   invitationCode: string;
   giftExchangeDate: string;
+  name: string;
 }
 
 export interface NavigationLinks {
