@@ -184,7 +184,7 @@ export const enum PictureName {
 
 export const enum FormTitle {
   CreateRoom = 'Create Your Secret Nick Room',
-  AddDetails = 'Add your details',
+  AddDetails = 'Add Your Details',
   AddWishes = 'Add Your Wishes',
 }
 
