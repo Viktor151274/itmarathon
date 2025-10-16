@@ -11,14 +11,24 @@ namespace Epam.ItMarathon.ApiService.Application.Tests
     public static class DataFakers
     {
         /// <summary>
-        /// Faker for generating UserApplication instances.
+        /// General-purpose faker for generating random data.
+        /// </summary>
+        public static Faker GeneralFaker { get; private set; } = new();
+
+        /// <summary>
+        /// Faker for generating <see cref="UserApplication"/> instances.
         /// </summary>
         public static Faker<UserApplication> UserApplicationFaker { get; private set; }
 
         /// <summary>
-        /// Faker for generating Room instances.
+        /// Faker for generating <see cref="Room"/> instances.
         /// </summary>
         public static Faker<Room> RoomFaker { get; private set; }
+
+        /// <summary>
+        /// Faker for generating <see cref="User"/> instances.
+        /// </summary>
+        public static Faker<Domain.Entities.User.User> UserFaker { get; private set; }
 
         static DataFakers()
         {
@@ -32,12 +42,13 @@ namespace Epam.ItMarathon.ApiService.Application.Tests
                 .RuleFor(user => user.Wishes, _ => []);
 
             RoomFaker = new Faker<Room>().CustomInstantiator(faker => RoomBuilder.Init()
+                .WithId((ulong)faker.UniqueIndex + 1)
                 .WithName(faker.Lorem.Word())
                 .WithDescription(faker.Lorem.Word())
                 .WithGiftExchangeDate(faker.Date.Future())
                 .WithMinUsersLimit(10)
                 .AddUser(userBuilder => userBuilder
-                    .WithId((ulong)faker.IndexFaker + 1)
+                    .WithId((ulong)faker.UniqueIndex + 1)
                     .WithFirstName(faker.Name.FirstName())
                     .WithLastName(faker.Name.LastName())
                     .WithPhone(faker.Phone.PhoneNumber("+380#########"))
@@ -47,6 +58,19 @@ namespace Epam.ItMarathon.ApiService.Application.Tests
                     .WithInterests(faker.Lorem.Word())
                     .WithWishes([]))
                 .Build().Value);
+
+            UserFaker = new Faker<Domain.Entities.User.User>().CustomInstantiator(faker => new UserBuilder()
+                .WithId((ulong)faker.UniqueIndex + 1)
+                .WithFirstName(faker.Name.FirstName())
+                .WithFirstName(faker.Name.FirstName())
+                .WithLastName(faker.Name.LastName())
+                .WithPhone(faker.Phone.PhoneNumber("+380#########"))
+                .WithEmail(faker.Internet.Email())
+                .WithDeliveryInfo(faker.Address.StreetAddress())
+                .WithWantSurprise(true)
+                .WithInterests(faker.Lorem.Word())
+                .WithWishes([])
+                .Build());
         }
     }
 }

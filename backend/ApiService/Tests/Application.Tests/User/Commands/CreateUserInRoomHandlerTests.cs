@@ -1,5 +1,4 @@
-﻿using Bogus;
-using CSharpFunctionalExtensions;
+﻿using CSharpFunctionalExtensions;
 using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands;
 using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
@@ -17,7 +16,6 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
     /// </summary>
     public class CreateUserInRoomHandlerTests
     {
-        private static readonly Faker DataFaker = new();
         private readonly IRoomRepository _roomRepositoryMock;
         private readonly IUserReadOnlyRepository _userReadOnlyRepositoryMock;
         private readonly CreateUserInRoomHandler _handler;
@@ -26,7 +24,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         /// Generates a TheoryData object containing a random string of the specified length.
         /// </summary>
         /// <param name="stringLength">Length of the string to generate.</param>
-        public static TheoryData<string> GetRandomString(int stringLength) => [DataFaker.Random.String(stringLength)];
+        public static TheoryData<string> GetRandomString(int stringLength) => [DataFakers.GeneralFaker.Random.String(stringLength)];
 
         /// <summary>
         /// Generates a TheoryData object containing invalid wish list scenarios.
@@ -35,7 +33,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         {
             { false, [] },
             { false, [("Same", null), ("Same", null)] },
-            { true, [(DataFaker.Random.String(10), null)] },
+            { true, [(DataFakers.GeneralFaker.Random.String(10), null)] },
         };
 
         /// <summary>
