@@ -27,8 +27,9 @@
     @include multiline-truncate(2);
     @include heading(36px, $line-height-md);
 
-    color: inherit;
     padding-bottom: 8px;
+    overflow-wrap: break-word;
+    color: inherit;
   }
 
   &__description {
@@ -36,6 +37,7 @@
 
     line-height: $line-height-xl;
     white-space: pre-wrap;
+    overflow-wrap: break-word;
   }
 
   &__cards-container {
