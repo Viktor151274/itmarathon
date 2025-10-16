@@ -15,7 +15,7 @@
 
   &__header {
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 1fr);
     gap: 28px;
     align-items: start;
     position: relative;
@@ -24,6 +24,11 @@
   &__title {
     font-size: 32px;
     padding-bottom: 11px;
+    overflow-wrap: break-word;
+  }
+
+  &__subtitle {
+    white-space: pre-line;
   }
 
   &__picture {

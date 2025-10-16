@@ -210,7 +210,7 @@ export const enum FormSubtitle {
 
 export const enum PageSubtitle {
   Success = 'Share the link below with up to 20 friends to invite them — and don’t lose your personal link! Let the festive magic begin!',
-  WelcomeJoin = `You've been invited to a cozy holiday gift exchange!Get ready to surprise and be surprised!`,
+  WelcomeJoin = `You've been invited to a cozy holiday gift exchange!\nGet ready to surprise and be surprised!`,
   SuccessJoin = 'Your holiday adventure is about to begin! Thank you for joining the Secret Nick room.',
 }
 
