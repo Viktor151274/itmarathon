@@ -281,6 +281,7 @@ export const enum ActionCardTitle {
 
 export const enum ModalTitle {
   LookWhoYouGot = 'Look Who You Got!',
+  WishList = 'Your Wishlist',
 }
 
 export const enum PersonalInfoTerm {

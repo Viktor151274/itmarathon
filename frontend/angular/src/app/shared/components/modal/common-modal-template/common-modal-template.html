@@ -1,4 +1,4 @@
-@if (!isModalOpen()) {
+@if (isModalOpen()) {
   <div @dissolve class="modal__wrapper">
     <div class="modal__overlay" aria-hidden="true"></div>
 
@@ -34,7 +34,9 @@
       </header>
 
       <div class="modal__content">
-        <ng-content />
+        <div class="modal__content-container">
+          <ng-content />
+        </div>
 
         <div class="modal__actions">
           @if (cancelButtonText(); as text) {

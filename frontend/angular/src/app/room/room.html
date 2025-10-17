@@ -38,6 +38,9 @@
       />
     }
 
-    <app-my-wishlist [currentUser]="currentUser()" />
+    <app-my-wishlist
+      [currentUser]="currentUser()"
+      (buttonAction)="onViewWishlist()"
+    />
   </aside>
 </div>

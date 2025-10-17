@@ -14,6 +14,7 @@ import {
 } from './app.enum';
 import { Message } from './shared/components/message/message';
 import { GifteeInfoModal } from './room/components/giftee-info-modal/giftee-info-modal';
+import { MyWishlistModal } from './room/components/my-wishlist/components/my-wishlist-modal/my-wishlist-modal';
 
 export interface StepperItem {
   isActive: boolean;
@@ -162,11 +163,11 @@ export interface ModalEntry {
 
 export type ModalEntryNullable = ModalEntry | null;
 
-export type ModalInputs = GifteeInfoModalInputs;
+export type ModalInputs = GifteeInfoModalInputs | MyWishlistModalInputs;
 
 export type ModalOutputs = Record<string, (...args: unknown[]) => void>;
 
-export type ModalComponentType = Type<GifteeInfoModal>;
+export type ModalComponentType = Type<GifteeInfoModal | MyWishlistModal>;
 
 export interface GifteePersonalInfoItem {
   term: string;
@@ -181,4 +182,9 @@ export interface GifteeWishlistInfo {
 export interface GifteeInfoModalInputs {
   personalInfo: GifteePersonalInfoItem[];
   wishListInfo: GifteeWishlistInfo;
+}
+
+export interface MyWishlistModalInputs {
+  wishListInfo: GifteeWishlistInfo;
+  budget?: number;
 }

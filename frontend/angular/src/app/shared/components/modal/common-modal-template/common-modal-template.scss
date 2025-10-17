@@ -5,6 +5,7 @@
 .modal {
   @include modal-base-layout(792px, 36px);
   @include flex-centered-column;
+  max-height: 70vh;
   gap: 32px;
 
   background-color: $modal-content-bg;

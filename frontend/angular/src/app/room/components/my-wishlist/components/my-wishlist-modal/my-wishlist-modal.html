@@ -1,0 +1,21 @@
+<app-common-modal-template
+  [headerPictureName]="picName"
+  [headerTitle]="title"
+  [buttonText]="buttonText"
+  [subtitle]="subtitle"
+  [budget]="budget()"
+  (buttonAction)="onButtonClick()"
+  (closeModal)="onCloseModal()"
+>
+  @if (wishListInfo(); as info) {
+    @if (info.interests) {
+      <app-surprise-info [text]="info.interests" />
+    } @else {
+      <ul class="list">
+        @for (item of info.wishList; track $index) {
+          <li app-item-card [text]="item.name" [link]="item.infoLink"></li>
+        }
+      </ul>
+    }
+  }
+</app-common-modal-template>

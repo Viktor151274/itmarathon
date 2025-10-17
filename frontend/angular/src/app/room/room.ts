@@ -12,10 +12,18 @@ import { MyWishlist } from './components/my-wishlist/my-wishlist';
 import { ModalService } from '../core/services/modal';
 import { GifteeInfoModal } from './components/giftee-info-modal/giftee-info-modal';
 import { getPersonalInfo } from '../utils/get-personal-info';
+import { MyWishlistModal } from './components/my-wishlist/components/my-wishlist-modal/my-wishlist-modal';
 
 @Component({
   selector: 'app-room',
-  imports: [RoomInfo, RandomizeCard, GifteeInfo, ParticipantList, MyWishlist],
+  imports: [
+    RoomInfo,
+    RandomizeCard,
+    GifteeInfo,
+    ParticipantList,
+    MyWishlist,
+    MyWishlistModal,
+  ],
   templateUrl: './room.html',
   styleUrl: './room.scss',
 })
@@ -61,6 +69,23 @@ export class Room implements OnInit {
           interests: this.currentUser()?.interests || '',
           wishList: this.currentUser()?.wishList || [],
         },
+      },
+      {
+        buttonAction: () => this.#modalService.close(),
+        closeModal: () => this.#modalService.close(),
+      }
+    );
+  }
+
+  public onViewWishlist(): void {
+    this.#modalService.openWithResult(
+      MyWishlistModal,
+      {
+        wishListInfo: {
+          interests: this.currentUser()?.interests || '',
+          wishList: this.currentUser()?.wishList || [],
+        },
+        budget: this.roomData().giftMaximumBudget,
       },
       {
         buttonAction: () => this.#modalService.close(),

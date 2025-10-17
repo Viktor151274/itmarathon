@@ -334,7 +334,8 @@
       scrollbar-gutter: stable;
       @include custom-scrollbar;
       flex: 1 1 auto;
-      margin-bottom: 16px;
+      padding: 3px;
+      margin: -3px;
     }
   }
 

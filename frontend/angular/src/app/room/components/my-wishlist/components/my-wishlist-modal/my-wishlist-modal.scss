@@ -1,0 +1,6 @@
+@use 'abstracts/mixins' as *;
+
+.list {
+  @include flex-centered-column;
+  gap: 8px;
+}
