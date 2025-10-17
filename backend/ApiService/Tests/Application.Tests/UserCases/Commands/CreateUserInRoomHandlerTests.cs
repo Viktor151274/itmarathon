@@ -1,15 +1,13 @@
-﻿using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands;
+﻿using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands;
 using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
-using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using FluentAssertions;
 using FluentValidation.Results;
 using NSubstitute;
 using ValidationResult = FluentValidation.Results.ValidationResult;
 
-namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
+namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Commands
 {
     /// <summary>
     /// Unit tests for the <see cref="CreateUserInRoomHandler"/> class.
@@ -19,61 +17,6 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         private readonly IRoomRepository _roomRepositoryMock;
         private readonly IUserReadOnlyRepository _userReadOnlyRepositoryMock;
         private readonly CreateUserInRoomHandler _handler;
-
-        /// <summary>
-        /// Generates a TheoryData object containing a random string of the specified length.
-        /// </summary>
-        /// <param name="stringLength">Length of the string to generate.</param>
-        public static TheoryData<string> GetRandomString(int stringLength) => [DataFakers.GeneralFaker.Random.String(stringLength)];
-
-        /// <summary>
-        /// Generates a TheoryData object containing invalid wish list scenarios.
-        /// </summary>
-        public static TheoryData<bool, IEnumerable<(string?, string?)>> InvalidWishes => new()
-        {
-            { false, [] },
-            { false, [("Same", null), ("Same", null)] },
-            { true, [(DataFakers.GeneralFaker.Random.String(10), null)] },
-        };
-
-        /// <summary>
-        /// Generates a TheoryData object containing various invalid email formats.
-        /// </summary>
-        public static TheoryData<string> InvalidEmails =>
-        [
-            "not_valid_email.com", // Missing @ symbol
-            "missingdomain@", // Missing domain name
-            "@missingusername.com", // Missing username
-            "username..dots@example.com", // Consecutive dots
-            "username@-domain.com", // Domain starts with a hyphen
-            "username@domain-.com", // Domain ends with a hyphen
-            new string('a', 65) + "@example.com", // Username exceeds 64 characters
-            "username@" + new string('a', 64) + ".com", // Domain exceeds 253 characters
-            "user name@example.com", // Email with spaces
-            "user\"name@example.com", // Double quotes not properly escaped
-            "username@domain_with_underscore.com" // Invalid character in domain
-        ];
-
-        /// <summary>
-        /// Generates a TheoryData object containing various invalid phone number formats.
-        /// </summary>
-        public static TheoryData<string> InvalidPhoneNumbers =>
-        [
-            "380123456789", // Missing '+'
-            "+381123456789", // Incorrect country code
-            "+38012345678", // Too few digits
-            "+3801234567890", // Too many digits
-            "+38012345678a", // Contains a letter
-            "+38012345@789", // Contains a special character
-            "+380", // Only country code
-            "+380123", // Partial digits
-            "+380 123456789", // Contains a space
-            "+380123 456 789", // Multiple spaces
-            "+38-012-345-67-89", // Contains dashes
-            "+380.123.456.789", // Contains dots
-            "", // Empty string
-            null
-        ];
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateUserInRoomHandlerTests"/> class with mocked dependencies.
@@ -118,7 +61,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        [MemberData(nameof(GetRandomString), 41)]
+        [MemberData(nameof(DataFakers.GetRandomString), 41, MemberType = typeof(DataFakers))]
         public async Task Handle_ShouldReturnFailure_WhenUserHasInvalidFirstName(string? firstName)
         {
             // Arrange
@@ -130,7 +73,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
 
             _roomRepositoryMock
                 .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
-                .Returns(Result.Success<Room, ValidationResult>(existingRoom));
+                .Returns(existingRoom);
 
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);
@@ -143,13 +86,13 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         }
 
         /// <summary>
-        /// Tests that the handler returns a ValidationResult error when the user has an invalid дфіе name.
+        /// Tests that the handler returns a ValidationResult error when the user has an invalid last name.
         /// </summary>
         /// <param name="lastName">User's last name to test.</param>
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        [MemberData(nameof(GetRandomString), 41)]
+        [MemberData(nameof(DataFakers.GetRandomString), 41, MemberType = typeof(DataFakers))]
         public async Task Handle_ShouldReturnFailure_WhenUserHasInvalidLastName(string? lastName)
         {
             // Arrange
@@ -161,7 +104,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
 
             _roomRepositoryMock
                 .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
-                .Returns(Result.Success<Room, ValidationResult>(existingRoom));
+                .Returns(existingRoom);
 
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);
@@ -180,7 +123,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        [MemberData(nameof(GetRandomString), 501)]
+        [MemberData(nameof(DataFakers.GetRandomString), 501, MemberType = typeof(DataFakers))]
         public async Task Handle_ShouldReturnFailure_WhenUserHasInvalidDeliveryInfo(string? deliveryInfo)
         {
             // Arrange
@@ -192,7 +135,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
 
             _roomRepositoryMock
                 .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
-                .Returns(Result.Success<Room, ValidationResult>(existingRoom));
+                .Returns(existingRoom);
 
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);
@@ -209,7 +152,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         /// </summary>
         /// <param name="phoneNumber">User's phone number to test.</param>
         [Theory]
-        [MemberData(nameof(InvalidPhoneNumbers))]
+        [MemberData(nameof(DataFakers.InvalidPhoneNumbers), MemberType = typeof(DataFakers))]
         public async Task Handle_ShouldReturnFailure_WhenUserHasInvalidPhone(string? phoneNumber)
         {
             // Arrange
@@ -221,7 +164,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
 
             _roomRepositoryMock
                 .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
-                .Returns(Result.Success<Room, ValidationResult>(existingRoom));
+                .Returns(existingRoom);
 
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);
@@ -238,7 +181,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         /// </summary>
         /// <param name="email">User's email to test.</param>
         [Theory]
-        [MemberData(nameof(InvalidEmails))]
+        [MemberData(nameof(DataFakers.InvalidEmails), MemberType = typeof(DataFakers))]
         public async Task Handle_ShouldReturnFailure_WhenUserHasInvalidEmail(string email)
         {
             // Arrange
@@ -250,7 +193,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
 
             _roomRepositoryMock
                 .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
-                .Returns(Result.Success<Room, ValidationResult>(existingRoom));
+                .Returns(existingRoom);
 
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);
@@ -268,7 +211,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         /// <param name="wantSurprise">User's want surprise preference.</param>
         /// <param name="wishList">User's wish list to test.</param>
         [Theory]
-        [MemberData(nameof(InvalidWishes))]
+        [MemberData(nameof(DataFakers.InvalidWishes), MemberType = typeof(DataFakers))]
         public async Task Handle_ShouldReturnFailure_WhenUserHasInvalidWishes(bool wantSurprise,
             IEnumerable<(string?, string?)> wishList)
         {
@@ -283,7 +226,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
 
             _roomRepositoryMock
                 .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
-                .Returns(Result.Success<Room, ValidationResult>(existingRoom));
+                .Returns(existingRoom);
 
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);
@@ -303,7 +246,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
         [Theory]
         [InlineData(true, null)]
         [InlineData(false, "text")]
-        public async Task Handle_ShouldReturnFailure_WhenUserHasInvalidInsterests(bool wantSurprise, string? interests)
+        public async Task Handle_ShouldReturnFailure_WhenUserHasInvalidInterests(bool wantSurprise, string? interests)
         {
             // Arrange
             var invalidUser = DataFakers.UserApplicationFaker
@@ -315,7 +258,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
 
             _roomRepositoryMock
                 .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
-                .Returns(Result.Success<Room, ValidationResult>(existingRoom));
+                .Returns(existingRoom);
 
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);
@@ -355,11 +298,11 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.User.Commands
 
             _roomRepositoryMock
                 .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
-                .Returns(Result.Success<Room, ValidationResult>(existingRoom));
+                .Returns(existingRoom);
 
             _userReadOnlyRepositoryMock
                 .GetByCodeAsync(Arg.Any<string>(), CancellationToken.None)
-                .Returns(Result.Success<Domain.Entities.User.User, ValidationResult>(existingRoom.Users.Last()));
+                .Returns(existingRoom.Users.Last());
 
             // Act
             var result = await _handler.Handle(request, CancellationToken.None);

@@ -7,7 +7,7 @@ using FluentAssertions;
 using FluentValidation.Results;
 using NSubstitute;
 
-namespace Epam.ItMarathon.ApiService.Application.Tests.User.Queries
+namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Queries
 {
     /// <summary>
     /// Unit tests for the <see cref="GetUsersHandler"/> class.
