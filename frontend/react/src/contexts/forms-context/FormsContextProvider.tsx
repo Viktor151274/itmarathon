@@ -9,7 +9,7 @@ import {
   type ValidationErrors,
 } from "@types/general";
 import type { DetailsFormInputName } from "../../components/common/details-form/types";
-import { DETAILS_FORM_VALIDATION_KEYS } from "./utils";
+import { DETAILS_FORM_VALIDATION_KEYS, OPTIONAL_FIELDS } from "./utils";
 
 export const FormsContextProvider = ({ children }: { children: ReactNode }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -21,7 +21,10 @@ export const FormsContextProvider = ({ children }: { children: ReactNode }) => {
     Object.fromEntries(
       Object.values(InputNames).map((field) => [
         field,
-        { isValid: null, errorMessage: "" },
+        {
+          isValid: OPTIONAL_FIELDS?.includes(field) ? true : null,
+          errorMessage: "",
+        },
       ]),
     ) as ValidationErrors<InputName>,
   );

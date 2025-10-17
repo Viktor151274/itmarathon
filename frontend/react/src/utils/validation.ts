@@ -46,3 +46,21 @@ export const phoneValidator = (phone: string): FieldValidation => {
     errorMessage: "",
   };
 };
+
+export const emailValidator = (value: string) => {
+  const trimmed = value.trim();
+  const regex =
+    /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+  if (trimmed && !regex.test(trimmed)) {
+    return {
+      isValid: false,
+      errorMessage: "Please enter a valid email address",
+    };
+  }
+
+  return {
+    isValid: true,
+    errorMessage: "",
+  };
+};

@@ -5,6 +5,7 @@ import {
   DetailsFormInputNames,
   type DetailsFormInputName,
 } from "../../components/common/details-form/types";
+import { OPTIONAL_FIELDS } from "./utils";
 
 const roomData = {
   name: "",
@@ -51,7 +52,10 @@ export const defaultCreateRoomData = {
 const defaultDetailsFormFieldsErrors = Object.fromEntries(
   Object.values(DetailsFormInputNames).map((field) => [
     field,
-    { isValid: null, errorMessage: "" },
+    {
+      isValid: OPTIONAL_FIELDS?.includes(field) ? true : null,
+      errorMessage: "",
+    },
   ]),
 ) as ValidationErrors<DetailsFormInputName>;
 

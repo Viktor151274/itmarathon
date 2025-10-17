@@ -17,11 +17,12 @@ import type {
 import {
   isRequiredFieldsFilled,
   phoneValidator,
+  emailValidator,
 } from "../../../../src/utils/validation";
-import { useFieldsValidation } from "@hooks/useFieldsValidation";
+import { useFieldsValidation } from "../../../../src/hooks/useFieldsValidation";
+import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 
 import "./DetailsForm.scss";
-import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 
 const DetailsForm = ({ onBack }: DetailsFormProps) => {
   const {
@@ -48,6 +49,10 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
 
     if (name === DetailsFormInputNames.PHONE) {
       validateField(DetailsFormInputNames.PHONE, phoneValidator, value);
+    }
+
+    if (name === DetailsFormInputNames.EMAIL) {
+      validateField(DetailsFormInputNames.EMAIL, emailValidator, value);
     }
   };
 
@@ -115,10 +120,13 @@ const DetailsForm = ({ onBack }: DetailsFormProps) => {
           label="Email"
           value={email}
           onChange={handleChange}
+          onBlur={handleBlur}
           width="338px"
           name={DetailsFormInputNames.EMAIL}
           withoutCounter
           type="email"
+          hasError={detailsFormFieldsErrors.email.isValid === false}
+          caption={detailsFormFieldsErrors.email.errorMessage}
         />
 
         <Input
