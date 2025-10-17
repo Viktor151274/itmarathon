@@ -34,6 +34,7 @@ export class Success implements OnInit {
   public personalLink!: string;
   public roomLink!: string;
   public routerPath!: string;
+  public userCode!: string;
 
   public readonly btnText = ButtonText.Success;
   public readonly btnType = ButtonType.Button;
@@ -67,6 +68,7 @@ export class Success implements OnInit {
 
     this.invitationNote = pageData.invitationNote;
     this.personalLink = pathsPersonalLink.absoluteUrl;
+    this.userCode = pageData.userCode;
     this.roomLink = pathsRoom.absoluteUrl;
     this.routerPath = pathsPersonalLink.routerPath;
   }

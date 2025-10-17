@@ -197,3 +197,7 @@ export interface LottieConfig {
   speed?: number;
   onComplete?: () => void;
 }
+
+export interface RoomUpdateRequest extends Partial<BasicRoomDetails> {
+  invitationNote?: string;
+}

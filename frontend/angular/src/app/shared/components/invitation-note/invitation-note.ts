@@ -26,6 +26,8 @@ import {
 import { copyToClipboard } from '../../../utils/copy';
 import { PopupService } from '../../../core/services/popup';
 import { CharCounter } from '../../../core/directives/char-counter';
+import { finalize, tap } from 'rxjs/operators';
+import { InvitationNoteService } from '../../../core/services/invitation-note.service';
 
 @Component({
   selector: 'app-invitation-note',
@@ -33,10 +35,12 @@ import { CharCounter } from '../../../core/directives/char-counter';
   imports: [IconButton, ReactiveFormsModule, CharCounter],
   templateUrl: './invitation-note.html',
   styleUrl: './invitation-note.scss',
+  providers: [InvitationNoteService],
 })
 export class InvitationNote implements AfterViewInit, OnInit {
   invitationNote = input.required<string>();
   invitationLink = input.required<string>();
+  userCode = input.required<string>();
   maxLength = input<number | null>(null);
   editable = input<boolean>(true);
   control = new FormControl('');
@@ -47,9 +51,12 @@ export class InvitationNote implements AfterViewInit, OnInit {
 
   readonly #popup = inject(PopupService);
   readonly #injector = inject(Injector);
+  readonly #invitationNoteService = inject(InvitationNoteService);
 
   readonly #isEdit = signal(false);
   readonly isEdit = computed(() => this.#isEdit());
+
+  saving = signal(false);
 
   readonly ariaLabelSave = AriaLabel.SaveButton;
   readonly ariaLabelCopy = AriaLabel.CopyButton;
@@ -93,11 +100,13 @@ export class InvitationNote implements AfterViewInit, OnInit {
   }
 
   toggleEdit(): void {
-    if (!this.editable()) return;
-    this.#isEdit.set(!this.#isEdit());
+    if (!this.editable() || this.saving()) return;
 
-    if (this.#isEdit()) {
-      this.taRef.nativeElement.focus();
+    if (!this.#isEdit()) {
+      this.#isEdit.set(true);
+      queueMicrotask(() => this.taRef?.nativeElement.focus());
+    } else {
+      this.save();
     }
   }
 
@@ -123,5 +132,30 @@ export class InvitationNote implements AfterViewInit, OnInit {
       },
       false
     );
+  }
+
+  save(): void {
+    if (this.saving()) return;
+
+    const newValue = this.control.value?.trim() ?? '';
+    const prevValue = this.invitationNote();
+
+    if (newValue === prevValue) {
+      this.#isEdit.set(false);
+      return;
+    }
+
+    this.saving.set(true);
+
+    this.#invitationNoteService
+      .updateInvitationNote(this.userCode(), newValue)
+      .pipe(
+        tap((serverValue) => {
+          this.control.setValue(serverValue, { emitEvent: false });
+          this.#isEdit.set(false);
+        }),
+        finalize(() => this.saving.set(false))
+      )
+      .subscribe();
   }
 }

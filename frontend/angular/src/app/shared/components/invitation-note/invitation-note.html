@@ -1,4 +1,8 @@
-<section class="invitation-note" #popupHost>
+<section
+  class="invitation-note"
+  [class.invitation-note--editing]="isEdit()"
+  #popupHost
+>
   <div class="invitation-note__actions">
     @if (editable()) {
       <app-icon-button
@@ -34,3 +38,6 @@
     </p>
   </div>
 </section>
+@if (isEdit()) {
+  <p class="invitation-note__warning">Make sure you save changes</p>
+}

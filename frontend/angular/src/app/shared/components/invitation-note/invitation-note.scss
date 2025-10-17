@@ -1,10 +1,25 @@
 @use 'colors/color-matrix' as *;
 
+:host {
+  position: relative;
+}
+
 .invitation-note {
   border: 1px $invitation-note-border solid;
   border-radius: 8px;
   background-color: $invitation-note-bg;
   position: relative;
+
+  &--editing {
+    border-color: $invitation-note-border-editing;
+  }
+
+  &__warning {
+    color: $invitation-note-warning;
+    font-size: 12px;
+    position: absolute;
+    bottom: -20px;
+  }
 }
 
 .invitation-note__actions {

@@ -11,6 +11,7 @@ import {
   RoomDetails,
   User,
   JoinRoomResponse,
+  RoomUpdateRequest,
 } from '../../app.models';
 
 @Injectable({
@@ -80,6 +81,19 @@ export class ApiService {
     return this.#http.post<string>(
       `${this.#baseUrl}${Endpoint.roomsDraw}`,
       null,
+      { params, observe: 'response' }
+    );
+  }
+
+  public patchRoom(
+    userCode: string,
+    payload: RoomUpdateRequest
+  ): Observable<HttpResponse<RoomDetails>> {
+    const params = new HttpParams().set('userCode', userCode);
+
+    return this.#http.patch<RoomDetails>(
+      `${this.#baseUrl}${Endpoint.rooms}`,
+      payload,
       { params, observe: 'response' }
     );
   }
