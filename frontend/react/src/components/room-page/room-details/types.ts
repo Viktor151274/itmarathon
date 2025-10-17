@@ -4,5 +4,7 @@ export interface RoomDetailsProps {
   exchangeDate: string;
   giftBudget: number;
   invitationNote: string;
+  invitationLink: string;
+  roomLink: string;
   withoutInvitationCard?: boolean;
 }

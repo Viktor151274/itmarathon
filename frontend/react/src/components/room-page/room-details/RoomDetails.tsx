@@ -1,6 +1,8 @@
+import { useState } from "react";
 import InfoCard from "@components/common/info-card/InfoCard";
 import Button from "@components/common/button/Button";
-import { formatBudget, copyToClipboard, formatDate } from "@utils/general";
+import InvitationModal from "@components/common/modals/invitation-modal/InvitationModal";
+import { formatBudget, formatDate } from "@utils/general";
 import type { RoomDetailsProps } from "./types";
 import "./RoomDetails.scss";
 
@@ -10,11 +12,11 @@ const RoomDetails = ({
   exchangeDate,
   giftBudget,
   invitationNote,
+  invitationLink,
+  roomLink,
   withoutInvitationCard = false,
 }: RoomDetailsProps) => {
-  const handleCopyInvitationNote = () => {
-    copyToClipboard(invitationNote);
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="room-details">
@@ -43,10 +45,18 @@ const RoomDetails = ({
             <Button
               size="small"
               variant="secondary"
-              onClick={handleCopyInvitationNote}
+              onClick={() => setIsModalOpen(true)}
             >
               Invite New Members
             </Button>
+
+            <InvitationModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+              invitationNote={invitationNote}
+              roomLink={roomLink}
+              invitationLink={invitationLink}
+            />
           </InfoCard>
         ) : null}
       </div>

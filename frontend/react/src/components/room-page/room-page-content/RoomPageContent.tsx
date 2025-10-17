@@ -4,7 +4,7 @@ import ParticipantsList from "../participants-list/ParticipantsList";
 import RoomDetails from "../room-details/RoomDetails";
 import RandomizationModal from "@components/common/modals/randomization-modal/RandomizationModal";
 import RandomizationPanel from "../randomization-panel/RandomizationPanel";
-import { generateInvitationNoteContent } from "@utils/general";
+import { generateRoomLink } from "@utils/general";
 import { getCurrentUser, getParticipantInfoById } from "./utils";
 import type { WishlistProps } from "@components/common/wishlist/types";
 import type { RoomPageContentProps } from "./types";
@@ -58,11 +58,10 @@ const RoomPageContent = ({
           description={roomDetails.description}
           exchangeDate={roomDetails.giftExchangeDate}
           giftBudget={roomDetails.giftMaximumBudget}
-          invitationNote={generateInvitationNoteContent(
-            roomDetails.invitationNote,
-            roomDetails.invitationCode,
-          )}
+          invitationNote={roomDetails.invitationNote}
           withoutInvitationCard={!isAdmin || isRandomized}
+          roomLink={generateRoomLink(roomDetails.invitationCode)}
+          invitationLink={generateRoomLink(roomDetails.invitationCode)}
         />
         <ParticipantsList participants={participants} />
       </div>
