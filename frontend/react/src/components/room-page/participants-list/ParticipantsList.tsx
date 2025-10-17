@@ -14,6 +14,8 @@ const ParticipantsList = ({ participants }: ParticipantsListProps) => {
     (participant) => !participant?.isAdmin,
   );
 
+  const handleInfoButtonClick = () => {};
+
   return (
     <div className="participant-list">
       <div className="participant-list-header">
@@ -50,6 +52,11 @@ const ParticipantsList = ({ participants }: ParticipantsListProps) => {
             isCurrentUser={userCode === user?.userCode}
             isCurrentUserAdmin={userCode === admin?.userCode}
             participantLink={generateParticipantLink(user?.userCode)}
+            onInfoButtonClick={
+              userCode === admin?.userCode && userCode !== user?.userCode
+                ? handleInfoButtonClick
+                : null
+            }
           />
         ))}
       </div>

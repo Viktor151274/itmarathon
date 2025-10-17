@@ -12,6 +12,7 @@ const ParticipantCard = ({
   isCurrentUserAdmin = false,
   adminInfo = "",
   participantLink = "",
+  onInfoButtonClick,
 }: ParticipantCardProps) => {
   return (
     <ItemCard title={`${firstName} ${lastName}`} isFocusable>
@@ -29,6 +30,10 @@ const ParticipantCard = ({
             successMessage="Personal Link is copied!"
             errorMessage="Personal Link was not copied. Try again."
           />
+        ) : null}
+
+        {isCurrentUserAdmin && !isAdmin ? (
+          <InfoButton withoutToaster onClick={onInfoButtonClick} />
         ) : null}
 
         {!isCurrentUser && isAdmin ? (
