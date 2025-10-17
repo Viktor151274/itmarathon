@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
-import type { GetParticipantsResponse, GetRoomResponse } from "@types/api.ts";
+import type {
+  GetParticipantsResponse,
+  GetRoomResponse,
+  DrawRoomResponse,
+} from "@types/api.ts";
 import Loader from "@components/common/loader/Loader.tsx";
 import { useFetch } from "@hooks/useFetch.ts";
 import useToaster from "@hooks/useToaster.ts";
@@ -19,8 +23,8 @@ const RoomPage = () => {
 
   const {
     data: roomDetails,
-    isError: isErrorRoomDetails,
     isLoading: isLoadingRoomDetails,
+    fetchData: fetchRoomDetails,
   } = useFetch<GetRoomResponse>(
     {
       url: `${BASE_API_URL}/api/rooms?userCode=${userCode}`,
@@ -34,9 +38,9 @@ const RoomPage = () => {
   );
 
   const {
-    isLoading: isLoadingParticipants,
-    isError: isErrorParticipants,
     data: participants,
+    isLoading: isLoadingParticipants,
+    fetchData: fetchParticipants,
   } = useFetch<GetParticipantsResponse>({
     url: `${BASE_API_URL}/api/users?userCode=${userCode}`,
     method: "GET",
@@ -46,8 +50,30 @@ const RoomPage = () => {
     },
   });
 
-  const isLoading = isLoadingParticipants || isLoadingRoomDetails;
-  const isError = isErrorParticipants || isErrorRoomDetails;
+  const { fetchData: fetchRandomize, isLoading: isRandomizing } =
+    useFetch<DrawRoomResponse>(
+      {
+        url: `${BASE_API_URL}/api/rooms/draw?userCode=${userCode}`,
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        onSuccess: () => {
+          showToast(
+            "Success! All participants are matched.\nLet the gifting magic start!",
+            "success",
+            "large",
+          );
+          fetchRoomDetails();
+          fetchParticipants();
+        },
+        onError: () => {
+          showToast("Something went wrong. Try again.", "error", "large");
+        },
+      },
+      false,
+    );
+
+  const isLoading =
+    isLoadingRoomDetails || isLoadingParticipants || isRandomizing;
 
   if (!userCode) {
     return null;
@@ -57,12 +83,11 @@ const RoomPage = () => {
     <main className="room-page">
       {isLoading ? <Loader /> : null}
 
-      {!isLoading && !isError && !!participants && !!roomDetails ? (
-        <RoomPageContent
-          participants={participants}
-          roomDetails={roomDetails}
-        />
-      ) : null}
+      <RoomPageContent
+        participants={participants ?? []}
+        roomDetails={roomDetails ?? ({} as GetRoomResponse)}
+        onDrawNames={() => fetchRandomize()}
+      />
     </main>
   );
 };

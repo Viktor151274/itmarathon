@@ -13,6 +13,7 @@ import "./RoomPageContent.scss";
 const RoomPageContent = ({
   participants,
   roomDetails,
+  onDrawNames,
 }: RoomPageContentProps) => {
   const { userCode } = useParams();
   const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false);
@@ -72,7 +73,7 @@ const RoomPageContent = ({
             isRandomized={isRandomized}
             userCount={participants.length}
             fullName={giftRecipientFullName}
-            onDraw={() => {}}
+            onDraw={onDrawNames}
             onReadUserDetails={handleReadUserDetails}
           />
         ) : null}

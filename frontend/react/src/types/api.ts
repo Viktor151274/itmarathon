@@ -40,3 +40,7 @@ export type GetRoomResponse = {
 export type GetParticipantsResponse = Participant[];
 
 export type WishList = WishListItem[];
+
+export type DrawRoomResponse = {
+  adminGiftToUser: Participant;
+};
