@@ -1,15 +1,12 @@
 import {
   AfterViewInit,
-  DestroyRef,
   Directive,
   ElementRef,
+  HostListener,
   inject,
   input,
   Renderer2,
 } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { tap } from 'rxjs';
 
 import { ItemPosition } from '../../app.enum';
 import { generateId } from '../../utils/generate-id';
@@ -19,14 +16,13 @@ import type { StyleMap } from '../../app.models';
   selector: '[appCharCounter]',
 })
 export class CharCounter implements AfterViewInit {
-  readonly control = input.required<FormControl>();
+  readonly initCounterValue = input<number>(0);
 
   readonly positionX = input<ItemPosition>(ItemPosition.Right);
   readonly positionY = input<ItemPosition>(ItemPosition.Below);
 
   readonly #el = inject(ElementRef);
   readonly #renderer = inject(Renderer2);
-  readonly #destroyRef = inject(DestroyRef);
 
   readonly #counterId: string = generateId();
 
@@ -40,20 +36,17 @@ export class CharCounter implements AfterViewInit {
 
     if (this.#maxLength) {
       this.#renderCounter();
-      this.#observeTargetValueChanges();
     }
   }
 
-  #observeTargetValueChanges(): void {
-    const baseValue = this.#targetElement?.value?.length || 0;
-    this.#updateCounter(baseValue);
-
-    this.control()
-      .valueChanges.pipe(
-        tap((value: string) => this.#updateCounter(value.length)),
-        takeUntilDestroyed(this.#destroyRef)
-      )
-      .subscribe();
+  @HostListener('input', ['$event.target']) onInput(
+    target: EventTarget | null
+  ): void {
+    if (this.#maxLength) {
+      const length = (target as HTMLInputElement | HTMLTextAreaElement).value
+        .length;
+      this.#updateCounter(length);
+    }
   }
 
   #findTarget(): HTMLInputElement | HTMLTextAreaElement | null {
@@ -131,9 +124,12 @@ export class CharCounter implements AfterViewInit {
   }
 
   #renderCounter(): void {
+    const initValue =
+      this.#targetElement?.value?.length || this.initCounterValue();
     this.#counterElement = this.#renderer.createElement('span');
     this.#applyStyles();
     this.#setAttributes();
     this.#renderer.appendChild(this.#getParent(), this.#counterElement);
+    this.#updateCounter(initValue);
   }
 }

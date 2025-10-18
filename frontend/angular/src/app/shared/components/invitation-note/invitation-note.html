@@ -15,10 +15,10 @@
   </div>
 
   <div
-    class="invitation-note__card"
     appCharCounter
+    class="invitation-note__card"
+    [initCounterValue]="invitationNote().length"
     [positionY]="charCounterPositionY"
-    [control]="control"
   >
     <textarea
       #textarea
