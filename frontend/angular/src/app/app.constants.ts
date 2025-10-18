@@ -13,6 +13,8 @@ export const PRIVACY_POLICY_PATH = '/assets/pdfs/privacy-policy.pdf';
 
 export const PRIVACY_NOTICE_PATH = '/assets/pdfs/privacy-notice.pdf';
 
+export const CONFETTI_ANIMATION_PATH = '/assets/animations/confetti.json';
+
 export const MESSAGE_DURATION_MS = 3000;
 
 export const JOIN_ROOM_STEPPER_LABELS: StepLabel[] = [

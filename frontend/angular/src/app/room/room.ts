@@ -1,5 +1,14 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  OnInit,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { tap } from 'rxjs';
 
 import { RoomInfo } from './components/room-info/room-info';
 import { RoomService } from './services/room';
@@ -7,31 +16,29 @@ import { UserService } from './services/user';
 import { ParticipantList } from '../shared/components/participant-list/participant-list';
 import { RandomizeCard } from './components/randomize-card/randomize-card';
 import { GifteeInfo } from './components/giftee-info/giftee-info';
-import { MIN_USERS_NUMBER } from '../app.constants';
+import { CONFETTI_ANIMATION_PATH, MIN_USERS_NUMBER } from '../app.constants';
 import { MyWishlist } from './components/my-wishlist/my-wishlist';
 import { ModalService } from '../core/services/modal';
 import { GifteeInfoModal } from './components/giftee-info-modal/giftee-info-modal';
 import { getPersonalInfo } from '../utils/get-personal-info';
 import { MyWishlistModal } from './components/my-wishlist/components/my-wishlist-modal/my-wishlist-modal';
+import { LottieAnimationService } from '../core/services/lottie-animation';
 
 @Component({
   selector: 'app-room',
-  imports: [
-    RoomInfo,
-    RandomizeCard,
-    GifteeInfo,
-    ParticipantList,
-    MyWishlist,
-    MyWishlistModal,
-  ],
+  imports: [RoomInfo, RandomizeCard, GifteeInfo, ParticipantList, MyWishlist],
   templateUrl: './room.html',
   styleUrl: './room.scss',
 })
 export class Room implements OnInit {
+  public readonly lottieContainer =
+    viewChild.required<ElementRef>('lottieContainer');
+
   readonly #route = inject(ActivatedRoute);
   readonly #roomService = inject(RoomService);
   readonly #userService = inject(UserService);
   readonly #modalService = inject(ModalService);
+  readonly #lottieAnimationService = inject(LottieAnimationService);
 
   public readonly roomData = this.#roomService.roomData;
   public readonly users = this.#userService.users;
@@ -39,13 +46,14 @@ export class Room implements OnInit {
   public readonly invitationLink = this.#roomService.invitationLink;
   public readonly isRoomDrawn = this.#roomService.isRoomDrawn;
   public readonly currentUser = this.#userService.currentUser;
+  public readonly userCode = this.#userService.userCode;
+
+  public readonly isBackgroundAnimationActive = signal<boolean>(false);
 
   public readonly isRandomizeCardDisabled = computed(
     () => this.users().length < MIN_USERS_NUMBER
   );
   public readonly gifteeName = computed(() => this.#getGifteeName());
-
-  readonly userCode = this.#userService.userCode;
 
   ngOnInit(): void {
     this.#route.paramMap.subscribe((params) => {
@@ -57,7 +65,21 @@ export class Room implements OnInit {
   }
 
   public onDrawNames(): void {
-    this.#userService.drawNames();
+    this.#userService
+      .drawNames()
+      .pipe(
+        tap(({ status }) => {
+          if (status === 200) {
+            this.#toggleBackgroundAnimation();
+            this.#lottieAnimationService.play({
+              container: this.lottieContainer().nativeElement,
+              path: CONFETTI_ANIMATION_PATH,
+              onComplete: () => this.#toggleBackgroundAnimation(),
+            });
+          }
+        })
+      )
+      .subscribe();
   }
 
   public onReadDetails(): void {
@@ -100,5 +122,9 @@ export class Room implements OnInit {
     const [firstName, lastName] = [gifteeUser?.firstName, gifteeUser?.lastName];
 
     return firstName && lastName ? `${firstName} ${lastName}` : '';
+  }
+
+  #toggleBackgroundAnimation(): void {
+    this.isBackgroundAnimationActive.update((prev) => !prev);
   }
 }

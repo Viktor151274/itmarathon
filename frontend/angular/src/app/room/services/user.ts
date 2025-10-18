@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 
 import { ApiService } from '../../core/services/api';
 import { RoomService } from './room';
@@ -45,21 +46,18 @@ export class UserService {
       .subscribe();
   }
 
-  public drawNames(): void {
-    this.#apiService
-      .drawNames(this.#userCode())
-      .pipe(
-        tap(({ status }) => {
-          if (status === 200) {
-            this.#roomService.getRoomByUserCode(this.#userCode());
-            this.getUsers();
-            this.#toasterService.show(
-              ToastMessage.SuccessDrawNames,
-              MessageType.Success
-            );
-          }
-        })
-      )
-      .subscribe();
+  public drawNames(): Observable<HttpResponse<string>> {
+    return this.#apiService.drawNames(this.#userCode()).pipe(
+      tap(({ status }) => {
+        if (status === 200) {
+          this.#roomService.getRoomByUserCode(this.#userCode());
+          this.getUsers();
+          this.#toasterService.show(
+            ToastMessage.SuccessDrawNames,
+            MessageType.Success
+          );
+        }
+      })
+    );
   }
 }

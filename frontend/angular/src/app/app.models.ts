@@ -188,3 +188,12 @@ export interface MyWishlistModalInputs {
   wishListInfo: GifteeWishlistInfo;
   budget?: number;
 }
+
+export interface LottieConfig {
+  container: HTMLElement;
+  path: string;
+  loop?: boolean;
+  autoplay?: boolean;
+  speed?: number;
+  onComplete?: () => void;
+}
