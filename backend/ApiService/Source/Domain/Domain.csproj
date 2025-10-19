@@ -11,4 +11,8 @@
 	  <PackageReference Include="FluentValidation" Version="12.0.0" />
 	</ItemGroup>
 
+    <ItemGroup>
+        <InternalsVisibleTo Include="Epam.ItMarathon.ApiService.Application.Tests" />
+    </ItemGroup>
+
 </Project>

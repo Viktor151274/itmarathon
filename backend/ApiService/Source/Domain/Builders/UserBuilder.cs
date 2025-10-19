@@ -1,5 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Domain.Abstract;
+﻿using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish;
 
@@ -93,14 +92,14 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
             return this;
         }
 
-        public User Build()
+        internal User Build()
         {
             return User.Create(_id, _createdOn, _modifiedOn,
                 _roomId, _authCode, _firstName, _lastName, _phone, _email,
                 _deliveryInfo, _giftRecipientUserId, _wantSurprise, _interests, _isAdmin, _wishes);
         }
 
-        public User InitialBuild()
+        internal User InitialBuild()
         {
             return User.InitialCreate(_roomId, _authCode, _firstName, _lastName, _phone, _email, _deliveryInfo,
                 _wantSurprise, _interests, _isAdmin, _wishes

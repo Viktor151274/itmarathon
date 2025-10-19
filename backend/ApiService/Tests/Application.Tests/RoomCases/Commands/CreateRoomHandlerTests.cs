@@ -107,14 +107,12 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.RoomCases.Commands
         /// <summary>
         /// Tests that the handler returns a ValidationResult error when the room's gift maximum budget exceeds limit.
         /// </summary>
-        /// <param name="giftMaximumBudget">Room's gift maximum budget to test.</param>
-        [Theory]
-        [InlineData(100_001)]
-        public async Task Handler_ShouldReturnFailure_WhenRoomGiftMaximumBudgetExceedsLimit(ulong giftMaximumBudget)
+        [Fact]
+        public async Task Handler_ShouldReturnFailure_WhenRoomGiftMaximumBudgetExceedsLimit()
         {
             // Arrange
             var invalidRoom = DataFakers.RoomApplicationFaker
-                .RuleFor(room => room.GiftMaximumBudget, _ => giftMaximumBudget)
+                .RuleFor(room => room.GiftMaximumBudget, _ => 100_001UL)
                 .Generate();
             var fakerUser = DataFakers.UserApplicationFaker.Generate();
             var command = new CreateRoomCommand(invalidRoom, fakerUser);
@@ -287,6 +285,33 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.RoomCases.Commands
             result.Error.Should().BeOfType<ValidationResult>();
             result.Error.Errors.Should().Contain(error =>
                 error.PropertyName.Equals("Users[0].wishList"));
+        }
+
+        /// <summary>
+        /// Tests that the handler returns a ValidationResult error when the user's wishes exceed the limit.
+        /// </summary>
+        [Fact]
+        public async Task Handle_ShouldReturnFailure_WhenUserWishesExceedsLimit()
+        {
+            // Arrange
+            const int wishesToGenerate = 6;
+            var fakeRoom = DataFakers.RoomApplicationFaker.Generate();
+            var invalidUser = DataFakers.UserApplicationFaker
+                .RuleFor(user => user.WantSurprise, _ => false)
+                .RuleFor(user => user.Interests, _ => null)
+                .RuleFor(user => user.Wishes, _ => Enumerable.Range(1, wishesToGenerate)
+                        .Select<int, (string?, string?)>((_, index) => (index.ToString(), null)))
+                .Generate();
+            var request = new CreateRoomCommand(fakeRoom, invalidUser);
+
+            // Act
+            var result = await _handler.Handle(request, CancellationToken.None);
+
+            // Assert
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().BeOfType<ValidationResult>();
+            result.Error.Errors.Should().Contain(error =>
+                error.PropertyName.Equals("limitsValidation.wishesLimit[0]"));
         }
 
         /// <summary>

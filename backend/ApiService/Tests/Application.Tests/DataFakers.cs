@@ -19,28 +19,66 @@ namespace Epam.ItMarathon.ApiService.Application.Tests
         /// <summary>
         /// Faker for generating <see cref="UserApplication"/> instances.
         /// </summary>
-        public static Faker<RoomApplication> RoomApplicationFaker { get; private set; }
+        public static Faker<RoomApplication> RoomApplicationFaker => new Faker<RoomApplication>()
+            .RuleFor(room => room.Name, faker => faker.Lorem.Word())
+            .RuleFor(room => room.Description, faker => faker.Lorem.Word())
+            .RuleFor(room => room.GiftExchangeDate, faker => faker.Date.Soon())
+            .RuleFor(room => room.GiftMaximumBudget, faker => (ulong)faker.Random.Int(0, 1000));
 
         /// <summary>
         /// Faker for generating <see cref="UserApplication"/> instances.
         /// </summary>
-        public static Faker<UserApplication> UserApplicationFaker { get; private set; }
+        public static Faker<UserApplication> UserApplicationFaker => new Faker<UserApplication>()
+            .RuleFor(user => user.FirstName, faker => faker.Name.FirstName())
+            .RuleFor(user => user.LastName, faker => faker.Name.LastName())
+            .RuleFor(user => user.Phone, faker => faker.Phone.PhoneNumber("+380#########"))
+            .RuleFor(user => user.DeliveryInfo, faker => faker.Address.StreetAddress())
+            .RuleFor(user => user.WantSurprise, _ => true)
+            .RuleFor(user => user.Interests, faker => faker.Lorem.Word())
+            .RuleFor(user => user.Wishes, _ => []);
+
+        /// <summary>
+        /// Pre-configured builder for creating valid <see cref="Room"/> instances.
+        /// </summary>
+        public static RoomBuilder ValidRoomBuilder => RoomBuilder.Init()
+            .WithId((ulong)GeneralFaker.UniqueIndex + 1)
+            .WithName(GeneralFaker.Lorem.Word())
+            .WithDescription(GeneralFaker.Lorem.Word())
+            .WithGiftExchangeDate(GeneralFaker.Date.Soon())
+            .WithMinUsersLimit(10)
+            .AddUser(_ => ValidUserBuilder);
 
         /// <summary>
         /// Faker for generating <see cref="Room"/> instances.
         /// </summary>
-        public static Faker<Room> RoomFaker { get; private set; }
+        public static Faker<Room> RoomFaker =>
+            new Faker<Room>().CustomInstantiator(_ => ValidRoomBuilder.Build().Value);
+
+        /// <summary>
+        /// Pre-configured builder for creating valid <see cref="User"/> instances.
+        /// </summary>
+        public static UserBuilder ValidUserBuilder => new UserBuilder()
+            .WithId((ulong)GeneralFaker.UniqueIndex + 1)
+            .WithFirstName(GeneralFaker.Name.FirstName())
+            .WithLastName(GeneralFaker.Name.LastName())
+            .WithPhone(GeneralFaker.Phone.PhoneNumber("+380#########"))
+            .WithEmail(GeneralFaker.Internet.Email())
+            .WithDeliveryInfo(GeneralFaker.Address.StreetAddress())
+            .WithWantSurprise(true)
+            .WithInterests(GeneralFaker.Lorem.Word())
+            .WithWishes([]);
 
         /// <summary>
         /// Faker for generating <see cref="User"/> instances.
         /// </summary>
-        public static Faker<User> UserFaker { get; private set; }
+        public static Faker<User> UserFaker => new Faker<User>().CustomInstantiator(_ => ValidUserBuilder.Build());
 
         /// <summary>
         /// Generates a TheoryData object containing a random string of the specified length.
         /// </summary>
         /// <param name="stringLength">Length of the string to generate.</param>
-        public static TheoryData<string> GetRandomString(int stringLength) => [GeneralFaker.Random.String(stringLength)];
+        public static TheoryData<string> GetRandomString(int stringLength) =>
+            [GeneralFaker.Random.String(stringLength)];
 
         /// <summary>
         /// Generates a TheoryData object containing various invalid email formats.
@@ -101,45 +139,5 @@ namespace Epam.ItMarathon.ApiService.Application.Tests
             DateTime.Today.AddDays(-7), // A week ago 
             new(2000, 1, 1), // Arbitrary past date
         ];
-
-        static DataFakers()
-        {
-            RoomApplicationFaker = new Faker<RoomApplication>()
-                .RuleFor(room => room.Name, faker => faker.Lorem.Word())
-                .RuleFor(room => room.Description, faker => faker.Lorem.Word())
-                .RuleFor(room => room.GiftExchangeDate, faker => faker.Date.Soon())
-                .RuleFor(room => room.GiftMaximumBudget, faker => (ulong)faker.Random.Int(0, 1000));
-
-            UserApplicationFaker = new Faker<UserApplication>()
-                .RuleFor(user => user.FirstName, faker => faker.Name.FirstName())
-                .RuleFor(user => user.LastName, faker => faker.Name.LastName())
-                .RuleFor(user => user.Phone, faker => faker.Phone.PhoneNumber("+380#########"))
-                .RuleFor(user => user.DeliveryInfo, faker => faker.Address.StreetAddress())
-                .RuleFor(user => user.WantSurprise, _ => true)
-                .RuleFor(user => user.Interests, faker => faker.Lorem.Word())
-                .RuleFor(user => user.Wishes, _ => []);
-
-            var userBuilder = new UserBuilder()
-                .WithId((ulong)GeneralFaker.UniqueIndex + 1)
-                .WithFirstName(GeneralFaker.Name.FirstName())
-                .WithLastName(GeneralFaker.Name.LastName())
-                .WithPhone(GeneralFaker.Phone.PhoneNumber("+380#########"))
-                .WithEmail(GeneralFaker.Internet.Email())
-                .WithDeliveryInfo(GeneralFaker.Address.StreetAddress())
-                .WithWantSurprise(true)
-                .WithInterests(GeneralFaker.Lorem.Word())
-                .WithWishes([]);
-
-            RoomFaker = new Faker<Room>().CustomInstantiator(faker => RoomBuilder.Init()
-                .WithId((ulong)faker.UniqueIndex + 1)
-                .WithName(faker.Lorem.Word())
-                .WithDescription(faker.Lorem.Word())
-                .WithGiftExchangeDate(faker.Date.Soon())
-                .WithMinUsersLimit(10)
-                .AddUser(_ => userBuilder)
-                .Build().Value);
-
-            UserFaker = new Faker<User>().CustomInstantiator(_ => userBuilder.Build());
-        }
     }
 }

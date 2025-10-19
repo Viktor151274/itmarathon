@@ -1,6 +1,7 @@
 ﻿using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands;
 using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
+using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using FluentAssertions;
 using FluentValidation.Results;
@@ -239,6 +240,37 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Commands
         }
 
         /// <summary>
+        /// Tests that the handler returns a ValidationResult error when the user's wishes exceed the limit.
+        /// </summary>
+        [Fact]
+        public async Task Handle_ShouldReturnFailure_WhenUserWishesExceedsLimit()
+        {
+            // Arrange
+            const int wishesToGenerate = 6;
+            var invalidUser = DataFakers.UserApplicationFaker
+                .RuleFor(user => user.WantSurprise, _ => false)
+                .RuleFor(user => user.Interests, _ => null)
+                .RuleFor(user => user.Wishes, _ => Enumerable.Range(1, wishesToGenerate)
+                    .Select<int, (string?, string?)>((_, index) => (index.ToString(), null)))
+                .Generate();
+            var existingRoom = DataFakers.RoomFaker.Generate();
+            var request = new CreateUserInRoomRequest(invalidUser, string.Empty);
+
+            _roomRepositoryMock
+                .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
+                .Returns(existingRoom);
+
+            // Act
+            var result = await _handler.Handle(request, CancellationToken.None);
+
+            // Assert
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().BeOfType<ValidationResult>();
+            result.Error.Errors.Should().Contain(error =>
+                error.PropertyName.Equals($"limitsValidation.wishesLimit[{existingRoom.Users.Count}]"));
+        }
+
+        /// <summary>
         /// Tests that the handler returns a ValidationResult error when the user has invalid interests based on their wantSurprise preference.
         /// </summary>
         /// <param name="wantSurprise">User's want surprise preference.</param>
@@ -271,6 +303,41 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Commands
         }
 
         /// <summary>
+        /// Tests that the handler returns a ValidationResult error when the room's user limit is exceeded.
+        /// </summary>
+        [Fact]
+        public async Task Handle_ShouldReturnFailure_WhenRoomUsersExceedsLimit()
+        {
+            // Arrange
+            const int usersToGenerate = 20;
+            var invalidUser = DataFakers.UserApplicationFaker.Generate();
+            var existingRoom = DataFakers.RoomFaker.RuleFor(room => room.Users, _ =>
+            {
+                var existingUsers = new List<User>();
+                for (var index = 0; index < usersToGenerate; index++)
+                {
+                    existingUsers.Add(DataFakers.ValidUserBuilder.Build());
+                }
+
+                return existingUsers;
+            }).Generate();
+            var request = new CreateUserInRoomRequest(invalidUser, string.Empty);
+
+            _roomRepositoryMock
+                .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
+                .Returns(existingRoom);
+
+            // Act
+            var result = await _handler.Handle(request, CancellationToken.None);
+
+            // Assert
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().BeOfType<ValidationResult>();
+            result.Error.Errors.Should().Contain(error =>
+                error.PropertyName.Equals("limitsValidation.userLimit"));
+        }
+
+        /// <summary>
         /// Tests that the handler successfully creates a user when provided with valid user information.
         /// </summary>
         [Fact]
@@ -293,6 +360,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Commands
                 .Generate();
             var existingRoom = DataFakers.RoomFaker
                 .RuleFor(room => room.Description, faker => faker.Lorem.Sentence(2))
+                .RuleFor(room => room.Users, _ => [DataFakers.ValidUserBuilder.Build()])
                 .Generate();
             var request = new CreateUserInRoomRequest(validUser, string.Empty);
 
