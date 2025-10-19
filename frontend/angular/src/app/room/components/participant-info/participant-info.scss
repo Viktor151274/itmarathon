@@ -1,0 +1,56 @@
+@use 'abstracts/mixins' as *;
+@use 'abstracts/variables' as *;
+@use 'colors/color-matrix' as *;
+@use 'base/typography' as *;
+
+:host {
+  @include flex-centered-column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  background:
+    url('/assets/images/snowflake-small.svg') right 58px top 44px no-repeat,
+    url('/assets/images/snowflake-big.svg') right 8px top 0px no-repeat,
+    url('/assets/images/snowdrift.svg') right 0px bottom 0px no-repeat,
+    $participant-info-bg;
+  box-shadow: $shadow;
+}
+
+.participant-info {
+  &__title {
+    @include heading(32px, $line-height-sm);
+
+    color: $participant-info-title;
+  }
+
+  &__subtitle {
+    @include heading($text-sm);
+    font-weight: 500;
+    color: $participant-info-subtitle;
+  }
+
+  &__link-title {
+    @include heading(14px);
+    font-weight: 500;
+    color: $participant-info-link-title;
+  }
+
+  &__content {
+    @include flex-centered-column;
+    gap: 40px;
+    width: 100%;
+  }
+
+  &__link-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}

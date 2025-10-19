@@ -1,0 +1,20 @@
+<header class="participant-info__header">
+  <h2 class="participant-info__title">Hi, {{ firstName() }}!</h2>
+  <h3 class="participant-info__subtitle">
+    Get ready for happy gift exchange and fun in {{ roomName() }} game!
+  </h3>
+</header>
+<div class="participant-info__content">
+  @if (link(); as link) {
+    <div class="participant-info__link-block">
+      <h4 class="participant-info__link-title">Your Participant Link</h4>
+      <app-copy-link [link]="link" [type]="linkType" [caption]="caption" />
+    </div>
+  }
+
+  <app-button
+    [text]="buttonText"
+    class="secondary medium participant-info__button"
+    (click)="onButtonClick()"
+  ></app-button>
+</div>

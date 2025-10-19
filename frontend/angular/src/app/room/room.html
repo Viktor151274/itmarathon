@@ -12,7 +12,13 @@
     />
   </section>
 
-  <aside class="room__participant-info"></aside>
+  <aside class="room__participant-info">
+    <app-participant-info
+      [firstName]="firstName()"
+      [roomName]="roomName()"
+      [link]="userLink()"
+    />
+  </aside>
 
   <section class="room__participant-list">
     <app-participant-list

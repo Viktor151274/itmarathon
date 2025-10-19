@@ -23,10 +23,20 @@ import { GifteeInfoModal } from './components/giftee-info-modal/giftee-info-moda
 import { getPersonalInfo } from '../utils/get-personal-info';
 import { MyWishlistModal } from './components/my-wishlist/components/my-wishlist-modal/my-wishlist-modal';
 import { LottieAnimationService } from '../core/services/lottie-animation';
+import { ParticipantInfo } from './components/participant-info/participant-info';
+import { UrlService } from '../core/services/url';
+import { NavigationLinkSegment } from '../app.enum';
 
 @Component({
   selector: 'app-room',
-  imports: [RoomInfo, RandomizeCard, GifteeInfo, ParticipantList, MyWishlist],
+  imports: [
+    RoomInfo,
+    RandomizeCard,
+    GifteeInfo,
+    ParticipantList,
+    MyWishlist,
+    ParticipantInfo,
+  ],
   templateUrl: './room.html',
   styleUrl: './room.scss',
 })
@@ -39,6 +49,7 @@ export class Room implements OnInit {
   readonly #userService = inject(UserService);
   readonly #modalService = inject(ModalService);
   readonly #lottieAnimationService = inject(LottieAnimationService);
+  readonly #urlService = inject(UrlService);
 
   public readonly roomData = this.#roomService.roomData;
   public readonly users = this.#userService.users;
@@ -54,6 +65,21 @@ export class Room implements OnInit {
     () => this.users().length < MIN_USERS_NUMBER
   );
   public readonly gifteeName = computed(() => this.#getGifteeName());
+  public readonly firstName = computed(
+    () => this.currentUser()?.firstName ?? 'Participant'
+  );
+  public readonly roomName = computed(
+    () => this.roomData()?.name || 'Secret Nick'
+  );
+
+  public readonly userLink = computed(() =>
+    this.roomData().modifiedOn
+      ? this.#urlService.getNavigationLinks(
+          this.userCode(),
+          NavigationLinkSegment.Room
+        ).absoluteUrl
+      : ''
+  );
 
   ngOnInit(): void {
     this.#route.paramMap.subscribe((params) => {

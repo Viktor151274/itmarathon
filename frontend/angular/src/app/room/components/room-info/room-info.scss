@@ -1,4 +1,5 @@
 @use 'colors/color-matrix' as *;
+@use 'abstracts/variables' as *;
 @use 'base/typography' as *;
 @use 'abstracts/mixins' as *;
 
@@ -16,6 +17,7 @@
   background:
     url('/assets/images/ball-decor.svg') right -2px top 0px no-repeat,
     $room-info-bg;
+  box-shadow: $shadow;
 }
 
 .room-info {
