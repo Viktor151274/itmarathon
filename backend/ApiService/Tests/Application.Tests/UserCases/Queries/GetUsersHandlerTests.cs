@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers;
-using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Queries;
+using Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers;
+using Epam.ItMarathon.ApiService.Application.UseCases.User.Queries;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using FluentAssertions;

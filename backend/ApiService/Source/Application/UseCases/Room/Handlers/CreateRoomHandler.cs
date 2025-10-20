@@ -1,17 +1,17 @@
 ﻿using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Commands;
+using Epam.ItMarathon.ApiService.Application.UseCases.Room.Commands;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
-using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
 using Epam.ItMarathon.ApiService.Domain.Builders;
 using FluentValidation.Results;
 using MediatR;
+using RoomAggregate = Epam.ItMarathon.ApiService.Domain.Aggregate.Room.Room;
 
-namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
+namespace Epam.ItMarathon.ApiService.Application.UseCases.Room.Handlers
 {
     public class CreateRoomHandler(IRoomRepository roomRepository)
-        : IRequestHandler<CreateRoomCommand, Result<Room, ValidationResult>>
+        : IRequestHandler<CreateRoomCommand, Result<RoomAggregate, ValidationResult>>
     {
-        public async Task<Result<Room, ValidationResult>> Handle(CreateRoomCommand request,
+        public async Task<Result<RoomAggregate, ValidationResult>> Handle(CreateRoomCommand request,
             CancellationToken cancellationToken)
         {
             var adminRequest = request.Admin;

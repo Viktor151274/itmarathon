@@ -1,5 +1,5 @@
-﻿using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands;
-using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers;
+﻿using Epam.ItMarathon.ApiService.Application.UseCases.User.Commands;
+using Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
@@ -53,6 +53,33 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Commands
             result.Error.Should().BeOfType<NotFoundError>();
             result.Error.Errors.Should().Contain(error =>
                 error.PropertyName.Equals("code"));
+        }
+
+        /// <summary>
+        /// Tests that the handler returns a BadRequestError when the room is already closed.
+        /// </summary>
+        [Fact]
+        public async Task Handle_ShouldReturnFailure_WhenRoomIsAlreadyClosed()
+        {
+            // Arrange
+            var invalidUser = DataFakers.UserApplicationFaker.Generate();
+            var existingRoom = DataFakers.RoomFaker
+                .RuleFor(room => room.ClosedOn, faker => faker.Date.Past())
+                .Generate();
+            var request = new CreateUserInRoomRequest(invalidUser, string.Empty);
+
+            _roomRepositoryMock
+                .GetByRoomCodeAsync(Arg.Any<string>(), CancellationToken.None)
+                .Returns(existingRoom);
+
+            // Act
+            var result = await _handler.Handle(request, CancellationToken.None);
+
+            // Assert
+            result.IsFailure.Should().BeTrue();
+            result.Error.Should().BeOfType<BadRequestError>();
+            result.Error.Errors.Should().Contain(error =>
+                error.PropertyName.Equals("room.ClosedOn"));
         }
 
         /// <summary>

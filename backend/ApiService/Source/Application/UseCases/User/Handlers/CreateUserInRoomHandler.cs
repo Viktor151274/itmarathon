@@ -1,17 +1,17 @@
 ﻿using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands;
+using Epam.ItMarathon.ApiService.Application.UseCases.User.Commands;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
-using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using FluentValidation.Results;
 using MediatR;
+using UserEntity = Epam.ItMarathon.ApiService.Domain.Entities.User.User;
 
-namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers
+namespace Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers
 {
     public class CreateUserInRoomHandler(IRoomRepository roomRepository, IUserReadOnlyRepository userRepository) :
-        IRequestHandler<CreateUserInRoomRequest, IResult<User, ValidationResult>>
+        IRequestHandler<CreateUserInRoomRequest, IResult<UserEntity, ValidationResult>>
     {
-        public async Task<IResult<User, ValidationResult>> Handle(CreateUserInRoomRequest request,
+        public async Task<IResult<UserEntity, ValidationResult>> Handle(CreateUserInRoomRequest request,
             CancellationToken cancellationToken)
         {
             var roomCode = request.RoomCode;
@@ -19,7 +19,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers
             var roomFindResult = await roomRepository.GetByRoomCodeAsync(roomCode, cancellationToken);
             if (roomFindResult.IsFailure)
             {
-                return roomFindResult.ConvertFailure<User>();
+                return roomFindResult.ConvertFailure<UserEntity>();
             }
 
             var userCode = Guid.NewGuid().ToString("N");
@@ -38,13 +38,13 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers
 
             if (roomResult.IsFailure)
             {
-                return roomResult.ConvertFailure<User>();
+                return roomResult.ConvertFailure<UserEntity>();
             }
 
             var roomUpdatingResult = await roomRepository.UpdateAsync(roomResult.Value, cancellationToken);
             if (roomUpdatingResult.IsFailure)
             {
-                return Result.Failure<User, ValidationResult>(new NotFoundError([
+                return Result.Failure<UserEntity, ValidationResult>(new NotFoundError([
                     new ValidationFailure(nameof(roomCode), roomUpdatingResult.Error)
                 ]));
             }

@@ -155,7 +155,8 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         {
             if (ClosedOn is not null)
             {
-                return new ValidationResult().ValidationFailure("room", $"Room {Id} is closed!");
+                return Result.Failure<Room, ValidationResult>(
+                    new BadRequestError([new ValidationFailure("room.ClosedOn", $"Room is already closed.")]));
             }
             var userBuilder = new UserBuilder();
             var user = userBuilderConfiguration(userBuilder).InitialBuild();

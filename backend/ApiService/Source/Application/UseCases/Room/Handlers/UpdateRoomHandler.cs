@@ -1,17 +1,17 @@
 ﻿using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Commands;
+using Epam.ItMarathon.ApiService.Application.UseCases.Room.Commands;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
-using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using FluentValidation.Results;
 using MediatR;
+using RoomAggregate = Epam.ItMarathon.ApiService.Domain.Aggregate.Room.Room;
 
-namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
+namespace Epam.ItMarathon.ApiService.Application.UseCases.Room.Handlers
 {
     public class UpdateRoomHandler(IRoomRepository roomRepository)
-        : IRequestHandler<UpdateRoomCommand, Result<Room, ValidationResult>>
+        : IRequestHandler<UpdateRoomCommand, Result<RoomAggregate, ValidationResult>>
     {
-        public async Task<Result<Room, ValidationResult>> Handle(UpdateRoomCommand request,
+        public async Task<Result<RoomAggregate, ValidationResult>> Handle(UpdateRoomCommand request,
             CancellationToken cancellationToken)
         {
             var areAllFieldsEmpty = string.IsNullOrWhiteSpace(request.Name) &&
@@ -22,7 +22,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
 
             if (areAllFieldsEmpty)
             {
-                return Result.Failure<Room, ValidationResult>(
+                return Result.Failure<RoomAggregate, ValidationResult>(
                     new BadRequestError([
                         new ValidationFailure(string.Empty, "At least one field must be provided.")
                     ]));
@@ -37,7 +37,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
             var authUser = roomResult.Value.Users.First(user => user.AuthCode.Equals(request.UserCode));
             if (!authUser.IsAdmin)
             {
-                return Result.Failure<Room, ValidationResult>(new ForbiddenError([
+                return Result.Failure<RoomAggregate, ValidationResult>(new ForbiddenError([
                     new ValidationFailure("userCode", "Only admin can update the room")
                 ]));
             }
@@ -59,13 +59,13 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
 
             if (validationFailures.Count > 0)
             {
-                return Result.Failure<Room, ValidationResult>(new BadRequestError(validationFailures));
+                return Result.Failure<RoomAggregate, ValidationResult>(new BadRequestError(validationFailures));
             }
 
             var updatingResult = await roomRepository.UpdateAsync(room, cancellationToken);
             if (updatingResult.IsFailure)
             {
-                return Result.Failure<Room, ValidationResult>(new BadRequestError([
+                return Result.Failure<RoomAggregate, ValidationResult>(new BadRequestError([
                     new ValidationFailure(string.Empty, updatingResult.Error)
                 ]));
             }
@@ -74,12 +74,12 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers
             return updatedRoomResult.Value;
         }
 
-        private static Result<Room, ValidationResult> SetFieldIfNotNull<T>(T? fieldValue,
-            Func<T, Result<Room, ValidationResult>> validationAction)
+        private static Result<RoomAggregate, ValidationResult> SetFieldIfNotNull<T>(T? fieldValue,
+            Func<T, Result<RoomAggregate, ValidationResult>> validationAction)
         {
             return fieldValue is not null
                 ? validationAction(fieldValue)
-                : Result.Success<Room?, ValidationResult>(null)!;
+                : Result.Success<RoomAggregate?, ValidationResult>(null)!;
         }
     }
 }

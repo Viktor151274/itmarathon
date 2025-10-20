@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers;
-using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Queries;
+using Epam.ItMarathon.ApiService.Application.UseCases.Room.Handlers;
+using Epam.ItMarathon.ApiService.Application.UseCases.Room.Queries;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;

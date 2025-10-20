@@ -1,5 +1,5 @@
-﻿using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Commands;
-using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Handlers;
+﻿using Epam.ItMarathon.ApiService.Application.UseCases.Room.Commands;
+using Epam.ItMarathon.ApiService.Application.UseCases.Room.Handlers;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
 using FluentAssertions;

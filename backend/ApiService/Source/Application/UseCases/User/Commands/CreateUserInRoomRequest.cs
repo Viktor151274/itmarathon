@@ -1,11 +1,11 @@
 ﻿using CSharpFunctionalExtensions;
 using Epam.ItMarathon.ApiService.Application.Models.Creation;
-using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using FluentValidation.Results;
 using MediatR;
+using UserEntity = Epam.ItMarathon.ApiService.Domain.Entities.User.User;
 
-namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands
+namespace Epam.ItMarathon.ApiService.Application.UseCases.User.Commands
 {
     public record CreateUserInRoomRequest(UserApplication User, string RoomCode)
-        : IRequest<IResult<User, ValidationResult>>;
+        : IRequest<IResult<UserEntity, ValidationResult>>;
 }

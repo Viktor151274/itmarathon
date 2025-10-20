@@ -8,8 +8,8 @@ using Epam.ItMarathon.ApiService.Api.Endpoints.Extension;
 using Epam.ItMarathon.ApiService.Api.Endpoints.Extension.SwaggerTagExtension;
 using Epam.ItMarathon.ApiService.Api.Filters.Validation;
 using Epam.ItMarathon.ApiService.Application.Models.Creation;
-using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Commands;
-using Epam.ItMarathon.ApiService.Application.UseCases.RoomCases.Queries;
+using Epam.ItMarathon.ApiService.Application.UseCases.Room.Commands;
+using Epam.ItMarathon.ApiService.Application.UseCases.Room.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

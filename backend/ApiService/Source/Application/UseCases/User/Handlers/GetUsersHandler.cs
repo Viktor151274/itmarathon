@@ -1,17 +1,17 @@
 ﻿using CSharpFunctionalExtensions;
-using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Queries;
+using Epam.ItMarathon.ApiService.Application.UseCases.User.Queries;
 using Epam.ItMarathon.ApiService.Domain.Abstract;
-using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using FluentValidation.Results;
 using MediatR;
+using UserEntity = Epam.ItMarathon.ApiService.Domain.Entities.User.User;
 
-namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers
+namespace Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers
 {
     public class GetUsersHandler(IUserReadOnlyRepository userRepository)
-        : IRequestHandler<GetUsersQuery, Result<List<User>, ValidationResult>>
+        : IRequestHandler<GetUsersQuery, Result<List<UserEntity>, ValidationResult>>
     {
-        public async Task<Result<List<User>, ValidationResult>> Handle(GetUsersQuery request,
+        public async Task<Result<List<UserEntity>, ValidationResult>> Handle(GetUsersQuery request,
             CancellationToken cancellationToken)
         {
             var authUserResult =
@@ -19,7 +19,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers
                     includeWishes: true);
             if (authUserResult.IsFailure)
             {
-                return authUserResult.ConvertFailure<List<User>>();
+                return authUserResult.ConvertFailure<List<UserEntity>>();
             }
 
             if (request.UserId is null)
@@ -36,18 +36,18 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Handlers
                     includeWishes: true);
             if (requestedUserResult.IsFailure)
             {
-                return requestedUserResult.ConvertFailure<List<User>>();
+                return requestedUserResult.ConvertFailure<List<UserEntity>>();
             }
 
             if (requestedUserResult.Value.RoomId != authUserResult.Value.RoomId)
             {
-                return Result.Failure<List<User>, ValidationResult>(
+                return Result.Failure<List<UserEntity>, ValidationResult>(
                     new NotAuthorizedError([
                         new ValidationFailure("id", "User with userCode and user with Id belongs to different rooms.")
                     ]));
             }
 
-            return new List<User> { requestedUserResult.Value, authUserResult.Value };
+            return new List<UserEntity> { requestedUserResult.Value, authUserResult.Value };
         }
     }
 }

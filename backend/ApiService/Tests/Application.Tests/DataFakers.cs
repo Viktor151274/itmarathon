@@ -42,6 +42,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests
         /// </summary>
         public static RoomBuilder ValidRoomBuilder => RoomBuilder.Init()
             .WithId((ulong)GeneralFaker.UniqueIndex + 1)
+            .WithInvitationCode(Guid.NewGuid().ToString())
             .WithName(GeneralFaker.Lorem.Word())
             .WithDescription(GeneralFaker.Lorem.Word())
             .WithGiftExchangeDate(GeneralFaker.Date.Soon())
@@ -59,6 +60,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests
         /// </summary>
         public static UserBuilder ValidUserBuilder => new UserBuilder()
             .WithId((ulong)GeneralFaker.UniqueIndex + 1)
+            .WithAuthCode(Guid.NewGuid().ToString())
             .WithFirstName(GeneralFaker.Name.FirstName())
             .WithLastName(GeneralFaker.Name.LastName())
             .WithPhone(GeneralFaker.Phone.PhoneNumber("+380#########"))

@@ -6,11 +6,11 @@ using Epam.ItMarathon.ApiService.Api.Endpoints.Extension;
 using Epam.ItMarathon.ApiService.Api.Endpoints.Extension.SwaggerTagExtension;
 using Epam.ItMarathon.ApiService.Api.Filters.Validation;
 using Epam.ItMarathon.ApiService.Application.Models.Creation;
-using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Commands;
-using Epam.ItMarathon.ApiService.Application.UseCases.UserCases.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Epam.ItMarathon.ApiService.Application.UseCases.User.Commands;
+using Epam.ItMarathon.ApiService.Application.UseCases.User.Queries;
 
 namespace Epam.ItMarathon.ApiService.Api.Endpoints
 {
