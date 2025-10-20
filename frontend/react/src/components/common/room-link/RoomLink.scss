@@ -10,12 +10,20 @@
     .room-link:has(.room-link__description) & {
       margin-bottom: 8px;
     }
+
+    &--white {
+      color: colors.$g-100;
+    }
   }
 
   &__description {
     @extend %body-sm;
     margin-bottom: 20px;
     color: colors.$g-800;
+
+    &--white {
+      color: colors.$g-100;
+    }
 
     &--small {
       @extend %label;
@@ -31,5 +39,9 @@
 
   &__caption {
     color: colors.$red-warning;
+
+    &--white {
+      color: colors.$g-100;
+    }
   }
 }

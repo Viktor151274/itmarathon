@@ -176,6 +176,11 @@
       }
     }
 
+    &--white:not(:placeholder-shown) {
+      border-color: colors.$g-50;
+      background-color: variables.$glass-background;
+    }
+
     &::placeholder {
       color: colors.$g-400;
     }

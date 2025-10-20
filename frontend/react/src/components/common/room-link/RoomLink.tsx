@@ -8,15 +8,22 @@ const RoomLink = ({
   description,
   url,
   caption,
+  white = false,
   small = false,
 }: RoomLinkProps) => {
   return (
     <div className="room-link">
-      {title ? <h2 className="room-link__title">{title}</h2> : null}
+      {title ? (
+        <h2
+          className={`room-link__title ${white ? "room-link__title--white" : ""}`}
+        >
+          {title}
+        </h2>
+      ) : null}
 
       {description ? (
         <p
-          className={`room-link__description ${small ? "room-link__description--small" : ""}`}
+          className={`room-link__description ${small ? "room-link__description--small" : ""} ${white ? "room-link__description--white" : ""}`}
         >
           {description}
         </p>
@@ -24,16 +31,21 @@ const RoomLink = ({
 
       <div className="room-link__link-container">
         <input
-          className={styles.inputWrapper__input}
+          className={`${styles.inputWrapper__input} ${white ? styles["inputWrapper__input--white"] : ""}`}
           type="url"
           value={url}
           readOnly
         />
-        <CopyButton textToCopy={url} />
+        <CopyButton
+          textToCopy={url}
+          buttonColor={`${white ? "white" : "green"}`}
+        />
       </div>
 
       {caption ? (
-        <p className={`room-link__caption ${styles.inputWrapper__caption}`}>
+        <p
+          className={`room-link__caption ${white ? "room-link__caption--white" : ""} ${styles.inputWrapper__caption}`}
+        >
           {caption}
         </p>
       ) : null}

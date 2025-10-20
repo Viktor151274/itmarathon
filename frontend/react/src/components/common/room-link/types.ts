@@ -3,5 +3,6 @@ export interface RoomLinkProps {
   description?: string;
   url: string;
   caption?: string;
+  white?: boolean;
   small?: boolean;
 }
