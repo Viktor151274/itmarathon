@@ -18,7 +18,7 @@ export const FORM_CONTENT_MAP = {
       "Share the link below with up to 20 friends to invite them — and don’t lose your personal link! Let the festive magic begin!",
   },
   JOINED_ROOM: {
-    title: "You have just joined the room! 🎅",
+    title: "You Have Joined the Room! 🎅",
     description:
       "Your holiday adventure is about to begin! Thank you for joining the Secret Nick room.",
   },
