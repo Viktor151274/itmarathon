@@ -104,19 +104,6 @@
       padding-right: 12px;
     }
 
-    &.inputWrapper__input--invitation-note {
-      @extend %body-sm;
-      color: colors.$g-800;
-      background-color: colors.$green-100;
-      border: 1px solid colors.$green-400;
-      border-radius: 8px;
-      padding: 24px 24px 48px 24px;
-    }
-
-    &.inputWrapper__input--invitation-note:not(:placeholder-shown) {
-      border-color: colors.$green-400;
-    }
-
     &:hover:not(:disabled):not(:has(.inputWrapper__caption)) {
       border-color: colors.$g-400;
 
@@ -131,6 +118,28 @@
 
       + .inputWrapper__prefix {
         border-right-color: colors.$g-300;
+      }
+    }
+
+    &.inputWrapper__input--invitation-note {
+      @extend %body-sm;
+      color: colors.$g-800;
+      background-color: colors.$green-100;
+      border: 1px solid colors.$green-400;
+      border-radius: 8px;
+      padding: 24px 24px 48px 24px;
+    }
+
+    &.inputWrapper__input--invitation-note:not(:placeholder-shown) {
+      border-color: colors.$green-400;
+    }
+
+    &.inputWrapper__input--invitation-note:not(:read-only) {
+      border-color: colors.$orange-500;
+
+      &:focus,
+      &:hover {
+        border-color: colors.$orange-500;
       }
     }
 

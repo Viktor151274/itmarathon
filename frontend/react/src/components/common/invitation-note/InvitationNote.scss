@@ -19,8 +19,28 @@
   color: colors.$blue-link;
 }
 
-.note-copy-button {
+.note-buttons {
   position: absolute;
   right: 16px;
   top: 16px;
+  display: flex;
+  column-gap: 16px;
+}
+
+.note-info-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.note-caption {
+  @extend %caption;
+  margin-top: 2px;
+  color: colors.$red-warning;
+}
+
+.note-counter {
+  @extend %label;
+  flex-grow: 1;
+  text-align: right;
+  color: colors.$g-500;
 }

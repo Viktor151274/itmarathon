@@ -6,11 +6,7 @@ import RoomLink from "../common/room-link/RoomLink";
 import InvitationNote from "../common/invitation-note/InvitationNote";
 import type { CreateRoomSuccessPageProps, RoomAndUserData } from "./types";
 import { CREATE_ROOM_SUCCESS_PAGE_TITLE } from "./utils";
-import {
-  generateRoomLink,
-  generateParticipantLink,
-  generateInvitationNoteContent,
-} from "../../utils/general";
+import { generateRoomLink, generateParticipantLink } from "../../utils/general";
 import "@assets/styles/common/room-success-page.scss";
 
 const CreateRoomSuccessPage = ({
@@ -31,13 +27,9 @@ const CreateRoomSuccessPage = ({
     return null;
   }
 
-  const { roomLink, participantLink, invitationNoteContent } = {
+  const { roomLink, participantLink } = {
     roomLink: generateRoomLink(roomAndUserData.invitationCode),
     participantLink: generateParticipantLink(roomAndUserData.userCode),
-    invitationNoteContent: generateInvitationNoteContent(
-      roomAndUserData.invitationNote,
-      roomAndUserData.invitationCode,
-    ),
   };
 
   const handleVisitRoom = () => {
@@ -58,7 +50,10 @@ const CreateRoomSuccessPage = ({
       >
         <div className="room-success-page__content">
           <RoomLink title="Your Room Link" url={roomLink} />
-          <InvitationNote value={invitationNoteContent} />
+          <InvitationNote
+            value={roomAndUserData.invitationNote}
+            invitationLink={roomLink}
+          />
           <RoomLink
             title="Your Personal Participant Link"
             description="This is your unique personal link to access the Secret Nick room."
