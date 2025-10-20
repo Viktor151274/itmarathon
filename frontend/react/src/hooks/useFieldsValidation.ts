@@ -4,10 +4,10 @@ export function useFieldsValidation<T extends string>(
   formFieldsErrors: ValidationErrors<T>,
   setFormFieldError: (field: T, validation: FieldValidation) => void,
 ) {
-  const validateField = (
+  const validateField = <ValueType>(
     field: T,
-    validatorFn: (fieldValue: string) => FieldValidation,
-    fieldValue: string,
+    validatorFn: (fieldValue: ValueType) => FieldValidation,
+    fieldValue: ValueType,
   ) => {
     const validationResult = validatorFn(fieldValue);
     setFormFieldError(field, validationResult);

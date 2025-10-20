@@ -6,7 +6,7 @@ export const CreateRoomFormInputNames = {
   GIFT_BUDGET: "giftMaximumBudget",
 } as const;
 
-export type InputName =
+export type CreateRoomFormInputName =
   (typeof CreateRoomFormInputNames)[keyof typeof CreateRoomFormInputNames];
 
 type DatePickerOnChange = NonNullable<DatePickerProps["onChange"]>;

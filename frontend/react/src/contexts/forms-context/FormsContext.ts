@@ -5,6 +5,10 @@ import {
   DetailsFormInputNames,
   type DetailsFormInputName,
 } from "../../components/common/details-form/types";
+import {
+  CreateRoomFormInputNames,
+  type CreateRoomFormInputName,
+} from "@components/create-room-page/create-room-form/types";
 import { OPTIONAL_FIELDS } from "./utils";
 
 const roomData = {
@@ -59,6 +63,13 @@ const defaultDetailsFormFieldsErrors = Object.fromEntries(
   ]),
 ) as ValidationErrors<DetailsFormInputName>;
 
+const defaultCreateRoomFormFieldsErrors = Object.fromEntries(
+  Object.values(CreateRoomFormInputNames).map((field) => [
+    field,
+    { isValid: null, errorMessage: "" },
+  ]),
+) as ValidationErrors<CreateRoomFormInputName>;
+
 export const defaultContext: FormContextType = {
   currentStep: 0,
   onNextStep: () => {},
@@ -69,6 +80,7 @@ export const defaultContext: FormContextType = {
   getJoinRoomDetailsData: () => defaultUserData,
   setFormFieldError: () => {},
   getDetailsFormFieldsErrors: () => defaultDetailsFormFieldsErrors,
+  getCreateRoomFormFieldsErrors: () => defaultCreateRoomFormFieldsErrors,
 };
 
 export const FormsContext = createContext<FormContextType>(defaultContext);

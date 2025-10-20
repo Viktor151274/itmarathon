@@ -1,8 +1,14 @@
-import { useContext, type ChangeEvent, type KeyboardEvent } from "react";
+import {
+  useContext,
+  type ChangeEvent,
+  type KeyboardEvent,
+  type FocusEvent,
+} from "react";
 import { DatePicker, type DatePickerProps } from "antd";
 
 import FormWrapper from "../../common/form-wrapper/FormWrapper";
 import Input from "../../common/input/Input";
+import { useFieldsValidation } from "@hooks/useFieldsValidation";
 import {
   CreateRoomFormInputNames,
   type DateType,
@@ -16,6 +22,7 @@ import {
 } from "./utils";
 import {
   blockInvalidNumberKeys,
+  giftBudgetLimitValidator,
   isRequiredFieldsFilled,
 } from "../../../utils/validation";
 
@@ -24,9 +31,43 @@ import { FormsContext } from "../../../contexts/forms-context/FormsContext";
 import "./CreateRoomForm.scss";
 
 const CreateRoomForm = () => {
-  const { onNextStep, roomData, setRoomData } = useContext(FormsContext);
+  const {
+    onNextStep,
+    roomData,
+    setRoomData,
+    getCreateRoomFormFieldsErrors,
+    setFormFieldError,
+  } = useContext(FormsContext);
+
   const { name, description, giftExchangeDate, giftMaximumBudget } =
     roomData.room;
+
+  const createRoomFormFieldsErrors = getCreateRoomFormFieldsErrors();
+
+  const { validateField, isFieldsValid } = useFieldsValidation(
+    createRoomFormFieldsErrors,
+    (field, validation) => setFormFieldError(field, validation),
+  );
+
+  const { giftMaximumBudget: giftBudgetLimitErrorField } =
+    createRoomFormFieldsErrors;
+
+  const gitfBudgetCaption =
+    giftBudgetLimitErrorField.errorMessage || "0 means unlimited budget";
+
+  const handleBlur = (
+    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+
+    if (name === CreateRoomFormInputNames.GIFT_BUDGET) {
+      validateField(
+        CreateRoomFormInputNames.GIFT_BUDGET,
+        giftBudgetLimitValidator,
+        Number(value),
+      );
+    }
+  };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -74,10 +115,9 @@ const CreateRoomForm = () => {
     return currentDate < today;
   };
 
-  const isFormValid = isRequiredFieldsFilled<FormData>(
-    roomData?.room,
-    requiredFields,
-  );
+  const isFormValid =
+    isRequiredFieldsFilled<FormData>(roomData?.room, requiredFields) &&
+    isFieldsValid;
 
   return (
     <FormWrapper
@@ -134,7 +174,7 @@ const CreateRoomForm = () => {
           <Input
             type="number"
             placeholder="Type in your budget"
-            caption="0 means unlimited budget"
+            caption={gitfBudgetCaption}
             label="Gift budget"
             name={CreateRoomFormInputNames.GIFT_BUDGET}
             width="338px"
@@ -142,8 +182,10 @@ const CreateRoomForm = () => {
             withoutCounter
             withSuffix
             value={giftMaximumBudget}
+            hasError={giftBudgetLimitErrorField.isValid === false}
             onChange={handleChange}
             onKeyDown={handleBudgetKeyDown}
+            onBlur={handleBlur}
           />
         </div>
       </div>

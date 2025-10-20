@@ -1,4 +1,5 @@
 import type { KeyboardEvent } from "react";
+import { GIFT_BUDGET_LIMIT } from "@components/create-room-page/create-room-form/utils";
 import type { FieldValidation } from "../types/general";
 
 export const validateNonNegativeNumber = (value: string): boolean => {
@@ -56,6 +57,20 @@ export const emailValidator = (value: string) => {
     return {
       isValid: false,
       errorMessage: "Please enter a valid email address",
+    };
+  }
+
+  return {
+    isValid: true,
+    errorMessage: "",
+  };
+};
+
+export const giftBudgetLimitValidator = (budget: number): FieldValidation => {
+  if (budget > GIFT_BUDGET_LIMIT) {
+    return {
+      isValid: false,
+      errorMessage: `Maximum budget is ${GIFT_BUDGET_LIMIT.toLocaleString("uk-UA")} UAH`,
     };
   }
 

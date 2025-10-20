@@ -9,7 +9,12 @@ import {
   type ValidationErrors,
 } from "@types/general";
 import type { DetailsFormInputName } from "../../components/common/details-form/types";
-import { DETAILS_FORM_VALIDATION_KEYS, OPTIONAL_FIELDS } from "./utils";
+import {
+  CREATE_ROOM_FORM_VALIDATION_KEYS,
+  DETAILS_FORM_VALIDATION_KEYS,
+  OPTIONAL_FIELDS,
+} from "./utils";
+import type { CreateRoomFormInputName } from "@components/create-room-page/create-room-form/types";
 
 export const FormsContextProvider = ({ children }: { children: ReactNode }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -46,6 +51,15 @@ export const FormsContextProvider = ({ children }: { children: ReactNode }) => {
         formFieldsErrors[field],
       ]),
     ) as ValidationErrors<DetailsFormInputName>;
+  };
+
+  const getCreateRoomFormFieldsErrors = () => {
+    return Object.fromEntries(
+      CREATE_ROOM_FORM_VALIDATION_KEYS.map((field) => [
+        field,
+        formFieldsErrors[field],
+      ]),
+    ) as ValidationErrors<CreateRoomFormInputName>;
   };
 
   const getCreateRoomData = () => {
@@ -87,6 +101,7 @@ export const FormsContextProvider = ({ children }: { children: ReactNode }) => {
         getJoinRoomDetailsData,
         setFormFieldError,
         getDetailsFormFieldsErrors,
+        getCreateRoomFormFieldsErrors,
       }}
     >
       {children}

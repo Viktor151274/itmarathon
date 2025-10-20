@@ -3,7 +3,10 @@ import type {
   GiftIdeaType,
   WishesFormData,
 } from "@components/common/wishes-form/types";
-import type { FormData as RoomFormData } from "@components/create-room-page/create-room-form/types";
+import type {
+  CreateRoomFormInputName,
+  FormData as RoomFormData,
+} from "@components/create-room-page/create-room-form/types";
 import type { FormData as DetailsFormData } from "@components/common/details-form/types";
 import type { ValidationErrors, FieldValidation } from "../../types/general";
 import type { InputNames } from "../../types/general";
@@ -39,4 +42,5 @@ export type FormContextType = {
     validation: FieldValidation,
   ) => void;
   getDetailsFormFieldsErrors: () => ValidationErrors<DetailsFormInputName>;
+  getCreateRoomFormFieldsErrors: () => ValidationErrors<CreateRoomFormInputName>;
 };
