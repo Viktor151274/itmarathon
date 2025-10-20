@@ -1,6 +1,7 @@
 export interface RoomLinkProps {
-  title: string;
+  title?: string;
   description?: string;
   url: string;
   caption?: string;
+  small?: boolean;
 }

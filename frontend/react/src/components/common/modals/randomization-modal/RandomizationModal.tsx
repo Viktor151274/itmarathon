@@ -35,7 +35,11 @@ const RandomizationModal = ({
 
         <div className="randomization-modal__content">
           {personalInfoData ? (
-            <PersonalInformation {...personalInfoData} />
+            <PersonalInformation
+              {...personalInfoData}
+              withBackground
+              isOneColumn
+            />
           ) : null}
 
           {wishlistData ? <Wishlist {...wishlistData} /> : null}

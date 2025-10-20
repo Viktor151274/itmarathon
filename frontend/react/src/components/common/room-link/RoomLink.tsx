@@ -3,13 +3,23 @@ import type { RoomLinkProps } from "./types";
 import styles from "../input/Input.module.scss";
 import "./RoomLink.scss";
 
-const RoomLink = ({ title, description, url, caption }: RoomLinkProps) => {
+const RoomLink = ({
+  title,
+  description,
+  url,
+  caption,
+  small = false,
+}: RoomLinkProps) => {
   return (
     <div className="room-link">
-      <h2 className="room-link__title">{title}</h2>
+      {title ? <h2 className="room-link__title">{title}</h2> : null}
 
       {description ? (
-        <p className="room-link__description">{description}</p>
+        <p
+          className={`room-link__description ${small ? "room-link__description--small" : ""}`}
+        >
+          {description}
+        </p>
       ) : null}
 
       <div className="room-link__link-container">

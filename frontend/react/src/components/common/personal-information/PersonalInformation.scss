@@ -7,17 +7,40 @@
   text-align: left;
   border-radius: 8px;
   padding: 24px;
-  row-gap: 16px;
+  row-gap: 24px;
   border: 1px solid colors.$green-400;
-  background:
-    url("../../../assets/images/backgrounds/personal-info-background.svg")
-      no-repeat right 12px top 16px / 56px 48px,
-    colors.$green-100;
+  background: colors.$green-100;
+
+  &--is-one-column {
+    gap: 16px;
+  }
+
+  &--with-background {
+    background:
+      url("../../../assets/images/backgrounds/personal-info-background.svg")
+        no-repeat right 12px top 16px / 56px 48px,
+      colors.$green-100;
+  }
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+
+    &--is-one-column {
+      gap: 16px;
+    }
+  }
 
   &__field {
     display: flex;
     flex-direction: column;
     row-gap: 4px;
+    flex: 1 1 calc(50% - 12px);
+
+    &--is-one-column {
+      flex: 1 1 100%;
+    }
   }
 
   &__label {

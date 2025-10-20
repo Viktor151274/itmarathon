@@ -16,6 +16,11 @@
     @extend %body-sm;
     margin-bottom: 20px;
     color: colors.$g-800;
+
+    &--small {
+      @extend %label;
+      margin-bottom: 8px;
+    }
   }
 
   &__link-container {
