@@ -101,6 +101,7 @@ export const enum CaptionMessage {
   EmptyMessage = '',
   DoNotShare = 'Do not share this link with other users',
   BudgetExplanation = '0 means unlimited budget',
+  ShareWithParticipant = 'Share this link only with the participant',
 }
 
 export enum ErrorMessage {
@@ -180,6 +181,7 @@ export const enum PictureName {
   ActionCardBg = 'action-card-bg',
   BigGifts = 'big-gifts',
   StNick = 'st-nick',
+  Cookie = 'cookie',
 }
 
 export const enum FormTitle {
@@ -282,6 +284,11 @@ export const enum ActionCardTitle {
 export const enum ModalTitle {
   LookWhoYouGot = 'Look Who You Got!',
   WishList = 'Your Wishlist',
+  ParticipantDetails = 'Participant Details',
+}
+
+export const enum ModalSubtitle {
+  ParticipantInfo = 'Everything about your Secret Nick player!',
 }
 
 export const enum PersonalInfoTerm {
@@ -290,4 +297,5 @@ export const enum PersonalInfoTerm {
   Phone = 'Phone number',
   Email = 'Email',
   DeliveryInfo = 'Delivery address',
+  RoomLink = 'Participant`s Personal Room Link',
 }

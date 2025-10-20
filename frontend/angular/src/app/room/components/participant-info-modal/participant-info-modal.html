@@ -1,0 +1,31 @@
+<app-common-modal-template
+  [headerPictureName]="pictureName"
+  [headerTitle]="title"
+  [buttonText]="buttonText"
+  [subtitle]="subtitle"
+  (buttonAction)="onActionButtonClick()"
+  (closeModal)="onCloseModal()"
+>
+  <div class="modal__content">
+    <section class="modal__content-item">
+      <h4 class="modal__title">Personal Information</h4>
+
+      <app-personal-info
+        class="modal__personal-info participant-info"
+        [personalInfo]="personalInfo()"
+        [showBackgroundPicture]="false"
+      >
+        <div class="personal-info__item">
+          <dt class="personal-info__term">{{ roomLinkTerm }}</dt>
+
+          <dd class="personal-info__value">
+            <app-copy-link
+              [link]="roomLink()"
+              [caption]="shareWithParticipant"
+            />
+          </dd>
+        </div>
+      </app-personal-info>
+    </section>
+  </div>
+</app-common-modal-template>

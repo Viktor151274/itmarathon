@@ -9,7 +9,7 @@
       }
 
       &__item {
-        flex: 0 1 49%;
+        flex: 0 1 48%;
       }
     }
   }
@@ -19,7 +19,7 @@
   &__list {
     position: relative;
     display: flex;
-    gap: 16px;
+    gap: 24px;
     flex-direction: column;
     padding: 24px;
     background: $personal-info-list-bg;
