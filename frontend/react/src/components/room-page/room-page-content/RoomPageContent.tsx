@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useParams } from "react-router";
+import RandomizationModal from "@components/common/modals/randomization-modal/RandomizationModal";
+import ViewWishlistModal from "@components/common/modals/view-wishlist-modal/ViewWishlistModal";
 import ParticipantsList from "../participants-list/ParticipantsList";
 import RoomDetails from "../room-details/RoomDetails";
-import RandomizationModal from "@components/common/modals/randomization-modal/RandomizationModal";
+import WishlistPreview from "../wishlist-preview/WishlistPreview";
 import RandomizationPanel from "../randomization-panel/RandomizationPanel";
 import { generateRoomLink } from "@utils/general";
 import { getCurrentUser, getParticipantInfoById } from "./utils";
@@ -17,6 +19,7 @@ const RoomPageContent = ({
 }: RoomPageContentProps) => {
   const { userCode } = useParams();
   const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false);
+  const [isViewWishlistModalOpen, setViewWishlistModalOpen] = useState(false);
 
   if (!userCode) {
     return null;
@@ -51,6 +54,10 @@ const RoomPageContent = ({
     setIsUserDetailsModalOpen(true);
   };
 
+  const handleViewWishListModal = () => {
+    setViewWishlistModalOpen(true);
+  };
+
   return (
     <div className="room-page-content">
       <div className="room-page-content-column">
@@ -77,6 +84,12 @@ const RoomPageContent = ({
             onReadUserDetails={handleReadUserDetails}
           />
         ) : null}
+
+        <WishlistPreview
+          isWantSurprise={currentUser?.wantSurprise}
+          wishListData={currentUser?.wishList}
+          onViewWishlist={handleViewWishListModal}
+        />
       </div>
 
       {giftRecipientPersonalInfo ? (
@@ -85,6 +98,17 @@ const RoomPageContent = ({
           onClose={() => setIsUserDetailsModalOpen(false)}
           personalInfoData={giftRecipientPersonalInfo}
           wishlistData={giftRecipientWishlistData}
+        />
+      ) : null}
+
+      {currentUser ? (
+        <ViewWishlistModal
+          isOpen={isViewWishlistModalOpen}
+          onClose={() => setViewWishlistModalOpen(false)}
+          budget={roomDetails.giftMaximumBudget}
+          wantSurprise={currentUser.wantSurprise}
+          interests={currentUser.interests ?? ""}
+          wishlistData={currentUser.wishList ?? []}
         />
       ) : null}
     </div>
