@@ -39,6 +39,15 @@ const JoinRoomPage = () => {
           },
         });
       }
+
+      if (response?.isFull) {
+        navigate("/home", {
+          state: {
+            toastMessage:
+              "This room is full already. Joining is not possible anymore",
+          },
+        });
+      }
     },
   });
 
