@@ -3,8 +3,14 @@ using FluentAssertions;
 
 namespace Epam.ItMarathon.ApiService.Domain.Tests.BuildersTests
 {
+    /// <summary>
+    /// Unit tests for the <see cref="RoomBuilder"/> class.
+    /// </summary>
     public class RoomBuilderTests
     {
+        /// <summary>
+        /// Tests that building a room returns failure when user does not want a surprise gift and no wishes are provided.
+        /// </summary>
         [Fact]
         public void RoomBuilder_ShouldReturnFailure_WhenWantSurpriseFalseAndNoWishesProvided()
         {
@@ -26,6 +32,9 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.BuildersTests
                 error.PropertyName.Equals("Users[0].wishList"));
         }
 
+        /// <summary>
+        /// Tests that building a room returns failure when user does not want a surprise gift and interests are provided.
+        /// </summary>
         [Fact]
         public void RoomBuilder_ShouldReturnFailure_WhenWantSurpriseFalseAndInterestsAreProvided()
         {
@@ -48,6 +57,9 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.BuildersTests
                 error.PropertyName.Equals("Users[0].interests"));
         }
 
+        /// <summary>
+        /// Tests that building a room is successful when user does not want a surprise gift and valid wishes are provided.
+        /// </summary>
         [Fact]
         public void RoomBuilder_ShouldBuildSuccessfully_WhenWantSurpriseFalseAndValidWishesProvided()
         {
@@ -74,6 +86,9 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.BuildersTests
             result.Value.Users.First().Wishes.Should().Contain(wish => wish.Name!.Equals("Test"));
         }
 
+        /// <summary>
+        /// Tests that building a room returns failure when user wants a surprise gift and no interests are provided.
+        /// </summary>
         [Fact]
         public void RoomBuilder_ShouldReturnFailure_WhenWantSurpriseTrueAndNoInterestsProvided()
         {
@@ -95,6 +110,9 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.BuildersTests
                 error.PropertyName.Equals("Users[0].interests"));
         }
 
+        /// <summary>
+        /// Tests that building a room is successful when user wants a surprise gift and valid interests are provided.
+        /// </summary>
         [Fact]
         public void RoomBuilder_ShouldBuildSuccessfully_WhenWantSurpriseTrueAndValidInterestsProvided()
         {

@@ -4,8 +4,14 @@ using FluentValidation;
 
 namespace Epam.ItMarathon.ApiService.Api.Validators.Requests.RoomRequests
 {
+    /// <summary>
+    /// Room reading request's validator.
+    /// </summary>
     public class RoomReadingRequestValidator : AbstractValidator<RoomReadingRequest>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoomReadingRequestValidator"/> class.
+        /// </summary>
         public RoomReadingRequestValidator()
         {
             RuleFor(request => request)

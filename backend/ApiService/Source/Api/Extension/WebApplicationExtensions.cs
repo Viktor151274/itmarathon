@@ -15,49 +15,50 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
         /// <summary>
         /// Extension method for more fluent setup. This is where all required configuration happens.
         /// </summary>
-        /// <param name="app">The WebApplication instance.</param>
-        public static WebApplication ConfigureApplication(this WebApplication app)
+        /// <param name="application">The WebApplication instance.</param>
+        /// <returns>Reference to input <paramref name="application"/>.</returns>
+        public static WebApplication ConfigureApplication(this WebApplication application)
         {
             #region Logging
 
-            _ = app.UseSerilogRequestLogging();
+            _ = application.UseSerilogRequestLogging();
 
             #endregion Logging
 
             #region Security
 
-            _ = app.UseHsts();
-            _ = app.UseHttpsRedirection();
-            _ = app.UseCors();
+            _ = application.UseHsts();
+            _ = application.UseHttpsRedirection();
+            _ = application.UseCors();
 
             #endregion Security
 
             #region Swagger
             var textInfo = CultureInfo.CurrentCulture.TextInfo;
 
-            _ = app.UseSwagger();
-            _ = app.UseSwaggerUI(c =>
+            _ = application.UseSwagger();
+            _ = application.UseSwaggerUI(c =>
                 c.SwaggerEndpoint(
                     "/swagger/v1/swagger.json",
-                    $"Secret Nick API - {textInfo.ToTitleCase(app.Environment.EnvironmentName)} - V1"));
+                    $"Secret Nick API - {textInfo.ToTitleCase(application.Environment.EnvironmentName)} - V1"));
 
             #endregion Swagger
 
             #region MinimalApi
 
-            _ = app.MapSystemEndpoints();
-            _ = app.MapRoomEndpoints();
-            _ = app.MapUserEndpoints();
+            _ = application.MapSystemEndpoints();
+            _ = application.MapRoomEndpoints();
+            _ = application.MapUserEndpoints();
 
             #endregion MinimalApi
 
             #region Database
 
-            app.Services.MigrateDatabase();
+            application.Services.MigrateDatabase();
 
             #endregion Database
 
-            return app;
+            return application;
         }
     }
 }

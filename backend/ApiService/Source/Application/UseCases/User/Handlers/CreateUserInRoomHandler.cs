@@ -8,9 +8,15 @@ using UserEntity = Epam.ItMarathon.ApiService.Domain.Entities.User.User;
 
 namespace Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers
 {
+    /// <summary>
+    /// Handler for User creation in the Room.
+    /// </summary>
+    /// <param name="roomRepository">Implementation of <see cref="IRoomRepository"/> for operating with database.</param>
+    /// <param name="userRepository">Implementation of <see cref="IUserReadOnlyRepository"/> for operating with database.</param>
     public class CreateUserInRoomHandler(IRoomRepository roomRepository, IUserReadOnlyRepository userRepository) :
         IRequestHandler<CreateUserInRoomRequest, IResult<UserEntity, ValidationResult>>
     {
+        ///<inheritdoc/>
         public async Task<IResult<UserEntity, ValidationResult>> Handle(CreateUserInRoomRequest request,
             CancellationToken cancellationToken)
         {

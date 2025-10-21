@@ -16,7 +16,7 @@ namespace Epam.ItMarathon.ApiService.Application
         /// </summary>
         public static void InjectApplicationLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
         }
     }
 }

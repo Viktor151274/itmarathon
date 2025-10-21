@@ -12,12 +12,12 @@ namespace Epam.ItMarathon.ApiService.Domain.Abstract
         /// <summary>
         /// Build aggregate and validate.
         /// </summary>
-        /// <returns>Aggregate</returns>
+        /// <returns>Result <see cref="Result"/> with aggregate or error.</returns>
         public Result<TEntity, ValidationResult> Build();
         /// <summary>
         /// Initial build aggregate and validate.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Result <see cref="Result"/> with aggregate or error.</returns>
         public Result<TEntity, ValidationResult> InitialBuild();
     }
 }

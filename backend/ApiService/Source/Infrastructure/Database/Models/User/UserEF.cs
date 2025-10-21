@@ -5,9 +5,12 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
 {
     internal class UserEf : BaseModelEf
     {
+        /// <summary>
+        /// Unique identifier of Room User belongs to.
+        /// </summary>
         public ulong RoomId { get; set; }
         /// <summary>
-        /// Authorization code of user.
+        /// Authorization code of User.
         /// </summary>
         public required string AuthCode { get; set; }
         /// <summary>
@@ -19,7 +22,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
         /// </summary>
         public required string LastName { get; set; }
         /// <summary>
-        /// Phone of user.
+        /// Phone of User.
         /// </summary>
         public required string Phone { get; set; }
         /// <summary>
@@ -27,11 +30,11 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
         /// </summary>
         public string? Email { get; set; }
         /// <summary>
-        /// User's delivery information.
+        /// Delivery info for receiving Gift by User.
         /// </summary>
         public required string DeliveryInfo { get; set; }
         /// <summary>
-        /// Id of user witch current user targets to gift.
+        /// Unique identifier of User witch current User targets to gift.
         /// </summary>
         public ulong? GiftRecipientUserId { get; set; }
         /// <summary>
@@ -39,19 +42,19 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
         /// </summary>
         public bool WantSurprise { get; set; }
         /// <summary>
-        /// User's interests.
+        /// List of desired gifts in case when User doesn't want surprise.
         /// </summary>
         public string? Interests { get; set; }
         /// <summary>
-        /// Mapping property to a room witch user belongs to.
+        /// Mapping property to a Room witch User belongs to.
         /// </summary>
         public RoomEf Room { get; set; } = default!;
         /// <summary>
-        /// Mapping property to a room where the user is admin, if he is.
+        /// Mapping property to a Room where the User is admin, if he is.
         /// </summary>
         public RoomEf? AdminRoom { get; set; }
         /// <summary>
-        /// Number of gifts that user want to receive.
+        /// Number of gifts that User want to receive.
         /// </summary>
         public ICollection<GiftEf> Wishes { get; set; } = default!;
         /// <summary>
@@ -59,7 +62,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
         /// </summary>
         public UserEf? GiftRecipientUser { get; set; }
         /// <summary>
-        /// User from witch the current user will receive the gift.
+        /// User from witch the current User will receive the gift.
         /// </summary>
         public UserEf? GiftSenderUser { get; set; }
     }

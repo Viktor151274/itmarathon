@@ -8,9 +8,14 @@ using UserEntity = Epam.ItMarathon.ApiService.Domain.Entities.User.User;
 
 namespace Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers
 {
+    /// <summary>
+    /// Handler for Users query.
+    /// </summary>
+    /// <param name="userRepository">Implementation of <see cref="IUserReadOnlyRepository"/> for operating with database.</param>
     public class GetUsersHandler(IUserReadOnlyRepository userRepository)
         : IRequestHandler<GetUsersQuery, Result<List<UserEntity>, ValidationResult>>
     {
+        ///<inheritdoc/>
         public async Task<Result<List<UserEntity>, ValidationResult>> Handle(GetUsersQuery request,
             CancellationToken cancellationToken)
         {

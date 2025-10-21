@@ -15,7 +15,7 @@ namespace Epam.ItMarathon.ApiService.Api.Filters.Validation
         /// </summary>
         /// <param name="context">Provides metadata about the endpoint being built when you’re creating filters dynamically.</param>
         /// <param name="next">Delegate of the next filter in pipeline.</param>
-        /// <returns></returns>
+        /// <returns>Returns <see cref="EndpointFilterDelegate"/> from the context.</returns>
         public static EndpointFilterDelegate GetValidationFactory(EndpointFilterFactoryContext context, EndpointFilterDelegate next)
         {
             var validationDescriptors = GetValidators(context.MethodInfo, context.ApplicationServices);

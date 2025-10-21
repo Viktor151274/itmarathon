@@ -15,11 +15,19 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Epam.ItMarathon.ApiService.Api.Endpoints
 {
+    /// <summary>
+    /// Endpoints for Room.
+    /// </summary>
     public static class RoomEndpoints
     {
-        public static WebApplication MapRoomEndpoints(this WebApplication app)
+        /// <summary>
+        /// Static method to map Room's endpoints to DI container.
+        /// </summary>
+        /// <param name="application">The WebApplication instance..</param>
+        /// <returns>Reference to input <paramref name="application"/>.</returns>
+        public static WebApplication MapRoomEndpoints(this WebApplication application)
         {
-            var root = app.MapGroup("/api/rooms")
+            var root = application.MapGroup("/api/rooms")
                 .WithTags("Room")
                 .WithTagDescription("Room", "Room endpoints")
                 .WithOpenApi();
@@ -66,9 +74,16 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithSummary("Get room by User code and patch update it.")
                 .WithDescription("Return updated room info.");
 
-            return app;
+            return application;
         }
-
+        /// <summary>
+        /// Endpoint logic for creating a Room.
+        /// </summary>
+        /// <param name="request">Creation request.</param>
+        /// <param name="mediator">Implementation of <see cref="IMediator"/> for handling business logic.</param>
+        /// <param name="mapper">Implementation of <see cref="IMapper"/> for converting objects.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> that can be used to cancel operation.</param>
+        /// <returns>Returns <seealso cref="IResult"/> depending on operation result.</returns>
         public static async Task<IResult> CreateRoom([Validate] RoomCreationRequest request, IMediator mediator,
             IMapper mapper, CancellationToken cancellationToken)
         {
@@ -85,7 +100,14 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 UserCode = result.Value.Users.First(user => user.IsAdmin).AuthCode
             });
         }
-
+        /// <summary>
+        /// Endpoint logic for getting a Room.
+        /// </summary>
+        /// <param name="request">Reading request payload.</param>
+        /// <param name="mediator">Implementation of <see cref="IMediator"/> for handling business logic.</param>
+        /// <param name="mapper">Implementation of <see cref="IMapper"/> for converting objects.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> that can be used to cancel operation.</param>
+        /// <returns>Returns <seealso cref="IResult"/> depending on operation result.</returns>
         public static async Task<IResult> GetRoom([AsParameters] [Validate] RoomReadingRequest request,
             IMediator mediator, IMapper mapper, CancellationToken cancellationToken)
         {
@@ -95,7 +117,14 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 ? result.Error.ValidationProblem()
                 : Results.Ok(mapper.Map<RoomReadDto>(result.Value));
         }
-
+        /// <summary>
+        /// Endpoint logic for Room draw.
+        /// </summary>
+        /// <param name="userCode">User authorization code.</param>
+        /// <param name="mediator">Implementation of <see cref="IMediator"/> for handling business logic.</param>
+        /// <param name="mapper">Implementation of <see cref="IMapper"/> for converting objects.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> that can be used to cancel operation.</param>
+        /// <returns>Returns <seealso cref="IResult"/> depending on operation result.</returns>
         public static async Task<IResult> DrawRoom([FromQuery, Required] string? userCode, IMediator mediator,
             IMapper mapper, CancellationToken cancellationToken)
         {
@@ -112,7 +141,15 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 options => { options.SetUserMappingOptions(responseUsers, userCode!); });
             return Results.Ok(responseUser);
         }
-
+        /// <summary>
+        /// Endpoint logic for updating the Room.
+        /// </summary>
+        /// <param name="userCode">User Authorization code.</param>
+        /// <param name="patchRequest">Patch request data.</param>
+        /// <param name="mediator">Implementation of <see cref="IMediator"/> for handling business logic.</param>
+        /// <param name="mapper">Implementation of <see cref="IMapper"/> for converting objects.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> that can be used to cancel operation.</param>
+        /// <returns>Returns <seealso cref="IResult"/> depending on operation result.</returns>
         public static async Task<IResult> UpdateRoom([FromQuery, Required] string userCode,
             [FromBody] RoomPatchRequest patchRequest, IMediator mediator, IMapper mapper,
             CancellationToken cancellationToken)

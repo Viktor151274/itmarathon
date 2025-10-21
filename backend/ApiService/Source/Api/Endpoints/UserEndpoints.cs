@@ -14,11 +14,19 @@ using Epam.ItMarathon.ApiService.Application.UseCases.User.Queries;
 
 namespace Epam.ItMarathon.ApiService.Api.Endpoints
 {
+    /// <summary>
+    /// Endpoints for the Users.
+    /// </summary>
     public static class UserEndpoints
     {
-        public static WebApplication MapUserEndpoints(this WebApplication app)
+        /// <summary>
+        /// Static method to map User's endpoints to DI container.
+        /// </summary>
+        /// <param name="application">The WebApplication instance.</param>
+        /// <returns>Reference to input <paramref name="application"/>.</returns>
+        public static WebApplication MapUserEndpoints(this WebApplication application)
         {
-            var root = app.MapGroup("/api/users")
+            var root = application.MapGroup("/api/users")
                 .WithTags("User")
                 .WithTagDescription("User", "User endpoints")
                 .WithOpenApi();
@@ -55,9 +63,16 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithSummary("Create and add user to a room.")
                 .WithDescription("Return created user info.");
 
-            return app;
+            return application;
         }
-
+        /// <summary>
+        /// Method that handles get all Users in the Room logic.
+        /// </summary>
+        /// <param name="userCode">User's authorization code.</param>
+        /// <param name="mediator">Implementation of <see cref="IMediator"/> for handling business logic.</param>
+        /// <param name="mapper">Implementation of <see cref="IMapper"/> for converting objects.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> that can be used to cancel operation.</param>
+        /// <returns>Returns <seealso cref="IResult"/> depending on operation result.</returns>
         public static async Task<IResult> GetUsers([FromQuery, Required] string? userCode, IMediator mediator,
             IMapper mapper, CancellationToken cancellationToken)
         {
@@ -71,7 +86,15 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 options => { options.SetUserMappingOptions(result.Value, userCode!); });
             return Results.Ok(responseUsers);
         }
-
+        /// <summary>
+        /// Get exact User by unique identifier logic.
+        /// </summary>
+        /// <param name="id">Unique identifier of the User.</param>
+        /// <param name="userCode">User authorization code.</param>
+        /// <param name="mediator">Implementation of <see cref="IMediator"/> for handling business logic.</param>
+        /// <param name="mapper">Implementation of <see cref="IMapper"/> for converting objects.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> that can be used to cancel operation.</param>
+        /// <returns>Returns <seealso cref="IResult"/> depending on operation result.</returns>
         public static async Task<IResult> GetUserWithId([FromRoute] ulong id, [FromQuery, Required] string? userCode,
             IMediator mediator, IMapper mapper, CancellationToken cancellationToken)
         {
@@ -85,7 +108,15 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 options => { options.SetUserMappingOptions(result.Value, userCode!); });
             return Results.Ok(responseUser);
         }
-
+        /// <summary>
+        /// Join User logic.
+        /// </summary>
+        /// <param name="roomCode">Room invitation code.</param>
+        /// <param name="user">User's request data.</param>
+        /// <param name="mediator">Implementation of <see cref="IMediator"/> for handling business logic.</param>
+        /// <param name="mapper">Implementation of <see cref="IMapper"/> for converting objects.</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> that can be used to cancel operation.</param>
+        /// <returns>Returns <seealso cref="IResult"/> depending on operation result.</returns>
         public static async Task<IResult> JoinUserToRoom([FromQuery, Required] string roomCode,
             UserCreationRequest user, IMediator mediator, IMapper mapper, CancellationToken cancellationToken)
         {

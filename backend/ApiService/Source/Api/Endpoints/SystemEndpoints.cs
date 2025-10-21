@@ -10,12 +10,13 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
     public static class SystemEndpoints
     {
         /// <summary>
-        /// Registers all system-related endpoints to the app.
+        /// Static method to map system-related endpoints to DI container.
         /// </summary>
-        /// /// <param name="app">The WebApplication instance.</param>
-        public static WebApplication MapSystemEndpoints(this WebApplication app)
+        /// <param name="application">The WebApplication instance.</param>
+        /// <returns>Reference to input <paramref name="application"/>.</returns>
+        public static WebApplication MapSystemEndpoints(this WebApplication application)
         {
-            var root = app.MapGroup("/api/system")
+            var root = application.MapGroup("/api/system")
                 .WithTags("System")
                 .WithTagDescription("System", "System wide endpoints")
                 .WithOpenApi();
@@ -26,13 +27,13 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 .WithSummary("Get application system info.")
                 .WithDescription("Returns system app info. Useful for health checks.");
 
-            return app;
+            return application;
         }
 
         /// <summary>
         /// Returns application system info.
         /// </summary>
-        /// <returns>OK with information if the service is running.</returns> 
+        /// <returns>Returns <seealso cref="IResult"/> depending on operation result.</returns> 
         public static IResult GetSystemInfo(IWebHostEnvironment environment)
         {
             return Results.Ok(new AppInfoResponse

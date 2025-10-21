@@ -1,11 +1,18 @@
-﻿using Epam.ItMarathon.ApiService.Domain.Builders;
+﻿using Epam.ItMarathon.ApiService.Domain.Aggregate.Room;
+using Epam.ItMarathon.ApiService.Domain.Builders;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
 using FluentAssertions;
 
 namespace Epam.ItMarathon.ApiService.Domain.Tests.AggregateTests
 {
+    /// <summary>
+    /// Unit tests for the <see cref="Room"/> aggregate.
+    /// </summary>
     public class RoomTests
     {
+        /// <summary>
+        /// Tests that drawing a room returns BadRequestError when there are not enough users.
+        /// </summary>
         [Fact]
         public void Draw_ShouldReturnFailure_WhenNotEnoughUsers()
         {
@@ -36,6 +43,9 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.AggregateTests
                 error.PropertyName.Equals("room.MinUsersLimit"));
         }
 
+        /// <summary>
+        /// Tests that drawing a room returns BadRequestError when the room is already closed.
+        /// </summary>
         [Fact]
         public void Draw_ShouldReturnFailure_WhenRoomIsAlreadyClosed()
         {
@@ -58,6 +68,10 @@ namespace Epam.ItMarathon.ApiService.Domain.Tests.AggregateTests
                 error.PropertyName.Equals("room.ClosedOn"));
         }
 
+        /// <summary>
+        /// Tests that drawing a room successfully assigns gift recipients to users.
+        /// </summary>
+        /// <param name="usersToGenerate">The number of users to generate for the test.</param>
         [Theory]
         [InlineData(3)]
         [InlineData(5)]

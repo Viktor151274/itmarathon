@@ -8,9 +8,14 @@ using UserEntity = Epam.ItMarathon.ApiService.Domain.Entities.User.User;
 
 namespace Epam.ItMarathon.ApiService.Application.UseCases.Room.Handlers
 {
+    /// <summary>
+    /// Handler for Room draw command.
+    /// </summary>
+    /// <param name="roomRepository">Implementation of <see cref="IRoomRepository"/> for operating with database.</param>
     public class DrawRoomHandler(IRoomRepository roomRepository)
         : IRequestHandler<DrawRoomCommand, Result<List<UserEntity>, ValidationResult>>
     {
+        /// <inheritdoc/>
         public async Task<Result<List<UserEntity>, ValidationResult>> Handle(DrawRoomCommand request,
             CancellationToken cancellationToken)
         {

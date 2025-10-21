@@ -5,8 +5,14 @@ using FluentValidation;
 
 namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
 {
+    /// <summary>
+    /// Validation for Room.
+    /// </summary>
     public class RoomDtoValidator : AbstractValidator<RoomCreationDto>
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoomDtoValidator"/> class.
+        /// </summary>
         public RoomDtoValidator()
         {
 

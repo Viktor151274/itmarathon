@@ -3,33 +3,85 @@ using Epam.ItMarathon.ApiService.Domain.Abstract;
 using Epam.ItMarathon.ApiService.Domain.Builders;
 using Epam.ItMarathon.ApiService.Domain.Entities.User;
 using Epam.ItMarathon.ApiService.Domain.Shared.ValidationErrors;
-using Epam.ItMarathon.ApiService.Domain.Shared;
 using FluentValidation;
 using FluentValidation.Internal;
 using FluentValidation.Results;
 
 namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
 {
+    /// <summary>
+    /// An aggregate of Room, encapsulates all required fields and invariants.
+    /// </summary>
     public sealed class Room : BaseAggregate
     {
         internal const int NameCharLimit = 40;
         internal const int DescriptionCharLimit = 200;
         internal const int InvitationNoteCharLimit = 1000;
         internal const ulong RoomMaximumBudget = 100_000;
-
+        /// <summary>
+        /// Time when Room was closed.
+        /// </summary>
         public DateTime? ClosedOn { get; private set; }
+        /// <summary>
+        /// Code for invitation link.
+        /// </summary>
         public string InvitationCode { get; private set; }
+        /// <summary>
+        /// Minimal limit of Users in Room for draft.
+        /// </summary>
         public uint MinUsersLimit { get; private set; }
+        /// <summary>
+        /// Maximum amount of Users in Room.
+        /// </summary>
         public uint MaxUsersLimit { get; private set; }
+        /// <summary>
+        /// Maximum amount of wishes per User.
+        /// </summary>
         public uint MaxWishesLimit { get; private set; }
+        /// <summary>
+        /// Room's name.
+        /// </summary>
         public string Name { get; private set; }
+        /// <summary>
+        /// Room's description.
+        /// </summary>
         public string Description { get; private set; }
+        /// <summary>
+        /// Room's invitation note (attached to invitation).
+        /// </summary>
         public string InvitationNote { get; private set; }
+        /// <summary>
+        /// Date for gifts to be exchanged.
+        /// </summary>
         public DateTime GiftExchangeDate { get; private set; }
+        /// <summary>
+        /// Maximum budget of the Room.
+        /// </summary>
         public ulong GiftMaximumBudget { get; private set; }
+        /// <summary>
+        /// Indicates whether there can be no more Users in Room.
+        /// </summary>
         public bool IsFull => Users.Count >= MaxUsersLimit;
+        /// <summary>
+        /// List of Users stored in Room.
+        /// </summary>
         public IList<User> Users { get; private set; } = [];
         private Room() { }
+        /// <summary>
+        /// Method to initialize Room for the first time.
+        /// </summary>
+        /// <param name="closedOn">Time when Room was closed.</param>
+        /// <param name="invitationCode">Code for invitation link.</param>
+        /// <param name="name">Name of Room.</param>
+        /// <param name="description">Description of Room.</param>
+        /// <param name="invitationNote">Room's invitation note (attached to invitation).</param>
+        /// <param name="giftExchangeDate">Date for gifts to be exchanged.</param>
+        /// <param name="giftMaximumBudget">Maximum budget of the Room.</param>
+        /// <param name="users">List of Users stored in Room.</param>
+        /// <param name="minUsersLimit">Minimal limit of Users in Room for draft.</param>
+        /// <param name="maxUsersLimit">Maximum amount of Users in Room.</param>
+        /// <param name="maxWishesLimit">Maximum amount of wishes per User.</param>
+        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
         public static Result<Room, ValidationResult> InitialCreate(DateTime? closedOn, string invitationCode, string name, string description,
             string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget, IList<User> users,
             uint minUsersLimit, uint maxUsersLimit, uint maxWishesLimit)
@@ -56,6 +108,24 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             }
             return room;
         }
+        /// <summary>
+        /// Method to create OR restore Room.
+        /// </summary>
+        /// <param name="id">Room's unique identifier.</param>
+        /// <param name="createdOn">Time when Room was created.</param>
+        /// <param name="modifiedOn">Time when Room was modified.</param>
+        /// <param name="closedOn">Time when Room was closed.</param>
+        /// <param name="invitationCode">Code for invitation link.</param>
+        /// <param name="name">Name of Room.</param>
+        /// <param name="description">Description of Room.</param>
+        /// <param name="invitationNote">Room's invitation note (attached to invitation).</param>
+        /// <param name="giftExchangeDate">Date for gifts to be exchanged.</param>
+        /// <param name="giftMaximumBudget">Maximum budget of the Room.</param>
+        /// <param name="users">List of Users stored in Room.</param>
+        /// <param name="minUsersLimit">Minimal limit of Users in Room for draft.</param>
+        /// <param name="maxUsersLimit">Maximum amount of Users in Room.</param>
+        /// <param name="maxWishesLimit">Maximum amount of wishes per User.</param>
+        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
         public static Result<Room, ValidationResult> Create(ulong id, DateTime createdOn, DateTime modifiedOn,
             DateTime? closedOn, string invitationCode, string name, string description,
             string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget, IList<User> users,
@@ -88,32 +158,55 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             }
             return room;
         }
-
+        /// <summary>
+        /// Set the name of the Room.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetName(string value)
         {
             return SetProperty(nameof(Name), room => room.Name = value);
         }
-
+        /// <summary>
+        /// Set the description of the Room.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetDescription(string value)
         {
             return SetProperty(nameof(Description), room => room.Description = value);
         }
-
+        /// <summary>
+        /// Set the invitation note for the Room.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetInvitationNote(string value)
         {
             return SetProperty(nameof(InvitationNote), room => room.InvitationNote = value);
         }
-
+        /// <summary>
+        /// Set a giftExchangeDate of the Room.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetGiftExchangeDate(DateTime value)
         {
             return SetProperty(nameof(GiftExchangeDate), room => room.GiftExchangeDate = value.ToUniversalTime().Date);
         }
-
+        /// <summary>
+        /// Set a gift maximum budget of the Room.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetGiftMaximumBudget(ulong value)
         {
             return SetProperty(nameof(GiftMaximumBudget), room => room.GiftMaximumBudget = value);
         }
-
+        /// <summary>
+        /// Draw the Room.
+        /// </summary>
+        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> Draw()
         {
             // Room has MinUsersCount or more
@@ -124,7 +217,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
                     ]));
             }
 
-            // Check room is not closed
+            // Check Room is not closed
             var roomCanBeModifiedResult = CheckRoomCanBeModified();
             if (roomCanBeModifiedResult.IsFailure)
             {
@@ -150,7 +243,11 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
             ClosedOn = DateTime.UtcNow;
             return this;
         }
-
+        /// <summary>
+        /// Method to add a new User to the Room through UserBuilder.
+        /// </summary>
+        /// <param name="userBuilderConfiguration">User builder delegate.</param>
+        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> AddUser(Func<UserBuilder, UserBuilder> userBuilderConfiguration)
         {
             if (ClosedOn is not null)
@@ -192,7 +289,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
                     ]));
             }
 
-            // Check room is not closed
+            // Check Room is not closed
             var roomCanBeModifiedResult = CheckRoomCanBeModified();
             if (roomCanBeModifiedResult.IsFailure)
             {

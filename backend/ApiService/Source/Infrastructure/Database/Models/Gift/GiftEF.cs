@@ -5,7 +5,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Gift
     internal class GiftEf : BaseModelEf
     {
         /// <summary>
-        /// Id of user witch gift belongs to.
+        /// Unique identifier of User witch gift belongs to.
         /// </summary>
         public ulong UserId { get; set; }
         /// <summary>
@@ -17,7 +17,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Gift
         /// </summary>
         public string? InfoLink { get; set; }
         /// <summary>
-        /// Mapping property to user.
+        /// Mapping property to User.
         /// </summary>
         public UserEf? User { get; set; } = default!;
     }

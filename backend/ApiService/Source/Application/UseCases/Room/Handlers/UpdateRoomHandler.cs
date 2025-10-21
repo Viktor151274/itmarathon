@@ -8,9 +8,14 @@ using RoomAggregate = Epam.ItMarathon.ApiService.Domain.Aggregate.Room.Room;
 
 namespace Epam.ItMarathon.ApiService.Application.UseCases.Room.Handlers
 {
+    /// <summary>
+    /// Handler for updating Room command.
+    /// </summary>
+    /// <param name="roomRepository">Implementation of <see cref="IRoomRepository"/> for operating with database.</param>
     public class UpdateRoomHandler(IRoomRepository roomRepository)
         : IRequestHandler<UpdateRoomCommand, Result<RoomAggregate, ValidationResult>>
     {
+        ///<inheritdoc/>
         public async Task<Result<RoomAggregate, ValidationResult>> Handle(UpdateRoomCommand request,
             CancellationToken cancellationToken)
         {

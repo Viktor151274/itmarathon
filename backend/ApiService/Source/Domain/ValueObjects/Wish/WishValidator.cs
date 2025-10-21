@@ -24,9 +24,7 @@ namespace Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish
 
         private void LinkRule() =>
             RuleFor(wish => wish.InfoLink)
-            .NotEmpty()
-            .Must(url => url.StartsWith("https://"))
-            .When(wish => !string.IsNullOrEmpty(wish.InfoLink))
+            .Must(url => string.IsNullOrEmpty(url) || url.StartsWith("https://"))
             .WithMessage("URL must start with https://")
             .WithName("infoLink")
             .OverridePropertyName("infoLink");

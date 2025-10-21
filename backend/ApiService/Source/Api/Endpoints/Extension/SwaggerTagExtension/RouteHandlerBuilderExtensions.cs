@@ -11,7 +11,7 @@
         /// <param name="builder"></param>
         /// <param name="name">The name of the group (should be the same as in WithTags() method)</param>
         /// <param name="description">Description of the group</param>
-        /// <returns></returns>
+        /// <returns>Returns reference to input <paramref name="builder"/>.</returns>
         public static RouteGroupBuilder WithTagDescription(
             this RouteGroupBuilder builder, string name, string description)
         {

@@ -16,6 +16,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
     internal class RoomRepository(AppDbContext context, IMapper mapper, ILogger<RoomRepository> logger)
         : IRoomRepository
     {
+        /// <inheritdoc/>
         public async Task<Result<Room, ValidationResult>> AddAsync(Room item, CancellationToken cancellationToken)
         {
             await using var transaction = await context.Database.BeginTransactionAsync(cancellationToken);
@@ -44,7 +45,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
                 throw;
             }
         }
-
+        /// <inheritdoc/>
         public async Task<Result> UpdateAsync(Room roomToUpdate, CancellationToken cancellationToken)
         {
             var existingRoom = await context.Rooms
@@ -70,7 +71,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
 
             return Result.Success();
         }
-
+        /// <inheritdoc/>
         public async Task<Result<Room, ValidationResult>> GetByUserCodeAsync(string userCode,
             CancellationToken cancellationToken)
         {
