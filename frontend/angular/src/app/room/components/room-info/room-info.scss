@@ -11,6 +11,7 @@
   min-height: 350px;
   padding: 24px;
   color: $room-info-text;
+  border: 1px solid $room-info-border-color;
   border-radius: 16px;
   background:
     url('/assets/images/ball-decor.svg') right -2px top 0px no-repeat,
