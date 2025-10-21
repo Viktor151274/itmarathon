@@ -1,0 +1,35 @@
+@use "@assets/styles/_colors";
+@use "@assets/styles/_variables";
+@use "@assets/styles/_extends";
+
+.participant-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 35px;
+  width: 384px;
+  padding: 24px;
+  border-radius: 16px;
+  background:
+    url("@assets/images/backgrounds/participant-info-background-sprite.svg#snowflakes")
+      right 9px top 0px / 62px 60px no-repeat,
+    url("@assets/images/backgrounds/participant-info-background-sprite.svg#snow")
+      left 0px bottom 0px / 384px 104px no-repeat,
+    colors.$red-500;
+  box-shadow: variables.$shadow;
+  text-align: left;
+
+  &__title {
+    margin-bottom: 4px;
+    color: colors.$g-50;
+  }
+
+  &__description {
+    @extend %body-sm;
+    color: colors.$g-100;
+  }
+
+  &__button {
+    margin-top: 40px;
+  }
+}
