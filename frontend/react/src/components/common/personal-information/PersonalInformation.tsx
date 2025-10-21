@@ -13,10 +13,14 @@ const PersonalInformation = ({
   withBackground = false,
   link,
   isOneColumn,
+  withoutHeader = false,
 }: PersonalInformationProps) => {
   return (
     <div style={{ width }}>
-      <h4 className="personal-info-title">Personal Information</h4>
+      {!withoutHeader ? (
+        <h4 className="personal-info-title">Personal Information</h4>
+      ) : null}
+
       <div
         className={`personal-info-content ${withBackground ? "personal-info-content--with-background" : ""} ${isOneColumn ? "personal-info-content--is-one-column" : ""}`}
       >

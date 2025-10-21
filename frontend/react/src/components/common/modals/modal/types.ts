@@ -4,6 +4,7 @@ export const ICON_NAMES = {
   PRESENTS: "presents",
   COOKIE: "cookie",
   NOTE: "note",
+  CAR: "car",
 } as const;
 
 type IconName = (typeof ICON_NAMES)[keyof typeof ICON_NAMES];

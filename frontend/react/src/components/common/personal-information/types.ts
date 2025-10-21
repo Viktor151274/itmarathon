@@ -8,4 +8,5 @@ export interface PersonalInformationProps {
   withBackground?: boolean;
   link?: string;
   isOneColumn?: boolean;
+  withoutHeader?: boolean;
 }
