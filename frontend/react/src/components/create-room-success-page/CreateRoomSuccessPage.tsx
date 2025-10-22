@@ -22,6 +22,7 @@ const CreateRoomSuccessPage = ({
   const state = location.state as { roomAndUserData?: RoomAndUserData };
   const roomAndUserData = roomAndUserDataProp ?? state?.roomAndUserData;
   const userCode = roomAndUserData?.userCode;
+  const title = `Your ${roomAndUserData?.roomName || "Secret Nick"} Room is Ready!`;
 
   if (!roomAndUserData) {
     return null;
@@ -41,6 +42,7 @@ const CreateRoomSuccessPage = ({
   return (
     <main className="room-success-page">
       <FormWrapper
+        title={title}
         formKey="READY_ROOM"
         iconName="wreath"
         buttonProps={{

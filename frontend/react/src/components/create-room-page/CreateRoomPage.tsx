@@ -38,6 +38,7 @@ const CreateRoomPage = () => {
               invitationCode: response?.room?.invitationCode,
               invitationNote: response?.room?.invitationNote,
               userCode: response?.userCode,
+              roomName: response?.room?.name,
             },
           },
         });
