@@ -1,0 +1,15 @@
+<app-common-modal-template
+  [headerPictureName]="pictureName"
+  [headerTitle]="title"
+  [buttonText]="buttonText"
+  [subtitle]="subtitle"
+  (buttonAction)="onActionButtonClick()"
+  (closeModal)="onCloseModal()"
+>
+  <app-personal-info
+    class="modal__personal-info participant-info"
+    [personalInfo]="personalInfo()"
+    [showBackgroundPicture]="false"
+  >
+  </app-personal-info>
+</app-common-modal-template>

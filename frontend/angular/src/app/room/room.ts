@@ -27,9 +27,10 @@ import { GifteeInfoModal } from './components/giftee-info-modal/giftee-info-moda
 import { getPersonalInfo } from '../utils/get-personal-info';
 import { MyWishlistModal } from './components/my-wishlist/components/my-wishlist-modal/my-wishlist-modal';
 import { LottieAnimationService } from '../core/services/lottie-animation';
-import { ParticipantInfo } from './components/participant-info/participant-info';
+import { PersonalInfoCard } from './components/personal-info-card/personal-info-card';
 import { UrlService } from '../core/services/url';
 import { NavigationLinkSegment } from '../app.enum';
+import { PersonalInfoModal } from './components/personal-info-modal/personal-info-modal';
 
 @Component({
   selector: 'app-room',
@@ -39,7 +40,7 @@ import { NavigationLinkSegment } from '../app.enum';
     GifteeInfo,
     ParticipantList,
     MyWishlist,
-    ParticipantInfo,
+    PersonalInfoCard,
   ],
   templateUrl: './room.html',
   styleUrl: './room.scss',
@@ -138,6 +139,19 @@ export class Room implements OnInit {
           wishList: this.currentUser()?.wishList || [],
         },
         budget: this.roomData().giftMaximumBudget,
+      },
+      {
+        buttonAction: () => this.#modalService.close(),
+        closeModal: () => this.#modalService.close(),
+      }
+    );
+  }
+
+  public onViewInformation(): void {
+    this.#modalService.openWithResult(
+      PersonalInfoModal,
+      {
+        personalInfo: getPersonalInfo(this.currentUser()),
       },
       {
         buttonAction: () => this.#modalService.close(),

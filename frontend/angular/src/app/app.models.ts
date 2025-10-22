@@ -15,6 +15,7 @@ import {
 import { Message } from './shared/components/message/message';
 import { GifteeInfoModal } from './room/components/giftee-info-modal/giftee-info-modal';
 import { MyWishlistModal } from './room/components/my-wishlist/components/my-wishlist-modal/my-wishlist-modal';
+import { PersonalInfoModal } from './room/components/personal-info-modal/personal-info-modal';
 
 export interface StepperItem {
   isActive: boolean;
@@ -164,11 +165,16 @@ export interface ModalEntry {
 
 export type ModalEntryNullable = ModalEntry | null;
 
-export type ModalInputs = GifteeInfoModalInputs | MyWishlistModalInputs;
+export type ModalInputs =
+  | GifteeInfoModalInputs
+  | MyWishlistModalInputs
+  | PersonalInfoModalInputs;
 
 export type ModalOutputs = Record<string, (...args: unknown[]) => void>;
 
-export type ModalComponentType = Type<GifteeInfoModal | MyWishlistModal>;
+export type ModalComponentType = Type<
+  GifteeInfoModal | MyWishlistModal | PersonalInfoModal
+>;
 
 export interface GifteePersonalInfoItem {
   term: string;
@@ -188,6 +194,10 @@ export interface GifteeInfoModalInputs {
 export interface MyWishlistModalInputs {
   wishListInfo: GifteeWishlistInfo;
   budget?: number;
+}
+
+export interface PersonalInfoModalInputs {
+  personalInfo: GifteePersonalInfoItem[];
 }
 
 export interface LottieConfig {

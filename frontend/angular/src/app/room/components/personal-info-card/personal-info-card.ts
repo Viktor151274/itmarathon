@@ -4,12 +4,12 @@ import { ButtonText, CaptionMessage, CopyLinkType } from '../../../app.enum';
 import { Button } from '../../../shared/components/button/button';
 
 @Component({
-  selector: 'app-participant-info',
+  selector: 'app-personal-info',
   imports: [CopyLink, Button],
-  templateUrl: './participant-info.html',
-  styleUrl: './participant-info.scss',
+  templateUrl: './personal-info-card.html',
+  styleUrl: './personal-info-card.scss',
 })
-export class ParticipantInfo {
+export class PersonalInfoCard {
   public readonly firstName = input.required<string>();
   public readonly roomName = input.required<string>();
   public readonly link = input.required<string>();

@@ -13,10 +13,11 @@
   </section>
 
   <aside class="room__participant-info">
-    <app-participant-info
+    <app-personal-info
       [firstName]="firstName()"
       [roomName]="roomName()"
       [link]="userLink()"
+      (buttonAction)="onViewInformation()"
     />
   </aside>
 

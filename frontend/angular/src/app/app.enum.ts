@@ -289,10 +289,12 @@ export const enum ModalTitle {
   LookWhoYouGot = 'Look Who You Got!',
   WishList = 'Your Wishlist',
   ParticipantDetails = 'Participant Details',
+  PersonalInformation = 'Personal Information',
 }
 
 export const enum ModalSubtitle {
   ParticipantInfo = 'Everything about your Secret Nick player!',
+  PersonalInfo = 'Secret Nick needs to know where to send your present!',
 }
 
 export const enum PersonalInfoTerm {
