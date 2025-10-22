@@ -43,7 +43,8 @@ namespace Epam.ItMarathon.ApiService.Api.Dto.Mapping
                 .ForMember(dest => dest.Email, opt =>
                 {
                     opt.PreCondition((src, context) =>
-                        src.IsAdmin ||                                        // This is IsAdmin record,
+                        (bool)context.Items["AuthAsAdmin"] ||                 // Auth user is Admin
+                        src.IsAdmin ||                                        // or this is IsAdmin record,
                         src.AuthCode.Equals(context.Items["OwnerCode"]) ||    // or auth user is Owner of the record,
                         src.Id.Equals(context.Items["GiftRecipientUserId"])); // or this is Target record for auth user.
                     opt.MapFrom(user => user.Email ?? string.Empty);
