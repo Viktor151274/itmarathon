@@ -44,3 +44,16 @@ export type WishList = WishListItem[];
 export type DrawRoomResponse = {
   adminGiftToUser: Participant;
 };
+
+export type UpdateRoomResponse = Omit<GetRoomResponse, "isFull">;
+
+export type UpdateRoomRequest = Partial<
+  Pick<
+    GetRoomResponse,
+    | "name"
+    | "description"
+    | "invitationNote"
+    | "giftExchangeDate"
+    | "giftMaximumBudget"
+  >
+>;
