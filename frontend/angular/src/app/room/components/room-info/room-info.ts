@@ -1,18 +1,13 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { RoomDataCard } from '../../../shared/components/room-data-card/room-data-card';
 import {
   ButtonText,
-  InvitationNotePopup,
-  MessageType,
   PictureName,
-  PopupPosition,
   RoomDataCardVariant,
   RoomInfoCardTitle,
 } from '../../../app.enum';
 import { DatePipe } from '@angular/common';
 import { Button } from '../../../shared/components/button/button';
-import { PopupService } from '../../../core/services/popup';
-import { copyToClipboard } from '../../../utils/copy';
 import { BudgetPipe } from '../../../shared/pipes/budget.pipe';
 
 @Component({
@@ -30,12 +25,7 @@ export class RoomInfo {
   readonly invitationLink = input.required<string>();
   readonly isAdmin = input<boolean>(false);
   readonly isDrawn = input<boolean>(false);
-
-  private readonly popupService = inject(PopupService);
-
-  private readonly popupPositionRight = PopupPosition.Right;
-  private readonly successMessageType = MessageType.Success;
-  private readonly errorMessageType = MessageType.Error;
+  readonly userCode = input.required<string>();
 
   public readonly exchangeDate = computed(
     () => new Date(this.exchangeDateString())
@@ -52,19 +42,9 @@ export class RoomInfo {
   public readonly invitationTitle = RoomInfoCardTitle.InvitationNote;
   public readonly inviteButtonText = ButtonText.InviteNewMembers;
 
-  public async onClick(event: MouseEvent) {
-    const button = event.currentTarget as HTMLElement;
-    const isCopied = await copyToClipboard(this.noteWithLink());
-    if (isCopied) {
-      this.popupService.show(button, this.popupPositionRight, {
-        message: InvitationNotePopup.Success,
-        type: this.successMessageType,
-      });
-    } else {
-      this.popupService.show(button, this.popupPositionRight, {
-        message: InvitationNotePopup.Error,
-        type: this.errorMessageType,
-      });
-    }
+  readonly buttonAction = output<void>();
+
+  public onButtonClick(): void {
+    this.buttonAction.emit();
   }
 }

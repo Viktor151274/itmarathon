@@ -1,0 +1,29 @@
+<app-common-modal-template
+  [headerPictureName]="headerPictureName"
+  [headerTitle]="headerTitle"
+  [subtitle]="subtitle"
+  [buttonText]="goBackText"
+  (buttonAction)="onButtonAction()"
+  (closeModal)="onCloseModal()"
+>
+  <section class="success__block success__block--modal">
+    <h3 class="success__block-title success__block-title--modal">
+      Your Room Link
+    </h3>
+    <app-copy-link [link]="roomLink()" />
+  </section>
+
+  <section class="success__block">
+    <h3 class="success__block-title success__block-title--modal">
+      Invitation Note
+    </h3>
+
+    <app-invitation-note
+      [invitationNote]="invitationNote()"
+      [invitationLink]="roomLink()"
+      [userCode]="userCode()"
+      [editable]="true"
+      [maxLength]="invitationNoteMaxLength()"
+    />
+  </section>
+</app-common-modal-template>

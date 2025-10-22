@@ -183,6 +183,7 @@ export const enum PictureName {
   BigGifts = 'big-gifts',
   StNick = 'st-nick',
   Cookie = 'cookie',
+  Invitation = 'invitation',
 }
 
 export const enum FormTitle {
@@ -290,11 +291,13 @@ export const enum ModalTitle {
   WishList = 'Your Wishlist',
   ParticipantDetails = 'Participant Details',
   PersonalInformation = 'Personal Information',
+  Invitation = 'Invite New Members',
 }
 
 export const enum ModalSubtitle {
   ParticipantInfo = 'Everything about your Secret Nick player!',
   PersonalInfo = 'Secret Nick needs to know where to send your present!',
+  Invitation = 'Share the link below with 20 friends to invite them',
 }
 
 export const enum PersonalInfoTerm {

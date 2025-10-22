@@ -31,6 +31,7 @@ import { PersonalInfoCard } from './components/personal-info-card/personal-info-
 import { UrlService } from '../core/services/url';
 import { NavigationLinkSegment } from '../app.enum';
 import { PersonalInfoModal } from './components/personal-info-modal/personal-info-modal';
+import { InvitationModal } from '../shared/components/invitation-modal/invitation-modal';
 
 @Component({
   selector: 'app-room',
@@ -80,9 +81,9 @@ export class Room implements OnInit {
   public readonly userLink = computed(() =>
     this.roomData().modifiedOn
       ? this.#urlService.getNavigationLinks(
-          this.userCode(),
-          NavigationLinkSegment.Room
-        ).absoluteUrl
+        this.userCode(),
+        NavigationLinkSegment.Room
+      ).absoluteUrl
       : ''
   );
 
@@ -156,6 +157,26 @@ export class Room implements OnInit {
       {
         buttonAction: () => this.#modalService.close(),
         closeModal: () => this.#modalService.close(),
+      }
+    );
+  }
+
+  public openInvitationModal(): void {
+    const refreshAndClose = () => {
+      this.#roomService.getRoomByUserCode(this.userCode());
+      this.#modalService.close();
+    };
+
+    this.#modalService.openWithResult(
+      InvitationModal,
+      {
+        roomLink: this.invitationLink(),
+        invitationNote: this.roomData()?.invitationNote,
+        userCode: this.userCode(),
+      },
+      {
+        buttonAction: refreshAndClose,
+        closeModal: refreshAndClose,
       }
     );
   }

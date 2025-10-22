@@ -9,6 +9,8 @@
       [invitationNote]="roomData().invitationNote"
       [invitationLink]="invitationLink()"
       [isDrawn]="isRoomDrawn()"
+      [userCode]="userCode()"
+      (buttonAction)="openInvitationModal()"
     />
   </section>
 
