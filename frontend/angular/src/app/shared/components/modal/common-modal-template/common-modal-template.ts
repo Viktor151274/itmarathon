@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { ParentModalLayout } from '../../../../core/directives/parent-modal-layout';
 import { Button } from '../../button/button';
 import { IconButton } from '../../icon-button/icon-button';
@@ -17,11 +17,12 @@ import { BudgetPipe } from '../../../pipes/budget.pipe';
 })
 export class CommonModalTemplate extends ParentModalLayout {
   readonly subtitle = input.required<string>();
-
   readonly cancelButtonText = input<ButtonText>();
   readonly budget = input<number>();
 
   readonly cancelButtonAction = output<void>();
+
+  readonly isBudgetShown = computed(() => this.budget() !== undefined);
 
   public onCancelButtonClick(): void {
     this.cancelButtonAction.emit();

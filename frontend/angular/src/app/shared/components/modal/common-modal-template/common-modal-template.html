@@ -18,9 +18,9 @@
           <h3 class="modal__title">{{ headerTitle() }}</h3>
           <p class="modal__subtitle">{{ subtitle() }}</p>
 
-          @if (budget(); as budgetValue) {
+          @if (isBudgetShown()) {
             <p class="modal__budget title-sm">
-              Gift Budget: {{ budgetValue | budget }}
+              Gift Budget: {{ budget() | budget }}
             </p>
           }
         </div>
