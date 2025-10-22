@@ -7,9 +7,11 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
     {
         public static RoomEf SyncRoom(this RoomEf trackedRoom, RoomEf updatedRoom)
         {
+            var updatedTime = DateTime.UtcNow;
+
             trackedRoom.ClosedOn = updatedRoom.ClosedOn;
             trackedRoom.AdminId = updatedRoom.AdminId;
-            trackedRoom.ModifiedOn = updatedRoom.ModifiedOn;
+            trackedRoom.ModifiedOn = updatedTime;
             trackedRoom.MinUsersLimit = updatedRoom.MinUsersLimit;
             trackedRoom.MaxUsersLimit = updatedRoom.MaxUsersLimit;
             trackedRoom.MaxWishesLimit = updatedRoom.MaxWishesLimit;
@@ -18,12 +20,13 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
             trackedRoom.InvitationNote = updatedRoom.InvitationNote;
             trackedRoom.GiftExchangeDate = updatedRoom.GiftExchangeDate;
             trackedRoom.GiftMaximumBudget = updatedRoom.GiftMaximumBudget;
-            trackedRoom.Users = SyncUsersInRoom(trackedRoom.Users, updatedRoom.Users);
+            trackedRoom.Users = SyncUsersInRoom(trackedRoom.Users, updatedRoom.Users, updatedTime);
+
             return trackedRoom;
         }
 
         private static ICollection<UserEf> SyncUsersInRoom(ICollection<UserEf> trackedUsers,
-            ICollection<UserEf> updatedUsers)
+            ICollection<UserEf> updatedUsers, DateTime updatedTime)
         {
             var trackedDict = trackedUsers.ToDictionary(user => user.Id);
             var updatedDict = updatedUsers.ToDictionary(user => user.Id);
@@ -42,28 +45,30 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
 
             foreach (var updatedUser in updatedUsers.Where(user => user.Id != 0))
             {
-                if (trackedDict.TryGetValue(updatedUser.Id, out var trackedUser))
+                if (!trackedDict.TryGetValue(updatedUser.Id, out var trackedUser))
                 {
-                    trackedUser.ModifiedOn = updatedUser.ModifiedOn;
-                    trackedUser.FirstName = updatedUser.FirstName;
-                    trackedUser.LastName = updatedUser.LastName;
-                    trackedUser.Phone = updatedUser.Phone;
-                    trackedUser.DeliveryInfo = updatedUser.DeliveryInfo;
-                    trackedUser.GiftRecipientUserId = updatedUser.GiftRecipientUserId;
-                    trackedUser.Email = updatedUser.Email;
-                    trackedUser.WantSurprise = updatedUser.WantSurprise;
-                    trackedUser.Interests = updatedUser.Interests;
-                    trackedUser.Wishes = SyncUserWishes(trackedUser.Wishes, updatedUser.Wishes);
+                    continue;
                 }
+
+                trackedUser.ModifiedOn = updatedTime;
+                trackedUser.FirstName = updatedUser.FirstName;
+                trackedUser.LastName = updatedUser.LastName;
+                trackedUser.Phone = updatedUser.Phone;
+                trackedUser.DeliveryInfo = updatedUser.DeliveryInfo;
+                trackedUser.GiftRecipientUserId = updatedUser.GiftRecipientUserId;
+                trackedUser.Email = updatedUser.Email;
+                trackedUser.WantSurprise = updatedUser.WantSurprise;
+                trackedUser.Interests = updatedUser.Interests;
+                trackedUser.Wishes = SyncUserWishes(trackedUser.Wishes, updatedUser.Wishes, updatedTime);
             }
 
             return trackedUsers;
         }
 
         private static ICollection<GiftEf> SyncUserWishes(ICollection<GiftEf> trackedWishes,
-            ICollection<GiftEf> updatedWishes)
+            ICollection<GiftEf> updatedWishes, DateTime updatedTime)
         {
-            var comparer = StringComparer.OrdinalIgnoreCase; // or Ordinal if case sensitive
+            var comparer = StringComparer.OrdinalIgnoreCase; // or Ordinal if case-sensitive
             // Delete entities witch not present in updated
             var toRemove = trackedWishes
                 .Where(trackedWish => !updatedWishes.Any(updatedWish =>
@@ -85,7 +90,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
 
                 if (existing != null)
                 {
-                    existing.ModifiedOn = updatedWish.ModifiedOn;
+                    existing.ModifiedOn = updatedTime;
                 }
                 else
                 {
