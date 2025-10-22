@@ -30,16 +30,17 @@ export class Success implements OnInit {
 
   #successPageData!: Signal<CreateRoomSuccessPageData>;
 
+  public roomName!: string;
   public invitationNote!: string;
   public personalLink!: string;
   public roomLink!: string;
   public routerPath!: string;
   public userCode!: string;
+  public pageTitle!: PageTitle;
 
   public readonly btnText = ButtonText.Success;
   public readonly btnType = ButtonType.Button;
   public readonly doNotShare = CaptionMessage.DoNotShare;
-  public readonly pageTitle = PageTitle.Success;
   public readonly pageSubtitle = PageSubtitle.Success;
   public readonly pagePictureName = PictureName.Flat;
   public readonly invitationNoteMaxLength = 1000;
@@ -71,5 +72,7 @@ export class Success implements OnInit {
     this.userCode = pageData.userCode;
     this.roomLink = pathsRoom.absoluteUrl;
     this.routerPath = pathsPersonalLink.routerPath;
+    this.roomName = pageData.name;
+    this.pageTitle = `Your ${this.roomName} Room is Ready!` as PageTitle;
   }
 }

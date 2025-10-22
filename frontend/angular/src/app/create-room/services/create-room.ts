@@ -5,7 +5,10 @@ import { tap } from 'rxjs';
 
 import { ApiService } from '../../core/services/api';
 import { Path } from '../../app.enum';
-import { SUCCESS_PAGE_DATA_DEFAULT } from '../../app.constants';
+import {
+  DEFAULT_ROOM_NAME,
+  SUCCESS_PAGE_DATA_DEFAULT,
+} from '../../app.constants';
 import type {
   RoomCreationRequest,
   RoomSummary,
@@ -35,11 +38,13 @@ export class CreateRoomService {
       const userCode = response?.body?.userCode || '';
       const invitationCode = response?.body?.room?.invitationCode || '';
       const invitationNote = response?.body?.room?.invitationNote || '';
+      const name = response?.body?.room?.name || DEFAULT_ROOM_NAME;
 
       this.#successPageData.set({
         userCode,
         invitationCode,
         invitationNote,
+        name,
       });
 
       void this.#router.navigate([Path.CreateRoom, Path.Success]);

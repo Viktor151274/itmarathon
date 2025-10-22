@@ -16,7 +16,11 @@ import { UserService } from './services/user';
 import { ParticipantList } from '../shared/components/participant-list/participant-list';
 import { RandomizeCard } from './components/randomize-card/randomize-card';
 import { GifteeInfo } from './components/giftee-info/giftee-info';
-import { CONFETTI_ANIMATION_PATH, MIN_USERS_NUMBER } from '../app.constants';
+import {
+  CONFETTI_ANIMATION_PATH,
+  DEFAULT_ROOM_NAME,
+  MIN_USERS_NUMBER,
+} from '../app.constants';
 import { MyWishlist } from './components/my-wishlist/my-wishlist';
 import { ModalService } from '../core/services/modal';
 import { GifteeInfoModal } from './components/giftee-info-modal/giftee-info-modal';
@@ -69,7 +73,7 @@ export class Room implements OnInit {
     () => this.currentUser()?.firstName ?? 'Participant'
   );
   public readonly roomName = computed(
-    () => this.roomData()?.name || 'Secret Nick'
+    () => this.roomData()?.name || DEFAULT_ROOM_NAME
   );
 
   public readonly userLink = computed(() =>

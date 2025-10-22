@@ -191,16 +191,19 @@ export const enum FormTitle {
   AddWishes = 'Add Your Wishes',
 }
 
-export const enum PageTitle {
-  Success = 'Your Secret Nick Room is Ready!',
-  WelcomeJoin = 'Welcome to the',
+export const enum BrowserPageTitle {
   Home = 'Welcome to Secret Nick',
   CreateRoom = 'Create Your Room',
   CreateSuccess = 'Your Room is Ready!',
   Welcome = 'Join the Room – Secret Nick',
   JoinRoom = 'Fill in Your Info',
-  JoinSuccess = 'You’ve Joined the Room!',
   Room = 'Your Room',
+  JoinSuccess = 'You’ve Joined the Room!',
+  NotFound = 'Page Not Found',
+}
+
+export const enum PageTitle {
+  WelcomeJoin = 'Welcome to the',
   YouHaveJoinedTheRoom = 'You Have Joined the Room! 🎅',
   NotFound = 'Oops! Page Not Found',
 }

@@ -17,6 +17,8 @@ export const CONFETTI_ANIMATION_PATH = '/assets/animations/confetti.json';
 
 export const MESSAGE_DURATION_MS = 3000;
 
+export const DEFAULT_ROOM_NAME = 'Secret Nick';
+
 export const JOIN_ROOM_STEPPER_LABELS: StepLabel[] = [
   StepLabel.AddPersonalInfo,
   StepLabel.AddWishlist,
@@ -31,6 +33,7 @@ export const SUCCESS_PAGE_DATA_DEFAULT: CreateRoomSuccessPageData = {
   userCode: '',
   invitationCode: '',
   invitationNote: '',
+  name: '',
 };
 
 export const JOIN_ROOM_DATA_DEFAULT: JoinRoomWelcomePageData = {

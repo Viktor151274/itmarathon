@@ -123,6 +123,7 @@ export interface CreateRoomSuccessPageData {
   userCode: string;
   invitationCode: string;
   invitationNote: string;
+  name: string;
 }
 
 export interface JoinRoomWelcomePageData {

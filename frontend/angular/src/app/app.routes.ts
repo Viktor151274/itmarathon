@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { PageTitle, Path } from './app.enum';
+import { BrowserPageTitle, Path } from './app.enum';
 import { CreateRoomService } from './create-room/services/create-room';
 import { welcomeGuard } from './core/guards/welcome-guard';
 import { createRoomSuccessCanActivateGuard } from './core/guards/create-room-success-can-activate-guard';
@@ -12,7 +12,7 @@ export const routes: Routes = [
     path: Path.Home,
     loadComponent: () =>
       import('./home/home').then((component) => component.Home),
-    title: PageTitle.Home,
+    title: BrowserPageTitle.Home,
   },
   {
     path: Path.CreateRoom,
@@ -24,7 +24,7 @@ export const routes: Routes = [
           import('./create-room/create-room').then(
             (component) => component.CreateRoom
           ),
-        title: PageTitle.CreateRoom,
+        title: BrowserPageTitle.CreateRoom,
       },
       {
         path: Path.Success,
@@ -33,7 +33,7 @@ export const routes: Routes = [
           import('./create-room/success').then(
             (component) => component.Success
           ),
-        title: PageTitle.CreateSuccess,
+        title: BrowserPageTitle.CreateSuccess,
       },
     ],
   },
@@ -45,7 +45,7 @@ export const routes: Routes = [
         path: '',
         loadComponent: () =>
           import('./welcome/welcome').then((component) => component.Welcome),
-        title: PageTitle.Welcome,
+        title: BrowserPageTitle.Welcome,
       },
       {
         path: Path.Details,
@@ -53,14 +53,14 @@ export const routes: Routes = [
           import('./join-room/join-room').then(
             (component) => component.JoinRoom
           ),
-        title: PageTitle.JoinRoom,
+        title: BrowserPageTitle.JoinRoom,
       },
       {
         path: Path.Success,
         canActivate: [joinRoomSuccessCanActivateGuard],
         loadComponent: () =>
           import('./join-room/success').then((component) => component.Success),
-        title: PageTitle.JoinSuccess,
+        title: BrowserPageTitle.JoinSuccess,
       },
     ],
   },
@@ -68,11 +68,12 @@ export const routes: Routes = [
     path: `${Path.Room}/:userCode`,
     loadComponent: () =>
       import('./room/room').then((component) => component.Room),
-    title: PageTitle.Room,
+    title: BrowserPageTitle.Room,
   },
   {
     path: Path.NotFound,
     loadComponent: () =>
       import('./not-found/not-found').then((component) => component.NotFound),
+    title: BrowserPageTitle.NotFound,
   },
 ];
