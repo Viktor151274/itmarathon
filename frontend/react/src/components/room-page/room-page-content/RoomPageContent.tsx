@@ -60,7 +60,7 @@ const RoomPageContent = ({
 
   return (
     <div className="room-page-content">
-      <div className="room-page-content-column">
+      <div className="room-page-content-row">
         <RoomDetails
           name={roomDetails.name}
           description={roomDetails.description}
@@ -71,25 +71,28 @@ const RoomPageContent = ({
           roomLink={generateRoomLink(roomDetails.invitationCode)}
           invitationLink={generateRoomLink(roomDetails.invitationCode)}
         />
-        <ParticipantsList participants={participants} />
       </div>
 
-      <div className="room-page-content-column">
-        {isAdmin || (!isAdmin && isRandomized) ? (
-          <RandomizationPanel
-            isRandomized={isRandomized}
-            userCount={participants.length}
-            fullName={giftRecipientFullName}
-            onDraw={onDrawNames}
-            onReadUserDetails={handleReadUserDetails}
-          />
-        ) : null}
+      <div className="room-page-content-row">
+        <ParticipantsList participants={participants} />
 
-        <WishlistPreview
-          isWantSurprise={currentUser?.wantSurprise}
-          wishListData={currentUser?.wishList}
-          onViewWishlist={handleViewWishListModal}
-        />
+        <div className="room-page-content-column">
+          {isAdmin || (!isAdmin && isRandomized) ? (
+            <RandomizationPanel
+              isRandomized={isRandomized}
+              userCount={participants.length}
+              fullName={giftRecipientFullName}
+              onDraw={onDrawNames}
+              onReadUserDetails={handleReadUserDetails}
+            />
+          ) : null}
+
+          <WishlistPreview
+            isWantSurprise={currentUser?.wantSurprise}
+            wishListData={currentUser?.wishList}
+            onViewWishlist={handleViewWishListModal}
+          />
+        </div>
       </div>
 
       {giftRecipientPersonalInfo ? (

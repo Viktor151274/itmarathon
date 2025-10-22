@@ -1,9 +1,15 @@
 .room-page-content {
   display: flex;
+  flex-direction: column;
   justify-content: left;
-  column-gap: 24px;
-  width: 1200px;
+  row-gap: 24px;
+  width: 1440px;
   padding: 40px 120px 80px;
+
+  &-row {
+    display: flex;
+    column-gap: 24px;
+  }
 
   &-column {
     display: flex;
