@@ -1,13 +1,16 @@
 @use "../../../../assets/styles/colors";
 
 .randomization-modal {
+  display: flex;
+  flex-direction: column;
   position: relative;
   width: 1088px;
-  height: fit-content;
   overflow: visible;
   border-radius: 16px;
   border: 1.6px solid colors.$green-500;
   padding: 0 40px 40px;
+  margin-top: 70px;
+  max-height: 70vh;
   background:
     url("../../../../assets/images/backgrounds/snow-background.svg") top left /
       auto 90px repeat-x,
@@ -41,6 +44,8 @@
   &__content {
     display: flex;
     column-gap: 24px;
+    overflow-y: auto;
+    padding-right: 16px;
   }
 
   &__back-button {
