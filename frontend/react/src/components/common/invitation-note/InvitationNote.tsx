@@ -76,6 +76,7 @@ const InvitationNote = ({
             width={width}
             variant="invitation-note"
             maxLength={noteValueMaxLength}
+            rows={1}
             {...restProps}
           />
 
