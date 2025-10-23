@@ -20,6 +20,8 @@ const ParticipantsList = ({ participants }: ParticipantsListProps) => {
     (participant) => !participant?.isAdmin,
   );
 
+  const isParticipantsMoreThanTen = participants.length > 10;
+
   const handleInfoButtonClick = (participant: Participant) => {
     const personalInfoData: PersonalInformation = {
       firstName: participant.firstName,
@@ -35,8 +37,12 @@ const ParticipantsList = ({ participants }: ParticipantsListProps) => {
   const handleModalClose = () => setSelectedParticipant(null);
 
   return (
-    <>
-      <div className="participant-list">
+    <div
+      className={`participant-list ${isParticipantsMoreThanTen ? "participant-list--shift-bg-image" : ""}`}
+    >
+      <div
+        className={`participant-list__content ${isParticipantsMoreThanTen ? "participant-list__content--extra-padding" : ""}`}
+      >
         <div className="participant-list-header">
           <h3 className="participant-list-header__title">Who’s Playing?</h3>
 
@@ -79,15 +85,16 @@ const ParticipantsList = ({ participants }: ParticipantsListProps) => {
             />
           ))}
         </div>
+
+        {selectedParticipant ? (
+          <ParticipantDetailsModal
+            isOpen={!!selectedParticipant}
+            onClose={handleModalClose}
+            personalInfoData={selectedParticipant}
+          />
+        ) : null}
       </div>
-      {selectedParticipant ? (
-        <ParticipantDetailsModal
-          isOpen={!!selectedParticipant}
-          onClose={handleModalClose}
-          personalInfoData={selectedParticipant}
-        />
-      ) : null}
-    </>
+    </div>
   );
 };
 
