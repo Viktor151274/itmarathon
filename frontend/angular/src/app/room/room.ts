@@ -81,9 +81,9 @@ export class Room implements OnInit {
   public readonly userLink = computed(() =>
     this.roomData().modifiedOn
       ? this.#urlService.getNavigationLinks(
-        this.userCode(),
-        NavigationLinkSegment.Room
-      ).absoluteUrl
+          this.userCode(),
+          NavigationLinkSegment.Room
+        ).absoluteUrl
       : ''
   );
 
@@ -93,7 +93,7 @@ export class Room implements OnInit {
     });
 
     this.#roomService.getRoomByUserCode(this.#userService.userCode());
-    this.#userService.getUsers();
+    this.#userService.getUsers().subscribe();
   }
 
   public onDrawNames(): void {

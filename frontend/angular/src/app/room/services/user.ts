@@ -33,17 +33,14 @@ export class UserService {
     this.#userCode.set(code);
   }
 
-  public getUsers(): void {
-    this.#apiService
-      .getUsers(this.#userCode())
-      .pipe(
-        tap((result) => {
-          if (result?.body) {
-            this.#users.set(result.body);
-          }
-        })
-      )
-      .subscribe();
+  public getUsers(): Observable<HttpResponse<User[]>> {
+    return this.#apiService.getUsers(this.#userCode()).pipe(
+      tap((result) => {
+        if (result?.body) {
+          this.#users.set(result.body);
+        }
+      })
+    );
   }
 
   public drawNames(): Observable<HttpResponse<string>> {
@@ -51,7 +48,7 @@ export class UserService {
       tap(({ status }) => {
         if (status === 200) {
           this.#roomService.getRoomByUserCode(this.#userCode());
-          this.getUsers();
+          this.getUsers().subscribe();
           this.#toasterService.show(
             ToastMessage.SuccessDrawNames,
             MessageType.Success

@@ -16,7 +16,7 @@
       (click)="copyRoomLink()"
       (mouseenter)="onCopyHover($event.currentTarget)"
       (mouseleave)="onCopyLeave($event.currentTarget)"
-    ></app-icon-button>
+    />
   }
 
   @if (!isCurrentUser() && participant().isAdmin) {
@@ -24,6 +24,14 @@
       [iconName]="iconInfo"
       [ariaLabel]="ariaLabelInfo"
       (click)="onInfoClick()"
-    ></app-icon-button>
+    />
+  }
+
+  @if (isCurrentUserAdmin() && !participant().isAdmin) {
+    <app-icon-button
+      [iconName]="iconInfo"
+      [ariaLabel]="ariaLabelInfo"
+      (click)="onInfoClick()"
+    />
   }
 </span>
