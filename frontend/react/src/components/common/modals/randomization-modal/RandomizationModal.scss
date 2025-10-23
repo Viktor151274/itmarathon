@@ -1,4 +1,5 @@
 @use "../../../../assets/styles/colors";
+@use "../../../../assets/styles/extends";
 
 .randomization-modal {
   display: flex;
@@ -46,6 +47,7 @@
     column-gap: 24px;
     overflow-y: auto;
     padding-right: 16px;
+    @extend %scroll;
   }
 
   &__back-button {
