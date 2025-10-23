@@ -292,9 +292,11 @@
 
 @mixin modal-base-layout($modal-width: 1088px, $modal-content-padding: 40px) {
   position: absolute;
+  max-height: 70vh;
   width: $modal-width;
   border: 1.6px solid $modal-border-color;
   border-radius: 16px;
+  background-color: $modal-content-bg;
   will-change: opacity;
 
   &__wrapper {
@@ -320,13 +322,15 @@
   }
 
   &__content {
-    padding: $modal-content-padding;
-    background: $modal-content-bg;
-    border-radius: 0px 0px 16px 16px;
-    flex: 1 1 auto;
-    min-height: 0;
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
+    gap: 48px;
+    padding: 0 $modal-content-padding $modal-content-padding;
+    background: $modal-content-bg;
+    width: 100%;
+    border-radius: 0px 0px 16px 16px;
+    min-height: 0;
 
     &-container {
       overflow: auto;
@@ -337,6 +341,12 @@
       padding: 3px;
       margin: -3px;
     }
+  }
+
+  &__button-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
   }
 
   &__actions {
