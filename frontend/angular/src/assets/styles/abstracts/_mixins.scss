@@ -197,7 +197,7 @@
   &__input-control {
     margin-bottom: 20px;
 
-    &:has(.hint.hint--error) {
+    &:has(.hint.hint--error):not(:has(app-budget-input)) {
       margin-bottom: 40px;
     }
   }
