@@ -37,10 +37,12 @@
 
     &:hover {
       cursor: pointer;
+      color: colors.$g-50;
     }
 
     &:focus-visible {
       border: 1px solid colors.$orange-500;
+      color: colors.$g-50;
       border-radius: 2px;
     }
   }
