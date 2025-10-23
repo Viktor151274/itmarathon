@@ -7,14 +7,14 @@
   flex-direction: column;
   justify-content: space-between;
   row-gap: 35px;
-  width: 384px;
+  width: 383px;
   padding: 24px;
   border-radius: 16px;
   background:
     url("@assets/images/backgrounds/participant-info-background-sprite.svg#snowflakes")
       right 9px top 0px / 62px 60px no-repeat,
     url("@assets/images/backgrounds/participant-info-background-sprite.svg#snow")
-      left 0px bottom 0px / 384px 104px no-repeat,
+      left -1px bottom 0px / 384px 104px no-repeat,
     colors.$red-500;
   box-shadow: variables.$shadow;
   text-align: left;

@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useParams } from "react-router";
+
 import RandomizationModal from "@components/common/modals/randomization-modal/RandomizationModal";
 import ViewWishlistModal from "@components/common/modals/view-wishlist-modal/ViewWishlistModal";
 import ParticipantsList from "../participants-list/ParticipantsList";
 import RoomDetails from "../room-details/RoomDetails";
 import WishlistPreview from "../wishlist-preview/WishlistPreview";
 import RandomizationPanel from "../randomization-panel/RandomizationPanel";
-import { generateRoomLink } from "@utils/general";
+import ParticipantInfo from "@components/common/participant-info/ParticipantInfo";
+import PersonalInformationModal from "@components/common/modals/personal-information-modal/PersonalInformationModal";
+
+import { generateParticipantLink, generateRoomLink } from "@utils/general";
 import { getCurrentUser, getParticipantInfoById } from "./utils";
 import type { WishlistProps } from "@components/common/wishlist/types";
 import type { RoomPageContentProps } from "./types";
@@ -20,12 +24,23 @@ const RoomPageContent = ({
   const { userCode } = useParams();
   const [isUserDetailsModalOpen, setIsUserDetailsModalOpen] = useState(false);
   const [isViewWishlistModalOpen, setViewWishlistModalOpen] = useState(false);
+  const [isPersonalInformationModalOpen, setIsPersonalInformationModalOpen] =
+    useState(false);
 
   if (!userCode) {
     return null;
   }
 
   const currentUser = getCurrentUser(userCode, participants);
+
+  const currentUserPersonalInfo = {
+    firstName: currentUser?.firstName ?? "",
+    lastName: currentUser?.lastName ?? "",
+    phone: currentUser?.phone ?? "",
+    email: currentUser?.email ?? "",
+    deliveryInfo: currentUser?.deliveryInfo ?? "",
+  };
+
   const isAdmin = currentUser?.isAdmin;
 
   const isRandomized = !!roomDetails?.closedOn;
@@ -58,6 +73,10 @@ const RoomPageContent = ({
     setViewWishlistModalOpen(true);
   };
 
+  const handleViewPersonalInformation = () => {
+    setIsPersonalInformationModalOpen(true);
+  };
+
   return (
     <div className="room-page-content">
       <div className="room-page-content-row">
@@ -71,6 +90,15 @@ const RoomPageContent = ({
           roomLink={generateRoomLink(roomDetails.invitationCode)}
           invitationLink={generateRoomLink(roomDetails.invitationCode)}
         />
+
+        {currentUser ? (
+          <ParticipantInfo
+            participantName={currentUser?.firstName}
+            roomName={roomDetails.name}
+            participantLink={generateParticipantLink(currentUser?.userCode)}
+            onViewInformation={handleViewPersonalInformation}
+          />
+        ) : null}
       </div>
 
       <div className="room-page-content-row">
@@ -114,6 +142,12 @@ const RoomPageContent = ({
           wishlistData={currentUser.wishList ?? []}
         />
       ) : null}
+
+      <PersonalInformationModal
+        isOpen={isPersonalInformationModalOpen}
+        onClose={() => setIsPersonalInformationModalOpen(false)}
+        personalInfoData={currentUserPersonalInfo}
+      />
     </div>
   );
 };

@@ -9,23 +9,27 @@ const ParticipantInfo = ({
   participantLink,
   onViewInformation,
 }: ParticipantInfoProps) => {
+  const roomDescription = `Get ready for happy gift exchange and fun in ${roomName || "Secret Nick"} game!`;
+
   return (
     <div className="participant-info">
       <div>
-        <h3 className="participant-info__title">Hi, {participantName}</h3>
-        <p className="participant-info__description">
-          Get ready for happy gift exchange and fun in {roomName} game!
-        </p>
+        <h3 className="participant-info__title">
+          Hi, {participantName || "Participant"}
+        </h3>
+        <p className="participant-info__description">{roomDescription}</p>
       </div>
 
       <div>
-        <RoomLink
-          description="Your Participant Link"
-          caption="Do not share this link with other users"
-          url={participantLink}
-          small
-          white
-        />
+        {participantLink ? (
+          <RoomLink
+            description="Your Participant Link"
+            caption="Do not share this link with other users"
+            url={participantLink}
+            small
+            white
+          />
+        ) : null}
 
         <div className="participant-info__button">
           <Button variant="secondary" size="medium" onClick={onViewInformation}>
