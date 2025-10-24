@@ -35,7 +35,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Queries
             // Arrange
             var query = new GetUsersQuery(string.Empty, null);
             _userReadOnlyRepositoryMock
-                .GetByCodeAsync(query.UserCode, CancellationToken.None, includeWishes: true)
+                .GetByCodeAsync(query.UserCode, CancellationToken.None, includeRoom: true, includeWishes: true)
                 .Returns(Result.Failure<Domain.Entities.User.User, ValidationResult>(
                     new NotFoundError([
                         new ValidationFailure("userCode", string.Empty)
@@ -64,7 +64,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Queries
                 .RuleFor(user => user.RoomId, _ => 1UL)
                 .Generate(usersInRoomCount);
             _userReadOnlyRepositoryMock
-                .GetByCodeAsync(query.UserCode, CancellationToken.None, includeWishes: true)
+                .GetByCodeAsync(query.UserCode, CancellationToken.None, includeRoom: true, includeWishes: true)
                 .Returns(usersInRoom.First());
             _userReadOnlyRepositoryMock
                 .GetManyByRoomIdAsync(Arg.Any<ulong>(), CancellationToken.None)
@@ -126,7 +126,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Queries
                 .RuleFor(user => user.RoomId, _ => 2UL)
                 .Generate();
             _userReadOnlyRepositoryMock
-                .GetByCodeAsync(query.UserCode, CancellationToken.None, includeWishes: true)
+                .GetByCodeAsync(query.UserCode, CancellationToken.None, includeRoom: true, includeWishes: true)
                 .Returns(authUser);
             _userReadOnlyRepositoryMock
                 .GetByIdAsync(query.UserId!.Value, CancellationToken.None, includeWishes: true)
@@ -157,7 +157,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.UserCases.Queries
                 .RuleFor(user => user.RoomId, _ => 1UL)
                 .Generate();
             _userReadOnlyRepositoryMock
-                .GetByCodeAsync(query.UserCode, CancellationToken.None, includeWishes: true)
+                .GetByCodeAsync(query.UserCode, CancellationToken.None, includeRoom: true, includeWishes: true)
                 .Returns(authUser);
             _userReadOnlyRepositoryMock
                 .GetByIdAsync(query.UserId!.Value, CancellationToken.None, includeWishes: true)

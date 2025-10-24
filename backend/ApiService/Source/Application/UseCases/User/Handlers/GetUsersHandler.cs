@@ -20,7 +20,7 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers
             CancellationToken cancellationToken)
         {
             var authUserResult = await userRepository.GetByCodeAsync(request.UserCode, cancellationToken,
-                includeRoom: false, includeWishes: true);
+                includeRoom: true, includeWishes: true);
             if (authUserResult.IsFailure)
             {
                 return authUserResult.ConvertFailure<List<UserEntity>>();
