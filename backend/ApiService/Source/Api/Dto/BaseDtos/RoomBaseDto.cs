@@ -9,14 +9,17 @@
         /// Room's name.
         /// </summary>
         public required string Name { get; set; }
+
         /// <summary>
         /// Room's description.
         /// </summary>
         public required string Description { get; set; }
+
         /// <summary>
         /// Planned date of Room draw.
         /// </summary>
         public required string GiftExchangeDate { get; set; }
+
         /// <summary>
         /// Gift maximum budget for the Room.
         /// </summary>

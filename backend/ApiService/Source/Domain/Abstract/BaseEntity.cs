@@ -9,14 +9,17 @@
         /// Unique identifier of entity.
         /// </summary>
         public ulong Id { get; protected set; }
+
         /// <summary>
         /// Date when the entity was created.
         /// </summary>
         public DateTime CreatedOn { get; protected set; }
+
         /// <summary>
         /// Date when the entity was modified last time. Same time as CreatedOn when entity created.
         /// </summary>
         public DateTime ModifiedOn { get; protected set; }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEntity"/> class.
         /// </summary>
@@ -25,6 +28,7 @@
             CreatedOn = DateTime.UtcNow;
             ModifiedOn = CreatedOn;
         }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseEntity"/> class.
         /// </summary>

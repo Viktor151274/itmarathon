@@ -20,8 +20,8 @@ namespace Epam.ItMarathon.ApiService.Api.Dto.Mapping
                         DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal
                     )));
 
-            CreateMap<Room, RoomReadDto>().
-                ForMember(roomDto => roomDto.AdminId, opt => opt.MapFrom(room => room.Users.First(user => user.IsAdmin).Id));
+            CreateMap<Room, RoomReadDto>().ForMember(roomDto => roomDto.AdminId,
+                opt => opt.MapFrom(room => room.Users.First(user => user.IsAdmin).Id));
 
             CreateMap<User, UserReadDto>()
                 .ForMember(dest => dest.UserCode, opt =>
@@ -83,8 +83,8 @@ namespace Epam.ItMarathon.ApiService.Api.Dto.Mapping
                         src.AuthCode.Equals(context.Items["OwnerCode"]) ||    // Auth user is Owner of the record,
                         src.Id.Equals(context.Items["GiftRecipientUserId"])); // or this is Target record for auth user.
                     opt.MapFrom(user => user.Wishes.Any()
-                            ? user.Wishes.Select(wish => new WishDto { Name = wish.Name, InfoLink = wish.InfoLink })
-                            : new List<WishDto>());
+                        ? user.Wishes.Select(wish => new WishDto { Name = wish.Name, InfoLink = wish.InfoLink })
+                        : new List<WishDto>());
                 });
         }
     }

@@ -6,10 +6,12 @@ namespace Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish
     public sealed record Wish
     {
         internal const int NameCharLimit = 40;
+
         /// <summary>
         /// Name of the wish.
         /// </summary>
         public string? Name { get; init; }
+
         /// <summary>
         /// Link to the wish.
         /// </summary>
@@ -21,7 +23,6 @@ namespace Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish
             InfoLink = infoLink;
         }
 
-        internal static Wish Create(string? name, string? infoLink)
-            => new(name, infoLink);
+        internal static Wish Create(string? name, string? infoLink) => new(name, infoLink);
     }
 }

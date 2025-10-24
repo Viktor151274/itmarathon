@@ -11,6 +11,7 @@ namespace Epam.ItMarathon.ApiService.Api.Dto.Responses.RoomResponses
         /// Room reading DTO.
         /// </summary>
         public required RoomReadDto Room { get; set; }
+
         /// <summary>
         /// Admin user authorization code.
         /// </summary>

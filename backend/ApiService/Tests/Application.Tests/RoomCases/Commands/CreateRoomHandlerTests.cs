@@ -300,7 +300,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.RoomCases.Commands
                 .RuleFor(user => user.WantSurprise, _ => false)
                 .RuleFor(user => user.Interests, _ => null)
                 .RuleFor(user => user.Wishes, _ => Enumerable.Range(1, wishesToGenerate)
-                        .Select<int, (string?, string?)>((_, index) => (index.ToString(), null)))
+                    .Select<int, (string?, string?)>((_, index) => (index.ToString(), null)))
                 .Generate();
             var request = new CreateRoomCommand(fakeRoom, invalidUser);
 

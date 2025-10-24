@@ -47,13 +47,12 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
 
             builder.Services.AddCors(options =>
             {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.AllowAnyOrigin()
-                               .AllowAnyHeader()
-                               .AllowAnyMethod();
-                    });
+                options.AddDefaultPolicy(policyBuilder =>
+                {
+                    policyBuilder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             });
 
             #endregion Security
@@ -108,22 +107,23 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
             #region Project Dependencies
 
             builder.Services.InjectInfrastructureLayer(builder.Configuration);
-            builder.Services.InjectApplicationLayer(builder.Configuration);
+            builder.Services.InjectApplicationLayer();
 
             #endregion Project Dependencies
 
             #region AutoMapper
 
-            builder.Services.ConfigureMapper(builder.Configuration);
+            builder.Services.ConfigureMapper();
 
             #endregion
 
             return builder;
         }
 
-        private static void ConfigureMapper(this IServiceCollection services, IConfiguration configuration)
+        private static void ConfigureMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(config => {
+            services.AddAutoMapper(config =>
+            {
                 config.AddProfile(new RoomMappingProfile());
                 config.AddProfile(new UserMappingProfile());
             });

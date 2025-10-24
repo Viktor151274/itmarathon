@@ -27,10 +27,9 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.Room.Handlers
 
             if (areAllFieldsEmpty)
             {
-                return Result.Failure<RoomAggregate, ValidationResult>(
-                    new BadRequestError([
-                        new ValidationFailure(string.Empty, "At least one field must be provided.")
-                    ]));
+                return Result.Failure<RoomAggregate, ValidationResult>(new BadRequestError([
+                    new ValidationFailure(string.Empty, "At least one field must be provided.")
+                ]));
             }
 
             var roomResult = await roomRepository.GetByUserCodeAsync(request.UserCode, cancellationToken);

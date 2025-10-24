@@ -57,36 +57,50 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
             WishListValidation();
             WishDuplicateValidation();
         }
+
         private void FirstNameValidation() =>
-            RuleFor(user => user.FirstName).MaximumLength(User.FirstNameCharLimit).WithMessage($"Maximum length is {User.FirstNameCharLimit}.")
+            RuleFor(user => user.FirstName)
+                .MaximumLength(User.FirstNameCharLimit)
+                .WithMessage($"Maximum length is {User.FirstNameCharLimit}.")
                 .WithName("firstName")
                 .OverridePropertyName("firstName");
+
         private void LastNameValidation() =>
-            RuleFor(user => user.LastName).MaximumLength(User.LastNameCharLimit).WithMessage($"Maximum length is {User.LastNameCharLimit}.")
+            RuleFor(user => user.LastName)
+                .MaximumLength(User.LastNameCharLimit)
+                .WithMessage($"Maximum length is {User.LastNameCharLimit}.")
                 .WithName("lastName")
                 .OverridePropertyName("lastName");
 
         private void DeliveryInfoValidation() =>
-            RuleFor(user => user.DeliveryInfo).MaximumLength(User.DeliveryInfoCharLimit).WithMessage($"Maximum length is {User.DeliveryInfoCharLimit}.")
+            RuleFor(user => user.DeliveryInfo)
+                .MaximumLength(User.DeliveryInfoCharLimit)
+                .WithMessage($"Maximum length is {User.DeliveryInfoCharLimit}.")
                 .WithName("deliveryInfo")
                 .OverridePropertyName("deliveryInfo");
 
         private void InterestsValidation()
         {
-            RuleFor(user => user.Interests).NotEmpty().When(user => user.WantSurprise)
+            RuleFor(user => user.Interests)
+                .NotEmpty()
+                .When(user => user.WantSurprise)
                 .WithMessage("Interests should be provided if user does want surprise.")
                 .WithName("interests")
                 .OverridePropertyName("interests");
-            RuleFor(user => user.Interests).Empty().When(user => !user.WantSurprise)
+            RuleFor(user => user.Interests)
+                .Empty()
+                .When(user => !user.WantSurprise)
                 .WithMessage("Interests should not be provided if user does not want surprise.")
                 .WithName("interests")
                 .OverridePropertyName("interests");
         }
 
-        private void EmailValidation() =>        
+        private void EmailValidation() =>
             RuleFor(user => user.Email)
-                .Matches(@"^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
-                .When(x => !string.IsNullOrEmpty(x.Email))
+                .Matches("^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_{|}~-]+"
+                         + @"(?:\.[a-zA-Z0-9!#$%&'*+/=?^_{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}"
+                         + @"[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
+                .When(user => !string.IsNullOrEmpty(user.Email))
                 .WithMessage("Email must be valid if provided.")
                 .WithName("email")
                 .OverridePropertyName("email");
@@ -97,7 +111,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
                 .WithMessage("Phone number must be a valid Ukrainian number in the format +380XXXXXXXXX")
                 .WithName("phone")
                 .OverridePropertyName("phone");
-        
+
         private void WishListValidation()
         {
             RuleForEach(user => user.Wishes)
@@ -125,7 +139,10 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
 
         private bool HaveNoDuplicates(IEnumerable<Wish> entities)
         {
-            if (entities == null || entities.Count() == 0) return true;
+            if (entities == null || !entities.Any())
+            {
+                return true;
+            }
 
             return entities
                 .Select(wish => wish.GetHashCode())

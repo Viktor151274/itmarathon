@@ -10,10 +10,9 @@ using Microsoft.EntityFrameworkCore;
 namespace Epam.ItMarathon.ApiService.Infrastructure.Database
 {
     [ExcludeFromCodeCoverage]
-    internal class AppDbContext : DbContext
+    internal class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
-        public DbSet<UserEf> Users {  get; set; }
+        public DbSet<UserEf> Users { get; set; }
         public DbSet<GiftEf> Gifts { get; set; }
         public DbSet<RoomEf> Rooms { get; set; }
 

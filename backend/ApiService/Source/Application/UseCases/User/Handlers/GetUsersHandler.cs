@@ -19,9 +19,8 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers
         public async Task<Result<List<UserEntity>, ValidationResult>> Handle(GetUsersQuery request,
             CancellationToken cancellationToken)
         {
-            var authUserResult =
-                await userRepository.GetByCodeAsync(request.UserCode, cancellationToken, includeRoom: false,
-                    includeWishes: true);
+            var authUserResult = await userRepository.GetByCodeAsync(request.UserCode, cancellationToken,
+                includeRoom: false, includeWishes: true);
             if (authUserResult.IsFailure)
             {
                 return authUserResult.ConvertFailure<List<UserEntity>>();
@@ -36,9 +35,8 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers
             }
 
             // Otherwise, Get user by id
-            var requestedUserResult =
-                await userRepository.GetByIdAsync(request.UserId.Value, cancellationToken, includeRoom: false,
-                    includeWishes: true);
+            var requestedUserResult = await userRepository.GetByIdAsync(request.UserId.Value, cancellationToken,
+                includeRoom: false, includeWishes: true);
             if (requestedUserResult.IsFailure)
             {
                 return requestedUserResult.ConvertFailure<List<UserEntity>>();
@@ -46,10 +44,9 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.User.Handlers
 
             if (requestedUserResult.Value.RoomId != authUserResult.Value.RoomId)
             {
-                return Result.Failure<List<UserEntity>, ValidationResult>(
-                    new NotAuthorizedError([
-                        new ValidationFailure("id", "User with userCode and user with Id belongs to different rooms.")
-                    ]));
+                return Result.Failure<List<UserEntity>, ValidationResult>(new NotAuthorizedError([
+                    new ValidationFailure("id", "User with userCode and user with Id belongs to different rooms.")
+                ]));
             }
 
             return new List<UserEntity> { requestedUserResult.Value, authUserResult.Value };

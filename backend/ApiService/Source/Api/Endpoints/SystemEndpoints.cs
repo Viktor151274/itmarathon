@@ -40,7 +40,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
             {
                 DateTime = DateTime.UtcNow,
                 Environment = environment.EnvironmentName,
-                Build = Assembly.GetExecutingAssembly().GetName().Version
+                Build = Assembly.GetExecutingAssembly().GetName().Version!.ToString(3)
             });
         }
     }

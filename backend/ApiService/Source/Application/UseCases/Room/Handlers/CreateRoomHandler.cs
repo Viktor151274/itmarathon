@@ -27,17 +27,17 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.Room.Handlers
                 .WithGiftExchangeDate(roomRequest.GiftExchangeDate)
                 .WithGiftMaximumBudget(roomRequest.GiftMaximumBudget)
                 .WithInvitationCode(Guid.NewGuid().ToString("N"))
-                .InitialAddUser(userBuilder =>
-                    userBuilder.WithAuthCode(Guid.NewGuid().ToString("N"))
-                        .WithIsAdmin(true)
-                        .WithFirstName(adminRequest.FirstName)
-                        .WithLastName(adminRequest.LastName)
-                        .WithPhone(adminRequest.Phone)
-                        .WithEmail(adminRequest.Email)
-                        .WithDeliveryInfo(adminRequest.DeliveryInfo)
-                        .WithWantSurprise(adminRequest.WantSurprise)
-                        .WithInterests(adminRequest.Interests)
-                        .WithWishes(adminRequest.Wishes))
+                .InitialAddUser(userBuilder => userBuilder
+                    .WithAuthCode(Guid.NewGuid().ToString("N"))
+                    .WithIsAdmin(true)
+                    .WithFirstName(adminRequest.FirstName)
+                    .WithLastName(adminRequest.LastName)
+                    .WithPhone(adminRequest.Phone)
+                    .WithEmail(adminRequest.Email)
+                    .WithDeliveryInfo(adminRequest.DeliveryInfo)
+                    .WithWantSurprise(adminRequest.WantSurprise)
+                    .WithInterests(adminRequest.Interests)
+                    .WithWishes(adminRequest.Wishes))
                 .InitialBuild();
 
             return roomBuilderResult.IsFailure

@@ -34,6 +34,7 @@ namespace Epam.ItMarathon.ApiService.Api.Extension
             #endregion Security
 
             #region Swagger
+
             var textInfo = CultureInfo.CurrentCulture.TextInfo;
 
             _ = application.UseSwagger();

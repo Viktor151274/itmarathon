@@ -30,10 +30,9 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
                 await context.Rooms.AddAsync(roomEf, cancellationToken);
                 await context.SaveChangesAsync(cancellationToken);
 
-                roomEf.Admin = adminEf;
-                roomEf.AdminId = adminEf.Id;
+                roomEf.Admin = adminEf!;
+                roomEf.AdminId = adminEf!.Id;
                 await context.SaveChangesAsync(cancellationToken);
-
                 await transaction.CommitAsync(cancellationToken);
 
                 return mapper.Map<Room>(roomEf);
@@ -45,6 +44,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
                 throw;
             }
         }
+
         /// <inheritdoc/>
         public async Task<Result> UpdateAsync(Room roomToUpdate, CancellationToken cancellationToken)
         {
@@ -53,8 +53,10 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
                 .ThenInclude(user => user.Wishes)
                 .FirstOrDefaultAsync(room => room.Id == roomToUpdate.Id, cancellationToken);
 
-            if (existingRoom == null)
+            if (existingRoom is null)
+            {
                 return Result.Failure($"Room with Id={roomToUpdate.Id} not found.");
+            }
 
             var updatedRoomEf = mapper.Map<RoomEf>(roomToUpdate);
 
@@ -71,6 +73,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Repositories
 
             return Result.Success();
         }
+
         /// <inheritdoc/>
         public async Task<Result<Room, ValidationResult>> GetByUserCodeAsync(string userCode,
             CancellationToken cancellationToken)

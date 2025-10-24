@@ -10,17 +10,17 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
     public class UserBuilder : BaseEntityBuilder<UserBuilder>
     {
         private ulong _roomId;
-        private string _authCode;
-        private string _firstName;
-        private string _lastName;
-        private string _phone;
+        private string _authCode = null!;
+        private string _firstName = null!;
+        private string _lastName = null!;
+        private string _phone = null!;
         private string? _email;
-        private string _deliveryInfo;
+        private string _deliveryInfo = null!;
         private ulong? _giftRecipientUserId;
         private bool _wantSurprise;
         private string? _interests;
         private bool _isAdmin;
-        private IEnumerable<Wish> _wishes;
+        private IEnumerable<Wish> _wishes = null!;
 
         /// <summary>
         /// Set a Room's unique identifier for User.

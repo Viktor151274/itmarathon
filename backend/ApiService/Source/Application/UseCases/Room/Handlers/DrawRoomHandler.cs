@@ -30,10 +30,9 @@ namespace Epam.ItMarathon.ApiService.Application.UseCases.Room.Handlers
             var adminUser = roomResult.Value.Users.First(user => user.AuthCode.Equals(request.UserCode));
             if (!adminUser.IsAdmin)
             {
-                return Result.Failure<List<UserEntity>, ValidationResult>(
-                    new ForbiddenError([
-                        new ValidationFailure("userCode", "Only admin can draw the room.")
-                    ]));
+                return Result.Failure<List<UserEntity>, ValidationResult>(new ForbiddenError([
+                    new ValidationFailure("userCode", "Only admin can draw the room.")
+                ]));
             }
 
             // Draw room

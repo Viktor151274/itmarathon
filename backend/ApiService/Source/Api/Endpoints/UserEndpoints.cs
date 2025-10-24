@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Epam.ItMarathon.ApiService.Api.Dto.CreationDtos;
 using Epam.ItMarathon.ApiService.Api.Dto.Requests.UserRequests;
 using Epam.ItMarathon.ApiService.Api.Dto.Responses.UserResponses;
 using Epam.ItMarathon.ApiService.Api.Endpoints.Extension;
@@ -9,6 +8,7 @@ using Epam.ItMarathon.ApiService.Application.Models.Creation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using Epam.ItMarathon.ApiService.Api.Dto.ReadDtos;
 using Epam.ItMarathon.ApiService.Application.UseCases.User.Commands;
 using Epam.ItMarathon.ApiService.Application.UseCases.User.Queries;
 
@@ -65,6 +65,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
 
             return application;
         }
+
         /// <summary>
         /// Method that handles get all Users in the Room logic.
         /// </summary>
@@ -86,6 +87,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 options => { options.SetUserMappingOptions(result.Value, userCode!); });
             return Results.Ok(responseUsers);
         }
+
         /// <summary>
         /// Get exact User by unique identifier logic.
         /// </summary>
@@ -108,6 +110,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 options => { options.SetUserMappingOptions(result.Value, userCode!); });
             return Results.Ok(responseUser);
         }
+
         /// <summary>
         /// Join User logic.
         /// </summary>

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using AutoMapper;
-using Epam.ItMarathon.ApiService.Api.Dto.CreationDtos;
 using Epam.ItMarathon.ApiService.Api.Dto.ReadDtos;
 using Epam.ItMarathon.ApiService.Api.Dto.Requests.RoomRequests;
 using Epam.ItMarathon.ApiService.Api.Dto.Responses.RoomResponses;
@@ -23,7 +22,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
         /// <summary>
         /// Static method to map Room's endpoints to DI container.
         /// </summary>
-        /// <param name="application">The WebApplication instance..</param>
+        /// <param name="application">The WebApplication instance.</param>
         /// <returns>Reference to input <paramref name="application"/>.</returns>
         public static WebApplication MapRoomEndpoints(this WebApplication application)
         {
@@ -76,6 +75,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
 
             return application;
         }
+
         /// <summary>
         /// Endpoint logic for creating a Room.
         /// </summary>
@@ -100,6 +100,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 UserCode = result.Value.Users.First(user => user.IsAdmin).AuthCode
             });
         }
+
         /// <summary>
         /// Endpoint logic for getting a Room.
         /// </summary>
@@ -117,6 +118,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 ? result.Error.ValidationProblem()
                 : Results.Ok(mapper.Map<RoomReadDto>(result.Value));
         }
+
         /// <summary>
         /// Endpoint logic for Room draw.
         /// </summary>
@@ -141,6 +143,7 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints
                 options => { options.SetUserMappingOptions(responseUsers, userCode!); });
             return Results.Ok(responseUser);
         }
+
         /// <summary>
         /// Endpoint logic for updating the Room.
         /// </summary>

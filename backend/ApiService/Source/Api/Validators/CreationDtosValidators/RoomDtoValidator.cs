@@ -15,7 +15,6 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
         /// </summary>
         public RoomDtoValidator()
         {
-
             #region GiftExchangeDate
 
             RuleFor(room => room.GiftExchangeDate)
@@ -30,7 +29,6 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.CreationDtosValidators
                 .OverridePropertyName("giftExchangeDate");
 
             #endregion
-
         }
     }
 }

@@ -113,7 +113,8 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.RoomCases.Commands
         /// <param name="command">The <see cref="UpdateRoomCommand"/> instance with invalid fields.</param>
         [Theory]
         [MemberData(nameof(InvalidCommands))]
-        public async Task Handle_ShouldReturnFailure_WhenRequestFieldsAreInvalid(string propertyName, UpdateRoomCommand command)
+        public async Task Handle_ShouldReturnFailure_WhenRequestFieldsAreInvalid(string propertyName,
+            UpdateRoomCommand command)
         {
             // Arrange
             var existingRoom = DataFakers.RoomFaker
@@ -125,7 +126,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.RoomCases.Commands
                         .Build()
                 ])
                 .Generate();
-            
+
             _roomRepositoryMock
                 .GetByUserCodeAsync(Arg.Any<string>(), Arg.Any<CancellationToken>())
                 .Returns(existingRoom);

@@ -20,7 +20,7 @@
         /// <summary>
         /// The current assembly version.
         /// </summary>
-        /// <example>1.0.0.0</example>
-        public Version? Build { get; init; }
+        /// <example>1.0.0</example>
+        public required string Build { get; init; }
     }
 }

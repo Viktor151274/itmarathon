@@ -14,19 +14,8 @@ namespace Epam.ItMarathon.ApiService.Api.Validators.Common
         /// <returns>Returns true if format is correct, other way - false.</returns>
         public static bool DateCorrectUtcIsoFormat(string date)
         {
-            try
-            {
-                var parsed = DateTime.Parse(
-                    date,
-                    CultureInfo.InvariantCulture,
-                    DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal
-                );
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return DateTime.TryParse(date, CultureInfo.InvariantCulture,
+                DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out _);
         }
     }
 }

@@ -9,6 +9,7 @@
         /// Name of wish.
         /// </summary>
         public string? Name { get; set; }
+
         /// <summary>
         /// Link for wish.
         /// </summary>

@@ -4,9 +4,6 @@
     /// Base builder for aggregates.
     /// </summary>
     /// <typeparam name="TFactory"><inheritdoc/></typeparam>
-    public abstract class BaseAggregateBuilder<TFactory> : BaseEntityBuilder<TFactory> where
-        TFactory : BaseEntityBuilder<TFactory>
-        
-    {
-    }
+    public abstract class BaseAggregateBuilder<TFactory> : BaseEntityBuilder<TFactory>
+        where TFactory : BaseEntityBuilder<TFactory>;
 }

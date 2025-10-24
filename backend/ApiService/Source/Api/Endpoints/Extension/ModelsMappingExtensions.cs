@@ -5,7 +5,8 @@ namespace Epam.ItMarathon.ApiService.Api.Endpoints.Extension;
 
 internal static class ModelsMappingExtensions
 {
-    internal static void SetUserMappingOptions(this IMappingOperationOptions mappingOptions, List<User> users, string userAuthCode)
+    internal static void SetUserMappingOptions(this IMappingOperationOptions mappingOptions, List<User> users,
+        string userAuthCode)
     {
         var authUser = users.First(user => user.AuthCode == userAuthCode);
         mappingOptions.Items["OwnerCode"] = userAuthCode;

@@ -20,14 +20,15 @@ namespace Epam.ItMarathon.ApiService.Infrastructure
         /// </summary>
         public static void InjectInfrastructureLayer(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<AppDbContext>(opts => {
+            services.AddDbContext<AppDbContext>(opts =>
+            {
                 opts.UseNpgsql(configuration.GetConnectionString("DbConnectionString"));
-                });
-            services.ConfigureMapper(configuration);
-            services.ConfigureRepositories(configuration);
+            });
+            services.ConfigureMapper();
+            services.ConfigureRepositories();
         }
 
-        private static void ConfigureMapper(this IServiceCollection services, IConfiguration configuration)
+        private static void ConfigureMapper(this IServiceCollection services)
         {
             services.AddAutoMapper(config =>
             {
@@ -37,7 +38,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure
             });
         }
 
-        private static void ConfigureRepositories(this IServiceCollection services, IConfiguration configuration)
+        private static void ConfigureRepositories(this IServiceCollection services)
         {
             services.AddScoped<IRoomRepository, RoomRepository>();
             services.AddScoped<IUserReadOnlyRepository, UserReadOnlyRepository>();

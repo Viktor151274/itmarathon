@@ -9,10 +9,12 @@
         /// Unique identifier of Entity.
         /// </summary>
         public ulong Id { get; set; }
+
         /// <summary>
         /// Date when entity was created.
         /// </summary>
         public DateTime CreatedOn { get; set; }
+
         /// <summary>
         /// Last modified date.
         /// </summary>

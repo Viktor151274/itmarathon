@@ -1,5 +1,4 @@
 ﻿using Epam.ItMarathon.ApiService.Api.Dto.Requests.RoomRequests;
-
 using FluentValidation;
 
 namespace Epam.ItMarathon.ApiService.Api.Validators.Requests.RoomRequests

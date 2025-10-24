@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Epam.ItMarathon.ApiService.Application
@@ -14,9 +13,10 @@ namespace Epam.ItMarathon.ApiService.Application
         /// <summary>
         /// Extension method for more fluent setup. This is where all required configuration for Application layer happens.
         /// </summary>
-        public static void InjectApplicationLayer(this IServiceCollection services, IConfiguration configuration)
+        public static void InjectApplicationLayer(this IServiceCollection services)
         {
-            services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            services.AddMediatR(configuration =>
+                configuration.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
         }
     }
 }

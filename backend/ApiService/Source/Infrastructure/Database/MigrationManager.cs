@@ -17,21 +17,18 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database
         /// <param name="serviceProvider"></param>
         public static void MigrateDatabase(this IServiceProvider serviceProvider)
         {
-            using (var scope = serviceProvider.CreateScope())
+            using var scope = serviceProvider.CreateScope();
+            using var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+            try
             {
-                using (var appContext = scope.ServiceProvider.GetRequiredService<AppDbContext>())
-                {
-                    try
-                    {
-                        appContext.Database.Migrate();
-                    }
-                    catch (Exception exception)
-                    {
-                        var logger = scope.ServiceProvider.GetRequiredService<ILogger<AppDbContext>>();
-                        logger.LogError(exception, "An error occurred while migrating the database.");
-                        throw;
-                    }
-                }
+                appContext.Database.Migrate();
+            }
+            catch (Exception exception)
+            {
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<AppDbContext>>();
+                logger.LogError(exception, "An error occurred while migrating the database.");
+                throw;
             }
         }
     }

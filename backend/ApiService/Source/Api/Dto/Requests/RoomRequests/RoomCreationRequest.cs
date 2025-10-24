@@ -11,6 +11,7 @@ namespace Epam.ItMarathon.ApiService.Api.Dto.Requests.RoomRequests
         /// Room creation DTO.
         /// </summary>
         public required RoomCreationDto Room { get; set; }
+
         /// <summary>
         /// User creation DTO.
         /// </summary>

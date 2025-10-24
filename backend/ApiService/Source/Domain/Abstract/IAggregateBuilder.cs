@@ -14,6 +14,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Abstract
         /// </summary>
         /// <returns>Result <see cref="Result"/> with aggregate or error.</returns>
         public Result<TEntity, ValidationResult> Build();
+
         /// <summary>
         /// Initial build aggregate and validate.
         /// </summary>
