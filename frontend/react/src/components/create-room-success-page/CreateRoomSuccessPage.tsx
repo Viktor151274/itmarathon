@@ -55,6 +55,7 @@ const CreateRoomSuccessPage = ({
           <InvitationNote
             value={roomAndUserData.invitationNote}
             invitationLink={roomLink}
+            userCode={userCode}
           />
           <RoomLink
             title="Your Personal Participant Link"

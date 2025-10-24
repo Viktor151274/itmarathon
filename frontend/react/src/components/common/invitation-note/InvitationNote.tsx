@@ -16,13 +16,16 @@ import "./InvitationNote.scss";
 const InvitationNote = ({
   value,
   invitationLink,
+  userCode: userCodeProp,
   width,
   ...restProps
 }: InvitationNoteProps) => {
   const [noteValue, setNoteValue] = useState(value);
   const [isEditingMode, setIsEditingMode] = useState(false);
   const { showToast } = useToaster();
-  const { userCode } = useParams();
+  const { userCode: userCodeFromParams } = useParams();
+
+  const userCode = userCodeFromParams || userCodeProp;
 
   const invitationNoteContent = `${noteValue}\n${invitationLink}`;
   const extraSymbolsCount =

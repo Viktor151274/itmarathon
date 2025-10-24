@@ -6,4 +6,5 @@ export type InvitationNoteProps = Omit<
 > & {
   value: string;
   invitationLink: string;
+  userCode?: string;
 };
