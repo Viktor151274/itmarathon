@@ -35,6 +35,7 @@
   box-shadow: $shadow-message;
   border-radius: 8px;
   background-color: $message-bg;
+  white-space: pre-wrap;
   text-wrap: nowrap;
 
   &__icon {
