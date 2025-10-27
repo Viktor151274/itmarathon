@@ -113,9 +113,7 @@ export class InvitationNote implements AfterViewInit, OnInit {
   readonly copyPayload = computed(() => {
     const text = (this.controlValue() ?? '').trimEnd();
     const link = (this.invitationLink() ?? '').toString().trim();
-    const joined = link ? `${text}\n\n${link}` : text;
-    const limit = this.maxLength() ?? 1000;
-    return joined.slice(0, limit);
+    return link ? `${text}\n\n${link}` : text;
   });
 
   async copy(): Promise<void> {
