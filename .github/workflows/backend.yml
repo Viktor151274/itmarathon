@@ -20,6 +20,9 @@ jobs:
   test:
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     name: Run Tests for Backend
+    permissions:             
+      contents: read         
+      pull-requests: write  
     uses: ./.github/workflows/test.yml
     with:
       microservice: dotnet
