@@ -108,7 +108,7 @@ export class ParticipantCard {
     if (target instanceof HTMLElement) {
       this.#popup.show(
         target,
-        PopupPosition.Right,
+        PopupPosition.Center,
         { message: PersonalLink.Info, type: MessageType.Info },
         true
       );

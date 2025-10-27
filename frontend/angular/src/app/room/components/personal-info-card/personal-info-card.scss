@@ -18,16 +18,23 @@
   box-shadow: $shadow;
 }
 
-.participant-info {
+.personal-info {
+  &__header {
+    width: 100%;
+  }
+
   &__title {
     @include heading(32px, $line-height-sm);
-
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: $participant-info-title;
   }
 
   &__subtitle {
     @include heading($text-sm);
     font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: $participant-info-subtitle;
   }
 

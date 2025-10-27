@@ -41,6 +41,17 @@
     text-decoration: underline;
     text-underline-offset: 5px;
     color: $footer-font-color;
+    border-radius: 2px;
+
+    &:hover {
+      color: $footer-font-color--hover;
+    }
+
+    &:focus-visible {
+      color: $footer-font-color--focus;
+      outline: 1px solid $focus-color;
+      text-decoration: none;
+    }
   }
 }
 

@@ -1,20 +1,22 @@
-<header class="participant-info__header">
-  <h2 class="participant-info__title">Hi, {{ firstName() }}!</h2>
-  <h3 class="participant-info__subtitle">
+<header class="personal-info__header">
+  <h2 class="personal-info__title" [title]="firstName()">
+    Hi, {{ firstName() }}!
+  </h2>
+  <h3 class="personal-info__subtitle">
     Get ready for happy gift exchange and fun in {{ roomName() }} game!
   </h3>
 </header>
-<div class="participant-info__content">
+<div class="personal-info__content">
   @if (link(); as link) {
-    <div class="participant-info__link-block">
-      <h4 class="participant-info__link-title">Your Participant Link</h4>
+    <div class="personal-info__link-block">
+      <h4 class="personal-info__link-title">Your Participant Link</h4>
       <app-copy-link [link]="link" [type]="linkType" [caption]="caption" />
     </div>
   }
 
   <app-button
     [text]="buttonText"
-    class="secondary medium participant-info__button"
+    class="secondary medium personal-info__button"
     (click)="onButtonClick()"
   ></app-button>
 </div>
