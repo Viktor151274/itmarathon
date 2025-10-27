@@ -55,7 +55,7 @@ namespace Epam.ItMarathon.ApiService.Application.Tests.RoomCases.Commands
         /// <summary>
         /// Tests that the handler returns a ValidationResult error when the room has an invalid description.
         /// </summary>
-        /// <param name="description">Rooms' description to test.</param>
+        /// <param name="description">Room's description to test.</param>
         [Theory]
         [InlineData(null)]
         [InlineData("")]

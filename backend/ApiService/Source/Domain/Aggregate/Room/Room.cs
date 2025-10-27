@@ -97,7 +97,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         /// <param name="minUsersLimit">Minimal limit of Users in Room for draft.</param>
         /// <param name="maxUsersLimit">Maximum amount of Users in Room.</param>
         /// <param name="maxWishesLimit">Maximum amount of wishes per User.</param>
-        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public static Result<Room, ValidationResult> InitialCreate(DateTime? closedOn, string invitationCode,
             string name, string description,
             string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget, IList<User> users,
@@ -140,7 +140,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         /// <param name="minUsersLimit">Minimal limit of Users in Room for draft.</param>
         /// <param name="maxUsersLimit">Maximum amount of Users in Room.</param>
         /// <param name="maxWishesLimit">Maximum amount of wishes per User.</param>
-        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public static Result<Room, ValidationResult> Create(ulong id, DateTime createdOn, DateTime modifiedOn,
             DateTime? closedOn, string invitationCode, string name, string description,
             string invitationNote, DateTime giftExchangeDate, ulong giftMaximumBudget, IList<User> users,
@@ -179,7 +179,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         /// Set the name of the Room.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetName(string value)
         {
             return SetProperty(nameof(Name), room => room.Name = value);
@@ -189,7 +189,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         /// Set the description of the Room.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetDescription(string value)
         {
             return SetProperty(nameof(Description), room => room.Description = value);
@@ -199,7 +199,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         /// Set the invitation note for the Room.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetInvitationNote(string value)
         {
             return SetProperty(nameof(InvitationNote), room => room.InvitationNote = value);
@@ -209,7 +209,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         /// Set a giftExchangeDate of the Room.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetGiftExchangeDate(DateTime value)
         {
             return SetProperty(nameof(GiftExchangeDate), room => room.GiftExchangeDate = value.ToUniversalTime().Date);
@@ -219,7 +219,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         /// Set a gift maximum budget of the Room.
         /// </summary>
         /// <param name="value"></param>
-        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> SetGiftMaximumBudget(ulong value)
         {
             return SetProperty(nameof(GiftMaximumBudget), room => room.GiftMaximumBudget = value);
@@ -228,7 +228,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         /// <summary>
         /// Draw the Room.
         /// </summary>
-        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> Draw()
         {
             // Room has MinUsersCount or more
@@ -270,7 +270,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Aggregate.Room
         /// Method to add a new User to the Room through UserBuilder.
         /// </summary>
         /// <param name="userBuilderConfiguration">User builder delegate.</param>
-        /// <returns>Returns <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> AddUser(Func<UserBuilder, UserBuilder> userBuilderConfiguration)
         {
             var roomCanBeModifiedResult = CheckRoomCanBeModified();

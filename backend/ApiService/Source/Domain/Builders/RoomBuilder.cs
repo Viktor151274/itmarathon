@@ -189,7 +189,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         /// <summary>
         /// Create a Room.
         /// </summary>
-        /// <returns>Returns built <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns built <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> Build()
         {
             return Room.Create(_id, _createdOn, _modifiedOn,
@@ -201,7 +201,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         /// <summary>
         /// Initial create for the Room.
         /// </summary>
-        /// <returns>Returns built <see cref="Room"/> incapsulated in <see cref="Result"/>.</returns>
+        /// <returns>Returns built <see cref="Room"/> encapsulated in <see cref="Result"/>.</returns>
         public Result<Room, ValidationResult> InitialBuild()
         {
             return Room.InitialCreate(_closedOn, _invitationCode, _name, _description,

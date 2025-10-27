@@ -69,7 +69,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.Room.Extensi
             ICollection<GiftEf> updatedWishes, DateTime updatedTime)
         {
             var comparer = StringComparer.OrdinalIgnoreCase; // or Ordinal if case-sensitive
-            // Delete entities witch not present in updated
+            // Delete entities which not present in updated
             var toRemove = trackedWishes
                 .Where(trackedWish => !updatedWishes.Any(updatedWish =>
                     comparer.Equals(updatedWish.Name ?? "", trackedWish.Name ?? "") &&

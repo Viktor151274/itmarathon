@@ -1,7 +1,7 @@
 namespace Epam.ItMarathon.ApiService.Domain.ValueObjects.Wish
 {
     /// <summary>
-    /// Record class witch represents a Wish value-object.
+    /// Record class which represents a Wish value-object.
     /// </summary>
     public sealed record Wish
     {

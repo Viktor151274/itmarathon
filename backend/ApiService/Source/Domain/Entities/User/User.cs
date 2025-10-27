@@ -49,7 +49,7 @@ namespace Epam.ItMarathon.ApiService.Domain.Entities.User
         public required string DeliveryInfo { get; set; }
 
         /// <summary>
-        /// Unique identifier of the User, witch current User will send a gift.
+        /// Unique identifier of the User, which current User will send a gift.
         /// </summary>
         public ulong? GiftRecipientUserId { get; set; }
 

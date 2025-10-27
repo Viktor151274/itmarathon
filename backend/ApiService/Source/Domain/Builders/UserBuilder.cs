@@ -100,9 +100,9 @@ namespace Epam.ItMarathon.ApiService.Domain.Builders
         }
 
         /// <summary>
-        /// Set a unique identifier of User's witch you want to gift.
+        /// Set a unique identifier of User's which you want to gift.
         /// </summary>
-        /// <param name="giftRecipientUserId">Unique identifier of the User, witch current User will send a gift.</param>
+        /// <param name="giftRecipientUserId">Unique identifier of the User, which current User will send a gift.</param>
         /// <returns>Returns reference to current object.</returns>
         public UserBuilder WithGiftRecipientId(ulong? giftRecipientUserId)
         {

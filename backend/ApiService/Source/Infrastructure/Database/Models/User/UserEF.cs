@@ -41,7 +41,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
         public required string DeliveryInfo { get; set; }
 
         /// <summary>
-        /// Unique identifier of User witch current User targets to gift.
+        /// Unique identifier of User which current User targets to gift.
         /// </summary>
         public ulong? GiftRecipientUserId { get; set; }
 
@@ -56,7 +56,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
         public string? Interests { get; set; }
 
         /// <summary>
-        /// Mapping property to a Room witch User belongs to.
+        /// Mapping property to a Room which User belongs to.
         /// </summary>
         public RoomEf Room { get; set; } = default!;
 
@@ -76,7 +76,7 @@ namespace Epam.ItMarathon.ApiService.Infrastructure.Database.Models.User
         public UserEf? GiftRecipientUser { get; set; }
 
         /// <summary>
-        /// User from witch the current User will receive the gift.
+        /// User from which the current User will receive the gift.
         /// </summary>
         public UserEf? GiftSenderUser { get; set; }
     }
