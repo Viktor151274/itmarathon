@@ -47,7 +47,7 @@ PSQL_DB=your_database
 CONNECTIONSTRINGS__DBCONNECTIONSTRING=Host=db;Port=5432;Database=your_database;Username=your_username;Password=your_password
 EOF
 
-# Start Docker services (docker-compose.yml is in repo root)
+# Start Docker services (compose.yml is in repo root)
 docker compose up -d
 
 # Wait for services
@@ -55,9 +55,9 @@ sleep 30
 curl http://localhost:8080/health
 ```
 
-**Note:** Adjust environment variables according to your docker-compose.yml requirements.
+**Note:** Adjust environment variables according to your compose.yml requirements.
 
-Services run on (default ports, configure in docker-compose.yml):
+Services run on (default ports, configure in compose.yml):
 - Backend API: `http://localhost:8080`
 - Angular UI: `http://localhost:8081`
 - React UI: `http://localhost:8082`
@@ -67,7 +67,7 @@ Services run on (default ports, configure in docker-compose.yml):
 
 ```
 <repo-root>/
-├── docker-compose.yml            # Docker services configuration
+├── compose.yml            # Docker services configuration
 ├── .env                          # Environment variables
 └── testautomation/
     └── SecretNick.TestAutomation/
@@ -280,7 +280,7 @@ jobs:
           PSQL_DB=${{ secrets.PSQL_DB }}
           CONNECTIONSTRINGS__DBCONNECTIONSTRING=${{ secrets.DB_CONNECTION_STRING }}
           EOF
-          # Add other environment variables as needed by your docker-compose.yml
+          # Add other environment variables as needed by your compose.yml
       
       - name: Start Docker services
         run: |
@@ -510,7 +510,7 @@ Configured in `testautomation/SecretNick.TestAutomation/Tests/ImplicitUsings.cs`
 ```bash
 # From repository root
 docker compose down -v
-# Change ports in docker-compose.yml if needed
+# Change ports in compose.yml if needed
 ```
 
 **Playwright browser missing:**
@@ -538,3 +538,4 @@ docker compose up -d
 docker compose ps  # Check status
 docker compose logs  # View logs
 ```
+
